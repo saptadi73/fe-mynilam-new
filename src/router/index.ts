@@ -1,15 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import MainLayout from '../pages/layouts/MainLayout.vue'
 
 const routes = [
-  {
-    path: '/',
-    name: 'Beranda',
-    component: () => import('../pages/Beranda.vue'),
-  },
   {
     path: '/login',
     name: 'Login',
     component: () => import('../pages/Login.vue'),
+  },
+  {
+    path: '/',
+    component: MainLayout,
+    children: [
+      {
+        path: '/',
+        name: 'Beranda',
+        component: () => import('../pages/Beranda.vue'),
+      },
+    ],
   },
 ]
 
