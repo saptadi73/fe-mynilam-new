@@ -16,6 +16,16 @@ const routes = [
         name: 'Beranda',
         component: () => import('../pages/Beranda.vue'),
       },
+      {
+        path: 'penjualan',
+        children: [
+          {
+            path: 'daftar-penjualan',
+            name: 'Daftar Penjualan',
+            component: () => import('../pages/penjualan/DaftarPenjualan.vue'),
+          },
+        ],
+      },
     ],
   },
 ]
