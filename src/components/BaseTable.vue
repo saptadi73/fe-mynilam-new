@@ -50,39 +50,37 @@
 </template>
 
 <script setup lang="ts">
-import { createColumnHelper, FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table'
+import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table'
 import axios from 'axios'
 import { onMounted, reactive } from 'vue'
 import BaseIcon from '../components/BaseIcon.vue'
 
-interface DataQuery {
-  first_name: string
-  email: string
+interface CustomParamKey {
+  page: string
+  per_page: string
 }
 
-const columnHelper = createColumnHelper<DataQuery>()
+interface Props {
+  columns: any[]
+  url: string
+  customParamKey?: CustomParamKey
+  pageSize?: number
+}
 
-// state
-const data = reactive({ rows: [], pageCount: 1 })
-const pagination = reactive({ pageIndex: 0, pageSize: 5 })
+const props = withDefaults(defineProps<Props>(), {
+  customParamKey: () => ({ page: 'page', per_page: 'per_page' }),
+  pageSize: 5,
+})
 
-// handle column
-const columns = [
-  columnHelper.accessor<'first_name', string>('first_name', {
-    cell: (info) => info.getValue(),
-    header: 'First Name',
-  }),
-  columnHelper.accessor<'email', string>('email', {
-    cell: (info) => info.getValue(),
-    header: 'Email',
-  }),
-]
+const tableData = reactive({ rows: [], pageCount: 1 })
+const pagination = reactive({ pageIndex: 0, pageSize: props.pageSize })
 
 const getTableData = async () => {
   const { pageIndex, pageSize } = pagination
-  await axios(`https://reqres.in/api/users?page=${pageIndex + 1}&per_page=${pageSize}`).then((res) => {
-    data.rows = res.data.data
-    data.pageCount = res.data.total_pages
+  const params = { [props.customParamKey.page]: pageIndex + 1, [props.customParamKey.per_page]: pageSize }
+  await axios(props.url, { params }).then((res) => {
+    tableData.rows = res.data.data
+    tableData.pageCount = res.data.total_pages
   })
 }
 
@@ -103,12 +101,12 @@ onMounted(() => {
 // table option
 const table = useVueTable({
   get data() {
-    return data.rows
+    return tableData.rows
   },
   get pageCount() {
-    return data.pageCount
+    return tableData.pageCount
   },
-  columns: columns,
+  columns: props.columns,
   state: {
     get pagination() {
       return pagination

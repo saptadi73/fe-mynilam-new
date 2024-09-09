@@ -1,7 +1,26 @@
 <template>
-  <BaseTable />
+  <BaseTable :columns="columns" url="https://reqres.in/api/users" />
 </template>
 
 <script setup lang="ts">
+import { createColumnHelper } from '@tanstack/vue-table'
 import BaseTable from '../../components/BaseTable.vue'
+
+interface DaftarPenjualanTable {
+  first_name: string
+  email: string
+}
+
+const columnHelper = createColumnHelper<DaftarPenjualanTable>()
+
+const columns = [
+  columnHelper.accessor<'first_name', string>('first_name', {
+    cell: (info) => info.getValue(),
+    header: 'First Name',
+  }),
+  columnHelper.accessor<'email', string>('email', {
+    cell: (info) => info.getValue(),
+    header: 'Email',
+  }),
+]
 </script>
