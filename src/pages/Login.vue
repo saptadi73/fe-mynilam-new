@@ -4,33 +4,71 @@
     <section class="md:w-[47%] h-screen bg-primary p-4 grid place-items-center font-cera">
       <div class="bg-green-50 rounded-2xl p-8 w-full max-w-lg">
         <div class="text-primary text-center mb-4">
-          <h1 class="font-bold text-3xl mb-2">Welcome</h1>
+          <h1 class="font-bold text-3xl mb-2">{{ activeTab === 'login' ? 'Welcome' : 'Create an Account' }}</h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
         </div>
         <!-- tab login & signup -->
         <div class="text-center text-primary-2 font-semibold mb-10">
           <ul class="flex">
             <li class="w-1/2">
-              <button class="inline-block p-1 border-b-4 w-full border-primary">Log in</button>
+              <button
+                class="inline-block p-1 border-b-4 border-gray-300 w-full transition duration-500"
+                :class="{ 'border-primary': activeTab === 'login' }"
+                @click="activeTab = 'login'"
+              >
+                Log in
+              </button>
             </li>
             <li class="w-1/2">
-              <button class="inline-block p-1 border-b-4 w-full border-gray-300">Sign up</button>
+              <button
+                class="inline-block p-1 border-b-4 border-gray-300 w-full transition duration-500"
+                :class="{ 'border-primary': activeTab === 'signup' }"
+                @click="activeTab = 'signup'"
+              >
+                Sign up
+              </button>
             </li>
           </ul>
         </div>
         <!-- form  -->
         <form>
-          <div class="mb-8">
-            <BaseInputFloat id="email" type="email" label="Enter Email" />
-          </div>
-          <div class="mb-5">
-            <BaseInputFloat id="password" type="password" label="Enter Password" />
-          </div>
-          <div class="flex justify-between items-center mb-5">
-            <BaseCheckbox label="Remember me" id="remember" />
-            <button class="font-semibold text-primary text-sm">Forgot Password</button>
-          </div>
-          <button type="button" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Login</button>
+          <!-- log in form -->
+          <template v-if="activeTab === 'login'">
+            <div class="mb-8">
+              <BaseInputFloat id="email" type="email" label="Enter Email" />
+            </div>
+            <div class="mb-5">
+              <BaseInputFloat id="password" type="password" label="Enter Password" />
+            </div>
+            <div class="flex justify-between items-center mb-5">
+              <BaseCheckbox label="Remember me" id="remember" />
+              <button class="font-semibold text-primary text-sm">Forgot Password</button>
+            </div>
+            <button type="button" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Login</button>
+          </template>
+          <!-- sing up form -->
+          <template v-else>
+            <div class="mb-8">
+              <BaseInputFloat id="name" type="text" label="Enter Name" />
+            </div>
+            <div class="mb-8">
+              <BaseInputFloat id="email" type="email" label="Enter Email" />
+            </div>
+            <div class="mb-5">
+              <BaseInputFloat id="createPassword" type="password" label="Create Password" />
+            </div>
+            <div class="mb-5">
+              <BaseInputFloat id="confirmPassword" type="password" label="Confirm Password" />
+            </div>
+            <div class="mb-8">
+              <button type="button" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">
+                Sing Up
+              </button>
+            </div>
+            <div class="text-primary text-sm text-center">
+              Have an account? <button class="text-primary-2 font-semibold" @click="activeTab = 'login'">Login</button>
+            </div>
+          </template>
         </form>
       </div>
     </section>
@@ -92,6 +130,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import BaseInputFloat from '../components/BaseInputFloat.vue'
 import BaseCheckbox from '../components/BaseCheckbox.vue'
+
+const activeTab = ref('login')
 </script>

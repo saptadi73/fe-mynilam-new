@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-between bg-primary py-4 px-8">
     <div class="font-cera text-white text-2xl"><span class="text-primary-3">MYNIL</span>AM</div>
-    <ul class="hidden lg:flex items-center text-primary bg-white rounded-full py-1.5 px-4">
+    <ul class="hidden lg:flex items-center text-primary bg-white rounded-full py-1.5 px-1">
       <li v-for="menu in menuList" class="cursor-pointer">
         <router-link :to="menu.path" class="px-5 py-1 rounded-full transition duration-500">
           {{ menu.name }}
