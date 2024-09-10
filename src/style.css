@@ -5,13 +5,13 @@
   font-family: "Cera Pro";
   font-style: normal;
   font-weight: 400;
-  src: url("./assets/fonts/Fontspring-DEMO-cerapro-regular.otf");
+  src: url("./assets/fonts/CeraPro-Regular.ttf");
 }
 @font-face {
   font-family: "Cera Pro";
   font-style: normal;
   font-weight: 700;
-  src: url("./assets/fonts/Fontspring-DEMO-cerapro-bold.otf");
+  src: url("./assets/fonts/CeraPro-Bold.ttf");
 }
 
 @tailwind base;
