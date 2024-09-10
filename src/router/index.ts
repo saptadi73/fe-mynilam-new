@@ -17,6 +17,16 @@ const routes = [
         component: () => import('../pages/Beranda.vue'),
       },
       {
+        path: 'profile',
+        name: 'Profile ',
+        component: () => import('../pages/ProfilePage.vue'),
+      },
+      {
+        path: 'profile-petani',
+        name: 'Profile Petani',
+        component: () => import('../pages/ProfilePetaniPage.vue'),
+      },
+      {
         path: 'penjualan',
         children: [
           {

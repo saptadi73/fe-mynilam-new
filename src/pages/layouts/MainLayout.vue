@@ -1,6 +1,6 @@
 <template>
   <TheNavbar />
-  <div class="p-4">
+  <div>
     <router-view></router-view>
   </div>
 </template>
