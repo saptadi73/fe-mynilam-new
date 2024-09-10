@@ -1,11 +1,15 @@
 <template>
-  <div class="md:flex items-center">
+  <div class="lg:flex items-center bg-primary-2">
     <!-- login form -->
-    <section class="md:w-[47%] h-screen bg-primary p-4 grid place-items-center font-cera">
-      <div class="bg-green-50 rounded-2xl p-8 w-full max-w-lg">
+    <section class="lg:w-[47%] min-h-screen bg-primary p-4 grid place-items-center font-cera">
+      <div class="bg-primary-light rounded-2xl p-8 w-full max-w-lg">
         <div class="text-primary text-center mb-4">
+          <img src="../assets/images/logo-mynilam.png" class="h-16 block mx-auto mb-4" />
           <h1 class="font-bold text-3xl mb-2">{{ activeTab === 'login' ? 'Welcome' : 'Create an Account' }}</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <p v-if="activeTab === 'login'">
+            If you are already a member you can login with your email address and password
+          </p>
+          <p v-else>Please, enter your details and start your work</p>
         </div>
         <!-- tab login & signup -->
         <div class="text-center text-primary-2 font-semibold mb-10">
@@ -44,7 +48,13 @@
               <BaseCheckbox label="Remember me" id="remember" />
               <button class="font-semibold text-primary text-sm">Forgot Password</button>
             </div>
-            <button type="button" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Login</button>
+            <div class="mb-8">
+              <button type="button" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Login</button>
+            </div>
+            <div class="text-primary text-sm text-center">
+              Don't have an account?
+              <button class="text-primary-2 font-semibold" @click="activeTab = 'signup'">Create an account</button>
+            </div>
           </template>
           <!-- sing up form -->
           <template v-else>
@@ -73,31 +83,18 @@
       </div>
     </section>
     <!-- image slider  -->
-    <section class="md:w-[53%] md:h-screen bg-primary grid place-items-center">
+    <section class="lg:w-[53%] lg:min-h-screen bg-primary-2 grid place-items-center">
       <div id="default-carousel" class="relative w-full" data-carousel="slide">
         <!-- Carousel wrapper -->
         <div class="relative overflow-hidden h-96 md:h-screen">
-          <!-- Item 1 -->
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img
-              src="/images/slide-login-1.png"
-              class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt="..."
-            />
+            <img src="../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
           </div>
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img
-              src="/images/slide-login-1.png"
-              class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt="..."
-            />
+            <img src="../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
           </div>
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img
-              src="/images/slide-login-1.png"
-              class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt="..."
-            />
+            <img src="../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
           </div>
         </div>
         <!-- Slider indicators -->
