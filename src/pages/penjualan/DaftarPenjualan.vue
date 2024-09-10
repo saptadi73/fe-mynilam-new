@@ -1,5 +1,7 @@
 <template>
-  <BaseTableServer :columns="columns" url="https://reqres.in/api/users" />
+  <div class="p-8 bg-primary-light">
+    <BaseTableServer :columns="columns" url="https://reqres.in/api/users" />
+  </div>
 </template>
 
 <script setup lang="ts">

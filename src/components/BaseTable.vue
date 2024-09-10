@@ -1,5 +1,5 @@
 <template>
-  <div class="border-2 rounded-2xl border-gray-200">
+  <div class="border-2 rounded-2xl border-gray-200 bg-white">
     <!-- table header -->
     <section class="p-4">
       <div class="bg-white">
@@ -22,7 +22,13 @@
       <table class="w-full text-sm text-left text-gray-700">
         <thead>
           <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id" class="border-y-2 border-gray-200">
-            <th v-for="header in headerGroup.headers" :key="header.id" :colspan="header.colSpan" class="px-6 py-4">
+            <th
+              v-for="header in headerGroup.headers"
+              :key="header.id"
+              :colspan="header.colSpan"
+              class="px-6 py-4 text-center font-normal cursor-pointer whitespace-nowrap"
+              @click="handleClickSort(header, $event)"
+            >
               <div v-if="!header.isPlaceholder">
                 <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" />
               </div>
@@ -35,7 +41,7 @@
             :key="row.id"
             class="border-b-2 border-gray-200 hover:bg-gray-100"
           >
-            <td v-for="(cell, index) in row.getVisibleCells()" :key="index" class="px-6 py-4">
+            <td v-for="(cell, index) in row.getVisibleCells()" :key="index" class="px-6 py-4 text-center">
               <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
             </td>
           </tr>
@@ -54,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { FlexRender, Table } from '@tanstack/vue-table'
+import { FlexRender, Table, type Header } from '@tanstack/vue-table'
 import BaseIcon from '../components/BaseIcon.vue'
 
 interface Props {
@@ -65,4 +71,11 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   pageSize: 5,
 })
+
+const handleClickSort = (header: Header<{}, unknown>, $event: MouseEvent) => {
+  // disable sorting for action column
+  if (header.column.id !== 'action') {
+    header.column.getToggleSortingHandler()?.($event)
+  }
+}
 </script>

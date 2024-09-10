@@ -7,6 +7,7 @@ export default {
         primary: '#015438',
         'primary-2': '#7BB401',
         'primary-3': '#20D173',
+        'primary-light': '#E9FDF2',
       },
       fontFamily: {
         cera: ['Cera Pro', 'sans-serif'],

@@ -27,6 +27,16 @@ const routes = [
         component: () => import('../pages/ProfilePetaniPage.vue'),
       },
       {
+        path: 'produksi',
+        children: [
+          {
+            path: 'laporan-produksi',
+            name: 'Laporan Produksi',
+            component: () => import('../pages/produksi/LaporanProduksi.vue'),
+          },
+        ],
+      },
+      {
         path: 'penjualan',
         children: [
           {
