@@ -60,11 +60,11 @@
 </template>
 
 <script setup lang="ts">
-import { FlexRender, Table, type Header } from '@tanstack/vue-table'
+import { FlexRender, type Header } from '@tanstack/vue-table'
 import BaseIcon from '../components/BaseIcon.vue'
 
 interface Props {
-  table: Table<any>
+  table: any
   pageSize?: number
 }
 
