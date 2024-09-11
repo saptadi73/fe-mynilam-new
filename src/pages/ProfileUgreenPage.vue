@@ -40,9 +40,6 @@
             <div class="col-span-4 font-bold">Pendidikan</div>
             <div class="col-span-8 font-bold">: &nbsp; S-1 Management Lahan</div>
 
-            <div class="col-span-4 font-bold">Surat Kontrak</div>
-            <div class="col-span-8 font-bold">: &nbsp; -</div>
-
             <div class="col-span-4 font-bold">Jenis</div>
             <div class="col-span-8 font-bold">: &nbsp; Koperasi</div>
 
@@ -54,7 +51,7 @@
     </div>
 
     <div class="absolute left-28 bg-white rounded-full p-1.5 mt-20 z-20">
-      <img src="../assets/images/profile-petani.png" alt="Profile" />
+      <img src="../assets/images/profile-ugreen.png" alt="Profile" />
     </div>
   </div>
   <img class="fixed bottom-0" src="../assets/images/wave.svg" alt="" />

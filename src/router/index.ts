@@ -27,6 +27,16 @@ const routes = [
         component: () => import('../pages/ProfilePetaniPage.vue'),
       },
       {
+        path: 'profile-agen',
+        name: 'Profile Agen',
+        component: () => import('../pages/ProfileAgenPage.vue'),
+      },
+      {
+        path: 'profile-ugreen',
+        name: 'Profile Ugreen',
+        component: () => import('../pages/ProfileUgreenPage.vue'),
+      },
+      {
         path: 'produksi',
         children: [
           {
