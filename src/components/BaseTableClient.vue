@@ -1,6 +1,7 @@
 <template>
   <BaseTable
     :table="table"
+    :search="search"
     @previous-page="handlePreviousPage"
     @next-page="handleNextPage"
     @set-page-index="(page: number) => table.setPageIndex(page)"

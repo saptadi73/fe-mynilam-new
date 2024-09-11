@@ -1,6 +1,7 @@
 <template>
   <BaseTable
     :table="table"
+    :search="search"
     @previous-page="handlePreviousPage"
     @next-page="handleNextPage"
     @set-page-index="handleSetPageIndex"
@@ -23,6 +24,7 @@ interface Props {
   url: string
   customParamKey?: CustomParamKey
   pageSize?: number
+  search?: boolean
 }
 
 export interface Pagination {
@@ -33,6 +35,7 @@ export interface Pagination {
 const props = withDefaults(defineProps<Props>(), {
   customParamKey: () => ({ page: 'page', per_page: 'per_page' }),
   pageSize: 5,
+  search: true,
 })
 
 const tableData = reactive({ rows: [], pageCount: 1 })

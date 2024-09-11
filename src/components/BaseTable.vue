@@ -3,7 +3,7 @@
     <!-- table header -->
     <section class="p-4 flex items-center justify-between text-sm text-gray-800">
       <!-- search bar -->
-      <form @submit.prevent="$emit('search', searchValue)" class="bg-white flex items-center space-x-1.5">
+      <form v-if="search" @submit.prevent="$emit('search', searchValue)" class="bg-white flex items-center space-x-1.5">
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -102,10 +102,12 @@ import BaseIcon from '../components/BaseIcon.vue'
 interface Props {
   table: any
   pageSize?: number
+  search: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   pageSize: 5,
+  search: true,
 })
 
 const searchValue = ref('')
