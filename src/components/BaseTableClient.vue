@@ -1,5 +1,10 @@
 <template>
-  <BaseTable :table="table" @previous-page="handlePreviousPage" @next-page="handleNextPage" />
+  <BaseTable
+    :table="table"
+    @previous-page="handlePreviousPage"
+    @next-page="handleNextPage"
+    @set-page-index="(page: number) => table.setPageIndex(page)"
+  />
 </template>
 
 <script setup lang="ts">

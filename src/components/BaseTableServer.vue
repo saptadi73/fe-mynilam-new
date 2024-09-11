@@ -1,5 +1,10 @@
 <template>
-  <BaseTable :table="table" @previous-page="handlePreviousPage" @next-page="handleNextPage" />
+  <BaseTable
+    :table="table"
+    @previous-page="handlePreviousPage"
+    @next-page="handleNextPage"
+    @set-page-index="handleSetPageIndex"
+  />
 </template>
 
 <script setup lang="ts">
@@ -20,13 +25,18 @@ interface Props {
   pageSize?: number
 }
 
+export interface Pagination {
+  pageIndex: number
+  pageSize: number
+}
+
 const props = withDefaults(defineProps<Props>(), {
   customParamKey: () => ({ page: 'page', per_page: 'per_page' }),
   pageSize: 5,
 })
 
 const tableData = reactive({ rows: [], pageCount: 1 })
-const pagination = reactive({ pageIndex: 0, pageSize: props.pageSize })
+const pagination: Pagination = reactive({ pageIndex: 0, pageSize: props.pageSize })
 
 const getTableData = async () => {
   const { pageIndex, pageSize } = pagination
@@ -45,6 +55,11 @@ const handlePreviousPage = () => {
 const handleNextPage = () => {
   pagination.pageIndex = pagination.pageIndex + 1
   table.nextPage()
+}
+
+const handleSetPageIndex = (page: number) => {
+  pagination.pageIndex = page
+  table.setPageIndex(page)
 }
 
 onMounted(() => {
