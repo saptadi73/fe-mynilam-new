@@ -3,20 +3,22 @@
     <!-- table header -->
     <section class="p-4 flex items-center justify-between text-sm text-gray-800">
       <!-- search bar -->
-      <div class="bg-white">
+      <form @submit.prevent="$emit('search', searchValue)" class="bg-white flex items-center space-x-1.5">
         <label for="table-search" class="sr-only">Search</label>
-        <div class="relative mt-1">
+        <div class="relative">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <BaseIcon name="search" class="w-4 h-4 text-gray-500" />
           </div>
           <input
             type="text"
             id="table-search"
-            class="block pt-2 ps-10 text-sm text-gray-900 border-2 border-gray-200 rounded-lg w-60"
+            class="block pt-2 ps-10 text-sm text-gray-900 border-2 border-gray-200 rounded-lg w-60 h-8 focus:ring-transparent focus:border-primary"
             placeholder="Cari tahun"
+            v-model="searchValue"
           />
         </div>
-      </div>
+        <button type="submit" class="bg-primary text-white px-4 h-8 rounded-lg text-sm font-semibold">Cari</button>
+      </form>
       <div class="flex">
         <div>Tampilkan {{ table.getState().pagination.pageSize }} dari {{ '{totaldata}' }}</div>
       </div>
@@ -94,8 +96,8 @@
 
 <script setup lang="ts">
 import { FlexRender, type Header } from '@tanstack/vue-table'
+import { computed, ref } from 'vue'
 import BaseIcon from '../components/BaseIcon.vue'
-import { computed } from 'vue'
 
 interface Props {
   table: any
@@ -105,6 +107,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   pageSize: 5,
 })
+
+const searchValue = ref('')
 
 const pagination = computed(() => {
   let current = props.table.getState().pagination.pageIndex + 1
