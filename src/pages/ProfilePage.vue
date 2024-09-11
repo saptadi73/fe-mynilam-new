@@ -60,5 +60,6 @@ const profileCard = reactive([
   background-image: url('../assets/images/wave-profile.svg');
   background-repeat: no-repeat;
   background-position: bottom;
+  background-size: contain;
 }
 </style>

@@ -1,15 +1,17 @@
 <template>
-  <div class="relative p-20">
-    <div
-      class="bg-white min-h-screen opacity-90 shadow-md rounded-lg font-cera absolute left-10 right-10 top-8 bottom-1 z-10"
-    >
+  <div class="profile relative px-20 py-10">
+    <div class="bg-white min-h-screen opacity-90 shadow-md rounded-lg font-cera">
       <img
-        class="bg-cover object-cover rounded-t-lg h-2/5 w-full"
+        class="bg-cover object-cover rounded-t-lg h-60 w-full"
         src="../assets//images/profile-bg.jpg"
         alt="Background Profile"
       />
 
-      <div class="text-3xl font-bold px-20 mt-24">Bagas Adi Rukma</div>
+      <div class="absolute top-24 left-36 bg-white rounded-full p-1.5 mt-20 z-20">
+        <img src="../assets/images/profile-ugreen.png" alt="Profile" />
+      </div>
+
+      <div class="text-3xl font-bold px-20 mt-28">Bagas Adi Rukma</div>
       <div class="grid grid-cols-12 px-20 pt-5 pb-20">
         <div class="col-span-6">
           <div class="grid grid-cols-12 gap-y-2">
@@ -49,10 +51,14 @@
         </div>
       </div>
     </div>
-
-    <div class="absolute left-28 bg-white rounded-full p-1.5 mt-20 z-20">
-      <img src="../assets/images/profile-ugreen.png" alt="Profile" />
-    </div>
   </div>
-  <img class="fixed bottom-0" src="../assets/images/wave.svg" alt="" />
 </template>
+
+<style scoped>
+.profile {
+  background-image: url('../assets/images/wave.svg');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+}
+</style>
