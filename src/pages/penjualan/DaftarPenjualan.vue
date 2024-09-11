@@ -1,10 +1,12 @@
 <template>
-  <BaseTable :columns="columns" url="https://reqres.in/api/users" />
+  <div class="p-8 bg-primary-light">
+    <BaseTableServer :columns="columns" url="https://reqres.in/api/users" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { createColumnHelper } from '@tanstack/vue-table'
-import BaseTable from '../../components/BaseTable.vue'
+import BaseTableServer from '../../components/BaseTableServer.vue'
 
 interface DaftarPenjualanTable {
   first_name: string
