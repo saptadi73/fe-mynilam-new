@@ -8,7 +8,7 @@
       />
 
       <div class="absolute top-24 left-36 bg-white rounded-full p-1.5 mt-20 z-20">
-        <img src="../assets/images/profile-petani.png" alt="Profile" />
+        <img src="../assets/images/profile.png" alt="Profile" />
       </div>
 
       <div class="text-3xl font-bold px-20 mt-28">Bagas Adi Rukma</div>
@@ -39,11 +39,11 @@
             <div class="col-span-4 font-bold">Status</div>
             <div class="col-span-8 font-bold">: &nbsp; Anggota Koperasi</div>
 
+            <div class="col-span-4 font-bold">Koperasi</div>
+            <div class="col-span-8 font-bold">: &nbsp; Koperasi Sejahtera Bersama</div>
+
             <div class="col-span-4 font-bold">Pendidikan</div>
             <div class="col-span-8 font-bold">: &nbsp; S-1 Management Lahan</div>
-
-            <div class="col-span-4 font-bold">Surat Kontrak</div>
-            <div class="col-span-8 font-bold">: &nbsp; -</div>
 
             <div class="col-span-4 font-bold">Jenis</div>
             <div class="col-span-8 font-bold">: &nbsp; Koperasi</div>

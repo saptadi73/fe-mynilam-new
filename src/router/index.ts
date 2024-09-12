@@ -27,14 +27,14 @@ const routes = [
         component: () => import('../pages/ProfilePetaniPage.vue'),
       },
       {
-        path: 'inventaris',
-        children: [
-          {
-            path: 'laporan-petani',
-            name: 'Laporan Petani',
-            component: () => import('../pages/inventaris/LaporanPetani.vue'),
-          },
-        ],
+        path: 'profile-agen',
+        name: 'Profile Agen',
+        component: () => import('../pages/ProfileAgenPage.vue'),
+      },
+      {
+        path: 'profile-ugreen',
+        name: 'Profile Ugreen',
+        component: () => import('../pages/ProfileUgreenPage.vue'),
       },
       {
         path: 'produksi',
@@ -43,6 +43,16 @@ const routes = [
             path: 'laporan-produksi',
             name: 'Laporan Produksi',
             component: () => import('../pages/produksi/LaporanProduksi.vue'),
+          },
+        ],
+      },
+      {
+        path: 'inventaris',
+        children: [
+          {
+            path: 'laporan-petani',
+            name: 'Laporan Petani',
+            component: () => import('../pages/inventaris/LaporanPetani.vue'),
           },
         ],
       },
