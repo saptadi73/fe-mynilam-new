@@ -1,6 +1,8 @@
 <template>
-  <div class="product-card relative bg-[#E6EEEB] rounded-3xl border border-[#B2B4E0] px-5 pt-3 pb-8 w-full">
-    <div class="text-center font-bold text-lg">{{ productCode }}</div>
+  <div
+    class="product-card relative bg-[#E9FDF2] rounded-3xl border border-[#B2B4E0] cursor-pointer hover:shadow-xl hover:bg-slate-200 duration-300 ease-in-out px-5 pt-3 pb-8 w-full"
+  >
+    <div class="text-center font-bold text-lg">{{ cardCode }}</div>
 
     <button class="absolute top-2 right-2">
       <svg width="40" height="40" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,52 +15,18 @@
       </svg>
     </button>
 
-    <div class="flex justify-center pt-2">
-      <img class="rounded-xl" src="../assets/images/produk.jpg" alt="Product Image" />
-    </div>
-    <div class="grid grid-cols-12 pt-2">
-      <div class="col-span-6 pt-2">
-        <h1 class="text-sm">Nama Produk</h1>
-        <p class="font-bold">{{ productName }}</p>
-      </div>
-      <div class="col-span-6 pt-2">
-        <h1 class="text-sm">Nama Penjual</h1>
-        <p class="font-bold">{{ productSellerName }}</p>
-      </div>
-      <div class="col-span-6 pt-2">
-        <h1 class="text-sm">Nama Pembeli</h1>
-        <p class="font-bold">{{ productBuyerName }}</p>
-      </div>
-      <div class="col-span-6 pt-2">
-        <h1 class="text-sm">Jumlah</h1>
-        <p class="font-bold">{{ productQuantity }} kg</p>
-      </div>
-      <div class="col-span-6 pt-2">
-        <h1 class="text-sm">Harga</h1>
-        <p class="font-bold">Rp. {{ productPrice }}</p>
-      </div>
-    </div>
+    <RouterLink :to="`/profile-petani/${cardCode}`">
+      <slot name="card-content"></slot>
+    </RouterLink>
   </div>
 </template>
 
 <script setup lang="ts">
 interface PropsCard {
-  productCode: string
-  productName: string
-  productSellerName: string
-  productBuyerName: string
-  productQuantity: number
-  productPrice: number
+  cardCode?: string
 }
 
-withDefaults(defineProps<PropsCard>(), {
-  productCode: 'AGN3K9PT',
-  productName: 'Minyak Nilam',
-  productSellerName: 'Agus Priyatno',
-  productBuyerName: 'Siti Nurhaliza',
-  productQuantity: 3,
-  productPrice: 3000000,
-})
+defineProps<PropsCard>()
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 <template>
   <button
-    class="button px-4 py-2 hover:opacity-80 hover:shadow-lg"
+    class="button font-cera text-xl px-5 py-1.5 hover:opacity-80 hover:shadow-lg"
     :class="{
       '--variant-primary': variant == 'primary',
       '--variant-success': variant == 'success',
@@ -8,8 +8,8 @@
     }"
   >
     <div
-      class="flex flex-row gap-8 justify-center items-center"
-      :class="iconPosition === 'left' ? 'flex-row-reverse' : 'flex-row'"
+      class="flex flex-row justify-center items-center"
+      :class="[iconPosition === 'right' ? 'flex-row-reverse' : 'flex-row', iconGap === 'small' ? 'gap-3' : 'gap-8']"
     >
       <slot></slot>
       <div v-if="icon" class="flex justify-center items-center w-4 h-4">
@@ -26,9 +26,10 @@ export interface Props {
   variant?: 'primary' | 'success' | 'dark'
   icon?: Component
   iconPosition?: 'left' | 'right'
+  iconGap?: 'small' | 'big'
 }
 
-withDefaults(defineProps<Props>(), { variant: 'primary', iconPosition: 'left' })
+withDefaults(defineProps<Props>(), { variant: 'primary', iconPosition: 'right', iconGap: 'small' })
 </script>
 
 <style scoped lang="scss">

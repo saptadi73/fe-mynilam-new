@@ -23,6 +23,11 @@ const routes = [
       },
       {
         path: 'profile-petani',
+        name: 'Profile Card Petani',
+        component: () => import('../pages/CardPetaniPage.vue'),
+      },
+      {
+        path: 'profile-petani/:id',
         name: 'Profile Petani',
         component: () => import('../pages/ProfilePetaniPage.vue'),
       },
