@@ -1,7 +1,7 @@
 <template>
   <div class="border-2 rounded-2xl border-gray-200 bg-white">
     <!-- table header -->
-    <section class="p-4 flex items-center justify-between text-sm text-gray-800">
+    <section v-if="!customHeader" class="p-4 flex items-center justify-between text-sm text-gray-800">
       <!-- search bar -->
       <form v-if="search" @submit.prevent="$emit('search', searchValue)" class="bg-white flex items-center space-x-1.5">
         <BaseSearchBar v-model="searchValue" placeholder="Cari..." />
@@ -12,6 +12,8 @@
         <div>Tampilkan {{ table.getState().pagination.pageSize }} dari {{ '{totaldata}' }}</div>
       </div>
     </section>
+    <!-- custom table header -->
+    <slot v-else name="header" />
     <!-- table content-->
     <section class="relative overflow-x-auto">
       <table class="w-full text-sm text-left text-gray-700">
@@ -93,11 +95,13 @@ interface Props {
   table: any
   pageSize?: number
   search: boolean
+  customHeader?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   pageSize: 5,
   search: true,
+  customHeader: false,
 })
 
 const searchValue = ref('')
