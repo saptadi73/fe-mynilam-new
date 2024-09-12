@@ -34,51 +34,46 @@
             </li>
           </ul>
         </div>
-        <!-- form  -->
-        <form>
-          <!-- log in form -->
-          <template v-if="activeTab === 'login'">
-            <div class="mb-8">
-              <BaseInputFloat id="email" type="email" label="Enter Email" />
-            </div>
-            <div class="mb-5">
-              <BaseInputFloat id="password" type="password" label="Enter Password" />
-            </div>
-            <div class="flex justify-between items-center mb-5">
-              <BaseCheckbox label="Remember me" id="remember" />
-              <button class="font-semibold text-primary text-sm">Forgot Password</button>
-            </div>
-            <div class="mb-8">
-              <button type="button" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Login</button>
-            </div>
-            <div class="text-primary text-sm text-center">
-              Don't have an account?
-              <button class="text-primary-2 font-semibold" @click="activeTab = 'signup'">Create an account</button>
-            </div>
-          </template>
-          <!-- sing up form -->
-          <template v-else>
-            <div class="mb-8">
-              <BaseInputFloat id="name" type="text" label="Enter Name" />
-            </div>
-            <div class="mb-8">
-              <BaseInputFloat id="email" type="email" label="Enter Email" />
-            </div>
-            <div class="mb-5">
-              <BaseInputFloat id="createPassword" type="password" label="Create Password" />
-            </div>
-            <div class="mb-5">
-              <BaseInputFloat id="confirmPassword" type="password" label="Confirm Password" />
-            </div>
-            <div class="mb-8">
-              <button type="button" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">
-                Sing Up
-              </button>
-            </div>
-            <div class="text-primary text-sm text-center">
-              Have an account? <button class="text-primary-2 font-semibold" @click="activeTab = 'login'">Login</button>
-            </div>
-          </template>
+        <!-- log in form -->
+        <form v-if="activeTab === 'login'" @submit="onSubmit">
+          <div class="mb-8">
+            <BaseInputFloat name="email" type="email" label="Enter Email" />
+          </div>
+          <div class="mb-5">
+            <BaseInputFloat name="password" type="password" label="Enter Password" />
+          </div>
+          <div class="flex justify-between items-center mb-5">
+            <BaseCheckbox label="Remember me" id="remember" />
+            <button class="font-semibold text-primary text-sm">Forgot Password</button>
+          </div>
+          <div class="mb-8">
+            <button type="submit" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Login</button>
+          </div>
+          <div class="text-primary text-sm text-center">
+            Don't have an account?
+            <button class="text-primary-2 font-semibold" @click="activeTab = 'signup'">Create an account</button>
+          </div>
+        </form>
+        <!-- sing up form -->
+        <form v-else @submit="onSubmit">
+          <div class="mb-5">
+            <BaseInputFloat name="name" type="text" label="Enter Name" />
+          </div>
+          <div class="mb-5">
+            <BaseInputFloat name="email" type="email" label="Enter Email" />
+          </div>
+          <div class="mb-5">
+            <BaseInputFloat name="password" type="password" label="Create Password" />
+          </div>
+          <div class="mb-5">
+            <BaseInputFloat name="confirmPassword" type="password" label="Confirm Password" />
+          </div>
+          <div class="mb-8">
+            <button type="submit" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Sing Up</button>
+          </div>
+          <div class="text-primary text-sm text-center">
+            Have an account? <button class="text-primary-2 font-semibold" @click="activeTab = 'login'">Login</button>
+          </div>
         </form>
       </div>
     </section>
@@ -127,9 +122,25 @@
 </template>
 
 <script setup lang="ts">
+import { useForm } from 'vee-validate'
 import { ref } from 'vue'
-import BaseInputFloat from '../components/BaseInputFloat.vue'
-import BaseCheckbox from '../components/BaseCheckbox.vue'
+import * as yup from 'yup'
+import BaseCheckbox from '@/components/BaseCheckbox.vue'
+import BaseInputFloat from '@/components/BaseInputFloat.vue'
 
 const activeTab = ref('login')
+
+// prettier-ignore
+const { handleSubmit } = useForm({
+  validationSchema: yup.object({
+    email: yup.string().required().email().label('Email'),
+    password: yup.string().required().min(6).label('Password'),
+    name: yup.string().required().min(3).label('Name'),
+    confirmPassword: yup.string().required().min(6).oneOf([yup.ref('password')], 'Password must match'),
+  }),
+})
+
+const onSubmit = handleSubmit((values) => {
+  console.log(values)
+})
 </script>
