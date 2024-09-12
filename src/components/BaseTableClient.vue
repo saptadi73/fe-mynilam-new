@@ -1,11 +1,17 @@
 <template>
   <BaseTable
     :table="table"
+    :search="search"
+    :custom-header="customHeader"
     @previous-page="handlePreviousPage"
     @next-page="handleNextPage"
     @set-page-index="(page: number) => table.setPageIndex(page)"
     @search="(val: string) => { globalFilter = val }"
-  />
+  >
+    <template #header>
+      <slot name="header" />
+    </template>
+  </BaseTable>
 </template>
 
 <script setup lang="ts">
@@ -21,6 +27,7 @@ export interface TableClientProps {
   search?: boolean
   showPagination?: boolean
   columnVisibility?: { [key: string]: boolean }
+  customHeader?: boolean
 }
 
 const props = withDefaults(defineProps<TableClientProps>(), {
@@ -28,6 +35,7 @@ const props = withDefaults(defineProps<TableClientProps>(), {
   search: true,
   data: () => [],
   showPagination: true,
+  customHeader: false,
 })
 
 const columnVisibility = ref(props.columnVisibility)

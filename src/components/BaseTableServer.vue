@@ -1,10 +1,16 @@
 <template>
   <BaseTable
     :table="table"
+    :search="search"
+    :custom-header="customHeader"
     @previous-page="handlePreviousPage"
     @next-page="handleNextPage"
     @set-page-index="handleSetPageIndex"
-  />
+  >
+    <template #header>
+      <slot name="header" />
+    </template>
+  </BaseTable>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +29,8 @@ interface Props {
   url: string
   customParamKey?: CustomParamKey
   pageSize?: number
+  search?: boolean
+  customHeader?: boolean
 }
 
 export interface Pagination {
@@ -33,6 +41,8 @@ export interface Pagination {
 const props = withDefaults(defineProps<Props>(), {
   customParamKey: () => ({ page: 'page', per_page: 'per_page' }),
   pageSize: 5,
+  search: true,
+  customHeader: false,
 })
 
 const tableData = reactive({ rows: [], pageCount: 1 })
