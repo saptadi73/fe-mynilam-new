@@ -47,6 +47,16 @@ const routes = [
         ],
       },
       {
+        path: 'inventaris',
+        children: [
+          {
+            path: 'laporan-petani',
+            name: 'Laporan Petani',
+            component: () => import('../pages/inventaris/LaporanPetani.vue'),
+          },
+        ],
+      },
+      {
         path: 'penjualan',
         children: [
           {
