@@ -37,13 +37,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-
 const menuList = ref([
   { name: 'Beranda', path: '/' },
   { name: 'Profile', path: '/profile' },
   { name: 'Dashboard', path: '/dashboard' },
-  { name: 'Inventaris', path: '/inventaris' },
-  { name: 'Produksi', path: '/produksi' },
+  { name: 'Inventaris', path: '/inventaris/laporan-petani' },
+  { name: 'Produksi', path: '/produksi/laporan-produksi' },
   { name: 'Penjualan', path: '/penjualan/daftar-penjualan' },
   { name: 'Laporan', path: '/laporan' },
 ])

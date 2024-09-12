@@ -27,6 +27,16 @@ const routes = [
         component: () => import('../pages/ProfilePetaniPage.vue'),
       },
       {
+        path: 'inventaris',
+        children: [
+          {
+            path: 'laporan-petani',
+            name: 'Laporan Petani',
+            component: () => import('../pages/inventaris/LaporanPetani.vue'),
+          },
+        ],
+      },
+      {
         path: 'produksi',
         children: [
           {
