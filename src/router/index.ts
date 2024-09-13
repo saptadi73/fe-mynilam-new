@@ -17,6 +17,11 @@ const routes = [
         component: () => import('../pages/Beranda.vue'),
       },
       {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: () => import('../pages/DashboardPage.vue'),
+      },
+      {
         path: 'profile',
         name: 'Profile ',
         component: () => import('../pages/profile/ProfilePage.vue'),
