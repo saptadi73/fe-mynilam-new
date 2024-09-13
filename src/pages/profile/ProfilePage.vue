@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import BaseProfileCard from '../components/BaseProfileCard.vue'
+import BaseProfileCard from '@/components/BaseProfileCard.vue'
 
 const profileCard = reactive([
   {
@@ -57,7 +57,7 @@ const profileCard = reactive([
 
 <style scoped>
 .profile {
-  background-image: url('../assets/images/wave-profile.svg');
+  background-image: url('@/assets/images/wave-profile.svg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;

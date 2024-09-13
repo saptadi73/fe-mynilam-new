@@ -15,7 +15,7 @@
       </svg>
     </button>
 
-    <RouterLink :to="`/profile-petani/${cardCode}`">
+    <RouterLink :to="`/${cardPath}/${cardCode}`">
       <slot name="card-content"></slot>
     </RouterLink>
   </div>
@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 interface PropsCard {
+  cardPath?: string
   cardCode?: string
 }
 

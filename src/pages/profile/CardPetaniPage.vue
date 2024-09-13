@@ -13,15 +13,25 @@
       </div>
     </div>
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
-      <div>
-        <BaseButton>Cari</BaseButton>
+      <div class="flex flex-row gap-x-5 justify-start">
+        <div class="flex flex-row gap-x-2">
+          <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
+          <BaseButton>Cari</BaseButton>
+        </div>
+        <BaseInputSelect name="kabupaten" :options="options"></BaseInputSelect>
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
-        <BaseCard v-for="(card, cardIndex) in cardPetani" :key="cardIndex" :card-code="card.code" class="col-span-3">
+        <BaseCard
+          v-for="(card, cardIndex) in cardPetani"
+          :key="cardIndex"
+          card-path="profile-petani"
+          :card-code="card.code"
+          class="col-span-3"
+        >
           <template #card-content>
             <div class="flex justify-center pt-2">
-              <img class="rounded-xl" src="../assets/images/petani-image.png" alt="Petani Image" />
+              <img class="rounded-xl" src="@/assets/images/petani-image.png" alt="Petani Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -66,10 +76,12 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import BaseButton from '../components/BaseButton.vue'
-import BaseCard from '../components/BaseCard.vue'
-import BaseIcon from '../components/BaseIcon.vue'
+import { reactive, ref } from 'vue'
+import BaseButton from '@/components/BaseButton.vue'
+import BaseCard from '@/components/BaseCard.vue'
+import BaseIcon from '@/components/BaseIcon.vue'
+import BaseSearchBar from '@/components/BaseSearchBar.vue'
+import BaseInputSelect from '@/components/BaseInputSelect.vue'
 
 const cardPetani = reactive([
   {
@@ -115,6 +127,21 @@ const cardPetani = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '4',
     suratKontrak: '-',
+  },
+])
+
+const options = ref([
+  {
+    label: 'Aceh Selatan',
+    value: 1,
+  },
+  {
+    label: 'Aceh Utara',
+    value: 2,
+  },
+  {
+    label: 'Aceh Tengah',
+    value: 3,
   },
 ])
 </script>
