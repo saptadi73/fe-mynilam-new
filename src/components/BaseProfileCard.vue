@@ -1,6 +1,6 @@
 <template>
-  <div class="profile-card bg-[#E9FDF2] w-auto flex flex-col h-full rounded-xl p-4">
-    <h1 class="text-center font-bold text-2xl py-2">{{ profileName }}</h1>
+  <div class="profile-card bg-primary-light w-auto flex flex-col h-full rounded-xl p-4">
+    <h1 class="text-center text-primary font-bold text-2xl py-2">{{ profileName }}</h1>
     <img :src="imageSrc" :alt="`${profileImage} Image`" />
     <p class="text-center flex-grow py-4">
       {{ profileDescription }}

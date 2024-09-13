@@ -1,7 +1,7 @@
 <template>
-  <div class="profile bg-[#E9FDF2]">
+  <div class="profile bg-primary-light">
     <div class="container mx-auto py-4">
-      <h1 class="text-center font-bold text-3xl py-4">Profil Petani, Agen/Koperasi, UGreen dan Aset</h1>
+      <h1 class="text-center text-primary font-bold text-3xl py-4">Profil Petani, Agen/Koperasi, UGreen dan Aset</h1>
       <div class="bg-[#F6FDFF] rounded-xl shadow-md px-6 py-4">
         <div class="grid grid-cols-12 gap-6">
           <BaseProfileCard

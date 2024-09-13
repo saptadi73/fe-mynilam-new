@@ -1,6 +1,6 @@
 <template>
   <div
-    class="product-card relative bg-[#E9FDF2] rounded-3xl border border-[#B2B4E0] cursor-pointer hover:shadow-xl hover:bg-slate-200 duration-300 ease-in-out px-5 pt-3 pb-8 w-full"
+    class="product-card relative bg-primary-light rounded-3xl border border-[#B2B4E0] cursor-pointer hover:shadow-xl hover:bg-slate-200 duration-300 ease-in-out px-5 pt-3 pb-8 w-full"
   >
     <div class="text-center font-bold text-lg">{{ cardCode }}</div>
 
