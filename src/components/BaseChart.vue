@@ -5,7 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import Chart, { type ChartType, type ChartData, type ChartOptions } from 'chart.js/auto'
+import Chart, { type ChartType, type ChartData, type ChartOptions, type Plugin } from 'chart.js/auto'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 import type { _DeepPartialObject } from 'node_modules/chart.js/dist/types/utils'
 import { onMounted } from 'vue'
 
@@ -16,6 +17,7 @@ interface ChartProps {
   chartOptions: _DeepPartialObject<ChartOptions<ChartType>>
   chartWidth?: string
   chartHeight?: string
+  chartDataLabel?: Boolean
 }
 
 const props = defineProps<ChartProps>()
@@ -27,10 +29,17 @@ onMounted(() => {
 const renderChart = () => {
   const ctx = document.getElementById(props.chartId) as HTMLCanvasElement
 
+  let plugins: Plugin[] = []
+
+  if (props.chartDataLabel) {
+    plugins.push(ChartDataLabels)
+  }
+
   new Chart(ctx, {
     type: props.chartType,
     data: props.chartData,
     options: props.chartOptions,
+    plugins: plugins,
   })
 }
 </script>

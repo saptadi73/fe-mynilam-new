@@ -19,6 +19,7 @@
         chartType="pie"
         :chartData="data"
         :chartOptions="chartOptions"
+        :chartDataLabel="true"
       />
     </div>
 
@@ -40,6 +41,7 @@
         chartType="pie"
         :chartData="prosesProduksidata"
         :chartOptions="prosesProduksidataChartOptions"
+        :chartDataLabel="true"
       />
     </div>
    </div>
@@ -168,6 +170,25 @@ const chartOptions: ChartOptions<'pie'> = {
     subtitle: {
       display: true,
     },
+    datalabels: {
+      color: 'white',
+      display: function(context) {
+        let dataset = context.dataset;
+        let count = dataset.data.length;
+        let value = dataset.data[context.dataIndex];
+        return value > count * 1.5;
+      },
+      font: {
+        weight: 'bold',
+        size: 32
+      },
+      padding: 6,
+      formatter: (value, context) => {
+        const total = context.chart._metasets[0].total;
+        const percentage = ((value / total) * 100).toFixed(0);
+        return percentage + '%';
+      }
+    }
   },
 }
 
@@ -184,6 +205,25 @@ const prosesProduksidataChartOptions: ChartOptions<'pie'> = {
     subtitle: {
       display: true,
     },
+    datalabels: {
+      color: 'white',
+      display: function(context) {
+        let dataset = context.dataset;
+        let count = dataset.data.length;
+        let value = dataset.data[context.dataIndex];
+        return value > count * 1.5;
+      },
+      font: {
+        weight: 'bold',
+        size: 32
+      },
+      padding: 6,
+      formatter: (value, context) => {
+        const total = context.chart._metasets[0].total;
+        const percentage = ((value / total) * 100).toFixed(0);
+        return percentage + '%';
+      }
+    }
   },
 }
 
