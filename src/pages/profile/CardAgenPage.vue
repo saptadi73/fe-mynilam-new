@@ -8,7 +8,7 @@
             Kembali
           </BaseButton>
         </div>
-        <h1 class="text-center font-bold text-3xl py-4">Petani</h1>
+        <h1 class="text-center font-bold text-3xl py-4">Agen/Koperasi</h1>
         <div></div>
       </div>
     </div>
@@ -19,13 +19,14 @@
           <BaseButton>Cari</BaseButton>
         </div>
         <BaseInputSelect name="kabupaten" :options="options"></BaseInputSelect>
+        <BaseInputSelect name="jenis mitra" :options="options2"></BaseInputSelect>
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
         <BaseCard
-          v-for="(card, cardIndex) in cardPetani"
+          v-for="(card, cardIndex) in cardAgen"
           :key="cardIndex"
-          card-path="profile-petani"
+          card-path="profile-agen"
           :card-code="card.code"
           class="col-span-3"
         >
@@ -64,8 +65,8 @@
                 <p class="font-bold text-sm">{{ card.anggotaKeluarga }} Orang</p>
               </div>
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Surat Kontrak</h1>
-                <p class="font-bold text-sm">{{ card.suratKontrak }}</p>
+                <h1 class="text-sm">Jenis Mitra</h1>
+                <p class="font-bold text-sm">{{ card.jenisMitra }}</p>
               </div>
             </div>
           </template>
@@ -83,7 +84,7 @@ import BaseIcon from '@/components/BaseIcon.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 
-const cardPetani = reactive([
+const cardAgen = reactive([
   {
     code: 'TNM94A2X',
     petaniName: 'Agus Prayitno',
@@ -93,7 +94,7 @@ const cardPetani = reactive([
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
     anggotaKeluarga: '4',
-    suratKontrak: '-',
+    jenisMitra: 'Koperasi',
   },
   {
     code: 'TNM94A2X',
@@ -104,7 +105,7 @@ const cardPetani = reactive([
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
     anggotaKeluarga: '4',
-    suratKontrak: '-',
+    jenisMitra: 'Koperasi',
   },
   {
     code: 'TNM94A2X',
@@ -115,7 +116,7 @@ const cardPetani = reactive([
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
     anggotaKeluarga: '4',
-    suratKontrak: '-',
+    jenisMitra: 'Agen',
   },
   {
     code: 'TNM94A2X',
@@ -126,7 +127,7 @@ const cardPetani = reactive([
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
     anggotaKeluarga: '4',
-    suratKontrak: '-',
+    jenisMitra: 'Agen',
   },
 ])
 
@@ -142,6 +143,17 @@ const options = ref([
   {
     label: 'Aceh Tengah',
     value: 3,
+  },
+])
+
+const options2 = ref([
+  {
+    label: 'Agen',
+    value: 1,
+  },
+  {
+    label: 'Koperasi',
+    value: 2,
   },
 ])
 </script>

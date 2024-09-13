@@ -33,6 +33,11 @@ const routes = [
       },
       {
         path: 'profile-agen',
+        name: 'Profile Card Agen',
+        component: () => import('../pages/profile/CardAgenPage.vue'),
+      },
+      {
+        path: 'profile-agen/:id',
         name: 'Profile Agen',
         component: () => import('../pages/profile/ProfileAgenPage.vue'),
       },
