@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex justify-between items-center w-full py-6">
+  <div class="relative flex justify-between items-center w-full py-8">
     <div class="absolute left-0">
       <BaseButton @click="$router.back()" icon-position="left">
         <BaseIcon name="arrow-left" />

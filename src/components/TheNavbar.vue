@@ -1,7 +1,7 @@
 <template>
-  <div class="flex items-center justify-between space-x-3 bg-primary py-4 px-8">
+  <div class="flex items-center justify-between space-x-3 bg-primary py-4 px-10">
     <!-- logo -->
-    <div class="font-cera text-white text-2xl"><span class="text-primary-3">MYNIL</span>AM</div>
+    <div class="font-cera text-white text-3xl"><span class="text-primary-3">MYNIL</span>AM</div>
     <!-- navbar menu -->
     <ul class="hidden lg:flex items-center text-primary bg-primary-light rounded-full py-1.5 px-1">
       <li v-for="menu in menuList" class="cursor-pointer">

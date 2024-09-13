@@ -1,5 +1,6 @@
 <template>
-  <div class="p-8 bg-primary-light">
+  <div class="bg-image-wave">
+    <BaseHeaderTitle title="Laporan Lengkap Produksi" />
     <BaseTableClient :data="data" :columns="columns" :page-size="5" class="bg-white" />
   </div>
 </template>
@@ -8,6 +9,7 @@
 import { ref } from 'vue'
 import BaseTableClient from '../../components/BaseTableClient.vue'
 import { createColumnHelper } from '@tanstack/vue-table'
+import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 
 interface Produksi {
   no?: number

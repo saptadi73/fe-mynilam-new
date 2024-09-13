@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-image bg-primary-light bg-no-repeat bg-bottom py-8 px-16 h-screen">
+  <div class="bg-image-wave">
     <BaseHeaderTitle title="Laporan Petani" />
     <BaseTableClient :data="data" :columns="columns" :page-size="5" :custom-header="true" class="bg-white">
       <template #header>
@@ -143,10 +143,3 @@ const columns = [
   }),
 ]
 </script>
-
-<style scoped>
-.bg-image {
-  background-image: url('@/assets/images/wave.svg');
-  background-size: 100% 60%;
-}
-</style>
