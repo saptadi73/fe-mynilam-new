@@ -3,7 +3,7 @@
     <BaseTableClient :data="data" :columns="columns" :page-size="5" :custom-header="true" class="bg-white">
       <template #header>
         <div class="p-4">
-          <BaseInputSelect :options="options" v-model="dropdownSelect" />
+          <BaseInputSelect name="kabupaten" :options="options" />
         </div>
       </template>
     </BaseTableClient>
@@ -85,7 +85,6 @@ const defaultData: Produksi[] = [
 ]
 
 const data = ref(defaultData)
-const dropdownSelect = ref('')
 
 const options = ref([
   {
