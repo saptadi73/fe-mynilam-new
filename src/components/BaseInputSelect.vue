@@ -8,7 +8,7 @@
         class="text-gray-900 flex min-w-64 justify-between font-semibold border-2 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-light rounded-lg text-sm px-5 py-1.5 space-x-2 items-center"
         type="button"
       >
-        <span class="capitalize">{{ dropdownLabel || 'Pilih ' + name }}</span>
+        <span class="capitalize">{{ dropdownLabel || placeholder }}</span>
         <BaseIcon name="chevron-right" class="rotate-90 ms-3 h-3 text-gray-500" />
       </button>
       <!-- dropdown menu -->
@@ -47,6 +47,7 @@ interface Option {
 interface Props {
   options: Option[]
   name: string
+  placeholder: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
