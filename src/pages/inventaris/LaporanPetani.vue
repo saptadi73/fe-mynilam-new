@@ -1,9 +1,12 @@
 <template>
-  <div class="p-8 bg-primary-light">
+  <div class="bg-image bg-primary-light bg-no-repeat bg-bottom py-8 px-16 h-screen">
+    <BaseHeaderTitle title="Laporan Petani" />
     <BaseTableClient :data="data" :columns="columns" :page-size="5" :custom-header="true" class="bg-white">
       <template #header>
-        <div class="p-4">
-          <BaseInputSelect name="kabupaten" :options="options" />
+        <div class="p-4 flex items-center space-x-3">
+          <BaseInputSelect name="daerah" placeholder="Pilih daerah" :options="daerahList" />
+          <BaseInputSelect name="agen" placeholder="Pilih agen/koperasi" :options="agenList" />
+          <BaseInputSelect name="petani" placeholder="Pilih nama petani" :options="petaniList" />
         </div>
       </template>
     </BaseTableClient>
@@ -15,6 +18,7 @@ import { ref } from 'vue'
 import BaseTableClient from '@/components/BaseTableClient.vue'
 import { createColumnHelper } from '@tanstack/vue-table'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
+import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 
 interface Produksi {
   no?: number
@@ -86,19 +90,20 @@ const defaultData: Produksi[] = [
 
 const data = ref(defaultData)
 
-const options = ref([
-  {
-    label: 'Aceh Selatan',
-    value: 1,
-  },
-  {
-    label: 'Aceh Utara',
-    value: 2,
-  },
-  {
-    label: 'Aceh Tengah',
-    value: 3,
-  },
+const daerahList = ref([
+  { label: 'Aceh Selatan', value: 1 },
+  { label: 'Aceh Utara', value: 2 },
+  { label: 'Aceh Tengah', value: 3 },
+])
+const agenList = ref([
+  { label: 'Agen Nusantara Sakti', value: 1 },
+  { label: 'Agen Indonesia Raya', value: 2 },
+  { label: 'Agen Aceh', value: 3 },
+])
+const petaniList = ref([
+  { label: 'Agus Nur Drajat', value: 1 },
+  { label: 'Jayadi Idzes', value: 2 },
+  { label: 'Martin Paes', value: 3 },
 ])
 
 const columnHelper = createColumnHelper<Produksi>()
@@ -138,3 +143,10 @@ const columns = [
   }),
 ]
 </script>
+
+<style scoped>
+.bg-image {
+  background-image: url('@/assets/images/wave.svg');
+  background-size: 100% 60%;
+}
+</style>
