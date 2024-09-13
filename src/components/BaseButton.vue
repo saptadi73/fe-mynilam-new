@@ -1,6 +1,6 @@
 <template>
   <button
-    class="button font-cera text-xl px-5 py-1 hover:opacity-80 hover:shadow-lg"
+    class="button font-cera text-xl px-4 py-1 hover:opacity-80 hover:shadow-lg"
     :class="{
       '--variant-primary': variant == 'primary',
       '--variant-success': variant == 'success',

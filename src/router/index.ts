@@ -47,6 +47,11 @@ const routes = [
         component: () => import('../pages/profile/ProfileUgreenPage.vue'),
       },
       {
+        path: 'profile-aset',
+        name: 'Profile Aset',
+        component: () => import('../pages/profile/CardAsetPage.vue'),
+      },
+      {
         path: 'produksi',
         children: [
           {
