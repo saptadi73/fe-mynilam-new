@@ -1,13 +1,13 @@
 <template>
   <div class="profile-card bg-primary-light w-auto flex flex-col h-full rounded-xl p-4">
-    <h1 class="text-center text-primary font-bold text-2xl py-2">{{ profileName }}</h1>
+    <h1 class="text-center font-bold text-2xl pt-1 pb-4">{{ profileName }}</h1>
     <img :src="imageSrc" :alt="`${profileImage} Image`" />
     <p class="text-center flex-grow py-4">
       {{ profileDescription }}
     </p>
 
     <RouterLink :to="profilePath">
-      <BaseButton class="w-full font-bold" variant="success">Buka</BaseButton>
+      <BaseButton class="w-full font-bold" variant="success">Lihat</BaseButton>
     </RouterLink>
   </div>
 </template>
