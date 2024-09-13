@@ -4,7 +4,7 @@
     <section class="lg:w-[47%] min-h-screen bg-primary p-4 grid place-items-center font-cera">
       <div class="bg-primary-light rounded-2xl p-8 w-full max-w-lg">
         <div class="text-primary text-center mb-4">
-          <img src="../assets/images/logo-mynilam.png" class="h-16 block mx-auto mb-4" />
+          <img src="../../assets/images/logo-mynilam.png" class="h-16 block mx-auto mb-4" />
           <h1 class="font-bold text-3xl mb-2">{{ activeTab === 'login' ? 'Welcome' : 'Create an Account' }}</h1>
           <p v-if="activeTab === 'login'">
             If you are already a member you can login with your email address and password
@@ -16,6 +16,7 @@
           <ul class="flex">
             <li class="w-1/2">
               <button
+                type="button"
                 class="inline-block p-1 border-b-4 border-gray-300 w-full transition duration-500"
                 :class="{ 'border-primary': activeTab === 'login' }"
                 @click="activeTab = 'login'"
@@ -25,6 +26,7 @@
             </li>
             <li class="w-1/2">
               <button
+                type="button"
                 class="inline-block p-1 border-b-4 border-gray-300 w-full transition duration-500"
                 :class="{ 'border-primary': activeTab === 'signup' }"
                 @click="activeTab = 'signup'"
@@ -35,46 +37,25 @@
           </ul>
         </div>
         <!-- log in form -->
-        <form v-if="activeTab === 'login'" @submit="onSubmit">
-          <div class="mb-8">
-            <BaseInputFloat name="email" type="email" label="Enter Email" />
-          </div>
-          <div class="mb-5">
-            <BaseInputFloat name="password" type="password" label="Enter Password" />
-          </div>
-          <div class="flex justify-between items-center mb-5">
-            <BaseCheckbox label="Remember me" id="remember" />
-            <button class="font-semibold text-primary text-sm">Forgot Password</button>
-          </div>
-          <div class="mb-8">
-            <button type="submit" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Login</button>
-          </div>
-          <div class="text-primary text-sm text-center">
-            Don't have an account?
-            <button class="text-primary-2 font-semibold" @click="activeTab = 'signup'">Create an account</button>
-          </div>
-        </form>
+        <LoginForm v-if="activeTab === 'login'">
+          <template #footer>
+            <div class="text-primary text-sm text-center">
+              Don't have an account?
+              <button type="button" class="text-primary-2 font-semibold" @click="activeTab = 'signup'">
+                Create an account
+              </button>
+            </div>
+          </template>
+        </LoginForm>
         <!-- sing up form -->
-        <form v-else @submit="onSubmit">
-          <div class="mb-5">
-            <BaseInputFloat name="name" type="text" label="Enter Name" />
-          </div>
-          <div class="mb-5">
-            <BaseInputFloat name="email" type="email" label="Enter Email" />
-          </div>
-          <div class="mb-5">
-            <BaseInputFloat name="password" type="password" label="Create Password" />
-          </div>
-          <div class="mb-5">
-            <BaseInputFloat name="confirmPassword" type="password" label="Confirm Password" />
-          </div>
-          <div class="mb-8">
-            <button type="submit" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Sing Up</button>
-          </div>
-          <div class="text-primary text-sm text-center">
-            Have an account? <button class="text-primary-2 font-semibold" @click="activeTab = 'login'">Login</button>
-          </div>
-        </form>
+        <SignupForm v-else>
+          <template #footer>
+            <div class="text-primary text-sm text-center">
+              Have an account?
+              <button type="button" class="text-primary-2 font-semibold" @click="activeTab = 'login'">Login</button>
+            </div>
+          </template>
+        </SignupForm>
       </div>
     </section>
     <!-- image slider  -->
@@ -83,13 +64,13 @@
         <!-- Carousel wrapper -->
         <div class="relative overflow-hidden h-96 md:h-screen">
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
+            <img src="../../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
           </div>
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
+            <img src="../../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
           </div>
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
+            <img src="../../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
           </div>
         </div>
         <!-- Slider indicators -->
@@ -122,25 +103,9 @@
 </template>
 
 <script setup lang="ts">
-import { useForm } from 'vee-validate'
 import { ref } from 'vue'
-import * as yup from 'yup'
-import BaseCheckbox from '@/components/BaseCheckbox.vue'
-import BaseInputFloat from '@/components/BaseInputFloat.vue'
+import LoginForm from './LoginForm.vue'
+import SignupForm from './SignupForm.vue'
 
 const activeTab = ref('login')
-
-// prettier-ignore
-const { handleSubmit } = useForm({
-  validationSchema: yup.object({
-    email: yup.string().required().email().label('Email'),
-    password: yup.string().required().min(6).label('Password'),
-    name: yup.string().required().min(3).label('Name'),
-    confirmPassword: yup.string().required().min(6).oneOf([yup.ref('password')], 'Password must match'),
-  }),
-})
-
-const onSubmit = handleSubmit((values) => {
-  console.log(values)
-})
 </script>
