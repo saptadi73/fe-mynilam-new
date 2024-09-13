@@ -1,17 +1,6 @@
 <template>
   <div class="container mx-auto">
-    <div class="flex flex-col items-center">
-      <div class="flex justify-between items-center w-full py-2">
-        <div>
-          <BaseButton @click="$router.back()" icon-position="left">
-            <BaseIcon name="arrow-left" />
-            Kembali
-          </BaseButton>
-        </div>
-        <h1 class="text-center font-bold text-3xl py-4">Petani</h1>
-        <div></div>
-      </div>
-    </div>
+    <BaseHeaderTitle title="Petani" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="flex flex-row gap-x-5 justify-start">
         <div class="flex flex-row gap-x-2">
@@ -82,6 +71,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
+import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 
 const cardPetani = reactive([
   {

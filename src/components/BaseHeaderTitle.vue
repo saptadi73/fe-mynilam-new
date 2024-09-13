@@ -1,12 +1,12 @@
 <template>
-  <div class="relative flex justify-between items-center w-full pb-8">
+  <div class="relative flex justify-between items-center w-full py-6">
     <div class="absolute left-0">
       <BaseButton @click="$router.back()" icon-position="left">
         <BaseIcon name="arrow-left" />
         Kembali
       </BaseButton>
     </div>
-    <h1 class="mx-auto font-semibold text-3xl text-primary">{{ title }}</h1>
+    <h1 class="mx-auto font-bold text-3xl text-primary">{{ title }}</h1>
   </div>
 </template>
 
