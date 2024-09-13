@@ -3,12 +3,12 @@
     <div class="bg-white min-h-screen opacity-90 shadow-md rounded-lg font-cera">
       <img
         class="bg-cover object-cover rounded-t-lg h-60 w-full"
-        src="../assets//images/profile-bg.jpg"
+        src="@/assets//images/profile-bg.jpg"
         alt="Background Profile"
       />
 
       <div class="absolute top-24 left-36 bg-white rounded-full p-1.5 mt-20 z-20">
-        <img src="../assets/images/profile-petani.png" alt="Profile" />
+        <img src="@/assets/images/profile-petani.png" alt="Profile" />
       </div>
 
       <div class="text-3xl font-bold px-20 mt-28">Bagas Adi Rukma</div>
@@ -59,7 +59,7 @@
 
 <style scoped>
 .profile {
-  background-image: url('../assets/images/wave.svg');
+  background-image: url('@/assets/images/wave.svg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;

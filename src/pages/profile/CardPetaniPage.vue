@@ -25,7 +25,7 @@
         <BaseCard v-for="(card, cardIndex) in cardPetani" :key="cardIndex" :card-code="card.code" class="col-span-3">
           <template #card-content>
             <div class="flex justify-center pt-2">
-              <img class="rounded-xl" src="../assets/images/petani-image.png" alt="Petani Image" />
+              <img class="rounded-xl" src="@/assets/images/petani-image.png" alt="Petani Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -71,9 +71,9 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import BaseButton from '../components/BaseButton.vue'
-import BaseCard from '../components/BaseCard.vue'
-import BaseIcon from '../components/BaseIcon.vue'
+import BaseButton from '@/components/BaseButton.vue'
+import BaseCard from '@/components/BaseCard.vue'
+import BaseIcon from '@/components/BaseIcon.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 
