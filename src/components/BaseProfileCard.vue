@@ -7,13 +7,14 @@
     </p>
 
     <RouterLink :to="profilePath">
-      <button class="bg-[#7BB401] rounded-md py-1.5 text-white font-bold w-full">Buka</button>
+      <BaseButton class="w-full font-bold" variant="success">Buka</BaseButton>
     </RouterLink>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import BaseButton from './BaseButton.vue'
 
 interface PropsProfileCard {
   profileName: string
