@@ -1,6 +1,6 @@
 <template>
   <div class="relative flex justify-between items-center w-full pb-8">
-    <div class="absolute left-0" style="justify-self: flex-start">
+    <div class="absolute left-0">
       <BaseButton @click="$router.back()" icon-position="left">
         <BaseIcon name="arrow-left" />
         Kembali
