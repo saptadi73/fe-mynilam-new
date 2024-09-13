@@ -126,15 +126,4 @@ const options = ref([
     value: 3,
   },
 ])
-
-const options2 = ref([
-  {
-    label: 'Agen',
-    value: 1,
-  },
-  {
-    label: 'Aktif',
-    value: 2,
-  },
-])
 </script>
