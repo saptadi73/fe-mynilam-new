@@ -9,7 +9,7 @@
         type="button"
       >
         <span>{{ dropdownLabel || 'Pilih Kabupaten' }}</span>
-        <BaseIcon name="arrow-right" class="rotate-90 ms-3 h-3 text-gray-500" />
+        <BaseIcon name="chevron-right" class="rotate-90 ms-3 h-3 text-gray-500" />
       </button>
       <!-- dropdown menu -->
       <div

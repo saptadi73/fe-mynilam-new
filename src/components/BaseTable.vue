@@ -55,7 +55,7 @@
           class="flex items-center space-x-2"
           :class="{ 'opacity-50': !table.getCanPreviousPage() }"
         >
-          <BaseIcon name="arrow-right" class="rotate-180" /> <span>Halaman Sebelumnya</span>
+          <BaseIcon name="chevron-right" class="rotate-180" /> <span>Halaman Sebelumnya</span>
         </button>
         <div class="flex items-center space-x-2 px-3">
           <template v-for="page in pagination" :key="page">
@@ -78,7 +78,7 @@
           class="flex items-center space-x-2"
           :class="{ 'opacity-50': !table.getCanNextPage() }"
         >
-          <span>Halaman Selanjutnya</span> <BaseIcon name="arrow-right" />
+          <span>Halaman Selanjutnya</span> <BaseIcon name="chevron-right" />
         </button>
       </div>
     </section>
