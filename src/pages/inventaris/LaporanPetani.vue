@@ -7,6 +7,8 @@
           <BaseInputSelect name="daerah" placeholder="Pilih daerah" :options="daerahList" />
           <BaseInputSelect name="agen" placeholder="Pilih agen/koperasi" :options="agenList" />
           <BaseInputSelect name="petani" placeholder="Pilih nama petani" :options="petaniList" />
+          <BaseInputDateRange name="tanggal" placeholder-start="Tanggal mulai" placeholder-end="Tanggal akhir" />
+          <BaseSearchBar placeholder="Cari kode produksi" />
         </div>
       </template>
     </BaseTableClient>
@@ -19,6 +21,8 @@ import BaseTableClient from '@/components/BaseTableClient.vue'
 import { createColumnHelper } from '@tanstack/vue-table'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
+import BaseInputDateRange from '@/components/BaseInputDateRange.vue'
+import BaseSearchBar from '@/components/BaseSearchBar.vue'
 
 interface Produksi {
   no?: number
