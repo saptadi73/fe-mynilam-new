@@ -1,5 +1,5 @@
 <template>
-  <div class="profile relative px-20 py-10">
+  <div class="bg-image-wave relative py-10">
     <div class="bg-white min-h-screen opacity-90 shadow-md rounded-lg font-cera">
       <img
         class="bg-cover object-cover rounded-t-lg h-60 w-full"
@@ -53,12 +53,3 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-.profile {
-  background-image: url('@/assets/images/wave.svg');
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-size: contain;
-}
-</style>
