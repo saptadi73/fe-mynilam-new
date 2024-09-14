@@ -6,9 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import Chart, { type ChartType, type ChartData, type ChartOptions, type Plugin } from 'chart.js/auto'
+import Chart, { type ChartData, type ChartType, type Plugin } from 'chart.js/auto'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
-import type { _DeepPartialObject } from 'node_modules/chart.js/dist/types/utils'
 import { onMounted } from 'vue'
 
 interface ChartProps {
@@ -16,7 +15,7 @@ interface ChartProps {
   chartTitle?: string
   chartType: ChartType
   chartData: ChartData
-  chartOptions: _DeepPartialObject<ChartOptions<ChartType>>
+  chartOptions: any
   chartWidth?: string
   chartHeight?: string
   chartDataLabel?: Boolean
