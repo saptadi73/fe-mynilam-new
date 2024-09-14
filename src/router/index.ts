@@ -70,6 +70,11 @@ const routes = [
         path: 'inventaris',
         children: [
           {
+            path: 'laporan-pergerakan-barang',
+            name: 'Laporan Pergerakan Barang',
+            component: () => import('../pages/inventaris/LaporanPergerakanBarang.vue'),
+          },
+          {
             path: 'laporan-petani',
             name: 'Laporan Petani',
             component: () => import('../pages/inventaris/LaporanPetani.vue'),
