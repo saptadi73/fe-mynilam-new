@@ -7,7 +7,7 @@
     <input
       type="text"
       id="table-search"
-      class="block p-4 ps-10 text-sm text-gray-900 border-2 border-gray-200 rounded-lg w-60 h-8 focus:ring-primary-light focus:border-gray-200"
+      class="block p-4 ps-9 text-sm text-gray-900 border border-primary-border rounded-lg w-60 h-8 focus:ring-primary-light focus:ring-4 focus:border-primary"
       :class="$attrs.class"
       :placeholder="placeholder"
       v-model="model"

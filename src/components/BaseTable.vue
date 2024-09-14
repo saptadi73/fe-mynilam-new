@@ -1,5 +1,5 @@
 <template>
-  <div class="border-2 rounded-2xl border-gray-200 bg-white">
+  <div class="border-2 rounded-2xl border-primary-border bg-white bg-opacity-95">
     <!-- table header -->
     <section v-if="!customHeader" class="p-4 flex items-center justify-between text-sm text-gray-800">
       <!-- search bar -->
@@ -13,7 +13,7 @@
         <select
           name="pageSize"
           id="pageSize"
-          class="py-px px-2 bg-primary-light border-primary-3 rounded show-page-size"
+          class="py-px px-2 bg-primary-light border-primary-border rounded show-page-size"
           @change="(e) => $emit('setPageSize', Number((e.target as HTMLInputElement).value))"
         >
           <template v-for="page in pageSizeList" :key="page">
@@ -29,7 +29,11 @@
     <section class="relative overflow-x-auto">
       <table class="w-full text-sm text-left text-gray-700">
         <thead>
-          <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id" class="border-y-2 border-gray-200">
+          <tr
+            v-for="headerGroup in table.getHeaderGroups()"
+            :key="headerGroup.id"
+            class="border-y-2 border-primary-border"
+          >
             <th
               v-for="header in headerGroup.headers"
               :key="header.id"
@@ -47,7 +51,7 @@
           <tr
             v-for="row in table.getRowModel().rows"
             :key="row.id"
-            class="border-b-2 border-gray-200 hover:bg-gray-100"
+            class="border-b border-primary-border hover:bg-gray-100"
           >
             <td v-for="(cell, index) in row.getVisibleCells()" :key="index" class="px-6 py-4 text-center">
               <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
