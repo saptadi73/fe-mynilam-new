@@ -167,6 +167,10 @@ const chartOptions: ChartOptions<'pie'> = {
   plugins: {
     legend: {
       display: true,
+      labels: {
+        boxWidth: 18,
+        boxHeight: 18
+      }
     },
     datalabels: {
       color: 'white',
@@ -196,6 +200,10 @@ const prosesProduksidataChartOptions: ChartOptions<'pie'> = {
   plugins: {
     legend: {
       display: true,
+      labels: {
+        boxWidth: 18,
+        boxHeight: 18
+      }
     },
     datalabels: {
       color: 'white',
@@ -281,12 +289,16 @@ const barChartDataPenjualan: ChartData = {
   ],
 }
 
-const barChartOptions: ChartOptions<'pie'> = {
+const barChartOptions: ChartOptions<'bar'> = {
   responsive: true,
   maintainAspectRatio: true,
   plugins: {
     legend: {
       display: true,
+      labels: {
+        boxWidth: 18,
+        boxHeight: 18
+      }
     },
   },
   scales: {
@@ -315,12 +327,16 @@ const barChartOptions: ChartOptions<'pie'> = {
   },
 }
 
-const barChartOptionsPenjualan: ChartOptions<'pie'> = {
+const barChartOptionsPenjualan: ChartOptions<'bar'> = {
   responsive: true,
   maintainAspectRatio: true,
   plugins: {
     legend: {
       display: true,
+      labels: {
+        boxWidth: 18,
+        boxHeight: 18
+      }
     },
   },
   scales: {
@@ -470,6 +486,10 @@ const estimastiProduksiChartOptions: ChartOptions<'pie'> = {
   plugins: {
     legend: {
       display: true,
+      labels: {
+        boxWidth: 16,
+        boxHeight: 16
+      }
     },
     datalabels: {
       color: 'white',
