@@ -43,7 +43,7 @@ const menuList = ref([
   { name: 'Dashboard', path: '/dashboard' },
   { name: 'Inventaris', path: '/inventaris/laporan-pergerakan-barang' },
   { name: 'Produksi', path: '/produksi/laporan-produksi' },
-  { name: 'Penjualan', path: '/penjualan/daftar-penjualan' },
+  { name: 'Penjualan', path: '/penjualan/daftar-mitra' },
   { name: 'Laporan', path: '/laporan' },
 ])
 
