@@ -3,9 +3,11 @@
     :table="table"
     :search="search"
     :custom-header="customHeader"
+    :total-data="table.getCoreRowModel().rows.length"
     @previous-page="handlePreviousPage"
     @next-page="handleNextPage"
     @set-page-index="(page: number) => table.setPageIndex(page)"
+    @set-page-size="(pageSize: number) => table.setPageSize(pageSize)"
     @search="(val: string) => { globalFilter = val }"
   >
     <template #header>

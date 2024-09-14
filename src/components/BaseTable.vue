@@ -8,8 +8,19 @@
         <button type="submit" class="bg-primary text-white px-4 h-8 rounded-lg text-sm font-semibold">Cari</button>
       </form>
       <!-- show data option -->
-      <div class="flex">
-        <div>Tampilkan {{ table.getState().pagination.pageSize }} dari {{ '{totaldata}' }}</div>
+      <div class="space-x-2">
+        <span>Tampilkan</span>
+        <select
+          name="pageSize"
+          id="pageSize"
+          class="py-px px-2 bg-primary-light border-primary-3 rounded show-page-size"
+          @change="(e) => $emit('setPageSize', Number((e.target as HTMLInputElement).value))"
+        >
+          <template v-for="page in pageSizeList" :key="page">
+            <option :value="page" :selected="page == table.getState().pagination.pageSize">{{ page }}</option>
+          </template>
+        </select>
+        <span>dari {{ totalData }}</span>
       </div>
     </section>
     <!-- custom table header -->
@@ -87,7 +98,7 @@
 
 <script setup lang="ts">
 import { FlexRender, type Header } from '@tanstack/vue-table'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import BaseIcon from '../components/BaseIcon.vue'
 import BaseSearchBar from './BaseSearchBar.vue'
 
@@ -96,6 +107,7 @@ interface Props {
   pageSize?: number
   search: boolean
   customHeader?: boolean
+  totalData: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -105,6 +117,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const searchValue = ref('')
+const pageSizeList = ref<number[]>([])
 
 const pagination = computed(() => {
   let current = props.table.getState().pagination.pageIndex + 1
@@ -144,4 +157,21 @@ const handleClickSort = (header: Header<{}, unknown>, $event: MouseEvent) => {
     header.column.getToggleSortingHandler()?.($event)
   }
 }
+
+const getPageSizes = () => {
+  const list = [10, 20, 50, 100]
+  list.push(props.pageSize) // add default pageSize to list
+  const uniqueList = [...new Set(list)] // remove duplicates
+  return uniqueList.sort((a, b) => a - b) // return sorted array
+}
+
+onMounted(() => {
+  pageSizeList.value = getPageSizes()
+})
 </script>
+
+<style scoped>
+select:not([size]).show-page-size {
+  padding-right: 25px;
+}
+</style>
