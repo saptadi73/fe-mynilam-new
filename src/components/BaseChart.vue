@@ -1,5 +1,6 @@
 <template>
   <div :style="{ width: chartWidth, height: chartHeight }">
+    <h1 class="flex justify-center font-bold text-xl mb-2">{{ chartTitle }}</h1>
     <canvas v-bind:id="chartId" aria-label="Chart Data" role="img"></canvas>
   </div>
 </template>
@@ -12,6 +13,7 @@ import { onMounted } from 'vue'
 
 interface ChartProps {
   chartId: string
+  chartTitle?: string
   chartType: ChartType
   chartData: ChartData
   chartOptions: _DeepPartialObject<ChartOptions<ChartType>>

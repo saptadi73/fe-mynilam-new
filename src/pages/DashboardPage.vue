@@ -65,7 +65,7 @@
    <div class="px-12">
     <h1 class="font-bold text-2xl text-center py-8">Pemantauan Estimasi Produksi</h1>
       <div class="bg-white rounded-xl py-6 px-4 grid grid-cols-12 gap-4">
-        <BaseChart v-for="(chart,index) in chartDataEstimasiProduksi" :key="index" class="col-span-3 bg-primary-light rounded-2xl border border-primary pb-4" :chartId="`Chart ${index}`" chartType="pie" :chartData="chart.data" :chartOptions="estimastiProduksiChartOptions" :chartDataLabel="true"/>
+        <BaseChart v-for="(chart,index) in chartDataEstimasiProduksi" :key="index" class="col-span-3 bg-primary-light rounded-2xl border border-primary py-4 px-8" :chartId="`Chart ${index}`" chartType="pie" :chartTitle="chart.title" :chartData="chart.data" :chartOptions="estimastiProduksiChartOptions" :chartDataLabel="true" />
       </div>
    </div>
   </div>
@@ -109,12 +109,6 @@ const lineChartOptions: ChartOptions<'line'> = {
   plugins: {
     legend: {
       display: false,
-    },
-    title: {
-      display: true,
-    },
-    subtitle: {
-      display: true,
     },
   },
   scales: {
@@ -174,12 +168,6 @@ const chartOptions: ChartOptions<'pie'> = {
     legend: {
       display: true,
     },
-    title: {
-      display: true,
-    },
-    subtitle: {
-      display: true,
-    },
     datalabels: {
       color: 'white',
       display: function(context) {
@@ -207,12 +195,6 @@ const prosesProduksidataChartOptions: ChartOptions<'pie'> = {
   maintainAspectRatio: true,
   plugins: {
     legend: {
-      display: true,
-    },
-    title: {
-      display: true,
-    },
-    subtitle: {
       display: true,
     },
     datalabels: {
@@ -306,12 +288,6 @@ const barChartOptions: ChartOptions<'pie'> = {
     legend: {
       display: true,
     },
-    title: {
-      display: true,
-    },
-    subtitle: {
-      display: true,
-    },
   },
   scales: {
     x: {
@@ -344,12 +320,6 @@ const barChartOptionsPenjualan: ChartOptions<'pie'> = {
   maintainAspectRatio: true,
   plugins: {
     legend: {
-      display: true,
-    },
-    title: {
-      display: true,
-    },
-    subtitle: {
       display: true,
     },
   },
@@ -395,7 +365,7 @@ const chartDataEstimasiProduksi = reactive([
     }
   },
   {
-    title: 'Tapaktuan',
+    title: 'Kluet Utara',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -409,7 +379,7 @@ const chartDataEstimasiProduksi = reactive([
     }
   },
   {
-    title: 'Tapaktuan',
+    title: 'Kluet Selatan',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -423,7 +393,7 @@ const chartDataEstimasiProduksi = reactive([
     }
   },
   {
-    title: 'Tapaktuan',
+    title: 'Sawang',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -437,7 +407,7 @@ const chartDataEstimasiProduksi = reactive([
     }
   },
   {
-    title: 'Tapaktuan',
+    title: 'Labuhan Haji',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -451,7 +421,7 @@ const chartDataEstimasiProduksi = reactive([
     }
   },
   {
-    title: 'Tapaktuan',
+    title: 'Meukek',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -465,7 +435,7 @@ const chartDataEstimasiProduksi = reactive([
     }
   },
   {
-    title: 'Tapaktuan',
+    title: 'Sawang',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -479,7 +449,7 @@ const chartDataEstimasiProduksi = reactive([
     }
   },
   {
-    title: 'Tapaktuan',
+    title: 'Blang Pidie',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -499,12 +469,6 @@ const estimastiProduksiChartOptions: ChartOptions<'pie'> = {
   maintainAspectRatio: true,
   plugins: {
     legend: {
-      display: true,
-    },
-    title: {
-      display: true,
-    },
-    subtitle: {
       display: true,
     },
     datalabels: {
