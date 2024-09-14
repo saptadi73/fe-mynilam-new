@@ -1,7 +1,9 @@
 <template>
   <div class="p-2 bg-primary-light">
     <h1 class="font-bold text-center text-3xl px-64 py-8">Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani</h1>
-    <img class="px-12" src="../assets//images/bg-dashboard.png" alt="Dashboard Image"></img>
+   <div class="px-12">
+    <img class="banner-image rounded-3xl border-4 border-[#B2B4E0]" src="../assets/images/banner-dashboard.jpg" alt="Banner Dashboard Image"></img>
+   </div>
 
     <p class="text-center px-40 py-4">Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat. Atur jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor seluruh proses produksi serta tahapan proses tanam untuk memastikan hasil yang optimal.</p>
     
@@ -370,4 +372,8 @@ const barChartOptionsPenjualan: ChartOptions<'pie'> = {
 }
 </script>
 
-<style></style>
+<style scoped>
+.banner-image {
+  box-shadow: 8px 8px rgba(0, 0, 0, 0.25);
+}
+</style>
