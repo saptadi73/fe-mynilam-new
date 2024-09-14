@@ -1,9 +1,9 @@
 <template>
   <div class="p-2 bg-primary-light">
     <h1 class="font-bold text-center text-3xl px-64 py-8">Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani</h1>
-   <div class="px-12">
-    <img class="banner-image rounded-3xl border-4 border-[#B2B4E0]" src="../assets/images/banner-dashboard.jpg" alt="Banner Dashboard Image"></img>
-   </div>
+    <div class="px-12">
+      <img class="banner-image rounded-3xl border-4 border-[#B2B4E0]" src="../assets/images/banner-dashboard.jpg" alt="Banner Dashboard Image"></img>
+    </div>
 
     <p class="text-center px-40 py-4">Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat. Atur jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor seluruh proses produksi serta tahapan proses tanam untuk memastikan hasil yang optimal.</p>
     
@@ -61,12 +61,20 @@
       <BaseChart chartId="chart5" chartType="bar" :chartData="barChartDataPenjualan" :chartOptions="barChartOptionsPenjualan" />
     </div>
    </div>
+
+   <div class="px-12">
+    <h1 class="font-bold text-2xl text-center py-8">Pemantauan Estimasi Produksi</h1>
+      <div class="bg-white rounded-xl py-6 px-4 grid grid-cols-12 gap-4">
+        <BaseChart v-for="(chart,index) in chartDataEstimasiProduksi" :key="index" class="col-span-3 bg-primary-light rounded-2xl border border-primary pb-4" :chartId="`Chart ${index}`" chartType="pie" :chartData="chart.data" :chartOptions="estimastiProduksiChartOptions" :chartDataLabel="true"/>
+      </div>
+   </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import BaseChart from '@/components/BaseChart.vue'
 import { ChartData, ChartOptions } from 'chart.js/auto'
+import { reactive } from 'vue';
 
 const lineChartData: ChartData = {
   labels: [
@@ -368,6 +376,156 @@ const barChartOptionsPenjualan: ChartOptions<'pie'> = {
         },
       },
     },
+  },
+}
+
+const chartDataEstimasiProduksi = reactive([
+  {
+    title: 'Tapaktuan',
+    data: {
+      labels: ['Selesai', 'Proses'],
+      datasets: [
+        {
+          label: 'Total Data',
+          data: [20, 80],
+          backgroundColor: ['#20D173', '#015438'],
+          hoverOffset: 4,
+        },
+      ],
+    }
+  },
+  {
+    title: 'Tapaktuan',
+    data: {
+      labels: ['Selesai', 'Proses'],
+      datasets: [
+        {
+          label: 'Total Data',
+          data: [65, 35],
+          backgroundColor: ['#20D173', '#015438'],
+          hoverOffset: 4,
+        },
+      ],
+    }
+  },
+  {
+    title: 'Tapaktuan',
+    data: {
+      labels: ['Selesai', 'Proses'],
+      datasets: [
+        {
+          label: 'Total Data',
+          data: [35, 65],
+          backgroundColor: ['#20D173', '#015438'],
+          hoverOffset: 4,
+        },
+      ],
+    }
+  },
+  {
+    title: 'Tapaktuan',
+    data: {
+      labels: ['Selesai', 'Proses'],
+      datasets: [
+        {
+          label: 'Total Data',
+          data: [10, 90],
+          backgroundColor: ['#20D173', '#015438'],
+          hoverOffset: 4,
+        },
+      ],
+    }
+  },
+  {
+    title: 'Tapaktuan',
+    data: {
+      labels: ['Selesai', 'Proses'],
+      datasets: [
+        {
+          label: 'Total Data',
+          data: [20, 80],
+          backgroundColor: ['#20D173', '#015438'],
+          hoverOffset: 4,
+        },
+      ],
+    }
+  },
+  {
+    title: 'Tapaktuan',
+    data: {
+      labels: ['Selesai', 'Proses'],
+      datasets: [
+        {
+          label: 'Total Data',
+          data: [65, 35],
+          backgroundColor: ['#20D173', '#015438'],
+          hoverOffset: 4,
+        },
+      ],
+    }
+  },
+  {
+    title: 'Tapaktuan',
+    data: {
+      labels: ['Selesai', 'Proses'],
+      datasets: [
+        {
+          label: 'Total Data',
+          data: [35, 65],
+          backgroundColor: ['#20D173', '#015438'],
+          hoverOffset: 4,
+        },
+      ],
+    }
+  },
+  {
+    title: 'Tapaktuan',
+    data: {
+      labels: ['Selesai', 'Proses'],
+      datasets: [
+        {
+          label: 'Total Data',
+          data: [10, 90],
+          backgroundColor: ['#20D173', '#015438'],
+          hoverOffset: 4,
+        },
+      ],
+    }
+  },
+])
+
+const estimastiProduksiChartOptions: ChartOptions<'pie'> = {
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: {
+    legend: {
+      display: true,
+    },
+    title: {
+      display: true,
+    },
+    subtitle: {
+      display: true,
+    },
+    datalabels: {
+      color: 'white',
+      display: function(context) {
+        let dataset = context.dataset;
+        let count = dataset.data.length;
+        let value = dataset.data[context.dataIndex];
+        return value > count * 1.5;
+      },
+      font: {
+        weight: 'bold',
+        size: 14
+      },
+      padding: 6,
+      formatter: (value, context) => {
+        const total = context.chart._metasets[0].total;
+        const percentage = ((value / total) * 100).toFixed(0);
+        return percentage + '%';
+      }
+    }
   },
 }
 </script>
