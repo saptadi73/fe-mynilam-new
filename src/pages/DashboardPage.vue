@@ -1,12 +1,23 @@
 <template>
   <div class="p-2 bg-primary-light">
-    <h1 class="font-bold text-center text-3xl px-64 py-8">Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani</h1>
+    <h1 class="font-bold text-center text-3xl px-64 py-8">
+      Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani
+    </h1>
     <div class="px-12">
-      <img class="banner-image rounded-3xl border-4 border-[#B2B4E0]" src="../assets/images/banner-dashboard.jpg" alt="Banner Dashboard Image"></img>
+      <img
+        class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
+        src="../assets/images/banner-dashboard.jpg"
+        alt="Banner Dashboard Image"
+      />
     </div>
 
-    <p class="text-center px-40 py-4">Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat. Atur jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor seluruh proses produksi serta tahapan proses tanam untuk memastikan hasil yang optimal.</p>
-    
+    <p class="text-center px-40 py-4">
+      Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi
+      hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat. Atur
+      jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor seluruh
+      proses produksi serta tahapan proses tanam untuk memastikan hasil yang optimal.
+    </p>
+
     <div class="px-12">
       <h1 class="font-bold text-center text-2xl pt-12 pb-4">Analisis Produktivitas Petani</h1>
       <div class="bg-white rounded-xl">
@@ -14,81 +25,104 @@
       </div>
     </div>
 
-   <div class="grid grid-cols-12 gap-x-8 px-12 py-8">
-    <div class="col-span-6 bg-white rounded-xl px-20 pb-8">
-      <BaseChart
-        chartId="chart2"
-        chartType="pie"
-        :chartData="data"
-        :chartOptions="chartOptions"
-        :chartDataLabel="true"
-      />
-    </div>
-
-    <div class="col-span-6">
-      <h1 class="font-bold text-2xl">Pemantauan Proses Tanam</h1>
-      <p class="text-xl text-justify mt-2">Pantau setiap tahap pertumbuhan nilam dari penanaman benih hingga panen untuk memastikan praktik terbaik diimplementasikan. Monitor perkembangan tanaman secara berkala untuk memastikan hasil panen yang optimal dan kualitas yang terjaga.</p>
-    </div>
-   </div>
-
-   <div class="grid grid-cols-12 gap-x-8 px-12 py-8">
-    <div class="col-span-6">
-      <h1 class="font-bold text-2xl">Pemantauan Proses Produksi</h1>
-      <p class="text-xl text-justify mt-2">Pantau secara cermat setiap tahapan dari proses panen hingga ekstraksi minyak nilam/atsiri. Pastikan setiap langkah dijalankan dengan optimal, mulai dari pemilihan waktu panen yang tepat, pengolahan bahan baku, hingga proses distilasi yang menghasilkan minyak dengan kualitas terbaik. Jamin efisiensi dan kualitas dalam seluruh rantai produksi untuk memaksimalkan hasil dan mendukung kesejahteraan petani.</p>
-    </div>
-
-    <div class="col-span-6 bg-white rounded-xl px-20 pb-8">
-      <BaseChart
-        chartId="chart3"
-        chartType="pie"
-        :chartData="prosesProduksidata"
-        :chartOptions="prosesProduksidataChartOptions"
-        :chartDataLabel="true"
-      />
-    </div>
-   </div>
-
-   <div class="px-12">
-    <h1 class="font-bold text-2xl text-center py-8">Pemantauan Pendapatan Petani</h1>
-     <div class="bg-white rounded-xl px-10">
-      <BaseChart chartId="chart4" chartType="bar" :chartData="barChartData" :chartOptions="barChartOptions" />
-    </div>
-   </div>
-
-   <div class="px-12">
-    <h1 class="font-bold text-2xl text-center py-8">Catatan Penjualan</h1>
-     <div class="bg-white rounded-xl px-10">
-      <BaseChart chartId="chart5" chartType="bar" :chartData="barChartDataPenjualan" :chartOptions="barChartOptionsPenjualan" />
-    </div>
-   </div>
-
-   <div class="px-12">
-    <h1 class="font-bold text-2xl text-center py-8">Pemantauan Estimasi Produksi</h1>
-      <div class="bg-white rounded-xl py-6 px-4 grid grid-cols-12 gap-4">
-        <BaseChart v-for="(chart,index) in chartDataEstimasiProduksi" :key="index" class="col-span-3 bg-primary-light rounded-2xl border border-primary py-4 px-8" :chartId="`Chart ${index}`" chartType="pie" :chartTitle="chart.title" :chartData="chart.data" :chartOptions="estimastiProduksiChartOptions" :chartDataLabel="true" />
+    <div class="grid grid-cols-12 gap-x-8 px-12 py-8">
+      <div class="col-span-6 bg-white rounded-xl px-20 pb-8">
+        <BaseChart
+          chartId="chart2"
+          chartType="pie"
+          :chartData="data"
+          :chartOptions="chartOptions"
+          :chartDataLabel="true"
+        />
       </div>
-   </div>
 
-   <div class="px-12">
-    <h1 class="font-bold text-2xl text-center py-8">Kalender Produksi Terpadu</h1>
-    <div class="flex justify-center">
-      <Calendar :attributes="attributes" :columns="columns" :rows="2" expanded/>
+      <div class="col-span-6">
+        <h1 class="font-bold text-2xl">Pemantauan Proses Tanam</h1>
+        <p class="text-xl text-justify mt-2">
+          Pantau setiap tahap pertumbuhan nilam dari penanaman benih hingga panen untuk memastikan praktik terbaik
+          diimplementasikan. Monitor perkembangan tanaman secara berkala untuk memastikan hasil panen yang optimal dan
+          kualitas yang terjaga.
+        </p>
+      </div>
     </div>
-   </div>
+
+    <div class="grid grid-cols-12 gap-x-8 px-12 py-8">
+      <div class="col-span-6">
+        <h1 class="font-bold text-2xl">Pemantauan Proses Produksi</h1>
+        <p class="text-xl text-justify mt-2">
+          Pantau secara cermat setiap tahapan dari proses panen hingga ekstraksi minyak nilam/atsiri. Pastikan setiap
+          langkah dijalankan dengan optimal, mulai dari pemilihan waktu panen yang tepat, pengolahan bahan baku, hingga
+          proses distilasi yang menghasilkan minyak dengan kualitas terbaik. Jamin efisiensi dan kualitas dalam seluruh
+          rantai produksi untuk memaksimalkan hasil dan mendukung kesejahteraan petani.
+        </p>
+      </div>
+
+      <div class="col-span-6 bg-white rounded-xl px-20 pb-8">
+        <BaseChart
+          chartId="chart3"
+          chartType="pie"
+          :chartData="prosesProduksidata"
+          :chartOptions="prosesProduksidataChartOptions"
+          :chartDataLabel="true"
+        />
+      </div>
+    </div>
+
+    <div class="px-12">
+      <h1 class="font-bold text-2xl text-center py-8">Pemantauan Pendapatan Petani</h1>
+      <div class="bg-white rounded-xl px-10">
+        <BaseChart chartId="chart4" chartType="bar" :chartData="barChartData" :chartOptions="barChartOptions" />
+      </div>
+    </div>
+
+    <div class="px-12">
+      <h1 class="font-bold text-2xl text-center py-8">Catatan Penjualan</h1>
+      <div class="bg-white rounded-xl px-10">
+        <BaseChart
+          chartId="chart5"
+          chartType="bar"
+          :chartData="barChartDataPenjualan"
+          :chartOptions="barChartOptionsPenjualan"
+        />
+      </div>
+    </div>
+
+    <div class="px-12">
+      <h1 class="font-bold text-2xl text-center py-8">Pemantauan Estimasi Produksi</h1>
+      <div class="bg-white rounded-xl py-6 px-4 grid grid-cols-12 gap-4">
+        <BaseChart
+          v-for="(chart, index) in chartDataEstimasiProduksi"
+          :key="index"
+          class="col-span-3 bg-primary-light rounded-2xl border border-primary py-4 px-8"
+          :chartId="`Chart ${index}`"
+          chartType="pie"
+          :chartTitle="chart.title"
+          :chartData="chart.data"
+          :chartOptions="estimastiProduksiChartOptions"
+          :chartDataLabel="true"
+        />
+      </div>
+    </div>
+
+    <div class="px-12">
+      <h1 class="font-bold text-2xl text-center py-8">Kalender Produksi Terpadu</h1>
+      <div class="flex justify-center">
+        <Calendar :attributes="attributes" :columns="columns" :rows="2" expanded />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import BaseChart from '@/components/BaseChart.vue'
-import { ChartData, ChartOptions } from 'chart.js/auto'
-import { Calendar } from 'v-calendar';
-import 'v-calendar/style.css';
-import { computed, reactive, ref } from 'vue';
+import { ChartData, type ChartOptions } from 'chart.js/auto'
+import { Calendar } from 'v-calendar'
+import 'v-calendar/style.css'
+import { computed, reactive, ref } from 'vue'
+import { useScreens } from 'vue-screen-utils'
 
-import { useScreens } from 'vue-screen-utils';
-
-const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1024px' });
-const columns = mapCurrent({ lg: 4 }, 1);
+const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1024px' })
+const columns = mapCurrent({ lg: 4 }, 1)
 
 const todos = ref([
   {
@@ -96,11 +130,11 @@ const todos = ref([
     dates: { repeat: { weekdays: 5 } }, // Every Friday
     color: 'red',
   },
-]);
+])
 
-const attributes = computed(() => [
+const attributes = computed<any>(() => [
   // Attributes for todos
-  ...todos.value.map(todo => ({
+  ...todos.value.map((todo) => ({
     dates: todo.dates,
     dot: {
       color: todo.color,
@@ -109,7 +143,7 @@ const attributes = computed(() => [
       label: todo.description,
     },
   })),
-]);
+])
 
 const lineChartData: ChartData = {
   labels: [
@@ -204,28 +238,28 @@ const chartOptions: ChartOptions<'pie'> = {
       display: true,
       labels: {
         boxWidth: 18,
-        boxHeight: 18
-      }
+        boxHeight: 18,
+      },
     },
     datalabels: {
       color: 'white',
-      display: function(context) {
-        let dataset = context.dataset;
-        let count = dataset.data.length;
-        let value = dataset.data[context.dataIndex];
-        return value > count * 1.5;
+      display: function (context) {
+        let dataset = context.dataset
+        let count = dataset.data.length
+        let value = dataset.data[context.dataIndex]
+        return Number(value) > count * 1.5
       },
       font: {
         weight: 'bold',
-        size: 32
+        size: 32,
       },
       padding: 6,
-      formatter: (value, context) => {
-        const total = context.chart._metasets[0].total;
-        const percentage = ((value / total) * 100).toFixed(0);
-        return percentage + '%';
-      }
-    }
+      formatter: (value, context: any) => {
+        const total = context.chart._metasets[0].total
+        const percentage = ((value / total) * 100).toFixed(0)
+        return percentage + '%'
+      },
+    },
   },
 }
 
@@ -237,28 +271,28 @@ const prosesProduksidataChartOptions: ChartOptions<'pie'> = {
       display: true,
       labels: {
         boxWidth: 18,
-        boxHeight: 18
-      }
+        boxHeight: 18,
+      },
     },
     datalabels: {
       color: 'white',
-      display: function(context) {
-        let dataset = context.dataset;
-        let count = dataset.data.length;
-        let value = dataset.data[context.dataIndex];
-        return value > count * 1.5;
+      display: function (context) {
+        let dataset = context.dataset
+        let count = dataset.data.length
+        let value = dataset.data[context.dataIndex]
+        return Number(value) > count * 1.5
       },
       font: {
         weight: 'bold',
-        size: 32
+        size: 32,
       },
       padding: 6,
-      formatter: (value, context) => {
-        const total = context.chart._metasets[0].total;
-        const percentage = ((value / total) * 100).toFixed(0);
-        return percentage + '%';
-      }
-    }
+      formatter: (value, context: any) => {
+        const total = context.chart._metasets[0].total
+        const percentage = ((value / total) * 100).toFixed(0)
+        return percentage + '%'
+      },
+    },
   },
 }
 
@@ -332,8 +366,8 @@ const barChartOptions: ChartOptions<'bar'> = {
       display: true,
       labels: {
         boxWidth: 18,
-        boxHeight: 18
-      }
+        boxHeight: 18,
+      },
     },
   },
   scales: {
@@ -370,8 +404,8 @@ const barChartOptionsPenjualan: ChartOptions<'bar'> = {
       display: true,
       labels: {
         boxWidth: 18,
-        boxHeight: 18
-      }
+        boxHeight: 18,
+      },
     },
   },
   scales: {
@@ -413,7 +447,7 @@ const chartDataEstimasiProduksi = reactive([
           hoverOffset: 4,
         },
       ],
-    }
+    },
   },
   {
     title: 'Kluet Utara',
@@ -427,7 +461,7 @@ const chartDataEstimasiProduksi = reactive([
           hoverOffset: 4,
         },
       ],
-    }
+    },
   },
   {
     title: 'Kluet Selatan',
@@ -441,7 +475,7 @@ const chartDataEstimasiProduksi = reactive([
           hoverOffset: 4,
         },
       ],
-    }
+    },
   },
   {
     title: 'Sawang',
@@ -455,7 +489,7 @@ const chartDataEstimasiProduksi = reactive([
           hoverOffset: 4,
         },
       ],
-    }
+    },
   },
   {
     title: 'Labuhan Haji',
@@ -469,7 +503,7 @@ const chartDataEstimasiProduksi = reactive([
           hoverOffset: 4,
         },
       ],
-    }
+    },
   },
   {
     title: 'Meukek',
@@ -483,7 +517,7 @@ const chartDataEstimasiProduksi = reactive([
           hoverOffset: 4,
         },
       ],
-    }
+    },
   },
   {
     title: 'Sawang',
@@ -497,7 +531,7 @@ const chartDataEstimasiProduksi = reactive([
           hoverOffset: 4,
         },
       ],
-    }
+    },
   },
   {
     title: 'Blang Pidie',
@@ -511,7 +545,7 @@ const chartDataEstimasiProduksi = reactive([
           hoverOffset: 4,
         },
       ],
-    }
+    },
   },
 ])
 
@@ -523,28 +557,28 @@ const estimastiProduksiChartOptions: ChartOptions<'pie'> = {
       display: true,
       labels: {
         boxWidth: 16,
-        boxHeight: 16
-      }
+        boxHeight: 16,
+      },
     },
     datalabels: {
       color: 'white',
-      display: function(context) {
-        let dataset = context.dataset;
-        let count = dataset.data.length;
-        let value = dataset.data[context.dataIndex];
-        return value > count * 1.5;
+      display: function (context) {
+        let dataset = context.dataset
+        let count = dataset.data.length
+        let value = dataset.data[context.dataIndex]
+        return Number(value) > count * 1.5
       },
       font: {
         weight: 'bold',
-        size: 14
+        size: 14,
       },
       padding: 6,
-      formatter: (value, context) => {
-        const total = context.chart._metasets[0].total;
-        const percentage = ((value / total) * 100).toFixed(0);
-        return percentage + '%';
-      }
-    }
+      formatter: (value, context: any) => {
+        const total = context.chart._metasets[0].total
+        const percentage = ((value / total) * 100).toFixed(0)
+        return percentage + '%'
+      },
+    },
   },
 }
 </script>

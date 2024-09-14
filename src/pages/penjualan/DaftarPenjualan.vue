@@ -1,6 +1,6 @@
 <template>
   <div class="p-8 bg-primary-light">
-    <BaseTableServer :columns="columns" url="https://reqres.in/api/users" />
+    <BaseTableServer :columns="columns" :total-data="12" url="https://reqres.in/api/users" />
   </div>
 </template>
 

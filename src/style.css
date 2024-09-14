@@ -29,6 +29,6 @@
   .bg-image-wave {
     background-image: url('@/assets/images/wave.svg');
     background-size: 100% 60%;
-    @apply bg-primary-light bg-no-repeat bg-bottom px-16 h-screen
+    @apply bg-primary-light bg-no-repeat bg-bottom px-16 min-h-screen
   }
 }

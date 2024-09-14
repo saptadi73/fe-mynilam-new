@@ -3,6 +3,7 @@
     :table="table"
     :search="search"
     :custom-header="customHeader"
+    :total-data="totalData"
     @previous-page="handlePreviousPage"
     @next-page="handleNextPage"
     @set-page-index="handleSetPageIndex"
@@ -31,6 +32,7 @@ interface Props {
   pageSize?: number
   search?: boolean
   customHeader?: boolean
+  totalData: number
 }
 
 export interface Pagination {
