@@ -2,26 +2,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 /* cera pro */
 @font-face {
-  font-family: "Cera Pro";
+  font-family: 'Cera Pro';
   font-style: normal;
   font-weight: 400;
-  src: url("./assets/fonts/CeraPro-Regular.ttf");
+  src: url('./assets/fonts/CeraPro-Regular.ttf');
 }
 @font-face {
-  font-family: "Cera Pro";
+  font-family: 'Cera Pro';
   font-style: normal;
   font-weight: 700;
-  src: url("./assets/fonts/CeraPro-Bold.ttf");
+  src: url('./assets/fonts/CeraPro-Bold.ttf');
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   html {
-    font-family: "Poppins", system-ui, sans-serif;
+    font-family: 'Poppins', system-ui, sans-serif;
   }
 }
 
@@ -29,6 +28,11 @@
   .bg-image-wave {
     background-image: url('@/assets/images/wave.svg');
     background-size: 100% 60%;
-    @apply bg-primary-light bg-no-repeat bg-bottom px-16 min-h-screen
+    @apply bg-primary-light bg-no-repeat bg-bottom px-16 min-h-screen;
+  }
+
+  .bg-image-wave2 {
+    background-image: url('@/assets/images/wave-profile.svg');
+    @apply bg-primary-light bg-no-repeat bg-bottom bg-contain px-16;
   }
 }
