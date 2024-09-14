@@ -64,6 +64,11 @@ const routes = [
             name: 'Laporan Produksi',
             component: () => import('../pages/produksi/LaporanProduksi.vue'),
           },
+          {
+            path: 'laporan-lengkap-produksi',
+            name: 'Laporan Lengkap Produksi',
+            component: () => import('../pages/produksi/LaporanLengkapProduksi.vue'),
+          },
         ],
       },
       {

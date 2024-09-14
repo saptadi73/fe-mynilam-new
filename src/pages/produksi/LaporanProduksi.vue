@@ -1,142 +1,32 @@
 <template>
   <div class="bg-image-wave">
-    <BaseHeaderTitle title="Laporan Lengkap Produksi" />
-    <BaseTableClient :data="data" :columns="columns" :page-size="5" class="bg-white" />
+    <BaseHeaderTitle title="Laporan Produksi" />
+    <div class="bg-[#F6FDFF] rounded-3xl shadow-lg px-8 py-4 grid grid-cols-12 gap-x-8">
+      <div class="col-span-6">
+        <h1 class="font-bold text-primary text-2xl text-center mb-4">Tanam</h1>
+        <img src="../../assets/images/laporan-petani.png" alt="Laporan Petani Image" />
+        <p class="font-cera text-primary text-center mt-2">
+          Laporan dari Persiapan Lahan, Penanaman Benih, hingga Panen untuk Memantau Produktivitas Petani
+        </p>
+        <RouterLink :to="{ name: 'Laporan Lengkap Produksi' }">
+          <BaseButton variant="dark" class="w-full mt-4">Tampilkan</BaseButton>
+        </RouterLink>
+      </div>
+      <div class="col-span-6">
+        <h1 class="font-bold text-primary text-2xl text-center mb-4">Minyak Nilam</h1>
+        <img src="../../assets/images/laporan-agen.png" alt="Laporan Agen Image" />
+        <p class="font-cera text-primary text-center mt-2">
+          Laporan dari Pengolahan Bahan Mentah hingga Hasil Akhir untuk Evaluasi dan Monitoring
+        </p>
+        <RouterLink :to="{ name: 'Laporan Lengkap Produksi' }">
+          <BaseButton variant="dark" class="w-full mt-4">Tampilkan</BaseButton>
+        </RouterLink>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import BaseTableClient from '../../components/BaseTableClient.vue'
-import { createColumnHelper } from '@tanstack/vue-table'
+import BaseButton from '@/components/BaseButton.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
-
-interface Produksi {
-  no?: number
-  kodeTanam: string
-  nama: string
-  alamat: string
-  mulaiProduksi: string
-  akhirProduksi: string
-  estimasi: number
-  satuan: string
-  lokasi: string
-  status: string
-}
-
-const defaultData: Produksi[] = [
-  {
-    kodeTanam: 'ABCDFEFF',
-    nama: 'Agus Mulyono',
-    alamat: 'Timang Rasa Gajah',
-    mulaiProduksi: '21/03/2024',
-    akhirProduksi: '21/08/2024',
-    estimasi: 1000,
-    satuan: 'kg',
-    lokasi: '4.089802131, 6.49686450',
-    status: 'On Progress',
-  },
-  {
-    kodeTanam: 'TMN94AAA',
-    nama: 'Agus Mulyono',
-    alamat: 'Timang Rasa Gajah',
-    mulaiProduksi: '21/03/2024',
-    akhirProduksi: '21/08/2024',
-    estimasi: 1000,
-    satuan: 'kg',
-    lokasi: '4.089802131, 6.49686450',
-    status: 'On Progress',
-  },
-  {
-    kodeTanam: 'TMN94AAA',
-    nama: 'Agus Mulyono',
-    alamat: 'Timang Rasa Gajah',
-    mulaiProduksi: '21/03/2024',
-    akhirProduksi: '21/08/2024',
-    estimasi: 1000,
-    satuan: 'kg',
-    lokasi: '4.089802131, 6.49686450',
-    status: 'On Progress',
-  },
-  {
-    kodeTanam: 'TMN94AAA',
-    nama: 'Agus Mulyono',
-    alamat: 'Timang Rasa Gajah',
-    mulaiProduksi: '21/03/2024',
-    akhirProduksi: '21/08/2024',
-    estimasi: 1000,
-    satuan: 'kg',
-    lokasi: '4.089802131, 6.49686450',
-    status: 'On Progress',
-  },
-  {
-    kodeTanam: 'TMN94AAA',
-    nama: 'Agus Mulyono',
-    alamat: 'Timang Rasa Gajah',
-    mulaiProduksi: '21/03/2024',
-    akhirProduksi: '21/08/2024',
-    estimasi: 1000,
-    satuan: 'kg',
-    lokasi: '4.089802131, 6.49686450',
-    status: 'On Progress',
-  },
-  {
-    kodeTanam: 'TMN94AAA',
-    nama: 'Agus Mulyono',
-    alamat: 'Timang Rasa Gajah',
-    mulaiProduksi: '21/03/2024',
-    akhirProduksi: '21/08/2024',
-    estimasi: 1000,
-    satuan: 'kg',
-    lokasi: '4.089802131, 6.49686450',
-    status: 'On Progress',
-  },
-]
-
-const data = ref(defaultData)
-
-const columnHelper = createColumnHelper<Produksi>()
-
-const columns = [
-  columnHelper.accessor('no', {
-    cell: (info) => info.row.index + 1,
-    header: 'No',
-  }),
-  columnHelper.accessor('kodeTanam', {
-    cell: (info) => info.getValue(),
-    header: 'Kode Tanam',
-  }),
-  columnHelper.accessor('nama', {
-    cell: (info) => info.getValue(),
-    header: 'Nama Petani',
-  }),
-  columnHelper.accessor('alamat', {
-    cell: (info) => info.getValue(),
-    header: 'Alamat',
-  }),
-  columnHelper.accessor('mulaiProduksi', {
-    cell: (info) => info.getValue(),
-    header: 'Mulai Produksi',
-  }),
-  columnHelper.accessor('akhirProduksi', {
-    cell: (info) => info.getValue(),
-    header: 'Akhir Produksi',
-  }),
-  columnHelper.accessor('estimasi', {
-    cell: (info) => info.getValue(),
-    header: 'Estimasi Produksi',
-  }),
-  columnHelper.accessor('satuan', {
-    cell: (info) => info.getValue(),
-    header: 'Satuan',
-  }),
-  columnHelper.accessor('lokasi', {
-    cell: (info) => info.getValue(),
-    header: 'Lokasi',
-  }),
-  columnHelper.accessor('status', {
-    cell: (info) => info.getValue(),
-    header: 'Status',
-  }),
-]
 </script>
