@@ -68,13 +68,48 @@
         <BaseChart v-for="(chart,index) in chartDataEstimasiProduksi" :key="index" class="col-span-3 bg-primary-light rounded-2xl border border-primary py-4 px-8" :chartId="`Chart ${index}`" chartType="pie" :chartTitle="chart.title" :chartData="chart.data" :chartOptions="estimastiProduksiChartOptions" :chartDataLabel="true" />
       </div>
    </div>
+
+   <div class="px-12">
+    <h1 class="font-bold text-2xl text-center py-8">Kalender Produksi Terpadu</h1>
+    <div class="flex justify-center">
+      <Calendar :attributes="attributes" :columns="columns" :rows="2" expanded/>
+    </div>
+   </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import BaseChart from '@/components/BaseChart.vue'
 import { ChartData, ChartOptions } from 'chart.js/auto'
-import { reactive } from 'vue';
+import { Calendar } from 'v-calendar';
+import 'v-calendar/style.css';
+import { computed, reactive, ref } from 'vue';
+
+import { useScreens } from 'vue-screen-utils';
+
+const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1024px' });
+const columns = mapCurrent({ lg: 4 }, 1);
+
+const todos = ref([
+  {
+    description: 'Pemantauan Estimasi Produksi.',
+    dates: { repeat: { weekdays: 5 } }, // Every Friday
+    color: 'red',
+  },
+]);
+
+const attributes = computed(() => [
+  // Attributes for todos
+  ...todos.value.map(todo => ({
+    dates: todo.dates,
+    dot: {
+      color: todo.color,
+    },
+    popover: {
+      label: todo.description,
+    },
+  })),
+]);
 
 const lineChartData: ChartData = {
   labels: [

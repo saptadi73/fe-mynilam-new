@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "@tanstack/vue-table": "^8.20.5",
     "axios": "^1.7.7",
     "chart.js": "^4.4.4",
     "chartjs-plugin-datalabels": "^2.2.0",
     "flowbite": "^2.5.1",
+    "v-calendar": "^3.1.2",
     "vee-validate": "^4.13.2",
     "vue": "^3.4.37",
     "vue-router": "^4.4.3",
