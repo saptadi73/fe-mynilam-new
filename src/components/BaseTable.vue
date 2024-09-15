@@ -41,8 +41,14 @@
               class="px-6 py-4 text-center font-normal cursor-pointer whitespace-nowrap"
               @click="handleClickSort(header, $event)"
             >
-              <div v-if="!header.isPlaceholder">
-                <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" />
+              <div v-if="!header.isPlaceholder" class="flex items-center justify-center space-x-1.5">
+                <span>
+                  <FlexRender :render="header.column.columnDef.header" :props="header.getContext()" />
+                </span>
+                <div class="text-primary">
+                  <BaseIcon name="chevron-right" class="w-1.5 h-1.5 -rotate-90" />
+                  <BaseIcon name="chevron-right" class="w-1.5 h-1.5 rotate-90" />
+                </div>
               </div>
             </th>
           </tr>
@@ -70,7 +76,7 @@
           class="flex items-center space-x-2"
           :class="{ 'opacity-50': !table.getCanPreviousPage() }"
         >
-          <BaseIcon name="chevron-right" class="rotate-180" /> <span>Halaman Sebelumnya</span>
+          <BaseIcon name="chevron-right" class="w-3 h-3 rotate-180" /> <span>Halaman Sebelumnya</span>
         </button>
         <div class="flex items-center space-x-2 px-3">
           <template v-for="page in pagination" :key="page">
@@ -93,7 +99,7 @@
           class="flex items-center space-x-2"
           :class="{ 'opacity-50': !table.getCanNextPage() }"
         >
-          <span>Halaman Selanjutnya</span> <BaseIcon name="chevron-right" />
+          <span>Halaman Selanjutnya</span> <BaseIcon name="chevron-right" class="w-3 h-3" />
         </button>
       </div>
     </section>
