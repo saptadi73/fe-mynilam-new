@@ -65,6 +65,11 @@ const routes = [
             component: () => import('../pages/produksi/LaporanProduksi.vue'),
           },
           {
+            path: 'daftar-produksi-petani',
+            name: 'Daftar Produksi Petani',
+            component: () => import('../pages/produksi/DaftarProduksiPetani.vue'),
+          },
+          {
             path: 'laporan-lengkap-produksi',
             name: 'Laporan Lengkap Produksi',
             component: () => import('../pages/produksi/LaporanLengkapProduksi.vue'),
