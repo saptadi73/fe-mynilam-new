@@ -1,32 +1,22 @@
 <template>
   <div class="bg-image-wave">
-    <BaseHeaderTitle title="Laporan Pergerakan Barang" />
-    <div class="bg-[#F6FDFF] rounded-3xl shadow-lg px-8 py-4 grid grid-cols-12 gap-x-8">
-      <div class="col-span-6">
-        <h1 class="font-bold text-primary text-2xl text-center mb-4">Petani</h1>
-        <img src="../../assets/images/laporan-petani.png" alt="Laporan Petani Image" />
-        <p class="font-cera text-primary text-center mt-2">
-          Laporan ini mencakup pergerakan minyak nilam dari petani hingga ke UGreen
-        </p>
-        <RouterLink :to="{ name: 'Laporan Petani' }">
-          <BaseButton variant="dark" class="w-full mt-4">Tampilkan</BaseButton>
-        </RouterLink>
-      </div>
-      <div class="col-span-6">
-        <h1 class="font-bold text-primary text-2xl text-center mb-4">Agen/Koperasi</h1>
-        <img src="../../assets/images/laporan-agen.png" alt="Laporan Agen Image" />
-        <p class="font-cera text-primary text-center mt-2">
-          Laporan ini mencakup pergerakan minyak nilam dari agen/koperasi hingga ke UGreen
-        </p>
-        <RouterLink :to="{ name: 'Laporan Petani' }">
-          <BaseButton variant="dark" class="w-full mt-4">Tampilkan</BaseButton>
-        </RouterLink>
-      </div>
-    </div>
+    <BaseProductCard card-title="Laporan Pergerakan Barang" :card-content="cardContent" />
   </div>
 </template>
 
 <script setup lang="ts">
-import BaseButton from '@/components/BaseButton.vue'
-import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
+import BaseProductCard from '@/components/BaseProductCard.vue'
+
+const cardContent = [
+  {
+    title: 'Petani',
+    content: 'Laporan dari Persiapan Lahan, Penanaman Benih, hingga Panen untuk Memantau Produktivitas Petani',
+    pathName: 'Laporan Petani',
+  },
+  {
+    title: 'Agen/Koperasi',
+    content: 'Laporan dari Pengolahan Bahan Mentah hingga Hasil Akhir untuk Evaluasi dan Monitoring',
+    pathName: 'Laporan Petani',
+  },
+]
 </script>
