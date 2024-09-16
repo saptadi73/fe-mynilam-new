@@ -8,7 +8,7 @@
     <div class="relative pl-4 py-4 w-full max-w-lg max-h-screen overflow-y-auto">
       <!-- Modal content -->
       <div class="profile relative bg-[#F6FDFF] rounded-lg shadow">
-        <div class="flex justify-center items-center pt-12 cursor-pointer">
+        <div @click="triggerBackgroundProfileInput" class="flex justify-center items-center pt-12 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -30,8 +30,18 @@
           </svg>
         </div>
 
+        <!-- Hidden background profile image input -->
+        <input
+          type="file"
+          ref="backgroundProfile"
+          accept=".jpg, .jpeg, .png"
+          @change="handleFileChange"
+          class="hidden"
+        />
+
         <div class="flex justify-center">
           <div
+            @click="triggerUserPhotoInput"
             class="bg-[#d6e8b0] border-2 border-[#1bae60] hover:bg-[#c3d9b9] p-4 rounded-full relative flex justify-center cursor-pointer"
           >
             <svg
@@ -71,6 +81,9 @@
           </div>
         </div>
 
+        <!-- Hidden user profile image input -->
+        <input type="file" ref="userPhoto" accept=".jpg, .jpeg, .png" @change="handleFileChange" class="hidden" />
+
         <!-- Modal header -->
         <div class="absolute top-0 right-0 flex items-center justify-between p-1 border-b rounded-t">
           <button
@@ -107,6 +120,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import BaseButton from './BaseButton.vue'
 
 interface PropsModal {
@@ -122,6 +136,26 @@ const closeModal = () => {
 
 const handleSubmit = () => {
   closeModal()
+}
+
+const backgroundProfile = ref<HTMLInputElement | null>(null)
+const userPhoto = ref<HTMLInputElement | null>(null)
+
+const triggerBackgroundProfileInput = () => {
+  backgroundProfile.value?.click()
+}
+
+const triggerUserPhotoInput = () => {
+  userPhoto.value?.click()
+}
+
+const handleFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (file) {
+    console.log('Selected file:', file)
+    // Handle the file upload or processing here
+  }
 }
 </script>
 
