@@ -11,7 +11,7 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
-        <BaseCardAdd card-title="Petani" class="col-span-3" />
+        <BaseCardAdd @click="showModal" card-title="Petani" class="col-span-3" />
         <BaseCard
           v-for="(card, cardIndex) in cardPetani"
           :key="cardIndex"
@@ -62,6 +62,22 @@
         </BaseCard>
       </div>
     </div>
+
+    <BaseModal :showModal="modal" @setModal="handleModal">
+      <template #default>
+        <BaseInputFloat label="Nama" name="name" type="text" />
+        <BaseInputFloat label="Alamat" name="alamat" type="text" />
+        <BaseInputFloat label="Desa/kelurahan" name="desa" type="text" />
+        <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
+        <BaseInputFloat label="Kota/Kabupaten" name="kota" type="text" />
+        <BaseInputFloat label="Provinsi" name="provinsi" type="text" />
+        <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
+        <!-- <BaseInputSelect options="[]" name="status" placeholder="Status" /> -->
+        <BaseInputFloat label="Koperasi/Agen" name="koperasi" type="text" />
+        <!-- <BaseInputSelect options="[]" name="status" placeholder="Jenis Mitra" /> -->
+        <BaseInputFloat label="Email" name="koperasi" type="email" />
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -73,6 +89,18 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
+import BaseModal from '@/components/BaseModal.vue'
+import BaseInputFloat from '@/components/BaseInputFloat.vue'
+
+let modal = ref<Boolean>(false)
+
+const showModal = () => {
+  modal.value = true
+}
+
+const handleModal = (value: boolean) => {
+  modal.value = value
+}
 
 const cardPetani = reactive([
   {
