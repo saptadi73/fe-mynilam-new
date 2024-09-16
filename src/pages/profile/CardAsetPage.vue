@@ -15,6 +15,7 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
+        <BaseCardAdd card-title="Aset" class="col-span-3" />
         <BaseCard
           v-for="(card, cardIndex) in cardAset"
           :key="cardIndex"
@@ -68,6 +69,7 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
+import BaseCardAdd from '@/components/BaseCardAdd.vue'
 
 const cardAset = reactive([
   {
@@ -96,6 +98,36 @@ const cardAset = reactive([
     luas: 5,
     lokasiGps: '-5.572342, 95.321456',
     statusKepemilikan: 'Milik Sendiri',
+    kota: 'Aceh Selatan',
+    anggotaKeluarga: '4',
+    statusTanam: 'Aktif',
+  },
+  {
+    code: 'TNM94A2X',
+    petaniName: 'Rika Kusuma',
+    luas: 5,
+    lokasiGps: '-5.572342, 95.321456',
+    statusKepemilikan: 'Sewa',
+    kota: 'Aceh Selatan',
+    anggotaKeluarga: '4',
+    statusTanam: 'Aktif',
+  },
+  {
+    code: 'TNM94A2X',
+    petaniName: 'Rika Kusuma',
+    luas: 5,
+    lokasiGps: '-5.572342, 95.321456',
+    statusKepemilikan: 'Sewa',
+    kota: 'Aceh Selatan',
+    anggotaKeluarga: '4',
+    statusTanam: 'Aktif',
+  },
+  {
+    code: 'TNM94A2X',
+    petaniName: 'Rika Kusuma',
+    luas: 5,
+    lokasiGps: '-5.572342, 95.321456',
+    statusKepemilikan: 'Sewa',
     kota: 'Aceh Selatan',
     anggotaKeluarga: '4',
     statusTanam: 'Aktif',

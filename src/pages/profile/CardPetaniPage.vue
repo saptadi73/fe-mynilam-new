@@ -11,6 +11,7 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
+        <BaseCardAdd card-title="Petani" class="col-span-3" />
         <BaseCard
           v-for="(card, cardIndex) in cardPetani"
           :key="cardIndex"
@@ -71,6 +72,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
+import BaseCardAdd from '@/components/BaseCardAdd.vue'
 
 const cardPetani = reactive([
   {
@@ -87,6 +89,39 @@ const cardPetani = reactive([
   {
     code: 'TNM94A2X',
     petaniName: 'Budi Santoso',
+    alamat: 'Batu Aji No.11',
+    desa: 'Panton Bili',
+    kecamatan: 'Labuhan Haji Timur',
+    kota: 'Aceh Selatan',
+    provinsi: 'Aceh',
+    anggotaKeluarga: '4',
+    suratKontrak: '-',
+  },
+  {
+    code: 'TNM94A2X',
+    petaniName: 'Rika Kusuma',
+    alamat: 'Batu Aji No.11',
+    desa: 'Panton Bili',
+    kecamatan: 'Labuhan Haji Timur',
+    kota: 'Aceh Selatan',
+    provinsi: 'Aceh',
+    anggotaKeluarga: '4',
+    suratKontrak: '-',
+  },
+  {
+    code: 'TNM94A2X',
+    petaniName: 'Rika Kusuma',
+    alamat: 'Batu Aji No.11',
+    desa: 'Panton Bili',
+    kecamatan: 'Labuhan Haji Timur',
+    kota: 'Aceh Selatan',
+    provinsi: 'Aceh',
+    anggotaKeluarga: '4',
+    suratKontrak: '-',
+  },
+  {
+    code: 'TNM94A2X',
+    petaniName: 'Rika Kusuma',
     alamat: 'Batu Aji No.11',
     desa: 'Panton Bili',
     kecamatan: 'Labuhan Haji Timur',

@@ -12,6 +12,7 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
+        <BaseCardAdd card-title="Agen" class="col-span-3" />
         <BaseCard
           v-for="(card, cardIndex) in cardAgen"
           :key="cardIndex"
@@ -72,6 +73,7 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
+import BaseCardAdd from '@/components/BaseCardAdd.vue'
 
 const cardAgen = reactive([
   {
@@ -95,6 +97,39 @@ const cardAgen = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '4',
     jenisMitra: 'Koperasi',
+  },
+  {
+    code: 'TNM94A2X',
+    petaniName: 'Rika Kusuma',
+    alamat: 'Batu Aji No.11',
+    desa: 'Panton Bili',
+    kecamatan: 'Labuhan Haji Timur',
+    kota: 'Aceh Selatan',
+    provinsi: 'Aceh',
+    anggotaKeluarga: '4',
+    jenisMitra: 'Agen',
+  },
+  {
+    code: 'TNM94A2X',
+    petaniName: 'Rika Kusuma',
+    alamat: 'Batu Aji No.11',
+    desa: 'Panton Bili',
+    kecamatan: 'Labuhan Haji Timur',
+    kota: 'Aceh Selatan',
+    provinsi: 'Aceh',
+    anggotaKeluarga: '4',
+    jenisMitra: 'Agen',
+  },
+  {
+    code: 'TNM94A2X',
+    petaniName: 'Rika Kusuma',
+    alamat: 'Batu Aji No.11',
+    desa: 'Panton Bili',
+    kecamatan: 'Labuhan Haji Timur',
+    kota: 'Aceh Selatan',
+    provinsi: 'Aceh',
+    anggotaKeluarga: '4',
+    jenisMitra: 'Agen',
   },
   {
     code: 'TNM94A2X',
