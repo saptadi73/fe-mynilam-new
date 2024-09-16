@@ -93,10 +93,10 @@
         </div>
         <!-- Modal body -->
         <div class="p-4 md:p-12">
-          <form class="space-y-4">
+          <form @submit.prevent="handleSubmit" class="space-y-4">
             <slot></slot>
             <div class="flex justify-center gap-x-4 mx-8">
-              <BaseButton class="w-full font-bold">Simpan</BaseButton>
+              <BaseButton type="submit" class="w-full font-bold">Simpan</BaseButton>
               <BaseButton @click="closeModal" variant="success" class="w-full font-bold">Kembali</BaseButton>
             </div>
           </form>
@@ -118,6 +118,10 @@ const emit = defineEmits(['setModal'])
 
 const closeModal = () => {
   emit('setModal', false)
+}
+
+const handleSubmit = () => {
+  closeModal()
 }
 </script>
 

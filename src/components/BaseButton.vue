@@ -6,6 +6,7 @@
       '--variant-success': variant == 'success',
       '--variant-dark': variant == 'dark',
     }"
+    :type="type"
   >
     <div
       class="flex flex-row justify-center items-center"
@@ -20,13 +21,14 @@
 </template>
 
 <script setup lang="ts">
-import type { Component } from 'vue'
+import type { ButtonHTMLAttributes, Component } from 'vue'
 
 export interface Props {
   variant?: 'primary' | 'success' | 'dark'
   icon?: Component
   iconPosition?: 'left' | 'right'
   iconGap?: 'small' | 'big'
+  type?: ButtonHTMLAttributes['type']
 }
 
 withDefaults(defineProps<Props>(), { variant: 'primary', iconPosition: 'right', iconGap: 'small' })
