@@ -40,7 +40,28 @@
         />
 
         <div class="flex justify-center">
+          <div class="relative relative-container flex justify-center items-center" v-if="userPhoto">
+            <img :src="userPhoto" class="profile-image w-32 h-32 object-cover rounded-full" alt="Profile Image" />
+
+            <svg
+              @click="handleDeleteUserPhoto"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="icon-delete absolute w-8 h-8 cursor-pointer"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+              />
+            </svg>
+          </div>
+
           <div
+            v-else
             @click="triggerUserPhotoInput"
             class="bg-[#d6e8b0] border-2 border-[#1bae60] hover:bg-[#c3d9b9] p-4 rounded-full relative flex justify-center cursor-pointer"
           >
@@ -82,7 +103,7 @@
         </div>
 
         <!-- Hidden user profile image input -->
-        <input type="file" ref="userPhoto" accept=".jpg, .jpeg, .png" @change="handleFileChange" class="hidden" />
+        <input type="file" ref="userPhotoInput" accept=".jpg, .jpeg, .png" @change="handleFileChange" class="hidden" />
 
         <!-- Modal header -->
         <div class="absolute top-0 right-0 flex items-center justify-between p-1 border-b rounded-t">
@@ -139,23 +160,29 @@ const handleSubmit = () => {
 }
 
 const backgroundProfile = ref<HTMLInputElement | null>(null)
-const userPhoto = ref<HTMLInputElement | null>(null)
+const userPhoto = ref<string | null>(null)
+const userPhotoInput = ref<HTMLInputElement | null>(null)
 
 const triggerBackgroundProfileInput = () => {
   backgroundProfile.value?.click()
 }
 
 const triggerUserPhotoInput = () => {
-  userPhoto.value?.click()
+  userPhotoInput.value?.click()
 }
 
 const handleFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
   if (file) {
-    console.log('Selected file:', file)
     // Handle the file upload or processing here
+    const fileURL = URL.createObjectURL(file)
+    userPhoto.value = fileURL
   }
+}
+
+const handleDeleteUserPhoto = () => {
+  userPhoto.value = null
 }
 </script>
 
@@ -165,5 +192,17 @@ const handleFileChange = (event: Event) => {
   background-position: top;
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.profile-image {
+  transition: opacity 0.3s ease;
+}
+
+.relative-container:hover .profile-image {
+  opacity: 0.6;
+}
+
+.relative-container:hover .icon-delete {
+  color: white;
 }
 </style>
