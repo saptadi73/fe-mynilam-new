@@ -50,7 +50,7 @@
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="icon-delete absolute w-8 h-8 cursor-pointer"
+              class="icon-delete hidden absolute w-8 h-8 cursor-pointer"
             >
               <path
                 stroke-linecap="round"
@@ -204,5 +204,6 @@ const handleDeleteUserPhoto = () => {
 
 .relative-container:hover .icon-delete {
   color: white;
+  display: block;
 }
 </style>
