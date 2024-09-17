@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainLayout from '../pages/layouts/MainLayout.vue'
+import inventaris from './inventaris'
+import penjualan from './penjualan'
+import produksi from './produksi'
 
 const routes = [
   {
@@ -56,71 +59,9 @@ const routes = [
         name: 'Profile Aset',
         component: () => import('../pages/profile/CardAsetPage.vue'),
       },
-      {
-        path: 'produksi',
-        children: [
-          {
-            path: '',
-            name: 'Produksi',
-            component: () => import('../pages/produksi/Produksi.vue'),
-          },
-          {
-            path: 'laporan-produksi',
-            name: 'Laporan Produksi',
-            component: () => import('../pages/produksi/LaporanProduksi.vue'),
-          },
-          {
-            path: 'daftar-produksi-petani',
-            name: 'Daftar Produksi Petani',
-            component: () => import('../pages/produksi/DaftarProduksiPetani.vue'),
-          },
-          {
-            path: 'laporan-lengkap-produksi',
-            name: 'Laporan Lengkap Produksi',
-            component: () => import('../pages/produksi/LaporanLengkapProduksi.vue'),
-          },
-          {
-            path: 'laporan-lengkap-tanam',
-            name: 'Laporan Lengkap Tanam',
-            component: () => import('../pages/produksi/LaporanLengkapTanam.vue'),
-          },
-        ],
-      },
-      {
-        path: 'inventaris',
-        children: [
-          {
-            path: 'daftar-gudang',
-            name: 'Daftar Gudang',
-            component: () => import('../pages/inventaris/DaftarGudang.vue'),
-          },
-          {
-            path: 'laporan-pergerakan-barang',
-            name: 'Laporan Pergerakan Barang',
-            component: () => import('../pages/inventaris/LaporanPergerakanBarang.vue'),
-          },
-          {
-            path: 'laporan-petani',
-            name: 'Laporan Petani',
-            component: () => import('../pages/inventaris/LaporanPetani.vue'),
-          },
-        ],
-      },
-      {
-        path: 'penjualan',
-        children: [
-          {
-            path: 'daftar-mitra',
-            name: 'Daftar Mitra',
-            component: () => import('../pages/penjualan/DaftarMitra.vue'),
-          },
-          {
-            path: 'daftar-penjualan',
-            name: 'Daftar Penjualan',
-            component: () => import('../pages/penjualan/DaftarPenjualan.vue'),
-          },
-        ],
-      },
+      produksi,
+      inventaris,
+      penjualan,
     ],
   },
 ]
