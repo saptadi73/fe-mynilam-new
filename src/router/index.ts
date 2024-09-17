@@ -60,6 +60,11 @@ const routes = [
         path: 'produksi',
         children: [
           {
+            path: '',
+            name: 'Produksi',
+            component: () => import('../pages/produksi/Produksi.vue'),
+          },
+          {
             path: 'laporan-produksi',
             name: 'Laporan Produksi',
             component: () => import('../pages/produksi/LaporanProduksi.vue'),

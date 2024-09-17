@@ -42,7 +42,7 @@ const menuList = ref([
   { name: 'Profile', path: '/profile' },
   { name: 'Dashboard', path: '/dashboard' },
   { name: 'Inventaris', path: '/inventaris/laporan-pergerakan-barang' },
-  { name: 'Produksi', path: '/produksi/laporan-produksi' },
+  { name: 'Produksi', path: '/produksi' },
   { name: 'Penjualan', path: '/penjualan/daftar-mitra' },
   { name: 'Laporan', path: '/laporan' },
 ])
