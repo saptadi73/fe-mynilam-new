@@ -1,6 +1,9 @@
 <template>
   <!-- https://flowbite.com/docs/forms/floating-label/#floating-label-example -->
   <div class="relative z-0 font-poppins">
+    <div v-if="icon" class="absolute top-4 right-2 flex items-center pointer-events-none text-primary-border">
+      <BaseIcon :name="icon" class="w-5" />
+    </div>
     <input
       :type="type"
       :id="name"
@@ -15,16 +18,18 @@
       {{ label }}
     </label>
   </div>
-  <div class="text-sm my-1 text-gray-900">{{ errorMessage }}</div>
+  <div class="text-sm my-1 text-gray-900" v-if="errorMessage">{{ errorMessage }}</div>
 </template>
 
 <script setup lang="ts">
 import { useField } from 'vee-validate'
+import BaseIcon from './BaseIcon.vue'
 
 interface Props {
   label: string
   name: string
   type?: string
+  icon?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
