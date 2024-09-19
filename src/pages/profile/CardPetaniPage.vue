@@ -15,7 +15,7 @@
         <BaseCard
           v-for="(card, cardIndex) in cardPetani"
           :key="cardIndex"
-          card-path="profile-petani"
+          card-path="profile/profile-petani"
           :card-code="card.code"
           class="col-span-3"
         >

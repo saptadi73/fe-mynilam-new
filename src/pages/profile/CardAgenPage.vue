@@ -16,7 +16,7 @@
         <BaseCard
           v-for="(card, cardIndex) in cardAgen"
           :key="cardIndex"
-          card-path="profile-agen"
+          card-path="profile/profile-agen"
           :card-code="card.code"
           class="col-span-3"
         >
