@@ -49,4 +49,8 @@
     background-image: url('@/assets/images/wave-profile.svg');
     @apply bg-primary-light bg-no-repeat bg-bottom bg-contain px-16;
   }
+
+  .datepicker-cell.selected {
+    @apply bg-primary;
+  }
 }
