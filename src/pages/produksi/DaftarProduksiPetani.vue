@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-image-wave">
+  <div class="bg-image-wave px-16">
     <BaseProductCard card-title="Daftar Produksi Petani" :card-content="cardContent" />
   </div>
 </template>
