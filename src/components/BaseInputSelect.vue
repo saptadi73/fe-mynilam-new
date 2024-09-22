@@ -4,8 +4,8 @@
       <!-- style 1: default dropdown -->
       <button
         v-if="!floatingLabel"
-        :id="name"
-        :data-dropdown-toggle="name + 'Dropdown'"
+        :id="uniqueNameId"
+        :data-dropdown-toggle="uniqueNameId + 'Dropdown'"
         class="text-gray-900 flex min-w-48 justify-between font-semibold border border-primary-border bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-light rounded-lg text-sm px-5 py-1.5 space-x-2 items-center"
         type="button"
       >
@@ -19,9 +19,9 @@
         </div>
         <input
           type="text"
-          :id="name"
+          :id="uniqueNameId"
           v-model="searchValue"
-          :data-dropdown-toggle="name + 'Dropdown'"
+          :data-dropdown-toggle="uniqueNameId + 'Dropdown'"
           @focus="searchValue = ''"
           class="block pt-3 pb-1.5 pl-0 pr-6 w-full font-semibold text-primary-2 bg-transparent border-0 border-b-2 border-primary-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary-2 peer"
           placeholder=" "
@@ -35,7 +35,7 @@
       </div>
       <!-- dropdown menu -->
       <div
-        :id="name + 'Dropdown'"
+        :id="uniqueNameId + 'Dropdown'"
         class="z-10 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border w-full"
       >
         <div v-if="!floatingLabel" class="p-3">
@@ -50,7 +50,7 @@
         </ul>
       </div>
     </div>
-    <div v-if="errorMessage">{{ errorMessage }}</div>
+    <div v-if="errorMessage" class="text-xs my-1">{{ errorMessage }}</div>
   </section>
 </template>
 
@@ -85,18 +85,22 @@ const getLabelByValue = (val: string | number) => {
   return obj?.label
 }
 
+const uniqueNameId = computed(() => {
+  return props.name + Math.floor(Math.random() * 9999)
+})
+
 const dropdownLabel = ref(getLabelByValue(value.value))
-const searchValue = ref('')
+const searchValue = ref()
 
 const filteredOptions = computed(() => {
   return props.options.filter((option) => option.label.toLowerCase().includes(searchValue.value))
 })
 
 const handleSelectDropdown = (option: Option) => {
-  document.getElementById(props.name)?.click() // to close dropdown menu
   dropdownLabel.value = option.label
   value.value = option.value
   if (props.floatingLabel) searchValue.value = option.label
+  document.getElementById(uniqueNameId.value)?.click() // to close dropdown menu
 }
 
 onMounted(() => {

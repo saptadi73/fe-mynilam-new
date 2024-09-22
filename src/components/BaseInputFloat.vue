@@ -6,7 +6,7 @@
     </div>
     <input
       :type="type"
-      :id="name"
+      :id="id || name"
       v-model="value"
       class="block pt-3 pb-1.5 px-0 w-full font-semibold text-primary-2 bg-transparent border-0 border-b-2 border-primary-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary-2 peer"
       placeholder=" "
@@ -17,8 +17,8 @@
     >
       {{ label }}
     </label>
+    <div class="text-xs my-1 text-gray-900" v-if="errorMessage">{{ errorMessage }}</div>
   </div>
-  <div class="text-sm my-1 text-gray-900" v-if="errorMessage">{{ errorMessage }}</div>
 </template>
 
 <script setup lang="ts">
@@ -30,6 +30,7 @@ interface Props {
   name: string
   type?: string
   icon?: string
+  id?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
