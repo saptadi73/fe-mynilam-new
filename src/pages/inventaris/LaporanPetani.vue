@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-image-wave">
+  <div class="bg-image-wave px-16">
     <BaseHeaderTitle title="Laporan Petani" />
     <BaseTableClient :data="data" :columns="columns" :page-size="5" :custom-header="true" class="bg-white">
       <template #header>

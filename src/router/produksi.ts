@@ -26,5 +26,10 @@ export default {
       name: 'Laporan Lengkap Tanam',
       component: () => import('../pages/produksi/LaporanLengkapTanam.vue'),
     },
+    {
+      path: 'buat-daftar-produksi-petani',
+      name: 'Buat Daftar Produksi Petani',
+      component: () => import('../pages/produksi/BuatDaftarProduksiPetani.vue'),
+    },
   ],
 }
