@@ -72,9 +72,14 @@
         <BaseInputFloat label="Kota/Kabupaten" name="kota" type="text" />
         <BaseInputFloat label="Provinsi" name="provinsi" type="text" />
         <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
-        <!-- <BaseInputSelect options="[]" name="status" placeholder="Status" /> -->
+        <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
         <BaseInputFloat label="Koperasi/Agen" name="koperasi" type="text" />
-        <!-- <BaseInputSelect options="[]" name="status" placeholder="Jenis Mitra" /> -->
+        <BaseInputSelect
+          :options="optionsJenisMitra"
+          name="jenisMitra"
+          placeholder="Jenis Mitra"
+          :floating-label="true"
+        />
         <BaseInputFloat label="Email" name="koperasi" type="email" />
       </template>
     </BaseModal>
@@ -195,5 +200,17 @@ const options = ref([
     label: 'Aceh Tengah',
     value: 3,
   },
+])
+
+const optionsStatus = ref([
+  { label: 'Agus Nur Drajat', value: 1 },
+  { label: 'Jayadi Idzes', value: 2 },
+  { label: 'Martin Paes', value: 3 },
+])
+
+const optionsJenisMitra = ref([
+  { label: 'Agus Nur Drajat', value: 1 },
+  { label: 'Jayadi Idzes', value: 2 },
+  { label: 'Martin Paes', value: 3 },
 ])
 </script>
