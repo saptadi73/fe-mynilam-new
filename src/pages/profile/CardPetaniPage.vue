@@ -73,7 +73,13 @@
         <BaseInputFloat label="Provinsi" name="provinsi" type="text" />
         <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
         <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
-        <BaseInputFloat label="Koperasi/Agen" name="koperasi" type="text" />
+        <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
+        <BaseInputFile
+          name="suratKontrak"
+          label="Surat Kontrak"
+          file-type=".pdf"
+          @file-selected="handleFileSuratKontrak"
+        ></BaseInputFile>
         <BaseInputSelect
           :options="optionsJenisMitra"
           name="jenisMitra"
@@ -96,6 +102,7 @@ import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
+import BaseInputFile from '@/components/BaseInputFile.vue'
 
 let modal = ref<Boolean>(false)
 
@@ -213,4 +220,8 @@ const optionsJenisMitra = ref([
   { label: 'Jayadi Idzes', value: 2 },
   { label: 'Martin Paes', value: 3 },
 ])
+
+function handleFileSuratKontrak(file: File) {
+  console.log('Selected file:', file)
+}
 </script>
