@@ -13,8 +13,18 @@ export default {
     },
     {
       path: 'daftar-produksi-petani',
-      name: 'Daftar Produksi Petani',
-      component: () => import('../pages/produksi/DaftarProduksiPetani.vue'),
+      children: [
+        {
+          path: '',
+          name: 'Daftar Produksi Petani',
+          component: () => import('../pages/produksi/DaftarProduksiPetani.vue'),
+        },
+        {
+          path: 'daftar-tanam-nilam',
+          name: 'Daftar Tanam Nilam',
+          component: () => import('../pages/produksi/DaftarTanamNilam.vue'),
+        },
+      ],
     },
     {
       path: 'laporan-lengkap-produksi',

@@ -9,9 +9,9 @@ import BaseProductCard from '@/components/BaseProductCard.vue'
 
 const cardContent = [
   {
-    title: 'Petani',
+    title: 'Tanam',
     content: 'Melihat Proses Tanam Nilam Secara Menyeluruh, Mulai dari Penanaman Benih hingga Waktu Panen',
-    pathName: 'Laporan Lengkap Produksi',
+    pathName: 'Daftar Tanam Nilam',
   },
   {
     title: 'Minyak Nilam',
