@@ -21,15 +21,17 @@
       class="my-20 md:my-10 md:p-8 text-primary flex flex-col-reverse md:flex-row items-start md:space-x-10 w-full"
     >
       <div class="md:w-1/2 py-3 space-y-5">
-        <h1 class="text-3xl font-bold">Produk</h1>
+        <h1 class="text-3xl font-bold">Daftar Produksi Petani Nilam</h1>
         <p class="text-lg">
-          Temukan berbagai pilihan produk minyak nilam unggulan yang dihasilkan dari bahan baku berkualitas dan diproses
-          dengan standar tinggi oleh petani.
+          Memuat Informasi Lengkap Tentang Daftar Produksi Nilam, Baik yang Sedang Berlangsung Maupun yang Telah
+          Selesai, untuk Memantau Kemajuan dan Hasil Kerja Petani secara Menyeluruh.
         </p>
-        <BaseButton icon-position="left">
-          Lihat Produk
-          <BaseIcon name="chevron-right" class="w-4 h-4" />
-        </BaseButton>
+        <RouterLink :to="{ name: 'Daftar Produksi Petani' }">
+          <BaseButton icon-position="left">
+            Lihat Produksi
+            <BaseIcon name="chevron-right" class="w-4 h-4" />
+          </BaseButton>
+        </RouterLink>
       </div>
       <div class="md:w-1/2">
         <img src="https://placehold.co/800x600" class="rounded-3xl w-full" />
@@ -41,15 +43,18 @@
         <img src="https://placehold.co/600x600" class="rounded-3xl w-full" />
       </div>
       <div class="md:w-7/12 py-3 space-y-5">
-        <h1 class="text-3xl font-bold">Mitra</h1>
+        <h1 class="text-3xl font-bold">Buat Daftar Baru Produksi Petani</h1>
         <p class="text-lg">
-          Jelajahi daftar gudang yang menyimpan hasil penjualan petani nilam, memastikan kualitas produk tetap terjaga
-          sebelum didistribusikan ke agen atau koperasi.
+          Petani Wajib Membuat Daftar Baru Sebelum Memulai Proses Produksi, untuk Memastikan Setiap Tahap Produksi
+          Terdokumentasi dengan Teliti, Terpantau dengan Baik, dan Dapat Dilacak Secara Efektif hingga Penyelesaian
+          Produksi
         </p>
-        <BaseButton icon-position="left">
-          Lihat Pelanggan
-          <BaseIcon name="chevron-right" class="w-4 h-4" />
-        </BaseButton>
+        <RouterLink :to="{ name: 'Buat Daftar Produksi Petani' }">
+          <BaseButton icon-position="left">
+            Buat Daftar Baru
+            <BaseIcon name="chevron-right" class="w-4 h-4" />
+          </BaseButton>
+        </RouterLink>
       </div>
     </section>
 
@@ -57,15 +62,17 @@
       class="my-20 md:my-10 md:p-8 text-primary flex flex-col-reverse md:flex-row items-start md:space-x-10 w-full"
     >
       <div class="md:w-1/2 py-3 space-y-5">
-        <h1 class="text-3xl font-bold">Daftar Penjualan</h1>
+        <h1 class="text-3xl font-bold">Laporan Produksi</h1>
         <p class="text-lg">
-          Memungkinkan pengguna untuk membuat dan mengelola daftar penjualan terbaru dari penjualan nilam, memantau
-          transaksi, dan melihat rincian penjualan secara lengkap.
+          Menyajikan Rekapitulasi Mendetail dari Setiap Tahap Penanaman hingga Hasil Akhir Produksi untuk Memfasilitasi
+          Analisis Menyeluruh dan Evaluasi Kinerja Pertanian yang Efektif
         </p>
-        <BaseButton icon-position="left">
-          Lihat Penjualan
-          <BaseIcon name="chevron-right" class="w-4 h-4" />
-        </BaseButton>
+        <RouterLink :to="{ name: 'Laporan Produksi' }">
+          <BaseButton icon-position="left">
+            Lihat Laporan
+            <BaseIcon name="chevron-right" class="w-4 h-4" />
+          </BaseButton>
+        </RouterLink>
       </div>
       <div class="md:w-1/2">
         <img src="https://placehold.co/800x600" class="rounded-3xl w-full" />
