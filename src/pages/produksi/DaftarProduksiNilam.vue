@@ -24,8 +24,11 @@
                 :chartData="chartData"
                 :chartOptions="chartOptions"
                 :chartDataLabel="false"
-                chartTitle="Persentase Produksi"
-              />
+              >
+                <template #chartTitle>
+                  <h1 class="text-center font-bold text-sm mb-2">Persentase Produksi</h1>
+                </template>
+              </BaseChart>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">

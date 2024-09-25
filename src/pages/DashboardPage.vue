@@ -96,11 +96,14 @@
           class="col-span-3 bg-primary-light rounded-2xl border border-primary py-4 px-8"
           :chartId="`Chart ${index}`"
           chartType="pie"
-          :chartTitle="chart.title"
           :chartData="chart.data"
           :chartOptions="estimastiProduksiChartOptions"
           :chartDataLabel="true"
-        />
+        >
+          <template #chartTitle>
+            <h1 class="flex justify-center font-bold text-xl mb-2">{{ chart.title }}</h1>
+          </template>
+        </BaseChart>
       </div>
     </div>
 
