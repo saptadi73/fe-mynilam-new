@@ -11,7 +11,7 @@ const cardContent = [
   {
     title: 'Tanam',
     content: 'Laporan dari Persiapan Lahan, Penanaman Benih, hingga Panen untuk Memantau Produktivitas Petani',
-    pathName: 'Laporan Lengkap Produksi',
+    pathName: 'Laporan Lengkap Tanam',
   },
   {
     title: 'Minyak Nilam',
