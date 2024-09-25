@@ -16,7 +16,7 @@ const cardContent = [
   {
     title: 'Minyak Nilam',
     content: ' Menampilkan Proses Produksi Minyak Nilam dari Awal hingga Selesai, Termasuk Pengolahan dan Hasil Akhir.',
-    pathName: 'Laporan Lengkap Produksi',
+    pathName: 'Daftar Produksi Nilam',
   },
 ]
 </script>

@@ -24,6 +24,11 @@ export default {
           name: 'Daftar Tanam Nilam',
           component: () => import('../pages/produksi/DaftarTanamNilam.vue'),
         },
+        {
+          path: 'daftar-produksi-nilam',
+          name: 'Daftar Produksi Nilam',
+          component: () => import('../pages/produksi/DaftarProduksiNilam.vue'),
+        },
       ],
     },
     {
