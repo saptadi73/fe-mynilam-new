@@ -1,57 +1,58 @@
 <template>
-  <section>
-    <div class="inline-block relative">
-      <!-- style 1: default dropdown -->
-      <button
-        v-if="!floatingLabel"
+  <div class="inline-block relative">
+    <!-- style 1: default dropdown -->
+    <button
+      v-if="!floatingLabel"
+      :id="uniqueNameId"
+      :data-dropdown-toggle="uniqueNameId + 'Dropdown'"
+      class="text-gray-900 flex min-w-28 justify-between font-semibold border border-primary-border bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-light rounded-lg text-sm px-5 py-1.5 space-x-2 items-center"
+      :class="$attrs.class"
+      type="button"
+    >
+      <span class="capitalize text-ellipsis whitespace-nowrap overflow-x-hidden">
+        {{ dropdownLabel || placeholder }}
+      </span>
+      <BaseIcon name="chevron-right" class="rotate-90 ms-3 h-3 text-gray-500" />
+    </button>
+    <!-- style 2: floating label dropdown-->
+    <div v-else class="relative z-0 font-poppins">
+      <div class="absolute top-5 right-2 flex items-center pointer-events-none text-primary-border">
+        <BaseIcon name="chevron-right" class="w-2 rotate-90" />
+      </div>
+      <input
+        type="text"
         :id="uniqueNameId"
+        v-model="searchValue"
         :data-dropdown-toggle="uniqueNameId + 'Dropdown'"
-        class="text-gray-900 flex min-w-48 justify-between font-semibold border border-primary-border bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-light rounded-lg text-sm px-5 py-1.5 space-x-2 items-center"
-        type="button"
+        @focus="searchValue = ''"
+        class="block pt-3 pb-1.5 pl-0 pr-6 w-full font-semibold text-primary-2 bg-transparent border-0 border-b-2 border-primary-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary-2 peer"
+        placeholder=" "
+      />
+      <label
+        :for="name"
+        class="absolute text-gray-400 font-semibold duration-300 transform -translate-y-6 scale-90 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
       >
-        <span class="capitalize">{{ dropdownLabel || placeholder }}</span>
-        <BaseIcon name="chevron-right" class="rotate-90 ms-3 h-3 text-gray-500" />
-      </button>
-      <!-- style 2: floating label dropdown-->
-      <div v-else class="relative z-0 font-poppins">
-        <div class="absolute top-5 right-2 flex items-center pointer-events-none text-primary-border">
-          <BaseIcon name="chevron-right" class="w-2 rotate-90" />
-        </div>
-        <input
-          type="text"
-          :id="uniqueNameId"
-          v-model="searchValue"
-          :data-dropdown-toggle="uniqueNameId + 'Dropdown'"
-          @focus="searchValue = ''"
-          class="block pt-3 pb-1.5 pl-0 pr-6 w-full font-semibold text-primary-2 bg-transparent border-0 border-b-2 border-primary-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary-2 peer"
-          placeholder=" "
-        />
-        <label
-          :for="name"
-          class="absolute text-gray-400 font-semibold duration-300 transform -translate-y-6 scale-90 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
-        >
-          {{ placeholder }}
-        </label>
+        {{ placeholder }}
+      </label>
+    </div>
+    <!-- dropdown menu -->
+    <div
+      :id="uniqueNameId + 'Dropdown'"
+      class="z-50 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border w-full"
+    >
+      <div v-if="!floatingLabel" class="p-3">
+        <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
       </div>
-      <!-- dropdown menu -->
-      <div
-        :id="uniqueNameId + 'Dropdown'"
-        class="z-10 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border w-full"
-      >
-        <div v-if="!floatingLabel" class="p-3">
-          <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
-        </div>
-        <ul class="text-sm text-gray-800 w-full" :aria-labelledby="name">
-          <li v-for="option in filteredOptions" :key="option.value">
-            <div class="cursor-pointer px-4 py-2 hover:bg-primary-light" @click="handleSelectDropdown(option)">
-              {{ option.label }}
-            </div>
-          </li>
-        </ul>
-      </div>
+      <ul class="text-sm text-gray-800 w-full">
+        <li v-for="option in filteredOptions" :key="option.value">
+          <div class="cursor-pointer px-4 py-2 hover:bg-primary-light" @click="handleSelectDropdown(option)">
+            {{ option.label }}
+          </div>
+        </li>
+      </ul>
     </div>
     <div v-if="errorMessage" class="text-xs my-1">{{ errorMessage }}</div>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -90,7 +91,7 @@ const uniqueNameId = computed(() => {
 })
 
 const dropdownLabel = ref(getLabelByValue(value.value))
-const searchValue = ref()
+const searchValue = ref('')
 
 const filteredOptions = computed(() => {
   return props.options.filter((option) => option.label.toLowerCase().includes(searchValue.value))
