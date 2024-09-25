@@ -18,6 +18,7 @@ interface ChartProps {
   chartWidth?: string
   chartHeight?: string
   chartDataLabel?: Boolean
+  chartInnerLabel?: any
 }
 
 const props = defineProps<ChartProps>()
@@ -26,6 +27,22 @@ onMounted(() => {
   renderChart()
 })
 
+const innerLabel: Plugin = {
+  id: 'innerLabel',
+  beforeDatasetDraw(chart: Chart, args: { meta: { data: { x: number; y: number }[] } }) {
+    const { ctx } = chart
+    const meta = args.meta
+    const xCoor = meta.data[0].x
+    const yCoor = meta.data[0].y
+    ctx.save()
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.font = 'bold 18px Cera Pro'
+    ctx.fillText(props.chartInnerLabel || '', xCoor, yCoor)
+    ctx.restore()
+  },
+}
+
 const renderChart = () => {
   const ctx = document.getElementById(props.chartId) as HTMLCanvasElement
 
@@ -33,6 +50,10 @@ const renderChart = () => {
 
   if (props.chartDataLabel) {
     plugins.push(ChartDataLabels)
+  }
+
+  if (props.chartInnerLabel) {
+    plugins.push(innerLabel)
   }
 
   new Chart(ctx, {

@@ -23,7 +23,7 @@
                 chartType="doughnut"
                 :chartData="chartData"
                 :chartOptions="chartOptions"
-                :chartDataLabel="false"
+                :chartInnerLabel="`${chartData.datasets[0].data[0]} %`"
               >
                 <template #chartTitle>
                   <h1 class="text-center font-bold text-sm mb-2">Persentase Produksi</h1>
