@@ -12,8 +12,23 @@
           class="col-span-3"
         >
           <template #card-content>
-            <div class="flex justify-center pt-2">
-              <img class="rounded-xl" src="@/assets/images/nilam.jpeg" alt="Nilam Image" />
+            <div class="grid grid-cols-12 items-center gap-x-2">
+              <div class="col-span-6 h-40 flex items-center justify-center">
+                <img class="rounded-xl h-full object-cover" src="@/assets/images/nilam.jpeg" alt="Nilam Image" />
+              </div>
+
+              <BaseChart
+                class="col-span-6"
+                :chartId="`Chart ${card.id}`"
+                chartType="doughnut"
+                :chartData="chartData"
+                :chartOptions="chartOptions"
+                :chartInnerLabel="`${chartData.datasets[0].data[0]} %`"
+              >
+                <template #chartTitle>
+                  <h1 class="text-center font-bold text-sm mb-2">Persentase Produksi</h1>
+                </template>
+              </BaseChart>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -63,14 +78,39 @@
 </template>
 
 <script setup lang="ts">
+import { type ChartData, type ChartOptions } from 'chart.js/auto'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseCard from '@/components/BaseCard.vue'
+import BaseChart from '@/components/BaseChart.vue'
 
 import { reactive } from 'vue'
 
+const chartData: ChartData = {
+  labels: ['', 'Proses'],
+  datasets: [
+    {
+      label: 'Total Data',
+      data: [50, 50],
+      backgroundColor: ['#015438', '#20D173'],
+      hoverOffset: 4,
+    },
+  ],
+}
+
+const chartOptions: ChartOptions<'doughnut'> = {
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+}
+
 const cardPetani = reactive([
   {
+    id: 1,
     code: 'TNM94A2X',
     petaniName: 'Agus Prayitno',
     luasLahan: '1000',
@@ -82,6 +122,7 @@ const cardPetani = reactive([
     status: 'progress',
   },
   {
+    id: 2,
     code: 'TNM94A2X',
     petaniName: 'Budi Santoso',
     luasLahan: '1000',
@@ -93,6 +134,7 @@ const cardPetani = reactive([
     status: 'progress',
   },
   {
+    id: 3,
     code: 'TNM94A2X',
     petaniName: 'Rika Kusuma',
     luasLahan: '1000',
@@ -104,6 +146,7 @@ const cardPetani = reactive([
     status: 'progress',
   },
   {
+    id: 4,
     code: 'TNM94A2X',
     petaniName: 'Rika Kusuma',
     luasLahan: '1000',
@@ -115,6 +158,7 @@ const cardPetani = reactive([
     status: 'progress',
   },
   {
+    id: 5,
     code: 'TNM94A2X',
     petaniName: 'Rika Kusuma',
     luasLahan: '1000',
@@ -126,6 +170,7 @@ const cardPetani = reactive([
     status: 'progress',
   },
   {
+    id: 6,
     code: 'TNM94A2X',
     petaniName: 'Rika Kusuma',
     luasLahan: '1000',
@@ -137,6 +182,7 @@ const cardPetani = reactive([
     status: 'progress',
   },
   {
+    id: 7,
     code: 'TNM94A2X',
     petaniName: 'Rika Kusuma',
     luasLahan: '1000',

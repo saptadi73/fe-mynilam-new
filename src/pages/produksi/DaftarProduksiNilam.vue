@@ -80,6 +80,8 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseChart from '@/components/BaseChart.vue'
 
+import { reactive } from 'vue'
+
 const chartData: ChartData = {
   labels: ['', 'Proses'],
   datasets: [
@@ -102,7 +104,6 @@ const chartOptions: ChartOptions<'doughnut'> = {
   },
 }
 
-import { reactive } from 'vue'
 
 const cardPetani = reactive([
   {
