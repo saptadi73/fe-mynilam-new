@@ -1,14 +1,31 @@
 <template>
-  <div class="bg-image-wave px-16">
+  <div class="bg-image-wave px-4 lg:px-16">
     <BaseHeaderTitle title="Laporan Petani" />
     <BaseTableClient :data="data" :columns="columns" :page-size="5" :custom-header="true" class="bg-white">
       <template #header>
-        <div class="p-4 flex items-center space-x-3">
-          <BaseInputSelect name="daerah" placeholder="Pilih daerah" :options="daerahList" />
-          <BaseInputSelect name="agen" placeholder="Pilih agen/koperasi" :options="agenList" />
-          <BaseInputSelect name="petani" placeholder="Pilih nama petani" :options="petaniList" />
+        <div
+          class="p-4 lg:flex items-center lg:space-x-3 space-y-4 lg:space-y-0 overflow-x-auto overflow-y-visible z-10"
+        >
+          <BaseInputSelect
+            name="daerah"
+            placeholder="Pilih daerah"
+            :options="daerahList"
+            class="w-full lg:w-44 2xl:w-52"
+          />
+          <BaseInputSelect
+            name="agen"
+            placeholder="Pilih agen/koperasi"
+            :options="agenList"
+            class="w-full lg:w-44 2xl:w-52"
+          />
+          <BaseInputSelect
+            name="petani"
+            placeholder="Pilih nama petani"
+            :options="petaniList"
+            class="w-full lg:w-44 2xl:w-52"
+          />
           <BaseInputDateRange name="tanggal" placeholder-start="Tanggal mulai" placeholder-end="Tanggal akhir" />
-          <BaseSearchBar placeholder="Cari kode produksi" />
+          <BaseSearchBar placeholder="Cari kode produksi" class="w-full lg:w-52 2xl:w-60" />
         </div>
       </template>
     </BaseTableClient>

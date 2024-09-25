@@ -1,6 +1,6 @@
 <template>
   <div :id="name + 'DateRange'" class="flex items-center">
-    <div class="relative w-44">
+    <div class="relative w-36">
       <input
         :id="name + 'Start'"
         :name="name + 'Start'"
@@ -10,7 +10,7 @@
       />
     </div>
     <span class="mx-2 text-gray-800 text-sm">s/d</span>
-    <div class="relative w-44">
+    <div class="relative w-36">
       <input
         :id="name + 'End'"
         :name="name + 'End'"

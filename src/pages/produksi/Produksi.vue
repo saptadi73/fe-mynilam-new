@@ -1,69 +1,73 @@
 <template>
-  <div class="p-2 bg-primary-light">
-    <h1 class="font-bold text-center text-3xl px-64 py-12 text-primary">
+  <div class="p-4 bg-primary-light">
+    <h1 class="font-bold text-center text-3xl lg:px-64 py-8 md:py-12 text-primary">
       Manajemen Produksi Daftar Pembuatan dan Laporan
     </h1>
-    <div class="px-12">
+    <div class="md:px-12">
       <img
-        class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-        src="@/assets/images/banner-dashboard.jpg"
-        alt="Banner Dashboard Image"
+        class="banner-image rounded-3xl"
+        src="@/assets/images/produksi/banner-header-produksi.png"
+        alt="Banner Header Produksi"
       />
     </div>
 
-    <p class="text-center px-40 py-4">
+    <p class="text-center md:px-48 py-8 text-primary md:text-lg">
       Kelola produksi dengan daftar produksi terbaru yang baru dibuat, pantau daftar produksi yang sedang berjalan, dan
       tinjau laporan produksi untuk mendapatkan gambaran menyeluruh tentang hasil dan efisiensi. Pastikan setiap tahap
       produksi terdokumentasi dengan baik dari pembuatan hingga pelaporan.
     </p>
 
-    <section class="my-10 p-8 text-primary flex items-start space-x-10 w-full">
-      <div class="w-1/2 py-3 space-y-5">
-        <h1 class="text-3xl font-bold">Lorem ipsum dolor sit amet.</h1>
-        <p class="text-xl">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, eum exercitationem nisi ratione facere
-          incidunt culpa distinctio quam vero dignissimos.
+    <section
+      class="my-20 md:my-10 md:p-8 text-primary flex flex-col-reverse md:flex-row items-start md:space-x-10 w-full"
+    >
+      <div class="md:w-1/2 py-3 space-y-5">
+        <h1 class="text-3xl font-bold">Produk</h1>
+        <p class="text-lg">
+          Temukan berbagai pilihan produk minyak nilam unggulan yang dihasilkan dari bahan baku berkualitas dan diproses
+          dengan standar tinggi oleh petani.
         </p>
         <BaseButton icon-position="left">
-          Lihat Produksi
+          Lihat Produk
           <BaseIcon name="chevron-right" class="w-4 h-4" />
         </BaseButton>
       </div>
-      <div class="w-1/2">
+      <div class="md:w-1/2">
         <img src="https://placehold.co/800x600" class="rounded-3xl w-full" />
       </div>
     </section>
 
-    <section class="my-10 p-8 text-primary flex items-start space-x-10 w-full">
-      <div class="w-5/12">
+    <section class="my-20 md:my-10 md:p-8 text-primary flex flex-col md:flex-row items-start md:space-x-10 w-full">
+      <div class="md:w-5/12">
         <img src="https://placehold.co/600x600" class="rounded-3xl w-full" />
       </div>
-      <div class="w-7/12 py-3 space-y-5">
-        <h1 class="text-3xl font-bold">Lorem ipsum dolor sit amet.</h1>
-        <p class="text-xl">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, eum exercitationem nisi ratione facere
-          incidunt culpa distinctio quam vero dignissimos.
+      <div class="md:w-7/12 py-3 space-y-5">
+        <h1 class="text-3xl font-bold">Mitra</h1>
+        <p class="text-lg">
+          Jelajahi daftar gudang yang menyimpan hasil penjualan petani nilam, memastikan kualitas produk tetap terjaga
+          sebelum didistribusikan ke agen atau koperasi.
         </p>
         <BaseButton icon-position="left">
-          Lihat Produksi
+          Lihat Pelanggan
           <BaseIcon name="chevron-right" class="w-4 h-4" />
         </BaseButton>
       </div>
     </section>
 
-    <section class="my-10 p-8 text-primary flex items-start space-x-10 w-full">
-      <div class="w-1/2 py-3 space-y-5">
-        <h1 class="text-3xl font-bold">Lorem ipsum dolor sit amet.</h1>
-        <p class="text-xl">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, eum exercitationem nisi ratione facere
-          incidunt culpa distinctio quam vero dignissimos.
+    <section
+      class="my-20 md:my-10 md:p-8 text-primary flex flex-col-reverse md:flex-row items-start md:space-x-10 w-full"
+    >
+      <div class="md:w-1/2 py-3 space-y-5">
+        <h1 class="text-3xl font-bold">Daftar Penjualan</h1>
+        <p class="text-lg">
+          Memungkinkan pengguna untuk membuat dan mengelola daftar penjualan terbaru dari penjualan nilam, memantau
+          transaksi, dan melihat rincian penjualan secara lengkap.
         </p>
         <BaseButton icon-position="left">
-          Lihat Produksi
+          Lihat Penjualan
           <BaseIcon name="chevron-right" class="w-4 h-4" />
         </BaseButton>
       </div>
-      <div class="w-1/2">
+      <div class="md:w-1/2">
         <img src="https://placehold.co/800x600" class="rounded-3xl w-full" />
       </div>
     </section>
@@ -74,3 +78,9 @@
 import BaseButton from '@/components/BaseButton.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 </script>
+
+<style scoped>
+.banner-image {
+  box-shadow: 8px 8px rgba(0, 0, 0, 0.25);
+}
+</style>
