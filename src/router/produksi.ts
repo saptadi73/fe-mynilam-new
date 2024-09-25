@@ -7,11 +7,6 @@ export default {
       component: () => import('../pages/produksi/Produksi.vue'),
     },
     {
-      path: 'laporan-produksi',
-      name: 'Laporan Produksi',
-      component: () => import('../pages/produksi/LaporanProduksi.vue'),
-    },
-    {
       path: 'daftar-produksi-petani',
       children: [
         {
@@ -32,14 +27,24 @@ export default {
       ],
     },
     {
-      path: 'laporan-lengkap-produksi',
-      name: 'Laporan Lengkap Produksi',
-      component: () => import('../pages/produksi/LaporanLengkapProduksi.vue'),
-    },
-    {
-      path: 'laporan-lengkap-tanam',
-      name: 'Laporan Lengkap Tanam',
-      component: () => import('../pages/produksi/LaporanLengkapTanam.vue'),
+      path: 'laporan-produksi',
+      children: [
+        {
+          path: '',
+          name: 'Laporan Produksi',
+          component: () => import('../pages/produksi/LaporanProduksi.vue'),
+        },
+        {
+          path: 'laporan-lengkap-produksi',
+          name: 'Laporan Lengkap Produksi',
+          component: () => import('../pages/produksi/LaporanLengkapProduksi.vue'),
+        },
+        {
+          path: 'laporan-lengkap-tanam',
+          name: 'Laporan Lengkap Tanam',
+          component: () => import('../pages/produksi/LaporanLengkapTanam.vue'),
+        },
+      ],
     },
     {
       path: 'buat-daftar-produksi-petani',
