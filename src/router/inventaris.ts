@@ -2,6 +2,11 @@ export default {
   path: 'inventaris',
   children: [
     {
+      path: 'daftar-produk',
+      name: 'Daftar Produk Minyak Nilam',
+      component: () => import('../pages/inventaris/DaftarProduk.vue'),
+    },
+    {
       path: 'daftar-gudang',
       name: 'Daftar Gudang',
       component: () => import('../pages/inventaris/DaftarGudang.vue'),
