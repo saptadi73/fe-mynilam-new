@@ -23,7 +23,7 @@ const routes = [
       {
         path: '/dashboard',
         name: 'Dashboard',
-        component: () => import('../pages/DashboardPage.vue'),
+        component: () => import('../pages/Dashboard.vue'),
       },
       profile,
       produksi,
