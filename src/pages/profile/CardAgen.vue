@@ -12,7 +12,7 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
-        <BaseCardAdd card-title="Agen" class="col-span-3" />
+        <BaseCardAdd @click="showModal" card-title="Agen" class="col-span-3" />
         <BaseCard
           v-for="(card, cardIndex) in cardAgen"
           :key="cardIndex"
@@ -63,6 +63,28 @@
         </BaseCard>
       </div>
     </div>
+
+    <BaseModal :showModal="modal" @setModal="handleModal">
+      <template #default>
+        <BaseInputFloat label="Nama" name="name" type="text" />
+        <BaseInputFloat label="Alamat" name="alamat" type="text" />
+        <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
+        <BaseInputSelect :options="[]" name="kecamatan" placeholder="Kecamatan" :floating-label="true" />
+        <BaseInputSelect :options="[]" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
+        <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
+        <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
+        <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
+        <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
+        <BaseInputFloat label="Koperasi/Agen" name="agen" type="text" />
+        <BaseInputSelect
+          :options="optionsJenisMitra"
+          name="jenisMitra"
+          placeholder="Jenis Mitra"
+          :floating-label="true"
+        />
+        <BaseInputFloat label="Email" name="email" type="email" />
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -74,6 +96,29 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
+import BaseModal from '@/components/BaseModal.vue'
+import BaseInputFloat from '@/components/BaseInputFloat.vue'
+
+let modal = ref<Boolean>(false)
+
+const showModal = () => {
+  modal.value = true
+}
+
+const handleModal = (value: boolean) => {
+  modal.value = value
+}
+
+const optionsStatus = ref([
+  { label: 'On Progress', value: 1 },
+  { label: 'Finished', value: 2 },
+  { label: 'Failed', value: 3 },
+])
+
+const optionsJenisMitra = ref([
+  { label: 'Koperasi', value: 1 },
+  { label: 'Agen', value: 2 },
+])
 
 const cardAgen = reactive([
   {
