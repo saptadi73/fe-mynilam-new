@@ -11,6 +11,8 @@
         <img src="@/assets/images/profile-ugreen.png" alt="Profile" />
       </div>
 
+      <ButtonEditProfile />
+
       <div class="text-3xl font-bold px-20 mt-28">Bagas Adi Rukma</div>
       <div class="grid grid-cols-12 px-20 pt-5 pb-20">
         <div class="col-span-6">
@@ -53,3 +55,7 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import ButtonEditProfile from './components/ButtonEditProfile.vue'
+</script>
