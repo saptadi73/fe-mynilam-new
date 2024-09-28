@@ -107,7 +107,7 @@ const columns = [
   }),
   columnHelper.accessor('namaPenjual', {
     cell: (info) => info.getValue(),
-    header: 'namaPenjual',
+    header: 'Nama Penjual',
   }),
   columnHelper.accessor('jumlah', {
     cell: (info) => info.getValue(),
