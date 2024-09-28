@@ -1,17 +1,21 @@
 <template>
   <div
-    class="product-card relative bg-primary-light rounded-3xl border border-[#B2B4E0] cursor-pointer hover:shadow-xl hover:bg-slate-200 duration-300 ease-in-out px-5 pt-3 pb-8 w-full"
+    class="product-card relative bg-primary-light rounded-3xl border border-[#B2B4E0] cursor-pointer hover:shadow-xl hover:bg-slate-300 duration-300 ease-in-out px-5 pt-3 pb-8 w-full"
   >
     <div class="text-center font-bold text-lg">{{ cardCode }}</div>
 
-    <button class="absolute top-2 right-2">
-      <svg width="40" height="40" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="24.5" cy="25" rx="22.5" ry="22" fill="#E6EEEB" />
-        <path
-          class="hover:fill-[#8ca39b]"
-          d="M13.3327 39.5827L10.416 36.666L22.0827 24.9993L10.416 13.3327L13.3327 10.416L24.9993 22.0827L36.666 10.416L39.5827 13.3327L27.916 24.9993L39.5827 36.666L36.666 39.5827L24.9993 27.916L13.3327 39.5827Z"
-          fill="#B0CAC1"
-        />
+    <button
+      class="absolute top-2 right-2 w-9 h-9 rounded-full text-[#8ca39b] hover:bg-[#E6EEEB] hover:text-primary inline-flex justify-center items-center transition-all duration-200 ease-in-out"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        class="size-9"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
       </svg>
     </button>
 
