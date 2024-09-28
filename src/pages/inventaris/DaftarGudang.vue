@@ -13,12 +13,14 @@
         </RouterLink>
       </div>
       <div class="col-span-4">
-        <div
-          class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
-        >
-          <img src="@/assets/images/mitra-koperasi.png" alt="Mitra Koperasi" />
-          <h1 class="text-3xl text-primary font-cera font-bold text-center">Koperasi</h1>
-        </div>
+        <RouterLink :to="{ name: 'Koperasi' }">
+          <div
+            class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
+          >
+            <img src="@/assets/images/mitra-koperasi.png" alt="Mitra Koperasi" />
+            <h1 class="text-3xl text-primary font-cera font-bold text-center">Koperasi</h1>
+          </div>
+        </RouterLink>
       </div>
       <div class="col-span-4">
         <RouterLink :to="{ name: 'Ugreen' }">

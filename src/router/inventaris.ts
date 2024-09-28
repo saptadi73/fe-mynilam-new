@@ -20,6 +20,11 @@ export default {
           component: () => import('../pages/inventaris/gudang/Agen.vue'),
         },
         {
+          path: 'koperasi',
+          name: 'Koperasi',
+          component: () => import('../pages/inventaris/gudang/Koperasi.vue'),
+        },
+        {
           path: 'ugreen',
           name: 'Ugreen',
           component: () => import('../pages/inventaris/gudang/UGreen.vue'),
