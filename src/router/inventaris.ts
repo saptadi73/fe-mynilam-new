@@ -15,6 +15,11 @@ export default {
           component: () => import('../pages/inventaris/DaftarGudang.vue'),
         },
         {
+          path: 'agen',
+          name: 'Agen',
+          component: () => import('../pages/inventaris/gudang/Agen.vue'),
+        },
+        {
           path: 'ugreen',
           name: 'Ugreen',
           component: () => import('../pages/inventaris/gudang/UGreen.vue'),
