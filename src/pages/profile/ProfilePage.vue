@@ -1,5 +1,5 @@
 <template>
-  <div class="profile bg-primary-light">
+  <div class="bg-image-wave2">
     <div class="container mx-auto py-4">
       <h1 class="text-center text-primary font-bold text-3xl py-4">Profil Petani, Agen/Koperasi, UGreen dan Aset</h1>
       <div class="bg-[#F6FDFF] rounded-xl shadow-md px-6 py-4">
@@ -54,12 +54,3 @@ const profileCard = reactive([
   },
 ])
 </script>
-
-<style scoped>
-.profile {
-  background-image: url('@/assets/images/wave-profile.svg');
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-size: contain;
-}
-</style>
