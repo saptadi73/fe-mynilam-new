@@ -67,10 +67,10 @@
       <template #default>
         <BaseInputFloat label="Nama" name="name" type="text" />
         <BaseInputFloat label="Alamat" name="alamat" type="text" />
-        <BaseInputFloat label="Desa/kelurahan" name="desa" type="text" />
-        <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
-        <BaseInputFloat label="Kota/Kabupaten" name="kota" type="text" />
-        <BaseInputFloat label="Provinsi" name="provinsi" type="text" />
+        <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
+        <BaseInputSelect :options="[]" name="kecamatan" placeholder="Kecamatan" :floating-label="true" />
+        <BaseInputSelect :options="[]" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
+        <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
         <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
         <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
         <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
