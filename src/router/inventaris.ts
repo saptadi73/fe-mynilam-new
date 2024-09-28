@@ -8,8 +8,18 @@ export default {
     },
     {
       path: 'daftar-gudang',
-      name: 'Daftar Gudang',
-      component: () => import('../pages/inventaris/DaftarGudang.vue'),
+      children: [
+        {
+          path: '',
+          name: 'Daftar Gudang',
+          component: () => import('../pages/inventaris/DaftarGudang.vue'),
+        },
+        {
+          path: 'ugreen',
+          name: 'Ugreen',
+          component: () => import('../pages/inventaris/gudang/UGreen.vue'),
+        },
+      ],
     },
     {
       path: 'laporan-pergerakan-barang',

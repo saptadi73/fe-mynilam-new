@@ -19,12 +19,14 @@
         </div>
       </div>
       <div class="col-span-4">
-        <div
-          class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
-        >
-          <img src="@/assets/images/mitra-ugreen.png" alt="Mitra Ugreen" />
-          <h1 class="text-3xl text-primary font-cera font-bold text-center">UGreen</h1>
-        </div>
+        <RouterLink :to="{ name: 'Ugreen' }">
+          <div
+            class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
+          >
+            <img src="@/assets/images/mitra-ugreen.png" alt="Mitra Ugreen" />
+            <h1 class="text-3xl text-primary font-cera font-bold text-center">UGreen</h1>
+          </div>
+        </RouterLink>
       </div>
     </div>
   </div>
