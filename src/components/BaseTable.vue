@@ -25,8 +25,8 @@
     </section>
     <!-- custom table header -->
     <slot v-else name="header" />
-    <!-- table content-->
-    <section class="relative overflow-x-auto">
+    <!-- desktop table content-->
+    <section v-if="!isMobile" class="relative overflow-x-auto">
       <table class="w-full text-sm text-left text-gray-700">
         <thead>
           <tr
@@ -65,6 +65,21 @@
           </tr>
         </tbody>
       </table>
+    </section>
+    <!-- mobile table content -->
+    <section v-else class="grid md:grid-cols-2 gap-2 mx-4">
+      <div
+        v-for="row in table.getRowModel().rows"
+        :key="row.id"
+        class="border border-primary py-2 px-4 bg-white rounded-lg grid grid-cols-2 gap-2 text-sm"
+      >
+        <div v-for="(cell, index) in row.getVisibleCells()" :key="index">
+          <h1 class="font-semibold">{{ cell.column.columnDef.header }}</h1>
+          <p class="text-xs">
+            <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+          </p>
+        </div>
+      </div>
     </section>
     <!-- table footer -->
     <section class="flex justify-center p-4 text-primary text-xs font-semibold">
@@ -129,6 +144,11 @@ const props = withDefaults(defineProps<Props>(), {
 
 const searchValue = ref('')
 const pageSizeList = ref<number[]>([])
+
+const isMobile = computed(() => {
+  const minWidth = 1024 // Minimum width for desktop devices
+  return window.innerWidth < minWidth || screen.width < minWidth
+})
 
 const pagination = computed(() => {
   let current = props.table.getState().pagination.pageIndex + 1
