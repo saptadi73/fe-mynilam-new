@@ -30,6 +30,7 @@ export interface TableClientProps {
   showPagination?: boolean
   columnVisibility?: { [key: string]: boolean }
   customHeader?: boolean
+  searchValue?: string
 }
 
 const props = withDefaults(defineProps<TableClientProps>(), {
@@ -38,6 +39,7 @@ const props = withDefaults(defineProps<TableClientProps>(), {
   data: () => [],
   showPagination: true,
   customHeader: false,
+  searchValue: '',
 })
 
 const columnVisibility = ref(props.columnVisibility)
@@ -72,7 +74,7 @@ const table = useVueTable({
       return sorting.value
     },
     get globalFilter() {
-      return globalFilter.value
+      return props.searchValue || globalFilter.value
     },
   },
   // globalFilterFn: searchMultipleWords,

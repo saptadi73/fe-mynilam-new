@@ -1,7 +1,14 @@
 <template>
   <div class="bg-image-wave px-4 lg:px-16">
     <BaseHeaderTitle title="Laporan Petani" />
-    <BaseTableClient :data="data" :columns="columns" :page-size="5" :custom-header="true" class="bg-white">
+    <BaseTableClient
+      :data="data"
+      :columns="columns"
+      :page-size="5"
+      :custom-header="true"
+      :search-value="searchValue"
+      class="bg-white"
+    >
       <template #header>
         <div
           class="p-4 lg:flex items-center lg:space-x-3 space-y-4 lg:space-y-0 overflow-x-auto overflow-y-visible z-10"
@@ -25,7 +32,7 @@
             class="w-full lg:w-44 2xl:w-52"
           />
           <BaseInputDateRange name="tanggal" placeholder-start="Tanggal mulai" placeholder-end="Tanggal akhir" />
-          <BaseSearchBar placeholder="Cari kode produksi" class="w-full lg:w-52 2xl:w-60" />
+          <BaseSearchBar v-model="searchValue" placeholder="Cari kode produksi" class="w-full lg:w-52 2xl:w-60" />
         </div>
       </template>
     </BaseTableClient>
@@ -110,6 +117,7 @@ const defaultData: Produksi[] = [
 ]
 
 const data = ref(defaultData)
+const searchValue = ref('')
 
 const daerahList = ref([
   { label: 'Aceh Selatan', value: 1 },
