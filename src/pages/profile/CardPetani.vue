@@ -93,6 +93,11 @@
               :floating-label="true"
             />
             <BaseInputFloat label="Email" name="koperasi" type="email" />
+
+            <div class="flex justify-center gap-x-4 mx-8">
+              <BaseButton type="submit" class="w-full font-bold">Simpan</BaseButton>
+              <BaseButton @click="closeModal" variant="success" class="w-full font-bold">Kembali</BaseButton>
+            </div>
           </form>
         </div>
       </template>
@@ -116,6 +121,10 @@ let modal = ref<Boolean>(false)
 
 const showModal = () => {
   modal.value = true
+}
+
+const closeModal = () => {
+  modal.value = false
 }
 
 const handleModal = (value: boolean) => {
