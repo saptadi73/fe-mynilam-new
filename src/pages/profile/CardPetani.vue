@@ -64,31 +64,39 @@
     </div>
 
     <BaseModal :showModal="modal" @setModal="handleModal">
-      <template #default>
-        <BaseInputFloat label="Nama" name="name" type="text" />
-        <BaseInputFloat label="Alamat" name="alamat" type="text" />
-        <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
-        <BaseInputSelect :options="[]" name="kecamatan" placeholder="Kecamatan" :floating-label="true" />
-        <BaseInputSelect :options="[]" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
-        <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
-        <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
-        <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
-        <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
-        <BaseInputFile
-          name="suratKontrak"
-          label="Surat Kontrak"
-          file-type=".pdf"
-          @file-selected="handleFileSuratKontrak"
-        ></BaseInputFile>
-        <BaseInputSelect
-          :options="optionsJenisMitra"
-          name="jenisMitra"
-          placeholder="Jenis Mitra"
-          :floating-label="true"
-        />
-        <BaseInputFloat label="Email" name="koperasi" type="email" />
-      </template>
+      <template #default> </template>
     </BaseModal>
+
+    <ModalProfile :modal="modal" @set-modal="handleModal">
+      <template #body-form>
+        <div class="p-4 md:p-12">
+          <form @submit.prevent="handleSubmit" class="space-y-4">
+            <BaseInputFloat label="Nama" name="name" type="text" />
+            <BaseInputFloat label="Alamat" name="alamat" type="text" />
+            <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
+            <BaseInputSelect :options="[]" name="kecamatan" placeholder="Kecamatan" :floating-label="true" />
+            <BaseInputSelect :options="[]" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
+            <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
+            <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
+            <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
+            <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
+            <BaseInputFile
+              name="suratKontrak"
+              label="Surat Kontrak"
+              file-type=".pdf"
+              @file-selected="handleFileSuratKontrak"
+            ></BaseInputFile>
+            <BaseInputSelect
+              :options="optionsJenisMitra"
+              name="jenisMitra"
+              placeholder="Jenis Mitra"
+              :floating-label="true"
+            />
+            <BaseInputFloat label="Email" name="koperasi" type="email" />
+          </form>
+        </div>
+      </template>
+    </ModalProfile>
   </div>
 </template>
 
@@ -100,9 +108,9 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
-import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputFile from '@/components/BaseInputFile.vue'
+import ModalProfile from './components/ModalProfile.vue'
 
 let modal = ref<Boolean>(false)
 
@@ -112,6 +120,10 @@ const showModal = () => {
 
 const handleModal = (value: boolean) => {
   modal.value = value
+}
+
+const handleSubmit = () => {
+  console.log('test')
 }
 
 const cardPetani = reactive([
