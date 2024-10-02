@@ -27,8 +27,10 @@
         </button>
       </div>
 
-      <!-- Modal content -->
-      <slot name="modal-content"></slot>
+      <div class="relative bg-[#F6FDFF] rounded-lg shadow">
+        <!-- Modal content -->
+        <slot name="modal-content"></slot>
+      </div>
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <BaseModal :show-modal="modal" @set-modal="closeModal">
     <template #modal-content>
-      <div class="profile relative bg-[#F6FDFF] rounded-lg shadow">
+      <div class="profile">
         <div @click="triggerBackgroundProfileInput" class="flex justify-center items-center pt-12 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +149,7 @@ const handleDeleteUserPhoto = () => {
 }
 </script>
 
-<style scoped>
+<style>
 .profile {
   background-image: url('@/assets/images/half-circle.svg');
   background-position: top;

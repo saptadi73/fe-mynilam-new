@@ -15,7 +15,7 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
-        <BaseCardAdd card-title="Aset" class="col-span-3" />
+        <BaseCardAdd @click="showModal" card-title="Aset" class="col-span-3" />
         <BaseCard
           v-for="(card, cardIndex) in cardAset"
           :key="cardIndex"
@@ -57,6 +57,81 @@
           </template>
         </BaseCard>
       </div>
+
+      <BaseModal :show-modal="modal" @set-modal="handleModal">
+        <template #modal-content>
+          <div class="px-4 md:p-8">
+            <form @submit.prevent="handleSubmit" class="space-y-4">
+              <div class="flex justify-center">
+                <div class="flex flex-col">
+                  <div class="flex justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="text-primary-border w-32 h-32"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+
+                  <h1 class="font-cera font-bold text-xl text-primary-border">Tambah File JSON</h1>
+                </div>
+              </div>
+
+              <hr class="-ml-8 -mr-8 border border-[#015438]" />
+
+              <div class="grid grid-cols-12 gap-x-5">
+                <div class="col-span-6 space-y-4">
+                  <BaseInputFloat label="Nama Pemilik" name="name" type="text" />
+                  <BaseInputFloat label="Lokasi GPS" name="name" type="text" />
+                  <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
+                </div>
+
+                <div class="col-span-6 space-y-4">
+                  <div class="grid grid-cols-12 gap-x-2">
+                    <BaseInputSelect
+                      class="col-span-7"
+                      :options="[]"
+                      name="desa"
+                      placeholder="Luas Lahan"
+                      :floating-label="true"
+                    />
+                    <BaseInputSelect
+                      class="col-span-5"
+                      :options="optionsSatuan"
+                      name="desa"
+                      placeholder="Satuan"
+                      :floating-label="true"
+                    />
+                  </div>
+                  <BaseInputSelect
+                    :options="optionsStatusKepemilikan"
+                    name="desa"
+                    placeholder="Status Kepemilikan"
+                    :floating-label="true"
+                  />
+                  <BaseInputSelect
+                    :options="optionsStatusLahan"
+                    name="desa"
+                    placeholder="Status Lahan"
+                    :floating-label="true"
+                  />
+                </div>
+              </div>
+
+              <div class="flex justify-center gap-x-4 mx-8">
+                <BaseButton type="submit" class="w-full font-bold">Simpan</BaseButton>
+                <BaseButton @click="closeModal" variant="success" class="w-full font-bold">Kembali</BaseButton>
+              </div>
+            </form>
+          </div>
+        </template>
+      </BaseModal>
     </div>
   </div>
 </template>
@@ -70,6 +145,39 @@ import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
+import BaseModal from '@/components/BaseModal.vue'
+import BaseInputFloat from '@/components/BaseInputFloat.vue'
+
+let modal = ref<Boolean>(false)
+
+const showModal = () => {
+  modal.value = true
+}
+
+const closeModal = () => {
+  modal.value = false
+}
+
+const handleModal = (value: boolean) => {
+  modal.value = value
+}
+
+const handleSubmit = () => {
+  console.log('test')
+}
+
+const optionsSatuan = ref([{ label: 'Ha', value: 1 }])
+
+const optionsStatusKepemilikan = ref([
+  { label: 'Milik Pribadi', value: 1 },
+  { label: 'Sewa', value: 2 },
+  { label: 'Pinjam', value: 2 },
+])
+
+const optionsStatusLahan = ref([
+  { label: 'Aktif', value: 1 },
+  { label: 'Tidak AKtif', value: 2 },
+])
 
 const cardAset = reactive([
   {
