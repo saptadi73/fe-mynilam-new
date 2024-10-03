@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-block relative">
+  <div class="relative">
     <!-- style 1: default dropdown -->
     <button
       v-if="!floatingLabel"
