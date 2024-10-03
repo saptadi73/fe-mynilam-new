@@ -24,7 +24,8 @@
         :id="uniqueNameId"
         v-model="searchValue"
         :data-dropdown-toggle="uniqueNameId + 'Dropdown'"
-        @focus="searchValue = ''"
+        @focus="handleOnFocus"
+        @blur="handleOnBlur"
         class="block pt-3 pb-1.5 pl-0 pr-6 w-full font-semibold text-primary-2 bg-transparent border-0 border-b-2 border-primary-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary-2 peer"
         placeholder=" "
       />
@@ -36,22 +37,24 @@
       </label>
     </div>
     <!-- dropdown menu -->
-    <div
-      :id="uniqueNameId + 'Dropdown'"
-      class="z-50 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border w-full"
-    >
-      <div v-if="!floatingLabel" class="p-3">
-        <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
+    <Teleport to="body">
+      <div
+        :id="uniqueNameId + 'Dropdown'"
+        class="z-50 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border"
+      >
+        <div v-if="!floatingLabel" class="p-3">
+          <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
+        </div>
+        <ul class="text-sm text-gray-800 w-full">
+          <li v-for="option in filteredOptions" :key="option.value">
+            <div class="cursor-pointer px-4 py-2 hover:bg-primary-light" @click="handleSelectDropdown(option)">
+              {{ option.label }}
+            </div>
+          </li>
+        </ul>
       </div>
-      <ul class="text-sm text-gray-800 w-full">
-        <li v-for="option in filteredOptions" :key="option.value">
-          <div class="cursor-pointer px-4 py-2 hover:bg-primary-light" @click="handleSelectDropdown(option)">
-            {{ option.label }}
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div v-if="errorMessage" class="text-xs my-1">{{ errorMessage }}</div>
+    </Teleport>
+    <div v-if="errorMessage && !onFocus" class="text-xs my-1">{{ errorMessage }}</div>
   </div>
 </template>
 
@@ -79,6 +82,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const { value, errorMessage } = useField<string | number>(() => props.name)
+const onFocus = ref(false)
 
 // to get default value
 const getLabelByValue = (val: string | number) => {
@@ -97,6 +101,19 @@ const filteredOptions = computed(() => {
   return props.options.filter((option) => option.label.toLowerCase().includes(searchValue.value))
 })
 
+const handleOnFocus = () => {
+  onFocus.value = true
+  value.value = ''
+  searchValue.value = ''
+}
+
+const handleOnBlur = () => {
+  // add delay to prevent error message when set value
+  setTimeout(() => {
+    onFocus.value = false
+  }, 500)
+}
+
 const handleSelectDropdown = (option: Option) => {
   dropdownLabel.value = option.label
   value.value = option.value
@@ -106,5 +123,9 @@ const handleSelectDropdown = (option: Option) => {
 
 onMounted(() => {
   initDropdowns() // init flowbite dropdown
+  // set dropdown width
+  const dropdownButtonWidth = document.getElementById(uniqueNameId.value)?.offsetWidth
+  const dropdownMenu = document.getElementById(uniqueNameId.value + 'Dropdown')
+  if (dropdownButtonWidth && dropdownMenu) dropdownMenu.style.maxWidth = dropdownButtonWidth + 'px'
 })
 </script>
