@@ -1,5 +1,6 @@
 export default {
   path: 'inventaris',
+  redirect: { name: 'Laporan Pergerakan Barang' },
   children: [
     {
       path: 'daftar-produk',

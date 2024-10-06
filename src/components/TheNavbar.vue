@@ -18,11 +18,17 @@
         </svg>
       </button>
       <!-- logo -->
-      <div class="font-cera text-white text-3xl"><span class="text-primary-3">MYNIL</span>AM</div>
+      <router-link to="/">
+        <div class="font-cera text-white text-3xl"><span class="text-primary-3">MYNIL</span>AM</div>
+      </router-link>
       <!-- navbar menu -->
       <ul class="hidden lg:flex items-center text-primary bg-primary-light rounded-full py-1.5 px-1">
         <li v-for="(menu, i) in menuList" :key="i" class="cursor-pointer">
-          <router-link :to="menu.path" class="px-5 py-1 rounded-full transition duration-500">
+          <router-link
+            :active-class="menu.path === '/' ? 'beranda-active' : 'router-link-active'"
+            :to="menu.path"
+            class="px-5 py-1 rounded-full transition duration-500"
+          >
             {{ menu.name }}
           </router-link>
         </li>
@@ -52,7 +58,12 @@
     <div id="navbar-sticky" class="mt-3 bg-primary-light text-primary p-2 rounded-3xl" :class="{ hidden: !isMenuOpen }">
       <ul>
         <li v-for="(menu, i) in menuList" :key="i">
-          <router-link :to="menu.path" @click="isMenuOpen = false" class="block py-2 px-4 rounded-full font-semibold">
+          <router-link
+            :active-class="menu.path === '/' ? 'beranda-active' : 'router-link-active'"
+            :to="menu.path"
+            @click="isMenuOpen = false"
+            class="block py-2 px-4 rounded-full font-semibold"
+          >
             {{ menu.name }}
           </router-link>
         </li>
@@ -68,7 +79,7 @@ const menuList = [
   { name: 'Beranda', path: '/' },
   { name: 'Profile', path: '/profile' },
   { name: 'Dashboard', path: '/dashboard' },
-  { name: 'Inventaris', path: '/inventaris/laporan-pergerakan-barang' },
+  { name: 'Inventaris', path: '/inventaris' },
   { name: 'Produksi', path: '/produksi' },
   { name: 'Penjualan', path: '/penjualan/daftar-mitra' },
   { name: 'Laporan', path: '/laporan' },
@@ -78,7 +89,8 @@ const isMenuOpen = ref(false)
 </script>
 
 <style scoped>
-.router-link-exact-active {
+.router-link-active,
+.beranda-active.router-link-exact-active {
   @apply bg-primary text-white;
 }
 </style>

@@ -16,12 +16,12 @@ const routes = [
     component: MainLayout,
     children: [
       {
-        path: '/',
+        path: '',
         name: 'Beranda',
         component: () => import('../pages/Beranda.vue'),
       },
       {
-        path: '/dashboard',
+        path: 'dashboard',
         name: 'Dashboard',
         component: () => import('../pages/Dashboard.vue'),
       },
