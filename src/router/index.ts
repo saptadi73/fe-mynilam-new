@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { jwtDecode } from 'jwt-decode'
 import MainLayout from '../pages/layouts/MainLayout.vue'
 import inventaris from './inventaris'
 import penjualan from './penjualan'
@@ -14,6 +15,7 @@ const routes = [
   {
     path: '/',
     component: MainLayout,
+    meta: { requiresAuth: true },
     children: [
       {
         path: '',
@@ -36,6 +38,33 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+const checkIsAuthenticated = (): boolean => {
+  const token = localStorage.getItem('token')
+  // if not has token
+  if (!token) return false
+  // check if token is valid
+  try {
+    const decoded = jwtDecode(token)
+    return !!decoded
+  } catch (error) {
+    // if not valid token
+    localStorage.removeItem('token')
+    return false
+  }
+}
+
+router.beforeEach(async (to, _from, next) => {
+  const isAuthenticated = checkIsAuthenticated()
+  // if the route requires auth & user not authenticated
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else {
+    // if user is authenticated & the route is login page
+    if (isAuthenticated && to.name === 'Login') next('/')
+    else next()
+  }
 })
 
 export default router
