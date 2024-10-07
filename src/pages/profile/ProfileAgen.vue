@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-image-wave relative px-16 py-10">
+  <div class="bg-image-wave relative px-5 lg:px-16 py-10">
     <div class="bg-white min-h-screen opacity-90 shadow-md rounded-lg font-cera">
       <img
         class="bg-cover object-cover rounded-t-lg h-60 w-full"
@@ -7,15 +7,15 @@
         alt="Background Profile"
       />
 
-      <div class="absolute top-24 left-36 bg-white rounded-full p-1.5 mt-20 z-20">
+      <div class="absolute top-24 left-1/4 md:left-36 bg-white rounded-full p-1.5 mt-20 z-20">
         <img src="@/assets/images/profile.png" alt="Profile" />
       </div>
 
       <ButtonEditProfile />
 
-      <div class="text-3xl font-bold px-20 mt-28">Bagas Adi Rukma</div>
-      <div class="grid grid-cols-12 px-20 pt-5 pb-20">
-        <div class="col-span-6">
+      <div class="text-3xl font-bold px-5 lg:px-20 mt-28">Bagas Adi Rukma</div>
+      <div class="grid grid-cols-12 px-5 lg:px-20 pt-5 pb-20">
+        <div class="col-span-12 lg:col-span-6">
           <div class="grid grid-cols-12 gap-y-2">
             <div class="col-span-4 font-bold">Alamat</div>
             <div class="col-span-8 font-bold">: &nbsp; Batu aji No. 10</div>
@@ -36,7 +36,7 @@
             <div class="col-span-8 font-bold">: &nbsp; 5 Orang</div>
           </div>
         </div>
-        <div class="col-span-6">
+        <div class="col-span-12 lg:col-span-6">
           <div class="grid grid-cols-12 gap-y-2">
             <div class="col-span-4 font-bold">Status</div>
             <div class="col-span-8 font-bold">: &nbsp; Anggota Koperasi</div>
