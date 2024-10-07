@@ -47,7 +47,7 @@
 
   .bg-image-wave2 {
     background-image: url('@/assets/images/wave-profile.svg');
-    @apply bg-primary-light bg-no-repeat bg-bottom bg-contain;
+    @apply bg-primary-light bg-no-repeat bg-bottom min-h-screen;
   }
 
   .datepicker-cell.selected {
