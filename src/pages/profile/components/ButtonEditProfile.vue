@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="absolute right-24 top-72 bg-transparent hover:bg-gray-200 hover:rounded-full w-10 h-10 inline-flex justify-center items-center transition-all duration-200 ease-in-out"
+    class="absolute right-5 lg:right-24 top-72 bg-transparent hover:bg-gray-200 hover:rounded-full w-10 h-10 inline-flex justify-center items-center transition-all duration-200 ease-in-out"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

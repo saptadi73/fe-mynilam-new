@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-image-wave2 pb-4">
+  <div class="bg-image-wave2 px-5 md:px-16 pb-4">
     <BaseHeaderTitle title="Agen/Koperasi" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
-      <div class="flex flex-row gap-x-5 justify-start">
-        <div class="flex flex-row gap-x-2">
+      <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-5 justify-start">
+        <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
           <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
           <BaseButton>Cari</BaseButton>
         </div>
@@ -12,17 +12,17 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
-        <BaseCardAdd @click="showModal" card-title="Agen" class="col-span-3" />
+        <BaseCardAdd @click="showModal" card-title="Agen" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
           v-for="(card, cardIndex) in cardAgen"
           :key="cardIndex"
           card-path="profile/profile-agen"
           :card-code="card.code"
-          class="col-span-3"
+          class="col-span-12 md:col-span-6 lg:col-span-3"
         >
           <template #card-content>
             <div class="flex justify-center pt-2">
-              <img class="rounded-xl" src="@/assets/images/petani-image.png" alt="Petani Image" />
+              <img class="w-full rounded-xl" src="@/assets/images/petani-image.png" alt="Petani Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">

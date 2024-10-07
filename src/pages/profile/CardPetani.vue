@@ -1,27 +1,27 @@
 <template>
-  <div class="bg-image-wave2 pb-4">
+  <div class="bg-image-wave2 px-5 md:px-16 pb-4">
     <BaseHeaderTitle title="Petani" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
-      <div class="flex flex-row gap-x-5 justify-start">
-        <div class="flex flex-row gap-x-2">
+      <div class="flex flex-col md:flex-row gap-y-2 md:gap-y-0 md:gap-x-5 justify-start">
+        <div class="flex flex-col md:flex-row gap-y-2 md:gap-y-0 md:gap-x-2">
           <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
           <BaseButton>Cari</BaseButton>
         </div>
         <BaseInputSelect name="kabupaten" :options="options" placeholder="Pilih kabupaten"></BaseInputSelect>
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
-      <div class="grid grid-cols-12 gap-4 mt-2">
-        <BaseCardAdd @click="showModal" card-title="Petani" class="col-span-3" />
+      <div class="grid grid-cols-12 gap-y-4 md:gap-y-4 md:gap-x-4 mt-2">
+        <BaseCardAdd @click="showModal" card-title="Petani" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
           v-for="(card, cardIndex) in cardPetani"
           :key="cardIndex"
           card-path="profile/profile-petani"
           :card-code="card.code"
-          class="col-span-3"
+          class="col-span-12 md:col-span-6 lg:col-span-3"
         >
           <template #card-content>
             <div class="flex justify-center pt-2">
-              <img class="rounded-xl" src="@/assets/images/petani-image.png" alt="Petani Image" />
+              <img class="w-full rounded-xl" src="@/assets/images/petani-image.png" alt="Petani Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -62,10 +62,6 @@
         </BaseCard>
       </div>
     </div>
-
-    <BaseModal :showModal="modal" @setModal="handleModal">
-      <template #default> </template>
-    </BaseModal>
 
     <ModalProfile :modal="modal" @set-modal="handleModal">
       <template #body-form>
