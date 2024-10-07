@@ -1,84 +1,108 @@
 <template>
-  <div class="p-2 bg-primary-light">
-    <h1 class="font-bold text-center text-3xl px-64 py-8">
-      Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani
-    </h1>
-    <div class="px-12">
-      <img
-        class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-        src="../assets/images/banner-dashboard.jpg"
-        alt="Banner Dashboard Image"
-      />
-    </div>
+  <div class="p-4 bg-primary-light">
+    <div class="h-screen">
+      <h1 class="font-bold text-center text-3xl 2xl:text-4xl py-8">
+        Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani
+      </h1>
 
-    <p class="text-center px-40 py-4">
-      Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi
-      hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat. Atur
-      jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor seluruh
-      proses produksi serta tahapan proses tanam untuk memastikan hasil yang optimal.
-    </p>
-
-    <div class="px-12">
-      <h1 class="font-bold text-center text-2xl pt-12 pb-4">Analisis Produktivitas Petani</h1>
-      <div class="bg-white rounded-xl">
-        <BaseChart chartId="chart1" chartType="line" :chartData="lineChartData" :chartOptions="lineChartOptions" />
-      </div>
-    </div>
-
-    <div class="grid grid-cols-12 gap-x-8 px-12 py-8">
-      <div class="col-span-6 bg-white rounded-xl px-20 pb-8">
-        <BaseChart
-          chartId="chart2"
-          chartType="pie"
-          :chartData="data"
-          :chartOptions="chartOptions"
-          :chartDataLabel="true"
+      <div class="px-12 flex justify-center">
+        <img
+          class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
+          src="../assets/images/banner-dashboard.jpg"
+          alt="Banner Dashboard Image"
         />
       </div>
 
-      <div class="col-span-6">
-        <h1 class="font-bold text-2xl">Pemantauan Proses Tanam</h1>
-        <p class="text-xl text-justify mt-2">
-          Pantau setiap tahap pertumbuhan nilam dari penanaman benih hingga panen untuk memastikan praktik terbaik
-          diimplementasikan. Monitor perkembangan tanaman secara berkala untuk memastikan hasil panen yang optimal dan
-          kualitas yang terjaga.
-        </p>
-      </div>
+      <p class="text-center 2xl:text-xl px-40 py-8">
+        Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi
+        hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat. Atur
+        jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor seluruh
+        proses produksi serta tahapan proses tanam untuk memastikan hasil yang optimal.
+      </p>
     </div>
 
-    <div class="grid grid-cols-12 gap-x-8 px-12 py-8">
-      <div class="col-span-6">
-        <h1 class="font-bold text-2xl">Pemantauan Proses Produksi</h1>
-        <p class="text-xl text-justify mt-2">
-          Pantau secara cermat setiap tahapan dari proses panen hingga ekstraksi minyak nilam/atsiri. Pastikan setiap
-          langkah dijalankan dengan optimal, mulai dari pemilihan waktu panen yang tepat, pengolahan bahan baku, hingga
-          proses distilasi yang menghasilkan minyak dengan kualitas terbaik. Jamin efisiensi dan kualitas dalam seluruh
-          rantai produksi untuk memaksimalkan hasil dan mendukung kesejahteraan petani.
-        </p>
-      </div>
-
-      <div class="col-span-6 bg-white rounded-xl px-20 pb-8">
+    <div class="px-12 h-screen">
+      <h1 class="font-bold text-center text-2xl 2xl:text-3xl pt-12 pb-4">Analisis Produktivitas Petani</h1>
+      <div class="bg-white p-4 rounded-xl flex justify-center">
         <BaseChart
-          chartId="chart3"
-          chartType="pie"
-          :chartData="prosesProduksidata"
-          :chartOptions="prosesProduksidataChartOptions"
-          :chartDataLabel="true"
+          class="w-full h-[480px] 2xl:h-[700px]"
+          chartId="chart1"
+          chartType="line"
+          :chartData="lineChartData"
+          :chartOptions="lineChartOptions"
         />
       </div>
     </div>
 
-    <div class="px-12">
-      <h1 class="font-bold text-2xl text-center py-8">Pemantauan Pendapatan Petani</h1>
-      <div class="bg-white rounded-xl px-10">
-        <BaseChart chartId="chart4" chartType="bar" :chartData="barChartData" :chartOptions="barChartOptions" />
+    <div class="h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-x-8 px-12">
+        <div class="col-span-6">
+          <div class="bg-white rounded-xl px-20 pb-8">
+            <BaseChart
+              chartId="chart2"
+              chartType="pie"
+              :chartData="data"
+              :chartOptions="chartOptions"
+              :chartDataLabel="true"
+            />
+          </div>
+        </div>
+
+        <div class="col-span-6">
+          <h1 class="font-bold text-2xl 2xl:text-3xl">Pemantauan Proses Tanam</h1>
+          <p class="text-xl 2xl:text-2xl text-justify mt-2">
+            Pantau setiap tahap pertumbuhan nilam dari penanaman benih hingga panen untuk memastikan praktik terbaik
+            diimplementasikan. Monitor perkembangan tanaman secara berkala untuk memastikan hasil panen yang optimal dan
+            kualitas yang terjaga.
+          </p>
+        </div>
       </div>
     </div>
 
-    <div class="px-12">
-      <h1 class="font-bold text-2xl text-center py-8">Catatan Penjualan</h1>
-      <div class="bg-white rounded-xl px-10">
+    <div class="h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-x-8 px-12 py-8">
+        <div class="col-span-6">
+          <h1 class="font-bold text-2xl 2xl:text-3xl">Pemantauan Proses Produksi</h1>
+          <p class="text-xl 2xl:text-2xl text-justify mt-2">
+            Pantau secara cermat setiap tahapan dari proses panen hingga ekstraksi minyak nilam/atsiri. Pastikan setiap
+            langkah dijalankan dengan optimal, mulai dari pemilihan waktu panen yang tepat, pengolahan bahan baku,
+            hingga proses distilasi yang menghasilkan minyak dengan kualitas terbaik. Jamin efisiensi dan kualitas dalam
+            seluruh rantai produksi untuk memaksimalkan hasil dan mendukung kesejahteraan petani.
+          </p>
+        </div>
+
+        <div class="col-span-6">
+          <div class="bg-white rounded-xl px-20 pb-8">
+            <BaseChart
+              chartId="chart3"
+              chartType="pie"
+              :chartData="prosesProduksidata"
+              :chartOptions="prosesProduksidataChartOptions"
+              :chartDataLabel="true"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-12 h-screen">
+      <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Pemantauan Pendapatan Petani</h1>
+      <div class="bg-white rounded-xl px-10 flex justify-center">
         <BaseChart
+          class="h-[480px] 2xl:h-[700px] w-10/12"
+          chartId="chart4"
+          chartType="bar"
+          :chartData="barChartData"
+          :chartOptions="barChartOptions"
+        />
+      </div>
+    </div>
+
+    <div class="px-12 h-screen">
+      <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Catatan Penjualan</h1>
+      <div class="bg-white rounded-xl px-10 flex justify-center">
+        <BaseChart
+          class="h-[480px] 2xl:h-[700px] w-10/12"
           chartId="chart5"
           chartType="bar"
           :chartData="barChartDataPenjualan"
@@ -87,28 +111,28 @@
       </div>
     </div>
 
-    <div class="px-12">
-      <h1 class="font-bold text-2xl text-center py-8">Pemantauan Estimasi Produksi</h1>
+    <div class="px-12 h-screen">
+      <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Pemantauan Estimasi Produksi</h1>
       <div class="bg-white rounded-xl py-6 px-4 grid grid-cols-12 gap-4">
-        <BaseChart
-          v-for="(chart, index) in chartDataEstimasiProduksi"
-          :key="index"
-          class="col-span-3 bg-primary-light rounded-2xl border border-primary py-4 px-8"
-          :chartId="`Chart ${index}`"
-          chartType="pie"
-          :chartData="chart.data"
-          :chartOptions="estimastiProduksiChartOptions"
-          :chartDataLabel="true"
-        >
-          <template #chartTitle>
-            <h1 class="flex justify-center font-bold text-xl mb-2">{{ chart.title }}</h1>
-          </template>
-        </BaseChart>
+        <div v-for="(chart, index) in chartDataEstimasiProduksi" :key="index" class="col-span-3 flex justify-center">
+          <BaseChart
+            class="bg-primary-light rounded-2xl border border-primary py-4 px-8 xl:w-10/12"
+            :chartId="`Chart ${index}`"
+            chartType="pie"
+            :chartData="chart.data"
+            :chartOptions="estimastiProduksiChartOptions"
+            :chartDataLabel="true"
+          >
+            <template #chartTitle>
+              <h1 class="flex justify-center font-bold text-xl mb-2">{{ chart.title }}</h1>
+            </template>
+          </BaseChart>
+        </div>
       </div>
     </div>
 
     <div class="px-12">
-      <h1 class="font-bold text-2xl text-center py-8">Kalender Produksi Terpadu</h1>
+      <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Kalender Produksi Terpadu</h1>
       <div class="flex justify-center">
         <Calendar :attributes="attributes" :columns="columns" :rows="2" expanded />
       </div>
@@ -177,7 +201,7 @@ const lineChartData: ChartData = {
 
 const lineChartOptions: ChartOptions<'line'> = {
   responsive: true,
-  maintainAspectRatio: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       display: false,
