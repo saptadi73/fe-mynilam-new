@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-image-wave2 pb-4">
+  <div class="bg-image-wave2 px-5 md:px-16 pb-4">
     <BaseHeaderTitle title="Petani" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="flex flex-row gap-x-5 justify-start">

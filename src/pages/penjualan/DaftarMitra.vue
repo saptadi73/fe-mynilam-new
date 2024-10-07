@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-image-wave px-16">
+  <div class="bg-image-wave px-5 md:px-16">
     <BaseHeaderTitle title="Daftar Mitra" />
     <div class="bg-[#F6FDFF] rounded-xl shadow-lg p-8 grid grid-cols-12 gap-y-8 md:gap-y-0 md:gap-x-12">
       <div class="col-span-12 md:col-span-4 md:col-start-3">
