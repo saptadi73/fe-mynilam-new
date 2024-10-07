@@ -55,7 +55,7 @@ const checkIsAuthenticated = (): boolean => {
   }
 }
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
   const isAuthenticated = checkIsAuthenticated()
   // if the route requires auth & user not authenticated
   if (to.meta.requiresAuth && !isAuthenticated) {
