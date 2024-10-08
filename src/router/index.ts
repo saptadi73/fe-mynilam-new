@@ -31,6 +31,16 @@ const routes = [
       produksi,
       inventaris,
       penjualan,
+      {
+        path: '/sample',
+        children: [
+          {
+            path: 'maps',
+            name: 'Maps',
+            component: () => import('../pages/sample/Maps.vue'),
+          },
+        ],
+      },
     ],
   },
 ]
