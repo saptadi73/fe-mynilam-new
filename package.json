@@ -18,6 +18,8 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "flowbite": "^2.5.1",
     "jwt-decode": "^4.0.0",
+    "leaflet": "^1.9.4",
+    "shpjs": "^6.1.0",
     "v-calendar": "^3.1.2",
     "vee-validate": "^4.13.2",
     "vue": "^3.4.37",
@@ -25,7 +27,10 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/geojson": "^7946.0.14",
+    "@types/leaflet": "^1.9.12",
     "@types/node": "^22.5.4",
+    "@types/shpjs": "^3.4.7",
     "@vitejs/plugin-vue": "^5.1.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.45",
