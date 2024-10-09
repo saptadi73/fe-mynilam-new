@@ -66,7 +66,10 @@
 
             <div class="col-span-4 font-bold">Total Panen</div>
             <div class="col-span-8 font-bold text-primary-2">
-              : &nbsp; 65.000 kg (35% target panen)
+              <p>
+                :
+                <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani' }">&nbsp; 65.000 kg (35% target panen)</RouterLink>
+              </p>
               <ProgressBar progress="35%" />
             </div>
 

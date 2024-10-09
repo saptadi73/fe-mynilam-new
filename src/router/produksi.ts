@@ -20,6 +20,11 @@ export default {
           component: () => import('../pages/produksi/DaftarTanamNilam.vue'),
         },
         {
+          path: 'daftar-tanam-nilam-petani/:id',
+          name: 'Daftar Tanam Nilam Petani',
+          component: () => import('../pages/produksi/DaftarTanamNilamPetani.vue'),
+        },
+        {
           path: 'daftar-produksi-nilam',
           name: 'Daftar Produksi Nilam',
           component: () => import('../pages/produksi/DaftarProduksiNilam.vue'),
