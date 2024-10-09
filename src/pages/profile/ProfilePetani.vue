@@ -85,7 +85,14 @@
             </div>
 
             <div class="col-span-4 font-bold">Tanam (sekarang)</div>
-            <div class="col-span-8 font-bold text-primary-2">: &nbsp; 5 ha (500 kg target panen)</div>
+            <div class="col-span-8 font-bold text-primary-2">
+              <p>
+                :
+                <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani Progress' }"
+                  >&nbsp; 5 ha (500 kg target panen)</RouterLink
+                >
+              </p>
+            </div>
           </div>
         </div>
       </div>

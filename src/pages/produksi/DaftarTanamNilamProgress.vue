@@ -38,7 +38,7 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Luas Lahan</h1>
-                <p class="font-bold text-sm">{{ card.luasLahan }} ha</p>
+                <p class="font-bold text-sm">{{ card.luasLahan }} Ha</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Mulai Produksi</h1>
@@ -63,10 +63,10 @@
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Status</h1>
                 <p
-                  v-if="card.status == 'done'"
-                  class="bg-primary text-white font-bold text-sm rounded-lg inline-block px-2.5 py-1"
+                  v-if="card.status == 'progress'"
+                  class="bg-[#20D173] text-white font-bold text-sm rounded-lg inline-block px-2.5 py-1"
                 >
-                  Done
+                  On Progress
                 </p>
               </div>
             </div>
@@ -91,7 +91,7 @@ const chartData: ChartData = {
   datasets: [
     {
       label: 'Total Data',
-      data: [100, 0],
+      data: [30, 70],
       backgroundColor: ['#015438', '#20D173'],
       hoverOffset: 4,
     },
@@ -113,49 +113,25 @@ const cardPetani = reactive([
     id: 1,
     code: 'PNNUTX231',
     petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '15',
-    mulaiProduksi: '4 Juni 2023',
-    akhirProduksi: '17 Desember 2023',
-    estimasiPanen: '20000',
+    luasLahan: '2',
+    mulaiProduksi: '17 Juni 2024',
+    akhirProduksi: '17 Desember 2024',
+    estimasiPanen: '200',
     lokasi: '4.747883, 96.748811',
     alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
+    status: 'progress',
   },
   {
     id: 2,
     code: 'PNN61528X',
     petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '30',
-    mulaiProduksi: '23 Juli 2022',
-    akhirProduksi: '2 Januari 2023',
-    estimasiPanen: '45000',
+    luasLahan: '3',
+    mulaiProduksi: '20 Juli 2024',
+    akhirProduksi: '20 Januari 2025',
+    estimasiPanen: '300',
     lokasi: '4.747883, 96.748811',
     alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
-  },
-  {
-    id: 3,
-    code: 'PNN61529X',
-    petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '30',
-    mulaiProduksi: '2 Juli 2023',
-    akhirProduksi: '2 Desember 2022',
-    estimasiPanen: '15000',
-    lokasi: '4.747883, 96.748811',
-    alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
-  },
-  {
-    id: 4,
-    code: 'PNN61529X',
-    petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '30',
-    mulaiProduksi: '2 Juni 2022',
-    akhirProduksi: '2 Desember 2022',
-    estimasiPanen: '15000',
-    lokasi: '4.747883, 96.748811',
-    alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
+    status: 'progress',
   },
 ])
 </script>

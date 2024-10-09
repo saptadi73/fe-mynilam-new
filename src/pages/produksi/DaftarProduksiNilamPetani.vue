@@ -37,7 +37,7 @@
                 <p class="font-bold text-sm">{{ card.petaniName }}</p>
               </div>
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Luas Lahan</h1>
+                <h1 class="text-sm">Jumlah Nilam</h1>
                 <p class="font-bold text-sm">{{ card.jumlahNilam }} kg</p>
               </div>
               <div class="col-span-6 pt-2">
@@ -111,7 +111,7 @@ const chartOptions: ChartOptions<'doughnut'> = {
 const cardPetani = reactive([
   {
     id: 1,
-    code: 'TNM94A2X',
+    code: 'PNNUTX231',
     petaniName: 'Bagas Adi Rukmana',
     jumlahNilam: '12.000',
     mulaiProduksi: '12 Januari 2003',
@@ -123,7 +123,7 @@ const cardPetani = reactive([
   },
   {
     id: 2,
-    code: 'TNM94A2X',
+    code: 'PNN61528X',
     petaniName: 'Bagas Adi Rukmana',
     jumlahNilam: '11.200',
     mulaiProduksi: '16 Juni 2023',
