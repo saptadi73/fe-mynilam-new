@@ -53,7 +53,7 @@
             <div class="col-span-8 font-bold">: &nbsp; Anggota Koperasi</div>
 
             <div class="col-span-4 font-bold">Pendidikan</div>
-            <div class="col-span-8 font-bold">: &nbsp; S-1 Management Lahan</div>
+            <div class="col-span-8 font-bold">: &nbsp; S-1 Manajemen Pertanian</div>
 
             <div class="col-span-4 font-bold">Surat Kontrak</div>
             <div class="col-span-8 font-bold">: &nbsp; -</div>
@@ -65,10 +65,16 @@
             <div class="col-span-8 font-bold">: &nbsp; bagas@gmail.com</div>
 
             <div class="col-span-4 font-bold">Total Panen</div>
-            <div class="col-span-8 font-bold text-primary-2">: &nbsp; 60.000 kg (35% target panen)</div>
+            <div class="col-span-8 font-bold text-primary-2">
+              : &nbsp; 65.000 kg (35% target panen)
+              <ProgressBar progress="35%" />
+            </div>
 
             <div class="col-span-4 font-bold">Total Produksi</div>
-            <div class="col-span-8 font-bold text-primary-2">: &nbsp; 523 kg (80% target panen)</div>
+            <div class="col-span-8 font-bold text-primary-2">
+              : &nbsp; 523 kg (80% target panen)
+              <ProgressBar progress="80% " />
+            </div>
 
             <div class="col-span-4 font-bold">Tanam (sekarang)</div>
             <div class="col-span-8 font-bold text-primary-2">: &nbsp; 5 ha (500 kg target panen)</div>
@@ -81,4 +87,5 @@
 
 <script setup lang="ts">
 import ButtonEditProfile from './components/ButtonEditProfile.vue'
+import ProgressBar from './components/ProgressBar.vue'
 </script>
