@@ -19,9 +19,17 @@
       </svg>
     </button>
 
-    <RouterLink :to="`/${cardPath}/${cardCode}`">
-      <slot name="card-content"></slot>
-    </RouterLink>
+    <template v-if="cardPath">
+      <RouterLink :to="`/${cardPath}/${cardCode}`">
+        <slot name="card-content"></slot>
+      </RouterLink>
+    </template>
+
+    <template v-else>
+      <div>
+        <slot name="card-content"></slot>
+      </div>
+    </template>
   </div>
 </template>
 

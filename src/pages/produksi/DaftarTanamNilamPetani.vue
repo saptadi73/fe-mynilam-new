@@ -4,13 +4,7 @@
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="grid grid-cols-12 gap-4">
         <BaseCardAdd card-title="Nilam" class="col-span-3" />
-        <BaseCard
-          v-for="(card, cardIndex) in cardPetani"
-          :key="cardIndex"
-          card-path="profile/profile-petani"
-          :card-code="card.code"
-          class="col-span-3"
-        >
+        <BaseCard v-for="(card, cardIndex) in cardPetani" :key="cardIndex" :card-code="card.code" class="col-span-3">
           <template #card-content>
             <div class="grid grid-cols-12 items-center gap-x-2">
               <div class="col-span-6 h-40 flex items-center justify-center">
