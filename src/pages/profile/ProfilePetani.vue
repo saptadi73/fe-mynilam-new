@@ -24,10 +24,10 @@
             <div class="col-span-8 font-bold">: &nbsp; Desa Panton Bili</div>
 
             <div class="col-span-4 font-bold">Kecamatan</div>
-            <div class="col-span-8 font-bold">: &nbsp; Kecamatan Labuhan Haji Timur</div>
+            <div class="col-span-8 font-bold">: &nbsp; Kecamatan Timang Rasa</div>
 
             <div class="col-span-4 font-bold">Kota/Kabupaten</div>
-            <div class="col-span-8 font-bold">: &nbsp; Kabupaten Aceh Selatan</div>
+            <div class="col-span-8 font-bold">: &nbsp; Kabupaten Bener Meriah</div>
 
             <div class="col-span-4 font-bold">Provinsi</div>
             <div class="col-span-8 font-bold">: &nbsp; Aceh</div>
@@ -36,7 +36,10 @@
             <div class="col-span-8 font-bold">: &nbsp; 5 Orang</div>
 
             <div class="col-span-4 font-bold">Total Asset</div>
-            <div class="col-span-8 font-bold text-primary-2">: &nbsp; 23 ha</div>
+            <div class="col-span-8 font-bold text-primary-2">
+              : &nbsp;
+              <RouterLink :to="{ name: 'Daftar Aset Petani' }">23 ha</RouterLink>
+            </div>
 
             <div class="col-span-4 font-bold text-primary-2">
               <RouterLink :to="{ name: 'Product Traceability' }">Product Traceability</RouterLink>

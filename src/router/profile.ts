@@ -8,7 +8,7 @@ export default {
     },
     {
       path: 'profile-petani',
-      name: 'Profile Card Petani',
+      name: 'Daftar Petani',
       component: () => import('../pages/profile/DaftarPetani.vue'),
     },
     {
@@ -18,7 +18,7 @@ export default {
     },
     {
       path: 'profile-agen',
-      name: 'Profile Card Agen',
+      name: 'Daftar Agen',
       component: () => import('../pages/profile/DaftarAgen.vue'),
     },
     {
@@ -35,6 +35,11 @@ export default {
       path: 'profile-aset',
       name: 'Profile Aset',
       component: () => import('../pages/profile/DaftarAset.vue'),
+    },
+    {
+      path: 'daftar-aset-petani/:id',
+      name: 'Daftar Aset Petani',
+      component: () => import('../pages/profile/DaftarAsetPetani.vue'),
     },
   ],
 }

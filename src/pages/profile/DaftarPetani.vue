@@ -134,7 +134,7 @@ const handleSubmit = () => {
 const cardPetani = reactive([
   {
     code: 'TNM94A2X',
-    petaniName: 'Agus Prayitno',
+    petaniName: 'Bagas Adi Rukmana',
     alamat: 'Batu Aji No.11',
     desa: 'Panton Bili',
     kecamatan: 'Labuhan Haji Timur',
