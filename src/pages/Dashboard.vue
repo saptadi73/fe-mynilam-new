@@ -134,7 +134,7 @@
     <div class="px-12">
       <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Kalender Produksi Terpadu</h1>
       <div class="flex justify-center">
-        <Calendar :attributes="attributes" :columns="columns" :rows="2" expanded />
+        <Calendar :attributes="attributes" :columns="columns" :rows="2" locale="id" expanded />
       </div>
     </div>
   </div>
@@ -142,10 +142,10 @@
 
 <script setup lang="ts">
 import BaseChart from '@/components/BaseChart.vue'
+import { computed, reactive, ref } from 'vue'
 import { ChartData, type ChartOptions } from 'chart.js/auto'
 import { Calendar } from 'v-calendar'
 import 'v-calendar/style.css'
-import { computed, reactive, ref } from 'vue'
 import { useScreens } from 'vue-screen-utils'
 
 const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1024px' })
