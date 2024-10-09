@@ -34,6 +34,12 @@
 
             <div class="col-span-4 font-bold">Anggota Keluarga</div>
             <div class="col-span-8 font-bold">: &nbsp; 5 Orang</div>
+
+            <div class="col-span-4 font-bold">Total Asset</div>
+            <div class="col-span-8 font-bold text-primary-2">: &nbsp; 23 ha</div>
+
+            <div class="col-span-4 font-bold text-primary-2">Traceability Product</div>
+            <div class="col-span-8 font-bold"></div>
           </div>
         </div>
         <div class="col-span-12 lg:col-span-6">
@@ -52,6 +58,15 @@
 
             <div class="col-span-4 font-bold">Email</div>
             <div class="col-span-8 font-bold">: &nbsp; bagas@gmail.com</div>
+
+            <div class="col-span-4 font-bold">Total Panen</div>
+            <div class="col-span-8 font-bold text-primary-2">: &nbsp; 60.000 kg (35% target panen)</div>
+
+            <div class="col-span-4 font-bold">Total Produksi</div>
+            <div class="col-span-8 font-bold text-primary-2">: &nbsp; 523 kg (80% target panen)</div>
+
+            <div class="col-span-4 font-bold">Tanam (sekarang)</div>
+            <div class="col-span-8 font-bold text-primary-2">: &nbsp; 5 ha (500 kg target panen)</div>
           </div>
         </div>
       </div>

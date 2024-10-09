@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-image-wave2">
+  <div class="bg-image-wave2 px-16">
     <BaseHeaderTitle title="Daftar Produksi Minyak Nilam" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="grid grid-cols-12 gap-4">
@@ -103,7 +103,6 @@ const chartOptions: ChartOptions<'doughnut'> = {
     },
   },
 }
-
 
 const cardPetani = reactive([
   {
