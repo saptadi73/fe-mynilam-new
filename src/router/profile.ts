@@ -9,7 +9,7 @@ export default {
     {
       path: 'profile-petani',
       name: 'Profile Card Petani',
-      component: () => import('../pages/profile/CardPetani.vue'),
+      component: () => import('../pages/profile/DaftarPetani.vue'),
     },
     {
       path: 'profile-petani/:id',
@@ -19,7 +19,7 @@ export default {
     {
       path: 'profile-agen',
       name: 'Profile Card Agen',
-      component: () => import('../pages/profile/CardAgen.vue'),
+      component: () => import('../pages/profile/DaftarAgen.vue'),
     },
     {
       path: 'profile-agen/:id',
@@ -34,7 +34,7 @@ export default {
     {
       path: 'profile-aset',
       name: 'Profile Aset',
-      component: () => import('../pages/profile/CardAset.vue'),
+      component: () => import('../pages/profile/DaftarAset.vue'),
     },
   ],
 }
