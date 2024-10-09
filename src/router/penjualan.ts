@@ -11,5 +11,10 @@ export default {
       name: 'Daftar Penjualan',
       component: () => import('../pages/penjualan/DaftarPenjualan.vue'),
     },
+    {
+      path: 'product-traceability/:id',
+      name: 'Product Traceability',
+      component: () => import('../pages/penjualan/ProductTraceability.vue'),
+    },
   ],
 }

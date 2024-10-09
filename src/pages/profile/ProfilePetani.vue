@@ -38,7 +38,9 @@
             <div class="col-span-4 font-bold">Total Asset</div>
             <div class="col-span-8 font-bold text-primary-2">: &nbsp; 23 ha</div>
 
-            <div class="col-span-4 font-bold text-primary-2">Traceability Product</div>
+            <div class="col-span-4 font-bold text-primary-2">
+              <RouterLink :to="{ name: 'Product Traceability' }">Product Traceability</RouterLink>
+            </div>
             <div class="col-span-8 font-bold"></div>
           </div>
         </div>
