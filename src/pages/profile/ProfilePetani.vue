@@ -13,7 +13,7 @@
 
       <ButtonEditProfile />
 
-      <div class="text-3xl font-bold px-5 lg:px-20 mt-28">Bagas Adi Rukma</div>
+      <div class="text-3xl font-bold px-5 lg:px-20 mt-28">Bagas Adi Rukmana</div>
       <div class="grid grid-cols-12 px-5 lg:px-20 pt-5 pb-20">
         <div class="col-span-12 lg:col-span-6">
           <div class="grid grid-cols-12 gap-y-2">
@@ -75,7 +75,12 @@
 
             <div class="col-span-4 font-bold">Total Produksi</div>
             <div class="col-span-8 font-bold text-primary-2">
-              : &nbsp; 523 kg (80% target panen)
+              <p>
+                :
+                <RouterLink :to="{ name: 'Daftar Produksi Nilam Petani' }"
+                  >&nbsp; 523 kg (80% target produksi)</RouterLink
+                >
+              </p>
               <ProgressBar progress="80% " />
             </div>
 

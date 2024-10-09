@@ -1,6 +1,6 @@
 <template>
   <div class="bg-image-wave2 px-16">
-    <BaseHeaderTitle title="Daftar Tanam Nilam" />
+    <BaseHeaderTitle title="Daftar Produksi Nilam" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="grid grid-cols-12 gap-4">
         <BaseCardAdd card-title="Nilam" class="col-span-3" />
@@ -38,7 +38,7 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Luas Lahan</h1>
-                <p class="font-bold text-sm">{{ card.luasLahan }} ha</p>
+                <p class="font-bold text-sm">{{ card.jumlahNilam }} kg</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Mulai Produksi</h1>
@@ -113,10 +113,10 @@ const cardPetani = reactive([
     id: 1,
     code: 'TNM94A2X',
     petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '15',
-    mulaiProduksi: '4 Juni 2023',
-    akhirProduksi: '17 Desember 2023',
-    estimasiPanen: '5000',
+    jumlahNilam: '12.000',
+    mulaiProduksi: '12 Januari 2003',
+    akhirProduksi: '30 Mei 2023',
+    estimasiPanen: '267',
     lokasi: '4.747883, 96.748811',
     alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
     status: 'done',
@@ -125,34 +125,10 @@ const cardPetani = reactive([
     id: 2,
     code: 'TNM94A2X',
     petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '30',
-    mulaiProduksi: '23 Juli 2022',
-    akhirProduksi: '2 Januari 2023',
-    estimasiPanen: '5000',
-    lokasi: '4.747883, 96.748811',
-    alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
-  },
-  {
-    id: 3,
-    code: 'TNM94A2X',
-    petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '30',
-    mulaiProduksi: '2 Juli 2023',
-    akhirProduksi: '2 Desember 2022',
-    estimasiPanen: '5000',
-    lokasi: '4.747883, 96.748811',
-    alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
-  },
-  {
-    id: 4,
-    code: 'TNM94A2X',
-    petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '30',
-    mulaiProduksi: '2 Juni 2022',
-    akhirProduksi: '2 Desember 2022',
-    estimasiPanen: '5000',
+    jumlahNilam: '11.200',
+    mulaiProduksi: '16 Juni 2023',
+    akhirProduksi: '20 Januari 2023',
+    estimasiPanen: '255',
     lokasi: '4.747883, 96.748811',
     alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
     status: 'done',
