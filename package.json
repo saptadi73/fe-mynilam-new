@@ -23,6 +23,7 @@
     "v-calendar": "^3.1.2",
     "vee-validate": "^4.13.2",
     "vue": "^3.4.37",
+    "vue-qrcode-reader": "^5.5.11",
     "vue-router": "^4.4.3",
     "yup": "^1.4.0"
   },
