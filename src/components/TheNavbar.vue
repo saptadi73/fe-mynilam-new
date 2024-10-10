@@ -18,7 +18,7 @@
         </svg>
       </button>
       <!-- logo -->
-      <router-link to="/" :active-class="false">
+      <router-link to="/" active-class="no-class">
         <!-- <div class="font-cera text-white text-3xl"><span class="text-primary-3">MYNIL</span>AM</div> -->
         <img class="w-32" src="../assets/images/mynilam.png" alt="Logo MyNilam" />
       </router-link>
