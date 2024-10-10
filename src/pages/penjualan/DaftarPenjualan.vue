@@ -25,7 +25,7 @@
         >
           <template #card-content>
             <div class="flex justify-center pt-2">
-              <img class="w-full rounded-xl" src="@/assets/images/aset-image.png" alt="Aset Image" />
+              <img class="w-full rounded-xl" src="@/assets/images/produk.jpg" alt="Aset Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -212,9 +212,7 @@ const showModalQr = (index: number) => {
   qrcode = useQRCode(data.kode)
   modalQr.value = true
 }
-const closeModalQr = () => {
-  modalQr.value = false
-}
+
 const handleModalQr = (value: boolean) => {
   modalQr.value = value
 }
