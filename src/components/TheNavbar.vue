@@ -1,9 +1,9 @@
 <template>
-  <nav class="fixed w-full z-20 bg-primary block my-auto p-4 lg:px-10">
+  <nav class="fixed w-full z-50 bg-white block my-auto p-4 lg:px-10 shadow-md">
     <div class="flex items-center justify-between space-x-3">
       <button
         type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-primary-light rounded-lg lg:hidden focus:outline-none focus:ring-2 focus:ring-primary-border"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-primary rounded-lg lg:hidden focus:outline-none focus:ring-2 focus:ring-primary-border"
         @click="isMenuOpen = !isMenuOpen"
       >
         <span class="sr-only">Open main menu</span>
@@ -18,12 +18,12 @@
         </svg>
       </button>
       <!-- logo -->
-      <router-link to="/">
+      <router-link to="/" :active-class="false">
         <!-- <div class="font-cera text-white text-3xl"><span class="text-primary-3">MYNIL</span>AM</div> -->
         <img class="w-32" src="../assets/images/mynilam.png" alt="Logo MyNilam" />
       </router-link>
       <!-- navbar menu -->
-      <ul class="hidden lg:flex items-center text-primary bg-primary-light rounded-full py-1.5 px-1">
+      <ul class="hidden lg:flex items-center text-white bg-primary-3 rounded-full py-1.5 px-1">
         <li v-for="(menu, i) in menuList" :key="i" class="cursor-pointer">
           <router-link
             :active-class="menu.path === '/' ? 'beranda-active' : 'router-link-active'"
