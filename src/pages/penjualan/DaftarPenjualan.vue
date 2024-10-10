@@ -55,7 +55,7 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Barcode</h1>
-                <p class="font-bold text-sm cursor-pointer">Lihat Barcode</p>
+                <p @click="showModalQr(index)" class="font-bold text-sm cursor-pointer">Lihat Barcode</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Status</h1>
@@ -158,6 +158,20 @@
           </div>
         </template>
       </BaseModal>
+
+      <BaseModal :show-modal="modalQr" @set-modal="handleModalQr">
+        <template #modal-content>
+          <div class="flex flex-col justify-center">
+            <p class="text-center text-primary text-lg font-semibold pt-8">Silahkan Scan QR Code ini</p>
+            <div class="px-32 py-4">
+              <img class="w-full" :src="qrcode" alt="QR Code" />
+            </div>
+            <div class="flex justify-center pb-4">
+              <BaseButton @click="downloadQrCodeImage" class="w-52 font-semibold">Download</BaseButton>
+            </div>
+          </div>
+        </template>
+      </BaseModal>
     </div>
   </div>
 </template>
@@ -173,23 +187,62 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 
+import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { reactive, ref } from 'vue'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import type { ProdukNilamType } from '@/types/produk'
 
 let modal = ref<Boolean>(false)
+let modalQr = ref<Boolean>(false)
+let qrcode = ''
 
 const showModal = () => {
   modal.value = true
 }
-
 const closeModal = () => {
   modal.value = false
 }
-
 const handleModal = (value: boolean) => {
   modal.value = value
+}
+
+const showModalQr = (index: number) => {
+  const data = daftarNilam[index]
+  qrcode = useQRCode(data.kode)
+  modalQr.value = true
+}
+const closeModalQr = () => {
+  modalQr.value = false
+}
+const handleModalQr = (value: boolean) => {
+  modalQr.value = value
+}
+
+const downloadQrCodeImage = () => {
+  if (!qrcode) return
+
+  // Mengonversi Base64 ke Blob
+  const base64Data = qrcode.value.split(',')[1] // Ambil bagian Base64
+
+  const byteCharacters = atob(base64Data)
+  const byteNumbers = new Array(byteCharacters.length)
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i)
+  }
+  const byteArray = new Uint8Array(byteNumbers)
+  const blob = new Blob([byteArray], { type: 'image/png' })
+
+  // Membuat URL untuk Blob
+  const link = document.createElement('a')
+  link.href = URL.createObjectURL(blob)
+  link.download = 'qrcode.png'
+
+  // Mengklik link untuk memicu unduhan
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(link.href) // Bersihkan URL setelah digunakan
 }
 
 const { handleSubmit } = useForm<ProdukNilamType>({
