@@ -111,23 +111,33 @@
       </div>
     </div>
 
-    <div class="px-12 h-screen">
+    <div class="px-12">
       <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Pemantauan Estimasi Produksi</h1>
-      <div class="bg-white rounded-xl py-6 px-4 grid grid-cols-12 gap-4">
-        <div v-for="(chart, index) in chartDataEstimasiProduksi" :key="index" class="col-span-3 flex justify-center">
-          <BaseChart
-            class="bg-primary-light rounded-2xl border border-primary py-4 px-8 xl:w-10/12"
-            :chartId="`Chart ${index}`"
-            chartType="pie"
-            :chartData="chart.data"
-            :chartOptions="estimastiProduksiChartOptions"
-            :chartDataLabel="true"
-          >
-            <template #chartTitle>
-              <h1 class="flex justify-center font-bold text-xl mb-2">{{ chart.title }}</h1>
-            </template>
-          </BaseChart>
-        </div>
+      <div class="bg-white rounded-xl py-6 px-4">
+        <Maps v-if="!showChart" @show-chart="showChart = true" />
+        <template v-else>
+          <BaseButton class="mx-6 mb-5" @click="showChart = false">Kembali</BaseButton>
+          <div class="grid grid-cols-12 gap-4">
+            <div
+              v-for="(chart, index) in chartDataEstimasiProduksi"
+              :key="index"
+              class="col-span-3 flex justify-center"
+            >
+              <BaseChart
+                class="bg-primary-light rounded-2xl border border-primary py-4 px-8 xl:w-10/12"
+                :chartId="`Chart ${index}`"
+                chartType="pie"
+                :chartData="chart.data"
+                :chartOptions="estimastiProduksiChartOptions"
+                :chartDataLabel="true"
+              >
+                <template #chartTitle>
+                  <h1 class="flex justify-center font-bold text-xl mb-2">{{ chart.title }}</h1>
+                </template>
+              </BaseChart>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -147,9 +157,12 @@ import { ChartData, type ChartOptions } from 'chart.js/auto'
 import { Calendar } from 'v-calendar'
 import 'v-calendar/style.css'
 import { useScreens } from 'vue-screen-utils'
+import Maps from '@/pages/sample/Maps.vue'
+import BaseButton from '@/components/BaseButton.vue'
 
 const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1024px' })
 const columns = mapCurrent({ lg: 4 }, 1)
+const showChart = ref(false)
 
 const todos = ref([
   {
@@ -463,7 +476,7 @@ const barChartOptionsPenjualan: ChartOptions<'bar'> = {
 
 const chartDataEstimasiProduksi = reactive([
   {
-    title: 'Tapaktuan',
+    title: 'Ahmad Fajar',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -477,7 +490,7 @@ const chartDataEstimasiProduksi = reactive([
     },
   },
   {
-    title: 'Kluet Utara',
+    title: 'Agus Saputra',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -491,7 +504,7 @@ const chartDataEstimasiProduksi = reactive([
     },
   },
   {
-    title: 'Kluet Selatan',
+    title: 'Budi Santoso',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -505,7 +518,7 @@ const chartDataEstimasiProduksi = reactive([
     },
   },
   {
-    title: 'Sawang',
+    title: 'Andi Pratama',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -519,7 +532,7 @@ const chartDataEstimasiProduksi = reactive([
     },
   },
   {
-    title: 'Labuhan Haji',
+    title: 'Joko Susanto',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -533,7 +546,7 @@ const chartDataEstimasiProduksi = reactive([
     },
   },
   {
-    title: 'Meukek',
+    title: 'Bambang Waluyo',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -547,7 +560,7 @@ const chartDataEstimasiProduksi = reactive([
     },
   },
   {
-    title: 'Sawang',
+    title: 'Hendri Wijaya',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
@@ -561,7 +574,7 @@ const chartDataEstimasiProduksi = reactive([
     },
   },
   {
-    title: 'Blang Pidie',
+    title: 'Dedi Kurniawan',
     data: {
       labels: ['Selesai', 'Proses'],
       datasets: [
