@@ -51,7 +51,12 @@
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-4">
         <BaseCardAdd card-title="Produksi" class="col-span-3" />
-        <BaseCard v-for="(card, cardIndex) in products" :key="cardIndex" :card-code="card.kode" class="col-span-3">
+        <BaseCard
+          v-for="(card, cardIndex) in filteredProducts"
+          :key="cardIndex"
+          :card-code="card.kode"
+          class="col-span-3"
+        >
           <template #card-content>
             <div class="flex justify-center pt-2">
               <img class="rounded-xl" src="@/assets/images/nilam.jpeg" alt="Produksi Nilam Image" />
@@ -96,15 +101,26 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseModal from '@/components/BaseModal.vue'
 
-import { nextTick, reactive, ref } from 'vue'
+import { nextTick, onMounted, reactive, ref } from 'vue'
 import { QrcodeStream } from 'vue-qrcode-reader'
+
+interface Product {
+  id: number
+  kode: string
+  nama_produk: string
+  nama_petani: string
+  nama_pembeli: string
+  jumlah: string
+  harga: string
+}
 
 const qrModal = ref<boolean>(false)
 const paused = ref<boolean>(false)
 const destroyed = ref<boolean>(false)
 const loading = ref<boolean>(false)
+const filteredProducts = ref<Product[]>([])
 
-const products = reactive([
+const products = reactive<Product[]>([
   {
     id: 1,
     kode: 'PRD1X7QF',
@@ -116,59 +132,94 @@ const products = reactive([
   },
   {
     id: 2,
-    kode: 'PRD1X7QF',
+    kode: 'PRD2X8QF',
     nama_produk: 'Minyak Nilam',
     nama_petani: 'Budi Santoso',
-    nama_pembeli: 'Siti Nurhaliza',
-    jumlah: '3',
-    harga: '3000000',
+    nama_pembeli: 'Dewi Sartika',
+    jumlah: '5',
+    harga: '1500000',
   },
   {
     id: 3,
-    kode: 'PRD1X7QF',
+    kode: 'PRD3X9QF',
     nama_produk: 'Minyak Nilam',
-    nama_petani: 'Rika Kusuma',
-    nama_pembeli: 'Siti Nurhaliza',
-    jumlah: '3',
-    harga: '3000000',
+    nama_petani: 'Citra Ananda',
+    nama_pembeli: 'Joko Widodo',
+    jumlah: '2',
+    harga: '2500000',
   },
   {
     id: 4,
-    kode: 'PRD1X7QF',
+    kode: 'PRD4X0QF',
     nama_produk: 'Minyak Nilam',
-    nama_petani: 'Rika Kusuma',
-    nama_pembeli: 'Siti Nurhaliza',
-    jumlah: '3',
-    harga: '3000000',
+    nama_petani: 'Rudi Hartono',
+    nama_pembeli: 'Rina Susanti',
+    jumlah: '4',
+    harga: '4000000',
   },
   {
     id: 5,
-    kode: 'PRD1X7QF',
+    kode: 'PRD5X1QF',
     nama_produk: 'Minyak Nilam',
-    nama_petani: 'Rika Kusuma',
-    nama_pembeli: 'Siti Nurhaliza',
-    jumlah: '3',
-    harga: '3000000',
+    nama_petani: 'Siti Aminah',
+    nama_pembeli: 'Andi Setiawan',
+    jumlah: '10',
+    harga: '1200000',
   },
   {
     id: 6,
-    kode: 'PRD1X7QF',
+    kode: 'PRD6X2QF',
     nama_produk: 'Minyak Nilam',
-    nama_petani: 'Rika Kusuma',
-    nama_pembeli: 'Siti Nurhaliza',
-    jumlah: '3',
-    harga: '3000000',
+    nama_petani: 'Yanto Prasetyo',
+    nama_pembeli: 'Eka Putri',
+    jumlah: '7',
+    harga: '1800000',
   },
   {
     id: 7,
-    kode: 'PRD1X7QF',
+    kode: 'PRD7X3QF',
     nama_produk: 'Minyak Nilam',
-    nama_petani: 'Rika Kusuma',
-    nama_pembeli: 'Siti Nurhaliza',
-    jumlah: '3',
+    nama_petani: 'Lina Nuraini',
+    nama_pembeli: 'Budi Santoso',
+    jumlah: '20',
+    harga: '5000000',
+  },
+  {
+    id: 8,
+    kode: 'PRD8X4QF',
+    nama_produk: 'Minyak Nilam',
+    nama_petani: 'Dewi Lestari',
+    nama_pembeli: 'Fajar Ramadhan',
+    jumlah: '8',
+    harga: '600000',
+  },
+  {
+    id: 9,
+    kode: 'PRD9X5QF',
+    nama_produk: 'Minyak Nilam',
+    nama_petani: 'Sukma Wijaya',
+    nama_pembeli: 'Nina Salim',
+    jumlah: '5',
+    harga: '7500000',
+  },
+  {
+    id: 10,
+    kode: 'PRD0X6QF',
+    nama_produk: 'Minyak Nilam',
+    nama_petani: 'Rudi Gunawan',
+    nama_pembeli: 'Siti Marfuah',
+    jumlah: '12',
     harga: '3000000',
   },
 ])
+
+const filterProducts = (code: string) => {
+  filteredProducts.value = products.filter((product) => product.kode === code)
+}
+
+onMounted(() => {
+  filteredProducts.value = [...products]
+})
 
 const options = ref([
   {
@@ -203,12 +254,11 @@ const onError = (error: any) => {
 
 const onDetect = async (detectedCodes: any[]) => {
   const output = detectedCodes.map((code) => code.rawValue)
-  console.log(output)
+
   const jsonString = output[0]
   const jsonObject = JSON.parse(jsonString)
 
-  jsonObject.id = products[products.length - 1].id
-  products.push(jsonObject)
+  filterProducts(jsonObject.kode)
 
   paused.value = true
   await timeout(500)
