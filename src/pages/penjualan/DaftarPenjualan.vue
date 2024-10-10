@@ -195,7 +195,7 @@ import type { ProdukNilamType } from '@/types/produk'
 
 let modal = ref<Boolean>(false)
 let modalQr = ref<Boolean>(false)
-let qrcode = ''
+let qrcode = ref<string>('')
 
 const showModal = () => {
   modal.value = true
@@ -218,7 +218,7 @@ const handleModalQr = (value: boolean) => {
 }
 
 const downloadQrCodeImage = () => {
-  if (!qrcode) return
+  if (!qrcode.value) return
 
   // Mengonversi Base64 ke Blob
   const base64Data = qrcode.value.split(',')[1] // Ambil bagian Base64
