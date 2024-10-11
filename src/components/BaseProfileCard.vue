@@ -29,7 +29,7 @@ const imageSrc = ref<string | undefined>()
 
 onMounted(async () => {
   try {
-    const image = await import(`../assets/images/${props.profileImage}.png`)
+    const image = await import(`../assets/images/profile/${props.profileImage}.png`)
     imageSrc.value = image.default
   } catch (error) {
     console.error('Error loading image:', error)

@@ -22,7 +22,11 @@
         >
           <template #card-content>
             <div class="flex justify-center pt-2 h-1/3">
-              <img src="@/assets/images/petani-1.jpg" class="w-full object-cover rounded-xl" alt="Petani Image" />
+              <img
+                src="@/assets/images/profile/petani-1.jpg"
+                class="w-full object-cover rounded-xl"
+                alt="Petani Image"
+              />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">

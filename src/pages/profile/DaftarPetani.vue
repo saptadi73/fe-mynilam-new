@@ -221,7 +221,7 @@ const cardPetani = reactive([
 onMounted(async () => {
   cardPetani.map(async (data, index) => {
     try {
-      const image = await import(`../../assets/images/petani-${index + 1}.jpg`)
+      const image = await import(`../../assets/images/profile/petani-${index + 1}.jpg`)
       console.log(data)
       data.image = image.default
     } catch (error) {
