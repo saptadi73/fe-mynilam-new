@@ -6,7 +6,7 @@
       <div class="px-12 flex justify-center">
         <img
           class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-          src="../assets/images/banner-beranda.jpg"
+          src="@/assets/images/banner-beranda.jpg"
           alt="Banner Dashboard Image"
         />
       </div>
@@ -39,9 +39,9 @@
 
         <div class="col-span-5">
           <img
-            class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-            src="../assets/images/profile-rectangle.png"
-            alt="Banner Dashboard Image"
+            class="thumbnail-image rounded-3xl h-[460px] object-cover"
+            src="@/assets/images/beranda/beranda-thumbnail-1.jpg"
+            alt="Beranda Thumbnail 1 Image"
           />
         </div>
       </div>
@@ -51,9 +51,9 @@
       <div class="grid grid-cols-12 gap-x-8 px-12">
         <div class="col-span-5">
           <img
-            class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-            src="../assets/images/dashboard-rectangle.png"
-            alt="Banner Dashboard Image"
+            class="thumbnail-image rounded-3xl h-[460px] object-cover"
+            src="@/assets/images/beranda/beranda-thumbnail-2.jpg"
+            alt="Beranda Thumbnail 2 Image"
           />
         </div>
 
@@ -99,9 +99,9 @@
 
         <div class="col-span-5">
           <img
-            class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-            src="../assets/images/inventaris-rectangle.png"
-            alt="Banner Dashboard Image"
+            class="thumbnail-image rounded-3xl h-[460px] object-cover"
+            src="@/assets/images/beranda/beranda-thumbnail-3.jpg"
+            alt="Beranda Thumbnail 3 Image"
           />
         </div>
       </div>
@@ -111,9 +111,9 @@
       <div class="grid grid-cols-12 gap-x-8 px-12">
         <div class="col-span-5">
           <img
-            class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-            src="../assets/images/dashboard-rectangle.png"
-            alt="Banner Dashboard Image"
+            class="thumbnail-image rounded-3xl h-[460px] object-cover"
+            src="@/assets/images/beranda/beranda-thumbnail-2.jpg"
+            alt="Beranda Thumbnail 4 Image"
           />
         </div>
 
@@ -155,9 +155,9 @@
 
         <div class="col-span-5">
           <img
-            class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-            src="../assets/images/penjualan-rectangle.png"
-            alt="Banner Dashboard Image"
+            class="thumbnail-image rounded-3xl h-[460px] object-cover"
+            src="../assets/images/beranda/beranda-thumbnail-4.jpg"
+            alt="Beranda Thumbnail 5 Image"
           />
         </div>
       </div>
@@ -167,9 +167,9 @@
       <div class="grid grid-cols-12 gap-x-8 px-12">
         <div class="col-span-5">
           <img
-            class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-            src="../assets/images/laporan-rectangle.png"
-            alt="Banner Dashboard Image"
+            class="thumbnail-image rounded-3xl h-[460px] object-cover"
+            src="@/assets/images/beranda/beranda-thumbnail-5.jpg"
+            alt="Banner Dashboard 6 Image"
           />
         </div>
 
@@ -196,3 +196,9 @@
 import BaseButton from '@/components/BaseButton.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 </script>
+
+<style scoped>
+.thumbnail-image {
+  box-shadow: 6px 6px rgba(0, 0, 0, 0.25);
+}
+</style>
