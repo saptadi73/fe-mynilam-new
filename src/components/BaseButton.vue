@@ -5,6 +5,7 @@
       '--variant-primary': variant == 'primary',
       '--variant-success': variant == 'success',
       '--variant-dark': variant == 'dark',
+      '--variant-primary-light': variant == 'primary-light',
     }"
     :type="type"
   >
@@ -24,7 +25,7 @@
 import type { ButtonHTMLAttributes, Component } from 'vue'
 
 export interface Props {
-  variant?: 'primary' | 'success' | 'dark'
+  variant?: 'primary' | 'success' | 'dark' | 'primary-light'
   icon?: Component
   iconPosition?: 'left' | 'right'
   iconGap?: 'small' | 'big'
@@ -49,6 +50,10 @@ withDefaults(defineProps<Props>(), { variant: 'primary', iconPosition: 'right', 
 
   &.--variant-dark {
     @apply bg-[#015438] text-[#FFCC00];
+  }
+
+  &.--variant-primary-light {
+    @apply bg-[#d6e8b0] text-primary;
   }
 }
 </style>
