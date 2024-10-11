@@ -21,8 +21,8 @@
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >
           <template #card-content>
-            <div class="flex justify-center pt-2">
-              <img class="w-full rounded-xl" src="@/assets/images/petani-1.jpg" alt="Petani Image" />
+            <div class="flex justify-center pt-2 h-1/3">
+              <img src="@/assets/images/petani-1.jpg" class="w-full object-cover rounded-xl" alt="Petani Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
