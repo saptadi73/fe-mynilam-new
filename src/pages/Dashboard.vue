@@ -148,7 +148,7 @@
 
 <script setup lang="ts">
 import BaseChart from '@/components/BaseChart.vue'
-import { computed, reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { ChartData, type ChartOptions } from 'chart.js/auto'
 import { Calendar } from 'v-calendar'
 import 'v-calendar/style.css'
