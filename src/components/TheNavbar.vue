@@ -50,7 +50,7 @@
           </div>
           <div class="text-center text-white text-sm font-semibold">
             <div class="py-2 cursor-pointer hover:bg-[#20D173]">View Profile</div>
-            <div class="py-2 cursor-pointer rounded-b-md hover:bg-[#20D173]">Log Out</div>
+            <div class="py-2 cursor-pointer rounded-b-md hover:bg-[#20D173]" @click="handleLogout">Log Out</div>
           </div>
         </div>
       </div>
@@ -74,7 +74,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { initDropdowns } from 'flowbite'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const menuList = [
   { name: 'Beranda', path: '/' },
@@ -87,6 +91,15 @@ const menuList = [
 ]
 
 const isMenuOpen = ref(false)
+
+const handleLogout = () => {
+  localStorage.removeItem('token')
+  router.push('/login')
+}
+
+onMounted(() => {
+  initDropdowns()
+})
 </script>
 
 <style scoped>
