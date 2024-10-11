@@ -7,7 +7,7 @@
           <div
             class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
           >
-            <img src="@/assets/images/mitra-agen.png" alt="Mitra Agen" />
+            <img src="@/assets/images/penjualan/mitra-agen.png" alt="Mitra Agen" />
             <h1 class="text-3xl text-primary font-cera font-bold text-center">Agen</h1>
           </div>
         </RouterLink>
@@ -17,7 +17,7 @@
           <div
             class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
           >
-            <img src="@/assets/images/mitra-koperasi.png" alt="Mitra Koperasi" />
+            <img src="@/assets/images/penjualan/mitra-koperasi.png" alt="Mitra Koperasi" />
             <h1 class="text-3xl text-primary font-cera font-bold text-center">Koperasi</h1>
           </div>
         </RouterLink>
@@ -27,7 +27,7 @@
           <div
             class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
           >
-            <img src="@/assets/images/mitra-ugreen.png" alt="Mitra Ugreen" />
+            <img src="@/assets/images/penjualan/mitra-ugreen.png" alt="Mitra Ugreen" />
             <h1 class="text-3xl text-primary font-cera font-bold text-center">UGreen</h1>
           </div>
         </RouterLink>

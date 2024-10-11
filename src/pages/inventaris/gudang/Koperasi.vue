@@ -21,7 +21,7 @@
         >
           <template #card-content>
             <div class="flex justify-center pt-2">
-              <img class="rounded-xl" src="@/assets/images/nilam.jpeg" alt="Produksi Nilam Image" />
+              <img class="rounded-xl" src="@/assets/images/produksi/nilam.jpeg" alt="Produksi Nilam Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">

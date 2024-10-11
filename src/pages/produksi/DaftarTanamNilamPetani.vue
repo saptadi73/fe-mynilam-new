@@ -8,7 +8,11 @@
           <template #card-content>
             <div class="grid grid-cols-12 items-center gap-x-2">
               <div class="col-span-6 h-40 flex items-center justify-center">
-                <img class="rounded-xl h-full object-cover" src="@/assets/images/nilam.jpeg" alt="Nilam Image" />
+                <img
+                  class="rounded-xl h-full object-cover"
+                  src="@/assets/images/produksi/nilam.jpeg"
+                  alt="Nilam Image"
+                />
               </div>
 
               <BaseChart
