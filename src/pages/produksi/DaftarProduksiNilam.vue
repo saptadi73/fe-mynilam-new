@@ -8,7 +8,7 @@
           <template #card-content>
             <div class="grid grid-cols-12 items-center gap-x-2">
               <div class="col-span-6">
-                <img class="rounded-xl" src="@/assets/images/produksi-nilam.jpeg" alt="Produksi Nilam Image" />
+                <img class="rounded-xl" src="@/assets/images/produksi/produksi-nilam.jpeg" alt="Produksi Nilam Image" />
               </div>
 
               <BaseChart
