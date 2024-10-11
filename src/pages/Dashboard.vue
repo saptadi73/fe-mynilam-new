@@ -470,7 +470,7 @@ const barChartOptionsPenjualan: ChartOptions<'bar'> = {
   },
 }
 
-const chartDataEstimasiProduksi = reactive([
+const chartDataEstimasiProduksi = [
   {
     title: 'Ahmad Fajar',
     data: {
@@ -597,105 +597,7 @@ const chartDataEstimasiProduksi = reactive([
       ],
     },
   },
-  {
-    title: 'Agus Saputra',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [50, 50],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Anton Suryadi',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [45, 55],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Yudi Kurniawan',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [10, 90],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Eko Priyono',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [20, 80],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Rudi Hartono',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [65, 35],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Arif Wibowo',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [35, 65],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Sandi Rahman',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [10, 90],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-])
+]
 
 const getRandomPetani = () => {
   // Shuffle the array
