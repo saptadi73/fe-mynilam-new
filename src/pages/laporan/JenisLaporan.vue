@@ -7,7 +7,7 @@
         :key="i"
         class="rounded-2xl border-2 border-primary-border bg-primary-light shadow-md"
       >
-        <img :src="`/src/assets/images/laporan/jenis-laporan-${i + 1}.png`" class="w-full rounded-t-xl" />
+        <img :src="getImage(i)" class="w-full rounded-t-xl" />
         <div
           class="bg-primary-light px-3 pt-3 rounded-xl text-center text-sm border-t-2 border-primary-border -translate-y-3 font-cera"
         >
@@ -43,4 +43,8 @@ const laporanList = [
   'Laporan Mitra',
   'Laporan Penjualan',
 ]
+
+const getImage = (i: number) => {
+  return new URL(`/src/assets/images/laporan/jenis-laporan-${i + 1}.png`, import.meta.url).href
+}
 </script>
