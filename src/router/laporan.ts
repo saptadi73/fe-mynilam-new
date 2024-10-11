@@ -3,7 +3,8 @@ export default {
   children: [
     {
       path: '',
-      name: 'Laporan',
+      name: 'Jenis Laporan',
+      component: () => import('../pages/laporan/JenisLaporan.vue'),
     },
   ],
 }

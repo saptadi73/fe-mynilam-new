@@ -5,6 +5,7 @@ import inventaris from './inventaris'
 import penjualan from './penjualan'
 import produksi from './produksi'
 import profile from './profile'
+import laporan from './laporan'
 
 const routes = [
   {
@@ -31,6 +32,7 @@ const routes = [
       produksi,
       inventaris,
       penjualan,
+      laporan,
       {
         path: '/sample',
         children: [
