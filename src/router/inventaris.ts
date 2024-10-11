@@ -1,7 +1,11 @@
 export default {
   path: 'inventaris',
-  redirect: { name: 'Laporan Pergerakan Barang' },
   children: [
+    {
+      path: '',
+      name: 'Inventaris',
+      component: () => import('../pages/inventaris/Inventaris.vue'),
+    },
     {
       path: 'daftar-produk',
       name: 'Daftar Produk Minyak Nilam',
