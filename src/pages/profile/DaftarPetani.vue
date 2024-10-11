@@ -20,8 +20,8 @@
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >
           <template #card-content>
-            <div class="flex justify-center pt-2">
-              <img class="w-full rounded-xl" src="@/assets/images/petani-image.png" alt="Petani Image" />
+            <div class="flex justify-center pt-2 h-1/3">
+              <img :src="card.image" class="w-full object-cover rounded-xl" alt="Petani Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
@@ -142,74 +142,93 @@ const cardPetani = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '4',
     suratKontrak: '-',
+    image: '',
   },
   {
-    code: 'TNM94A2X',
+    code: 'TNM94A3Y',
     petaniName: 'Budi Santoso',
     alamat: 'Batu Aji No.11',
     desa: 'Panton Bili',
     kecamatan: 'Labuhan Haji Timur',
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
-    anggotaKeluarga: '4',
+    anggotaKeluarga: '3',
     suratKontrak: '-',
+    image: '',
   },
   {
-    code: 'TNM94A2X',
+    code: 'TNM94A4Z',
     petaniName: 'Rika Kusuma',
     alamat: 'Batu Aji No.11',
     desa: 'Panton Bili',
     kecamatan: 'Labuhan Haji Timur',
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
-    anggotaKeluarga: '4',
+    anggotaKeluarga: '2',
     suratKontrak: '-',
+    image: '',
   },
   {
-    code: 'TNM94A2X',
-    petaniName: 'Rika Kusuma',
+    code: 'TNM94A5W',
+    petaniName: 'Rudi Hartono',
     alamat: 'Batu Aji No.11',
     desa: 'Panton Bili',
     kecamatan: 'Labuhan Haji Timur',
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
-    anggotaKeluarga: '4',
+    anggotaKeluarga: '2',
     suratKontrak: '-',
+    image: '',
   },
   {
-    code: 'TNM94A2X',
-    petaniName: 'Rika Kusuma',
+    code: 'TNM94A6V',
+    petaniName: 'Yanto Prasetyo',
     alamat: 'Batu Aji No.11',
     desa: 'Panton Bili',
     kecamatan: 'Labuhan Haji Timur',
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
-    anggotaKeluarga: '4',
+    anggotaKeluarga: '3',
     suratKontrak: '-',
+    image: '',
   },
   {
-    code: 'TNM94A2X',
-    petaniName: 'Rika Kusuma',
+    code: 'TNM94A7U',
+    petaniName: 'Citra Ananda',
     alamat: 'Batu Aji No.11',
     desa: 'Panton Bili',
     kecamatan: 'Labuhan Haji Timur',
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
-    anggotaKeluarga: '4',
+    anggotaKeluarga: '1',
     suratKontrak: '-',
+    image: '',
   },
   {
-    code: 'TNM94A2X',
-    petaniName: 'Rika Kusuma',
+    code: 'TNM94A8T',
+    petaniName: 'Siti Aminah',
     alamat: 'Batu Aji No.11',
     desa: 'Panton Bili',
     kecamatan: 'Labuhan Haji Timur',
     kota: 'Aceh Selatan',
     provinsi: 'Aceh',
-    anggotaKeluarga: '4',
+    anggotaKeluarga: '2',
     suratKontrak: '-',
+    image: '',
   },
 ])
+
+onMounted(async () => {
+  cardPetani.map(async (data, index) => {
+    try {
+      const image = await import(`../../assets/images/petani-${index + 1}.jpg`)
+      console.log(data)
+      data.image = image.default
+    } catch (error) {
+      console.error(`Error loading image`, error)
+    }
+  })
+})
 
 const options = ref([
   {
