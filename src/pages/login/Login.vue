@@ -64,13 +64,13 @@
         <!-- Carousel wrapper -->
         <div class="relative overflow-hidden h-96 md:h-screen">
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="../../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
+            <img src="../../assets/images/login/slide-login-1.png" alt="Slide Login 1" class="w-full absolute -top-5" />
           </div>
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="../../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
+            <img src="../../assets/images/login/slide-login-2.png" alt="Slide Login 2" class="w-full absolute -top-5" />
           </div>
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="../../assets/images/login/slide-login-1.png" alt="..." class="w-full absolute -top-5" />
+            <img src="../../assets/images/login/slide-login-3.png" alt="Slide Login 3" class="w-full absolute -top-5" />
           </div>
         </div>
         <!-- Slider indicators -->
@@ -103,9 +103,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import LoginForm from './LoginForm.vue'
 import SignupForm from './SignupForm.vue'
+import { initCarousels } from 'flowbite'
 
 const activeTab = ref('login')
+
+onMounted(() => {
+  initCarousels()
+})
 </script>
