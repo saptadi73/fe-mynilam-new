@@ -34,13 +34,13 @@
         </RouterLink>
       </div>
       <div class="md:w-1/2">
-        <img src="https://placehold.co/800x600" class="rounded-3xl w-full" />
+        <img src="@/assets/images/produksi/produksi-thumbnail-1.png" class="rounded-3xl w-full" />
       </div>
     </section>
 
     <section class="my-20 md:my-10 md:p-8 text-primary flex flex-col md:flex-row items-start md:space-x-10 w-full">
       <div class="md:w-5/12">
-        <img src="https://placehold.co/600x600" class="rounded-3xl w-full" />
+        <img src="@/assets/images/produksi/produksi-thumbnail-2.png" class="rounded-3xl w-full" />
       </div>
       <div class="md:w-7/12 py-3 space-y-5">
         <h1 class="text-3xl font-bold">Buat Daftar Baru Produksi Petani</h1>
@@ -75,7 +75,7 @@
         </RouterLink>
       </div>
       <div class="md:w-1/2">
-        <img src="https://placehold.co/800x600" class="rounded-3xl w-full" />
+        <img src="@/assets/images/produksi/produksi-thumbnail-3.png" class="rounded-3xl w-full" />
       </div>
     </section>
   </div>
