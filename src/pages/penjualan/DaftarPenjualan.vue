@@ -30,16 +30,16 @@
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama Pembeli</h1>
-                <p class="font-bold text-sm">{{ data.nama_pembeli }}</p>
+                <h1 class="text-sm">Nama Penjual</h1>
+                <p class="font-bold text-sm">{{ data.nama_penjual }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Jenis</h1>
                 <p class="font-bold text-sm">{{ data.jenis }}</p>
               </div>
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama Agen</h1>
-                <p class="font-bold text-sm">{{ data.nama_agen }}</p>
+                <h1 class="text-sm">Nama Pembeli</h1>
+                <p class="font-bold text-sm">{{ data.nama_pembeli }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Jumlah</h1>
@@ -127,8 +127,8 @@
 
               <div class="grid grid-cols-12 gap-x-5">
                 <div class="col-span-6 space-y-4">
+                  <BaseInputFloat label="Nama Penjual" name="nama_penjual" type="text" />
                   <BaseInputFloat label="Nama Pembeli" name="nama_pembeli" type="text" />
-                  <BaseInputFloat label="Nama Agen/Koperasi" name="nama_agen" type="text" />
                   <BaseInputSelect :options="options" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
                   <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
                 </div>
@@ -245,9 +245,9 @@ const downloadQrCodeImage = () => {
 
 const { handleSubmit } = useForm<ProdukNilamType>({
   validationSchema: yup.object({
-    nama_pembeli: yup.string().required().label('Nama Pembeli'),
+    nama_penjual: yup.string().required().label('Nama Penjual'),
     jenis: yup.string().required().label('Jenis'),
-    nama_agen: yup.string().required().label('Nama Agen/Koperasi'),
+    nama_pembeli: yup.string().required().label('Nama Pembeli'),
     jumlah: yup.number().required().label('Jumlah'),
     kota: yup.string().required().label('Kota/Kabupaten'),
     harga: yup.string().required().label('Harga/kg'),
@@ -274,9 +274,9 @@ const onSubmit = handleSubmit((values) => {
 const daftarNilam = reactive([
   {
     kode: 'AGN3K9PT',
-    nama_pembeli: 'Agus Prayitno',
+    nama_penjual: 'Agus Prayitno',
     jenis: 'Koperasi',
-    nama_agen: 'Bhineka Nilam',
+    nama_pembeli: 'Bhineka Nilam',
     jumlah: 100,
     kota: 'Aceh Selatan',
     harga: '1.250.000',
@@ -284,9 +284,9 @@ const daftarNilam = reactive([
   },
   {
     kode: 'AGN3K9PX',
-    nama_pembeli: 'Budi Santoso',
+    nama_penjual: 'Budi Santoso',
     jenis: 'Koperasi',
-    nama_agen: 'Nilam Jaya',
+    nama_pembeli: 'Nilam Jaya',
     jumlah: 100,
     kota: 'Aceh Selatan',
     harga: '1.250.000',
