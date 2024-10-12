@@ -39,6 +39,10 @@
 }
 
 @layer components {
+  .container {
+    @apply px-4 lg:px-16
+  }
+  
   .bg-image-wave {
     background-image: url('@/assets/images/wave.svg');
     background-size: 100% 60%;
