@@ -4,7 +4,7 @@
     <section class="lg:w-[47%] min-h-screen bg-primary p-4 grid place-items-center font-cera">
       <div class="bg-primary-light rounded-2xl p-8 w-full max-w-lg">
         <div class="text-primary text-center mb-4">
-          <img src="../../assets/images/logo-mynilam.png" class="h-16 block mx-auto mb-4" />
+          <img src="../../assets/images/mynilam-icon.png" class="h-16 block mx-auto mb-4" />
           <h1 class="font-bold text-3xl mb-2">{{ activeTab === 'login' ? 'Welcome' : 'Create an Account' }}</h1>
           <p v-if="activeTab === 'login'">
             If you are already a member you can login with your email address and password
@@ -70,7 +70,7 @@
             <img src="../../assets/images/login/slide-login-2.png" alt="Slide Login 2" class="w-full absolute -top-5" />
           </div>
           <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="../../assets/images/login/slide-login-3.png" alt="Slide Login 3" class="w-full absolute -top-5" />
+            <img src="../../assets/images/login/slide3.png" alt="Slide Login 3" class="w-full absolute -top-5" />
           </div>
         </div>
         <!-- Slider indicators -->
