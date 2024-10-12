@@ -6,7 +6,7 @@
         <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
           <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
           <BaseButton>Cari</BaseButton>
-          <BaseInputSelect name="kabupaten" :options="options" placeholder="Pilih Kabupaten"></BaseInputSelect>
+          <BaseInputSelect name="kabupaten" :options="optionsKabupaten" placeholder="Pilih Kabupaten"></BaseInputSelect>
           <BaseInputSelect name="jenis" :options="optionsJenis" placeholder="Pilih Jenis"></BaseInputSelect>
         </div>
         <BaseButton variant="success" icon-position="left">
@@ -129,7 +129,12 @@
                 <div class="col-span-6 space-y-4">
                   <BaseInputFloat label="Nama Penjual" name="nama_penjual" type="text" />
                   <BaseInputFloat label="Nama Pembeli" name="nama_pembeli" type="text" />
-                  <BaseInputSelect :options="options" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
+                  <BaseInputSelect
+                    :options="optionsKabupaten"
+                    name="kota"
+                    placeholder="Kota/Kabupaten"
+                    :floating-label="true"
+                  />
                   <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
                 </div>
 
@@ -188,10 +193,11 @@ import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 
 import { useQRCode } from '@vueuse/integrations/useQRCode'
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import type { ProdukNilamType } from '@/types/produk'
+import { useHttp } from '@/api/useHttp'
 
 let modal = ref<Boolean>(false)
 let modalQr = ref<Boolean>(false)
@@ -263,9 +269,9 @@ const getLabelByValue = (optionsArray: { label: string; value: any }[], value: s
 
 const onSubmit = handleSubmit((values) => {
   values.jenis = getLabelByValue(optionsJenis.value, values.jenis)
-  values.kota = getLabelByValue(options.value, values.kota)
+  values.kota = getLabelByValue(optionsKabupaten.value, values.kota)
   values.status = getLabelByValue(optionsStatus.value, values.status)
-  values.kode = 'AGN3K9PT'
+  values.kode = `000-MN-000-${values.sub_total.toString().slice(0, 3)}-00${daftarNilam.length + 1}`
 
   daftarNilam.push(values)
   closeModal()
@@ -284,20 +290,7 @@ const daftarNilam = reactive([
   },
 ])
 
-const options = ref([
-  {
-    label: 'Aceh Selatan',
-    value: 1,
-  },
-  {
-    label: 'Aceh Utara',
-    value: 2,
-  },
-  {
-    label: 'Aceh Tengah',
-    value: 3,
-  },
-])
+const optionsKabupaten = ref([])
 
 const optionsSatuan = ref([{ label: 'Kg', value: 1 }])
 
@@ -343,6 +336,19 @@ const handleFileChange = (event: Event) => {
 const handleDeleteProductImage = () => {
   productImage.value = null
 }
+
+const getListKabupaten = async () => {
+  const response = await useHttp('/localization/kabupaten_by_provinsi_id/613')
+
+  optionsKabupaten.value = response.data.map((item: { id: number; name: string }) => ({
+    value: item.id,
+    label: item.name,
+  }))
+}
+
+onMounted(() => {
+  getListKabupaten()
+})
 </script>
 
 <style scoped>
