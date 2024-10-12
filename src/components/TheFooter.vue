@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-primary px-12 py-3 flex flex-col gap-y-4 md:flex-row justify-between items-center">
+  <footer class="bg-white px-12 py-3 flex flex-col gap-y-4 md:flex-row justify-between items-center">
     <img class="w-48" src="../assets/images/mynilam-logo.png" alt="MyNilam Logo" />
     <div class="flex flex-col gap-y-2">
       <p class="text-white text-center 2xl:text-lg">
@@ -7,7 +7,9 @@
         <span class="font-bold"> <a href="https://www.seco.admin.ch/seco/en/home.html" target="_blank">SECO</a></span>
       </p>
       <div class="flex flex-col gap-y-4 md:flex-row gap-x-8">
-        <img class="w-48" src="../assets/images/ilo-logo.svg" alt="ILO Logo" />
+        <div class="bg-primary">
+          <img class="w-48" src="../assets/images/ilo-logo.svg" alt="ILO Logo" />
+        </div>
         <div class="bg-white p-1">
           <img class="w-48" src="../assets/images/seco-logo.png" alt="SECO Logo" />
         </div>
