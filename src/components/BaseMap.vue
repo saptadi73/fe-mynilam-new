@@ -16,10 +16,6 @@ const emit = defineEmits()
 const props = defineProps<Props>()
 
 onMounted(async () => {
-  const getRandomColor = () => {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16)
-  }
-
   const geojson = await shp(props.shpFile)
   const theMap = map('map', {
     attributionControl: false,
