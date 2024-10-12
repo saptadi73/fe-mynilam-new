@@ -33,8 +33,18 @@ export default {
     },
     {
       path: 'profile-aset',
-      name: 'Profile Aset',
-      component: () => import('../pages/profile/DaftarAset.vue'),
+      children: [
+        {
+          path: '',
+          name: 'Profile Aset',
+          component: () => import('../pages/profile/DaftarAset.vue'),
+        },
+        {
+          path: ':id',
+          name: 'Detail Aset',
+          component: () => import('../pages/profile/DetailAset.vue'),
+        },
+      ],
     },
     {
       path: 'daftar-aset-petani/:id',
