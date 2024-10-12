@@ -273,23 +273,13 @@ const onSubmit = handleSubmit((values) => {
 
 const daftarNilam = reactive([
   {
-    kode: 'AGN3K9PT',
-    nama_penjual: 'Agus Prayitno',
+    kode: '000-MN-000-180-001',
+    nama_penjual: 'Ahmad Fauzi',
     jenis: 'Koperasi',
-    nama_pembeli: 'Bhineka Nilam',
-    jumlah: 100,
-    kota: 'Aceh Selatan',
-    harga: '1.250.000',
-    status: 'Menunggu',
-  },
-  {
-    kode: 'AGN3K9PX',
-    nama_penjual: 'Budi Santoso',
-    jenis: 'Koperasi',
-    nama_pembeli: 'Nilam Jaya',
-    jumlah: 100,
-    kota: 'Aceh Selatan',
-    harga: '1.250.000',
+    nama_pembeli: 'Agen Minyak Atsiri Sejahtera',
+    jumlah: 120,
+    kota: 'Aceh Besar',
+    harga: '1.500.000',
     status: 'Menunggu',
   },
 ])
