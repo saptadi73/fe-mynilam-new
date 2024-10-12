@@ -45,7 +45,7 @@
         <div v-if="!floatingLabel" class="p-3">
           <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
         </div>
-        <ul class="text-sm text-gray-800 w-full">
+        <ul class="text-sm text-gray-800 w-full max-h-64 overflow-y-auto">
           <li v-for="option in filteredOptions" :key="option.value">
             <div class="cursor-pointer px-4 py-2 hover:bg-primary-light" @click="handleSelectDropdown(option)">
               {{ option.label }}
