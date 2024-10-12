@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
@@ -112,6 +112,14 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputFile from '@/components/BaseInputFile.vue'
 import ModalProfile from './components/ModalProfile.vue'
+
+import petani1 from '@/assets/images/profile/petani-1.jpg'
+import petani2 from '@/assets/images/profile/petani-2.jpg'
+import petani3 from '@/assets/images/profile/petani-3.jpg'
+import petani4 from '@/assets/images/profile/petani-4.jpg'
+import petani5 from '@/assets/images/profile/petani-5.jpg'
+import petani6 from '@/assets/images/profile/petani-6.jpg'
+import petani7 from '@/assets/images/profile/petani-7.jpg'
 
 let modal = ref<Boolean>(false)
 
@@ -142,7 +150,7 @@ const cardPetani = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '4',
     suratKontrak: '-',
-    image: '',
+    image: petani1,
   },
   {
     code: 'TNM94A3Y',
@@ -154,7 +162,7 @@ const cardPetani = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '3',
     suratKontrak: '-',
-    image: '',
+    image: petani2,
   },
   {
     code: 'TNM94A4Z',
@@ -166,7 +174,7 @@ const cardPetani = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '2',
     suratKontrak: '-',
-    image: '',
+    image: petani3,
   },
   {
     code: 'TNM94A5W',
@@ -178,7 +186,7 @@ const cardPetani = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '2',
     suratKontrak: '-',
-    image: '',
+    image: petani4,
   },
   {
     code: 'TNM94A6V',
@@ -190,7 +198,7 @@ const cardPetani = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '3',
     suratKontrak: '-',
-    image: '',
+    image: petani5,
   },
   {
     code: 'TNM94A7U',
@@ -202,7 +210,7 @@ const cardPetani = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '1',
     suratKontrak: '-',
-    image: '',
+    image: petani6,
   },
   {
     code: 'TNM94A8T',
@@ -214,21 +222,9 @@ const cardPetani = reactive([
     provinsi: 'Aceh',
     anggotaKeluarga: '2',
     suratKontrak: '-',
-    image: '',
+    image: petani7,
   },
 ])
-
-onMounted(async () => {
-  cardPetani.map(async (data, index) => {
-    try {
-      const image = await import(`../../assets/images/profile/petani-${index + 1}.jpg`)
-      console.log(data)
-      data.image = image.default
-    } catch (error) {
-      console.error(`Error loading image`, error)
-    }
-  })
-})
 
 const options = ref([
   {
