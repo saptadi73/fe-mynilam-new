@@ -21,7 +21,7 @@
                 :class="{ 'border-primary': activeTab === 'login' }"
                 @click="activeTab = 'login'"
               >
-                Log in
+                Login
               </button>
             </li>
             <li class="w-1/2">
