@@ -9,7 +9,7 @@
           <p v-if="activeTab === 'login'">
             Jika Anda belum terdaftar dalam aplikasi, silakan melakukan registrasi terlebih dahulu
           </p>
-          <p v-else>Silakan isi formulir di bawah ini untuk mendaftar</p>
+          <p v-else>Silakan isi formulir di bawah ini untuk melakukan registrasi</p>
         </div>
         <!-- tab login & signup -->
         <div class="text-center text-primary-2 font-semibold mb-10">
