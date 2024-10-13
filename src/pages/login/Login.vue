@@ -4,12 +4,12 @@
     <section class="lg:w-[47%] min-h-screen bg-primary p-4 grid place-items-center font-cera">
       <div class="bg-primary-light rounded-2xl p-8 w-full max-w-lg">
         <div class="text-primary text-center mb-4">
-          <img src="../../assets/images/mynilam-icon.png" class="h-16 block mx-auto mb-4" />
+          <img src="../../assets/images/mynilam.png" class="h-16 block mx-auto mb-4" />
           <h1 class="font-bold text-3xl mb-2">{{ activeTab === 'login' ? 'Welcome' : 'Create an Account' }}</h1>
           <p v-if="activeTab === 'login'">
-            If you are already a member you can login with your email address and password
+            Jika Anda belum terdaftar dalam aplikasi, silakan melakukan registrasi terlebih dahulu
           </p>
-          <p v-else>Please, enter your details and start your work</p>
+          <p v-else>Silakan isi formulir di bawah ini untuk mendaftar</p>
         </div>
         <!-- tab login & signup -->
         <div class="text-center text-primary-2 font-semibold mb-10">
@@ -31,30 +31,30 @@
                 :class="{ 'border-primary': activeTab === 'signup' }"
                 @click="activeTab = 'signup'"
               >
-                Sign up
+                Registrasi
               </button>
             </li>
           </ul>
         </div>
         <!-- log in form -->
         <LoginForm v-if="activeTab === 'login'">
-          <template #footer>
+          <!-- <template #footer>
             <div class="text-primary text-sm text-center">
               Don't have an account?
               <button type="button" class="text-primary-2 font-semibold" @click="activeTab = 'signup'">
                 Create an account
               </button>
             </div>
-          </template>
+          </template> -->
         </LoginForm>
         <!-- sing up form -->
         <SignupForm v-else>
-          <template #footer>
+          <!-- <template #footer>
             <div class="text-primary text-sm text-center">
               Have an account?
               <button type="button" class="text-primary-2 font-semibold" @click="activeTab = 'login'">Login</button>
             </div>
-          </template>
+          </template> -->
         </SignupForm>
       </div>
     </section>
