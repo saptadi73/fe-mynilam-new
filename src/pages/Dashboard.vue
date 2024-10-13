@@ -8,7 +8,7 @@
       <div class="px-12 flex justify-center">
         <BaseImage
           class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
-          src="../assets/images/banner-dashboard.jpg"
+          src="/src/assets/images/banner-dashboard.jpg"
           alt="Banner Dashboard Image"
           loading-height="300px"
         />
