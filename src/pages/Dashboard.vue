@@ -6,10 +6,11 @@
       </h1>
 
       <div class="px-12 flex justify-center">
-        <img
+        <BaseImage
           class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
           src="../assets/images/banner-dashboard.jpg"
           alt="Banner Dashboard Image"
+          loading-height="300px"
         />
       </div>
 
@@ -155,6 +156,7 @@ import 'v-calendar/style.css'
 import { useScreens } from 'vue-screen-utils'
 import Maps from '@/pages/sample/Maps.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import BaseImage from '@/components/BaseImage.vue'
 
 const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1024px' })
 const columns = mapCurrent({ lg: 4 }, 1)

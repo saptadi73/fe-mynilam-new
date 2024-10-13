@@ -7,7 +7,7 @@
         :key="i"
         class="rounded-2xl border-2 border-primary-border bg-primary-light shadow-md"
       >
-        <img :src="getImage(i)" class="w-full rounded-t-xl" />
+        <BaseImage :src="getImage(i)" class="w-full rounded-t-xl" loading-height="160px" />
         <div
           class="bg-primary-light px-3 pt-3 rounded-xl text-center text-sm border-t-2 border-primary-border -translate-y-3 font-cera"
         >
@@ -32,6 +32,10 @@
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
+import BaseImage from '@/components/BaseImage.vue'
+import { onMounted, ref } from 'vue'
+
+const isLoading = ref(true)
 
 const laporanList = [
   'Laporan Nama Pengguna (Profil)',
@@ -47,4 +51,14 @@ const laporanList = [
 const getImage = (i: number) => {
   return new URL(`/src/assets/images/laporan/jenis-laporan-${i + 1}.png`, import.meta.url).href
 }
+
+// onMounted(() => {
+//   const images = document.querySelectorAll('img')
+//   images.forEach((image) => {
+//     image.onload = () => {
+//       console.log('loaded')
+//       isLoading.value = false
+//     }
+//   })
+// })
 </script>
