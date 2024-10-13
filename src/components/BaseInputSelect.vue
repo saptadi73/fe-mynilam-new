@@ -66,7 +66,7 @@ import BaseSearchBar from './BaseSearchBar.vue'
 import { initDropdowns } from 'flowbite'
 
 interface Option {
-  [key: string]: string | number
+  [key: string]: any
 }
 
 interface Props {
