@@ -1,6 +1,7 @@
 <template>
   <div class="bg-image-wave container">
     <BaseHeaderTitle title="Laporan Petani" />
+    <!-- <pre>{{ kabupaten.data.value }}</pre> -->
     <BaseTableClient
       :data="data"
       :columns="columns"
@@ -16,7 +17,9 @@
           <BaseInputSelect
             name="daerah"
             placeholder="Pilih daerah"
-            :options="daerahList"
+            :options="kabupaten.data.value"
+            label-key="name"
+            value-key="id"
             class="w-full lg:w-44 2xl:w-52"
           />
           <BaseInputSelect
@@ -47,6 +50,7 @@ import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseInputDateRange from '@/components/BaseInputDateRange.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
+import { useKabupaten } from '@/api/useLocalization'
 
 interface Produksi {
   no?: number
@@ -58,6 +62,8 @@ interface Produksi {
   satuan: string
   tanggal: string
 }
+
+const kabupaten = useKabupaten()
 
 const defaultData: Produksi[] = [
   {
@@ -119,11 +125,6 @@ const defaultData: Produksi[] = [
 const data = ref(defaultData)
 const searchValue = ref('')
 
-const daerahList = ref([
-  { label: 'Aceh Selatan', value: 1 },
-  { label: 'Aceh Utara', value: 2 },
-  { label: 'Aceh Tengah', value: 3 },
-])
 const agenList = ref([
   { label: 'Agen Nusantara Sakti', value: 1 },
   { label: 'Agen Indonesia Raya', value: 2 },
