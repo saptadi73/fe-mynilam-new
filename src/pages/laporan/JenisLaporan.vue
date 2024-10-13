@@ -29,13 +29,10 @@
 </template>
 
 <script setup lang="ts">
-import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseImage from '@/components/BaseImage.vue'
-import { onMounted, ref } from 'vue'
-
-const isLoading = ref(true)
 
 const laporanList = [
   'Laporan Nama Pengguna (Profil)',
