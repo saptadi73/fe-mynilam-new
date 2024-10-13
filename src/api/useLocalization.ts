@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query'
-import { apiGet } from './apiGet'
+import { apiGet } from './apiClient'
 import type { Kabupaten } from '@/types/localization'
 
 export function useKabupaten() {

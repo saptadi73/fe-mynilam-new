@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/vue-query'
-import { apiClient } from './apiClient'
+import { apiPost } from './apiClient'
 import type { LoginAuth, LoginForm } from '@/types/login'
 
 /**
@@ -7,10 +7,7 @@ import type { LoginAuth, LoginForm } from '@/types/login'
  */
 export function useLogin() {
   const path = '/login_auth/token'
-  const loginFn = async (form: LoginForm): Promise<LoginAuth> => {
-    const response = await apiClient.post(path, form)
-    return response.data
-  }
+  const loginFn = (form: LoginForm): Promise<LoginAuth> => apiPost(path, form)
   return useMutation({
     mutationFn: loginFn,
   })

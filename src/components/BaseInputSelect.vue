@@ -70,7 +70,7 @@ interface Option {
 }
 
 interface Props {
-  options: Option[]
+  options?: Option[]
   name: string
   placeholder: string
   floatingLabel?: boolean
