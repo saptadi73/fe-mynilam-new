@@ -46,9 +46,9 @@
           <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
         </div>
         <ul class="text-sm text-gray-800 w-full max-h-64 overflow-y-auto">
-          <li v-for="option in filteredOptions" :key="option.value">
+          <li v-for="option in filteredOptions" :key="option[props.valueKey]">
             <div class="cursor-pointer px-4 py-2 hover:bg-primary-light" @click="handleSelectDropdown(option)">
-              {{ option.label }}
+              {{ option[props.labelKey] }}
             </div>
           </li>
         </ul>
@@ -66,8 +66,7 @@ import BaseSearchBar from './BaseSearchBar.vue'
 import { initDropdowns } from 'flowbite'
 
 interface Option {
-  label: string
-  value: string | number
+  [key: string]: string | number
 }
 
 interface Props {
@@ -75,10 +74,14 @@ interface Props {
   name: string
   placeholder: string
   floatingLabel?: boolean
+  labelKey?: string // custom label key
+  valueKey?: string // custom value key
 }
 
 const props = withDefaults(defineProps<Props>(), {
   options: () => [],
+  labelKey: 'label',
+  valueKey: 'value',
 })
 
 const { value, errorMessage } = useField<string | number>(() => props.name)
@@ -86,7 +89,7 @@ const onFocus = ref(false)
 
 // to get default value
 const getLabelByValue = (val: string | number) => {
-  const obj = props.options.find((option) => option.value === val)
+  const obj = props.options.find((option) => option[props.valueKey] === val)
   return obj?.label
 }
 
@@ -98,7 +101,7 @@ const dropdownLabel = ref(getLabelByValue(value.value))
 const searchValue = ref('')
 
 const filteredOptions = computed(() => {
-  return props.options.filter((option) => option.label.toLowerCase().includes(searchValue.value))
+  return props.options.filter((option) => option[props.labelKey].toString().toLowerCase().includes(searchValue.value))
 })
 
 const handleOnFocus = () => {
@@ -115,14 +118,15 @@ const handleOnBlur = () => {
 }
 
 const handleSelectDropdown = (option: Option) => {
-  dropdownLabel.value = option.label
-  value.value = option.value
-  if (props.floatingLabel) searchValue.value = option.label
+  dropdownLabel.value = option[props.labelKey]
+  value.value = option[props.valueKey]
+  if (props.floatingLabel) searchValue.value = option[props.labelKey].toString()
   document.getElementById(uniqueNameId.value)?.click() // to close dropdown menu
 }
 
 onMounted(() => {
-  initDropdowns() // init flowbite dropdown
+  // init flowbite dropdown
+  initDropdowns()
   // set dropdown width
   const dropdownButtonWidth = document.getElementById(uniqueNameId.value)?.offsetWidth
   const dropdownMenu = document.getElementById(uniqueNameId.value + 'Dropdown')
