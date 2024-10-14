@@ -18,5 +18,5 @@ export const apiGet = async (path: string) => {
 
 export const apiPost = async (path: string, params: any) => {
   const response = await apiClient.post(path, params)
-  return response.data.data
+  return response.data
 }
