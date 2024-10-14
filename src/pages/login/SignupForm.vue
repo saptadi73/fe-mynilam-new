@@ -13,7 +13,7 @@
       <BaseInputFloat name="confirmPassword" type="password" label="Confirm Password" />
     </div>
     <div class="mb-8">
-      <button type="submit" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Sign Up</button>
+      <button type="submit" class="bg-primary rounded-full text-white font-semibold w-full p-2.5">Registrasi</button>
     </div>
     <slot name="footer" />
   </form>
