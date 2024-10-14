@@ -7,11 +7,9 @@
         <span class="font-bold"> <a href="https://www.seco.admin.ch/seco/en/home.html" target="_blank">SECO</a></span>
       </p>
       <div class="flex flex-col gap-y-4 md:flex-row gap-x-8">
-        <div class="bg-primary p-1">
-          <img class="w-48" src="../assets/images/ilo-logo.png" alt="ILO Logo" />
-        </div>
+        <img class="w-60" src="../assets/images/ilo-logo.png" alt="ILO Logo" />
         <div class="bg-white p-1">
-          <img class="w-48" src="../assets/images/seco-logo.png" alt="SECO Logo" />
+          <img class="w-60" src="../assets/images/seco-logo.png" alt="SECO Logo" />
         </div>
       </div>
     </div>
