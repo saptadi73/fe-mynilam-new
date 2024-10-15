@@ -4,12 +4,13 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { geoJSON, map, tileLayer } from 'leaflet'
+import { geoJSON, GeoJSONOptions, map, tileLayer } from 'leaflet'
 import shp from 'shpjs'
 import 'leaflet/dist/leaflet.css'
 
 interface Props {
   shpFile: string
+  options: GeoJSONOptions
 }
 
 const emit = defineEmits()
@@ -22,21 +23,7 @@ onMounted(async () => {
   })
   // Create a Tile Layer and add it to the map
   tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(theMap)
-  const geoMap = geoJSON(geojson, {
-    onEachFeature: function (_feature, layer) {
-      layer.on({
-        click: () => {
-          emit('showChart')
-        },
-      })
-    },
-    style: function () {
-      return {
-        fillColor: 'blue',
-        fillOpacity: 0.6,
-      }
-    },
-  }).addTo(theMap)
+  const geoMap = geoJSON(geojson, props.options).addTo(theMap)
   // fit map to center
   theMap.fitBounds(geoMap.getBounds())
 })

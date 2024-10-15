@@ -46,5 +46,15 @@ export default {
       name: 'Laporan Petani',
       component: () => import('../pages/inventaris/LaporanPetani.vue'),
     },
+    {
+      path: 'petani',
+      children: [
+        {
+          path: 'daerah-penghasil-nilam',
+          name: 'Daerah Penghasil Nilam',
+          component: () => import('../pages/inventaris/petani/DaerahPenghasilNilam.vue'),
+        },
+      ],
+    },
   ],
 }

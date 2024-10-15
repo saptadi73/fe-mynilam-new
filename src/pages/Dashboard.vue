@@ -155,7 +155,6 @@ import 'v-calendar/style.css'
 import { useScreens } from 'vue-screen-utils'
 import Maps from '@/pages/sample/Maps.vue'
 import BaseButton from '@/components/BaseButton.vue'
-import BaseImage from '@/components/BaseImage.vue'
 
 const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1024px' })
 const columns = mapCurrent({ lg: 4 }, 1)
