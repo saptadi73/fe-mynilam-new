@@ -40,7 +40,7 @@
     <Teleport to="body">
       <div
         :id="uniqueNameId + 'Dropdown'"
-        class="z-50 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border"
+        class="z-50 w-full hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border"
       >
         <div v-if="!floatingLabel" class="p-3">
           <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
@@ -130,6 +130,6 @@ onMounted(() => {
   // set dropdown width
   const dropdownButtonWidth = document.getElementById(uniqueNameId.value)?.offsetWidth
   const dropdownMenu = document.getElementById(uniqueNameId.value + 'Dropdown')
-  if (dropdownButtonWidth && dropdownMenu) dropdownMenu.style.maxWidth = dropdownButtonWidth + 'px'
+  if (dropdownButtonWidth && dropdownMenu) dropdownMenu.style.maxWidth = dropdownButtonWidth + 15 + 'px'
 })
 </script>
