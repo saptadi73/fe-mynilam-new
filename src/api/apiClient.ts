@@ -11,8 +11,8 @@ export const apiClient = axios.create({
   headers: { Authorization: getToken() },
 })
 
-export const apiGet = async (path: string) => {
-  const response = await apiClient.get(path)
+export const apiGet = async (path: string, params?: any) => {
+  const response = await apiClient.get(path, { params })
   return response.data.data
 }
 
