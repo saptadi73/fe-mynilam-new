@@ -6,7 +6,7 @@
       {{ profileDescription }}
     </p>
 
-    <RouterLink :to="`profile/${profilePath}`">
+    <RouterLink :to="`${profilePath}`">
       <BaseButton class="w-full font-bold" variant="success">Lihat</BaseButton>
     </RouterLink>
   </div>

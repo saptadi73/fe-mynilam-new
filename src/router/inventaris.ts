@@ -4,7 +4,7 @@ export default {
     {
       path: '',
       name: 'Inventaris',
-      component: () => import('../pages/inventaris/Inventaris.vue'),
+      component: () => import('../pages/inventaris/PilihInventaris.vue'),
     },
     {
       path: 'daftar-produk',
@@ -53,6 +53,16 @@ export default {
           path: 'daerah-penghasil-nilam',
           name: 'Daerah Penghasil Nilam',
           component: () => import('../pages/inventaris/petani/DaerahPenghasilNilam.vue'),
+        },
+      ],
+    },
+    {
+      path: 'agen',
+      children: [
+        {
+          path: 'pilih-agen-koperasi',
+          name: 'Pilih Agen Koperasi',
+          component: () => import('../pages/inventaris/agen/PilihAgenKoperasi.vue'),
         },
       ],
     },

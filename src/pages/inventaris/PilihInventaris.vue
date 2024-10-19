@@ -1,13 +1,13 @@
 <template>
   <div class="bg-image-wave2 px-5 md:px-16">
     <div class="container mx-auto py-4">
-      <h1 class="text-center text-primary font-bold text-3xl py-4">Profil Petani, Agen/Koperasi, UGreen dan Aset</h1>
+      <h1 class="text-center text-primary font-bold text-3xl py-4">Pilih Inventaris</h1>
       <div class="bg-[#F6FDFF] rounded-xl shadow-md px-6 py-4">
         <div class="grid grid-cols-12 gap-y-6 md:gap-x-6">
           <BaseProfileCard
             v-for="(profile, index) in profileCard"
             :key="index"
-            class="col-span-12 md:col-span-6 lg:col-span-3"
+            class="col-span-12 md:col-span-6 lg:col-span-4"
             :profile-name="profile.profileName"
             :profile-image="profile.profileImage"
             :profile-description="profile.profileDescription"
@@ -29,28 +29,21 @@ const profileCard = reactive([
     profileImage: 'petani',
     profileDescription:
       'Lihat daftar lengkap petani yang terdaftar dalam sistem, serta buat daftar baru petani untuk memperbarui informasi dan menambahkan petani baru yang bergabung dalam jaringan produksi.',
-    profilePath: 'profile/profile-petani',
+    profilePath: 'inventaris/petani/daerah-penghasil-nilam',
   },
   {
     profileName: 'Agen/Koperasi',
     profileImage: 'agen',
     profileDescription:
       'Lihat daftar lengkap agen/koperasi yang terdaftar dan berperan dalam distribusi produk, serta buat daftar agen baru untuk memperluas jaringan penjualan dan mitra distribusi.',
-    profilePath: 'profile/profile-agen',
+    profilePath: 'inventaris/agen/pilih-agen-koperasi',
   },
   {
     profileName: 'Ugreen',
     profileImage: 'ugreen',
     profileDescription:
       'Lihat daftar entitas UGreen yang berperan dalam rantai distribusi produk, serta tambahkan atau buat profil baru UGreen untuk memperluas dan mengelola jaringan mitra strategis.',
-    profilePath: 'profile/profile-ugreen',
-  },
-  {
-    profileName: 'Aset',
-    profileImage: 'aset',
-    profileDescription:
-      'Daftar aset petani mencakup nama pemilik, luas dan lokasi lahan, status kepemilikan, serta status tanam. Pantau perkembangan lahan secara efisien',
-    profilePath: 'profile/profile-aset',
+    profilePath: 'inventaris/profile-ugreen',
   },
 ])
 </script>
