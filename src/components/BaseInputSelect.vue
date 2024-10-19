@@ -42,7 +42,7 @@
         :id="uniqueNameId + 'Dropdown'"
         class="z-50 w-full hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border"
       >
-        <div v-if="!floatingLabel" class="p-3">
+        <div v-if="!floatingLabel && filteredOptions.length > 7" class="p-3">
           <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
         </div>
         <ul class="text-sm text-gray-800 w-full max-h-64 overflow-y-auto">
@@ -50,6 +50,13 @@
             <div class="cursor-pointer px-4 py-2 hover:bg-primary-light" @click="handleSelectDropdown(option)">
               {{ option[props.labelKey] }}
             </div>
+          </li>
+          <!-- handle empty option -->
+          <li v-if="filteredOptions.length <= 0" class="p-4 cursor-default">
+            <template v-if="searchValue">
+              <span class="font-semibold">{{ searchValue }}</span> tidak ditemukan.
+            </template>
+            <template v-else>Data kosong.</template>
           </li>
         </ul>
       </div>
@@ -101,7 +108,9 @@ const dropdownLabel = ref(getLabelByValue(value.value))
 const searchValue = ref('')
 
 const filteredOptions = computed(() => {
-  return props.options.filter((option) => option[props.labelKey].toString().toLowerCase().includes(searchValue.value))
+  return props.options.filter((option) =>
+    option[props.labelKey].toString().toLowerCase().includes(searchValue.value.toLocaleLowerCase())
+  )
 })
 
 const handleOnFocus = () => {
