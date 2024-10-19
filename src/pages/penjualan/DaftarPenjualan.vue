@@ -6,7 +6,13 @@
         <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
           <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
           <BaseButton>Cari</BaseButton>
-          <BaseInputSelect name="kabupaten" :options="optionsKabupaten" placeholder="Pilih Kabupaten"></BaseInputSelect>
+          <BaseInputSelect
+            name="kabupaten"
+            label-key="name"
+            value-key="id"
+            :options="kabupaten.data.value"
+            placeholder="Pilih Kabupaten"
+          />
           <BaseInputSelect name="jenis" :options="optionsJenis" placeholder="Pilih Jenis"></BaseInputSelect>
         </div>
         <BaseButton variant="success" icon-position="left">
@@ -18,9 +24,9 @@
       <div class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Produk" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
-          v-for="(data, index) in daftarNilam"
+          v-for="(data, index) in daftarPenjualan.data.value"
           :key="index"
-          :card-code="data.kode"
+          :card-code="data.name"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >
           <template #card-content>
@@ -30,36 +36,28 @@
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama Penjual</h1>
-                <p class="font-bold text-sm">{{ data.nama_penjual }}</p>
+                <h1 class="text-sm">Nama Pembeli</h1>
+                <p class="font-bold text-sm">{{ data.destination_actor[1] }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Jenis</h1>
-                <p class="font-bold text-sm">{{ data.jenis }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama Pembeli</h1>
-                <p class="font-bold text-sm">{{ data.nama_pembeli }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Jumlah</h1>
-                <p class="font-bold text-sm">{{ data.jumlah }} kg</p>
+                <p class="font-bold text-sm">Belum</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Kota/Kabupaten</h1>
-                <p class="font-bold text-sm">{{ data.kota }}</p>
+                <p class="font-bold text-sm">{{ data.kabupaten_id[1] }}</p>
               </div>
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Harga/kg</h1>
-                <p class="font-bold text-sm">Rp {{ data.harga }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Barcode</h1>
-                <p @click="showModalQr(index)" class="font-bold text-sm cursor-pointer">Lihat Barcode</p>
+                <h1 class="text-sm">Jumlah</h1>
+                <p class="font-bold text-sm">{{ data.quantity }} kg</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Status</h1>
-                <p class="font-bold text-sm">{{ data.status }}</p>
+                <p class="font-bold text-sm">{{ data.state }}</p>
+              </div>
+              <div class="col-span-6 pt-2">
+                <h1 class="text-sm">Barcode</h1>
+                <p @click="showModalQr(data.name)" class="font-bold text-sm cursor-pointer">Lihat Barcode</p>
               </div>
             </div>
           </template>
@@ -130,8 +128,10 @@
                   <BaseInputFloat label="Nama Penjual" name="nama_penjual" type="text" />
                   <BaseInputFloat label="Nama Pembeli" name="nama_pembeli" type="text" />
                   <BaseInputSelect
-                    :options="optionsKabupaten"
                     name="kota"
+                    label-key="name"
+                    value-key="id"
+                    :options="kabupaten.data.value"
                     placeholder="Kota/Kabupaten"
                     :floating-label="true"
                   />
@@ -193,15 +193,19 @@ import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 
 import { useQRCode } from '@vueuse/integrations/useQRCode'
-import { onMounted, reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import type { ProdukNilamType } from '@/types/produk'
-import { useHttp } from '@/api/useHttp'
+import { useKabupaten } from '@/api/useLocalization'
+import { useDaftarPenjualan } from '@/api/useTransaction'
 
 let modal = ref<Boolean>(false)
 let modalQr = ref<Boolean>(false)
 let qrcode = ref<string>('')
+
+const kabupaten = useKabupaten()
+const daftarPenjualan = useDaftarPenjualan({ kabupaten_id: 1 })
 
 const showModal = () => {
   modal.value = true
@@ -213,9 +217,8 @@ const handleModal = (value: boolean) => {
   modal.value = value
 }
 
-const showModalQr = (index: number) => {
-  const data = daftarNilam[index]
-  qrcode = useQRCode(data.kode)
+const showModalQr = (code: string) => {
+  qrcode = useQRCode(code)
   modalQr.value = true
 }
 
@@ -269,51 +272,24 @@ const getLabelByValue = (optionsArray: { label: string; value: any }[], value: s
 
 const onSubmit = handleSubmit((values) => {
   values.jenis = getLabelByValue(optionsJenis.value, values.jenis)
-  values.kota = getLabelByValue(optionsKabupaten.value, values.kota)
+  // values.kota = getLabelByValue(optionsKabupaten.value, values.kota)
   values.status = getLabelByValue(optionsStatus.value, values.status)
-  values.kode = `000-MN-000-${values.sub_total.toString().slice(0, 3)}-00${daftarNilam.length + 1}`
+  // values.kode = `000-MN-000-${values.sub_total.toString().slice(0, 3)}-00${daftarNilam.length + 1}`
 
-  daftarNilam.push(values)
+  // daftarNilam.push(values)
   closeModal()
 })
-
-const daftarNilam = reactive([
-  {
-    kode: '000-MN-000-180-001',
-    nama_penjual: 'Ahmad Fauzi',
-    jenis: 'Koperasi',
-    nama_pembeli: 'Agen Minyak Atsiri Sejahtera',
-    jumlah: 120,
-    kota: 'Aceh Besar',
-    harga: '1.500.000',
-    status: 'Menunggu',
-  },
-])
-
-const optionsKabupaten = ref([])
 
 const optionsSatuan = ref([{ label: 'Kg', value: 1 }])
 
 const optionsJenis = ref([
-  {
-    label: 'Agen',
-    value: 1,
-  },
-  {
-    label: 'Koperasi',
-    value: 2,
-  },
+  { label: 'Agen', value: 1 },
+  { label: 'Koperasi', value: 2 },
 ])
 
 const optionsStatus = ref([
-  {
-    label: 'Tersedia',
-    value: 1,
-  },
-  {
-    label: 'Menunggu',
-    value: 2,
-  },
+  { label: 'Tersedia', value: 1 },
+  { label: 'Menunggu', value: 2 },
 ])
 
 const refProductImage = ref<HTMLInputElement | null>(null)
@@ -336,19 +312,6 @@ const handleFileChange = (event: Event) => {
 const handleDeleteProductImage = () => {
   productImage.value = null
 }
-
-const getListKabupaten = async () => {
-  const response = await useHttp('/localization/kabupaten_by_provinsi_id/613')
-
-  optionsKabupaten.value = response.data.map((item: { id: number; name: string }) => ({
-    value: item.id,
-    label: item.name,
-  }))
-}
-
-onMounted(() => {
-  getListKabupaten()
-})
 </script>
 
 <style scoped>
