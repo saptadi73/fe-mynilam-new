@@ -20,6 +20,7 @@
     "flowbite": "^2.5.1",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
+    "notivue": "^2.4.5",
     "qrcode": "^1.5.4",
     "shpjs": "^6.1.0",
     "v-calendar": "^3.1.2",
