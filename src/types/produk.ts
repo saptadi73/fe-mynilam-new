@@ -1,7 +1,7 @@
 export interface ProdukNilamType {
   kode: string
   nama_penjual: string
-  jenis: string
+  jenis: number
   nama_pembeli: string
   jumlah: number
   kota: string

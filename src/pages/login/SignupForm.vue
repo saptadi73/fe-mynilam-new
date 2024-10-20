@@ -22,18 +22,17 @@
 <script setup lang="ts">
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import { useForm } from 'vee-validate'
-import * as yup from 'yup'
+import { string, object, ref } from 'yup'
 
 const { handleSubmit } = useForm({
-  validationSchema: yup.object({
-    email: yup.string().required().email().label('Email'),
-    password: yup.string().required().min(6).label('Password'),
-    name: yup.string().required().min(3).label('Name'),
-    confirmPassword: yup
-      .string()
+  validationSchema: object({
+    email: string().required().email().label('Email'),
+    password: string().required().min(6).label('Password'),
+    name: string().required().min(3).label('Name'),
+    confirmPassword: string()
       .required()
       .min(6)
-      .oneOf([yup.ref('password')], 'Password must match'),
+      .oneOf([ref('password')], 'Password must match'),
   }),
 })
 

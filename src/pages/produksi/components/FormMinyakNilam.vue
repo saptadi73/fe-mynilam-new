@@ -30,19 +30,19 @@ import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import { useForm } from 'vee-validate'
 import { ref } from 'vue'
-import * as yup from 'yup'
+import { string, object } from 'yup'
 
 const { handleSubmit } = useForm({
-  validationSchema: yup.object({
-    nama: yup.string().required().label('Nama'),
-    lokasi: yup.string().required().label('Lokasi'),
-    mulaiProduksi: yup.string().required().label('Mulai Produksi'),
-    akhirProduksi: yup.string().required().label('Akhir Produksi'),
-    estimasi: yup.string().required().label('Estimasti'),
-    satuan: yup.string().required().label('Satuan'),
-    alamat: yup.string().required().label('Alamat'),
-    statusProduksi: yup.string().required().label('Status Produksi'),
-    presentasiTanam: yup.string().required().label('Presentasi Tanam'),
+  validationSchema: object({
+    nama: string().required().label('Nama'),
+    lokasi: string().required().label('Lokasi'),
+    mulaiProduksi: string().required().label('Mulai Produksi'),
+    akhirProduksi: string().required().label('Akhir Produksi'),
+    estimasi: string().required().label('Estimasti'),
+    satuan: string().required().label('Satuan'),
+    alamat: string().required().label('Alamat'),
+    statusProduksi: string().required().label('Status Produksi'),
+    presentasiTanam: string().required().label('Presentasi Tanam'),
   }),
   initialValues: {},
 })

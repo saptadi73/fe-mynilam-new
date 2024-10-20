@@ -195,7 +195,7 @@ import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { ref } from 'vue'
 import { useForm } from 'vee-validate'
-import * as yup from 'yup'
+import { object, string, number } from 'yup'
 import type { ProdukNilamType } from '@/types/produk'
 import { useKabupaten } from '@/api/useLocalization'
 import { useDaftarPenjualan } from '@/api/useTransaction'
@@ -253,27 +253,27 @@ const downloadQrCodeImage = () => {
 }
 
 const { handleSubmit } = useForm<ProdukNilamType>({
-  validationSchema: yup.object({
-    nama_penjual: yup.string().required().label('Nama Penjual'),
-    jenis: yup.string().required().label('Jenis'),
-    nama_pembeli: yup.string().required().label('Nama Pembeli'),
-    jumlah: yup.number().required().label('Jumlah'),
-    kota: yup.string().required().label('Kota/Kabupaten'),
-    harga: yup.string().required().label('Harga/kg'),
-    status: yup.string().required().label('Status'),
-    sub_total: yup.number().required().label('Sub total'),
+  validationSchema: object({
+    nama_penjual: string().required().label('Nama Penjual'),
+    jenis: number().required().label('Jenis'),
+    nama_pembeli: string().required().label('Nama Pembeli'),
+    jumlah: number().required().label('Jumlah'),
+    kota: string().required().label('Kota/Kabupaten'),
+    harga: string().required().label('Harga/kg'),
+    status: string().required().label('Status'),
+    sub_total: number().required().label('Sub total'),
   }),
 })
 
-const getLabelByValue = (optionsArray: { label: string; value: any }[], value: string | null) => {
-  const option = optionsArray.find((opt) => opt.value === value)
-  return option ? option.label : ''
-}
+// const getLabelByValue = (optionsArray: { label: string; value: any }[], value: string | null) => {
+//   const option = optionsArray.find((opt) => opt.value === value)
+//   return option ? option.label : ''
+// }
 
-const onSubmit = handleSubmit((values) => {
-  values.jenis = getLabelByValue(optionsJenis.value, values.jenis)
+const onSubmit = handleSubmit((_values) => {
+  // values.jenis = getLabelByValue(optionsJenis.value, values.jenis)
   // values.kota = getLabelByValue(optionsKabupaten.value, values.kota)
-  values.status = getLabelByValue(optionsStatus.value, values.status)
+  // values.status = getLabelByValue(optionsStatus.value, values.status)
   // values.kode = `000-MN-000-${values.sub_total.toString().slice(0, 3)}-00${daftarNilam.length + 1}`
 
   // daftarNilam.push(values)

@@ -23,16 +23,16 @@ import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import { useForm } from 'vee-validate'
 import { useLogin } from '@/api/useLogin'
 import { useRouter } from 'vue-router'
-import * as yup from 'yup'
+import { string, object } from 'yup'
 import type { LoginForm } from '@/types/login'
 
 const router = useRouter()
 const login = useLogin()
 
 const { handleSubmit } = useForm<LoginForm>({
-  validationSchema: yup.object({
-    email: yup.string().required().email().label('Email'),
-    password: yup.string().required().min(6).label('Password'),
+  validationSchema: object({
+    email: string().required().email().label('Email'),
+    password: string().required().min(6).label('Password'),
   }),
   initialValues: {
     email: 'test@gmail.com',
