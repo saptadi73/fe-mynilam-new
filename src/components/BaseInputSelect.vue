@@ -42,7 +42,7 @@
         :id="uniqueNameId + 'Dropdown'"
         class="z-50 w-full hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border"
       >
-        <div v-if="!floatingLabel && filteredOptions.length > 7" class="p-3">
+        <div v-if="!floatingLabel && options.length > 7" class="p-3">
           <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
         </div>
         <ul class="text-sm text-gray-800 w-full max-h-64 overflow-y-auto">
