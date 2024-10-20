@@ -150,8 +150,12 @@ onMounted(() => {
   // init flowbite dropdown
   initDropdowns()
   // set dropdown width
-  const dropdownButtonWidth = document.getElementById(uniqueNameId.value)?.offsetWidth
   const dropdownMenu = document.getElementById(uniqueNameId.value + 'Dropdown')
-  if (dropdownButtonWidth && dropdownMenu) dropdownMenu.style.maxWidth = dropdownButtonWidth + 15 + 'px'
+  const dropdownButton = document.getElementById(uniqueNameId.value)
+  if (dropdownButton && dropdownMenu) {
+    const dropdownButtonWidth = dropdownButton.offsetWidth + 16
+    dropdownButton.style.minWidth = dropdownButtonWidth + 'px'
+    dropdownMenu.style.maxWidth = dropdownButtonWidth + 'px'
+  }
 })
 </script>
