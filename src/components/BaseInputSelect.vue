@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 import { useField } from 'vee-validate'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import BaseIcon from './BaseIcon.vue'
 import BaseSearchBar from './BaseSearchBar.vue'
 import { initDropdowns } from 'flowbite'
@@ -85,6 +85,7 @@ interface Props {
   valueKey?: string // custom value key
 }
 
+const emit = defineEmits()
 const props = withDefaults(defineProps<Props>(), {
   options: () => [],
   labelKey: 'label',
@@ -132,6 +133,16 @@ const handleSelectDropdown = (option: Option) => {
   if (props.floatingLabel) searchValue.value = option[props.labelKey].toString()
   document.getElementById(uniqueNameId.value)?.click() // to close dropdown menu
 }
+
+// handle value change
+watch(value, (newValue) => {
+  if (!newValue) {
+    dropdownLabel.value = undefined
+  } else {
+    dropdownLabel.value = getLabelByValue(newValue)
+    emit('change')
+  }
+})
 
 onMounted(() => {
   // init flowbite dropdown
