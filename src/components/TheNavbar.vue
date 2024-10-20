@@ -86,7 +86,7 @@ const menuList = [
   { name: 'Dashboard', path: '/dashboard' },
   { name: 'Inventaris', path: '/inventaris' },
   { name: 'Produksi', path: '/produksi' },
-  { name: 'Penjualan', path: '/penjualan/daftar-mitra' },
+  { name: 'Penjualan', path: '/penjualan' },
   { name: 'Laporan', path: '/laporan' },
 ]
 

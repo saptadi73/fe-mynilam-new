@@ -2,6 +2,11 @@ export default {
   path: 'penjualan',
   children: [
     {
+      path: '',
+      name: 'Penjualan',
+      component: () => import('../pages/penjualan/Penjualan.vue'),
+    },
+    {
       path: 'daftar-mitra',
       name: 'Daftar Mitra',
       component: () => import('../pages/penjualan/DaftarMitra.vue'),
