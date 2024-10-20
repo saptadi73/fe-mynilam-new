@@ -98,9 +98,10 @@ const onFocus = ref(false)
 // to get default value
 const getLabelByValue = (val: string | number) => {
   const obj = props.options.find((option) => option[props.valueKey] === val)
-  return obj?.label
+  return obj?.[props.labelKey]
 }
 
+// generate unique field id (avoid duplication)
 const uniqueNameId = computed(() => {
   return props.name + Math.floor(Math.random() * 9999)
 })
@@ -128,10 +129,11 @@ const handleOnBlur = () => {
 }
 
 const handleSelectDropdown = (option: Option) => {
-  dropdownLabel.value = option[props.labelKey]
   value.value = option[props.valueKey]
+  // set label for floating label
   if (props.floatingLabel) searchValue.value = option[props.labelKey].toString()
-  document.getElementById(uniqueNameId.value)?.click() // to close dropdown menu
+  // to close dropdown menu
+  document.getElementById(uniqueNameId.value)?.click()
 }
 
 // handle value change
