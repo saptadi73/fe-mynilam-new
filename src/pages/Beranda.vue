@@ -1,9 +1,9 @@
 <template>
   <div class="p-4 bg-primary-light">
-    <div class="h-screen">
-      <h1 class="font-bold text-center text-3xl 2xl:text-4xl py-4 2xl:py-8">Optimalisasi Lahan, Maksimalkan Hasil</h1>
+    <section class="xl:h-screen">
+      <h1 class="font-bold text-center text-3xl 2xl:text-4xl py-2 2xl:py-8">Optimalisasi Lahan, Maksimalkan Hasil</h1>
 
-      <div class="px-12 flex justify-center">
+      <div class="md:px-12 flex justify-center">
         <img
           class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
           src="@/assets/images/beranda/banner-beranda.jpg"
@@ -11,17 +11,17 @@
         />
       </div>
 
-      <p class="text-center 2xl:text-xl px-40 py-4 2xl:py-8">
+      <p class="text-center 2xl:text-xl xl:px-40 py-2 2xl:py-8">
         Melalui penerapan teknik manajemen lahan yang inovatif dan berkelanjutan, kami berkomitmen untuk memaksimalkan
         potensi setiap jengkal tanah. Dengan pendekatan holistik yang mencakup pemilihan varietas unggul, pengelolaan
         nutrisi yang tepat, dan pemanfaatan teknologi modern, kami memastikan bahwa setiap upaya kami menghasilkan panen
         yang melimpah, berkualitas tinggi, dan berkelanjutan untuk masa depan perkebunan yang lebih baik.
       </p>
-    </div>
+    </section>
 
-    <div class="h-screen grid items-center">
-      <div class="grid grid-cols-12 gap-x-8 px-12">
-        <div class="col-span-7">
+    <section class="h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-x-8 gap-y-4 md:gap-y-0 md:px-12">
+        <div class="col-span-12 md:col-span-7 order-2 md:order-1">
           <h1 class="font-bold text-2xl 2xl:text-3xl">Pemantauan Proses Tanam</h1>
           <p class="text-xl 2xl:text-2xl text-justify mt-2">
             Pantau setiap tahap pertumbuhan nilam dari penanaman benih hingga panen untuk memastikan praktik terbaik
@@ -30,14 +30,14 @@
           </p>
 
           <RouterLink :to="{ name: 'Profile' }">
-            <BaseButton icon-position="left" class="mt-2">
+            <BaseButton icon-position="left" class="my-4">
               Selengkapnya
               <BaseIcon name="chevron-right" class="w-4 h-4" />
             </BaseButton>
           </RouterLink>
         </div>
 
-        <div class="col-span-5">
+        <div class="col-span-12 md:col-span-5 order-1 md:order-2">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
             src="@/assets/images/beranda/beranda-thumbnail-1.jpg"
@@ -45,11 +45,11 @@
           />
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="h-screen grid items-center">
-      <div class="grid grid-cols-12 gap-x-8 px-12">
-        <div class="col-span-5">
+    <section class="h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-x-8 gap-y-4 md:gap-y-0 md:px-12">
+        <div class="col-span-12 md:col-span-5">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
             src="@/assets/images/beranda/beranda-thumbnail-2.jpg"
@@ -57,11 +57,11 @@
           />
         </div>
 
-        <div class="col-span-7">
+        <div class="col-span-12 md:col-span-7">
           <h1 class="font-bold text-2xl 2xl:text-3xl">
             Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani
           </h1>
-          <p class="text-xl 2xl:text-2xl text-justify mt-2">
+          <p class="md:text-xl 2xl:text-2xl text-justify mt-2">
             Pantau produktivitas petani dari garapan hingga panen, lacak penjualan hasil pertanian dari produk jadi
             hingga distribusi pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang tepat. Atur
             jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor
@@ -76,11 +76,11 @@
           </RouterLink>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="h-screen grid items-center">
-      <div class="grid grid-cols-12 gap-x-8 px-12">
-        <div class="col-span-7">
+    <section class="h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-x-8 gap-y-4 md:gap-y-0 md:px-12">
+        <div class="col-span-12 md:col-span-7 order-2 md:order-1">
           <h1 class="font-bold text-2xl 2xl:text-3xl">Manajemen Inventaris Produk dan Gudang</h1>
           <p class="text-xl 2xl:text-2xl text-justify mt-2">
             Kelola dengan cermat inventaris produk dan gudang Anda. Akses daftar lengkap produk dan gudang yang
@@ -97,7 +97,7 @@
           </RouterLink>
         </div>
 
-        <div class="col-span-5">
+        <div class="col-span-12 md:col-span-5 order-1 md:order-2">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
             src="@/assets/images/beranda/beranda-thumbnail-3.jpg"
@@ -105,11 +105,11 @@
           />
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="h-screen grid items-center">
-      <div class="grid grid-cols-12 gap-x-8 px-12">
-        <div class="col-span-5">
+    <section class="h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-x-8 gap-y-4 md:gap-y-0 md:px-12">
+        <div class="col-span-12 md:col-span-5">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
             src="@/assets/images/beranda/beranda-thumbnail-2.jpg"
@@ -117,7 +117,7 @@
           />
         </div>
 
-        <div class="col-span-7">
+        <div class="col-span-12 md:col-span-7">
           <h1 class="font-bold text-2xl 2xl:text-3xl">Manajemen Produksi Daftar Pembuatan dan Laporan</h1>
           <p class="text-xl 2xl:text-2xl text-justify mt-2">
             Kelola produksi dengan daftar produksi terbaru yang baru dibuat, pantau daftar produksi yang sedang
@@ -133,11 +133,11 @@
           </RouterLink>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="h-screen grid items-center">
-      <div class="grid grid-cols-12 gap-x-8 px-12">
-        <div class="col-span-7">
+    <section class="h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-x-8 gap-y-4 md:gap-y-0 md:px-12">
+        <div class="col-span-12 md:col-span-7 order-2 md:order-1">
           <h1 class="font-bold text-2xl 2xl:text-3xl">Manajemen Pelanggan dan Penjualan Produk</h1>
           <p class="text-xl 2xl:text-2xl text-justify mt-2">
             Kelola informasi pelanggan dengan daftar pelanggan yang sudah ada dan yang baru mendaftar. Pantau produk
@@ -153,7 +153,7 @@
           </RouterLink>
         </div>
 
-        <div class="col-span-5">
+        <div class="col-span-12 md:col-span-5 order-1 md:order-2">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
             src="../assets/images/beranda/beranda-thumbnail-4.jpg"
@@ -161,11 +161,11 @@
           />
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="h-screen grid items-center">
-      <div class="grid grid-cols-12 gap-x-8 px-12">
-        <div class="col-span-5">
+    <section class="h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-x-8 gap-y-4 md:gap-y-0 md:px-12">
+        <div class="col-span-12 md:col-span-5">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
             src="@/assets/images/beranda/beranda-thumbnail-5.jpg"
@@ -173,7 +173,7 @@
           />
         </div>
 
-        <div class="col-span-7">
+        <div class="col-span-12 md:col-span-7">
           <h1 class="font-bold text-2xl 2xl:text-3xl">Laporan Lengkap Transaksi Penjualan</h1>
           <p class="text-xl 2xl:text-2xl text-justify mt-2">
             Informasi Mendalam Mengenai Penjualan Minyak Nilam oleh Petani, Termasuk Rincian Transaksi, dan Tren
@@ -188,7 +188,7 @@
           </RouterLink>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
