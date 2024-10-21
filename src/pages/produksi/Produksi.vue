@@ -1,8 +1,6 @@
 <template>
   <div class="p-4 bg-primary-light">
-    <h1 class="font-bold text-center text-3xl lg:px-64 py-8 md:py-12 text-primary">
-      Manajemen Produksi Daftar Pembuatan dan Laporan
-    </h1>
+    <h1 class="font-bold text-center text-3xl py-8 text-primary">Manajemen Produksi Daftar Pembuatan dan Laporan</h1>
     <div class="md:px-12">
       <img
         class="banner-image rounded-3xl"
@@ -11,7 +9,7 @@
       />
     </div>
 
-    <p class="text-center md:px-48 py-8 text-primary md:text-lg">
+    <p class="text-center md:px-48 py-4 text-primary md:text-lg">
       Kelola produksi dengan daftar produksi terbaru yang baru dibuat, pantau daftar produksi yang sedang berjalan, dan
       tinjau laporan produksi untuk mendapatkan gambaran menyeluruh tentang hasil dan efisiensi. Pastikan setiap tahap
       produksi terdokumentasi dengan baik dari pembuatan hingga pelaporan.

@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 bg-primary-light">
-    <h1 class="font-bold text-center text-3xl lg:px-64 py-8 md:py-12 text-primary">Manajemen Penjualan Produk Nilam</h1>
+    <h1 class="font-bold text-center text-3xl py-8 text-primary">Manajemen Penjualan Produk Nilam</h1>
     <div class="md:px-12">
       <img
         class="banner-image rounded-3xl"
