@@ -27,7 +27,8 @@
         </BaseButton>
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
-      <div class="grid grid-cols-12 gap-4 mt-2">
+      <div v-if="daftarPenjualan.isLoading.value" class="grid place-items-center h-96">Loading...</div>
+      <div v-else class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Produk" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
           v-for="(data, index) in daftarPenjualan.data.value"
