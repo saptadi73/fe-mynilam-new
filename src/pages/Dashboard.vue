@@ -1,11 +1,11 @@
 <template>
   <div class="p-4 bg-primary-light">
-    <div class="h-screen">
+    <section class="xl:h-screen">
       <h1 class="font-bold text-center text-3xl 2xl:text-4xl py-8">
         Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani
       </h1>
 
-      <div class="px-12 flex justify-center">
+      <div class="md:px-12 flex justify-center">
         <img
           class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
           src="../assets/images/banner-dashboard.jpg"
@@ -13,30 +13,30 @@
         />
       </div>
 
-      <p class="text-center 2xl:text-xl px-40 py-8">
+      <p class="text-center 2xl:text-xl md:px-20 xl:px-40 py-8">
         Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi
         hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat. Atur
         jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor seluruh
         proses produksi serta tahapan proses tanam untuk memastikan hasil yang optimal.
       </p>
-    </div>
+    </section>
 
-    <div class="px-12 h-screen">
+    <section class="md:px-12 xl:h-screen">
       <h1 class="font-bold text-center text-2xl 2xl:text-3xl pt-12 pb-4">Analisis Produktivitas Petani</h1>
       <div class="bg-white p-4 rounded-xl flex justify-center">
         <BaseChart
-          class="w-full h-[480px] 2xl:h-[700px]"
+          class="w-full h-[280px] md:h-[480px] 2xl:h-[700px]"
           chartId="chart1"
           chartType="line"
           :chartData="lineChartData"
           :chartOptions="lineChartOptions"
         />
       </div>
-    </div>
+    </section>
 
-    <div class="h-screen grid items-center">
-      <div class="grid grid-cols-12 gap-x-8 px-12">
-        <div class="col-span-6">
+    <section class="xl:h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-y-4 md:gap-y-0 gap-x-8 md:px-12 py-8">
+        <div class="col-span-12 md:col-span-6">
           <div class="bg-white rounded-xl px-20 pb-8">
             <BaseChart
               chartId="chart2"
@@ -48,20 +48,20 @@
           </div>
         </div>
 
-        <div class="col-span-6">
+        <div class="col-span-12 md:col-span-6">
           <h1 class="font-bold text-2xl 2xl:text-3xl">Pemantauan Proses Tanam</h1>
-          <p class="text-xl 2xl:text-2xl text-justify mt-2">
+          <p class="md:text-xl 2xl:text-2xl text-justify mt-2">
             Pantau setiap tahap pertumbuhan nilam dari penanaman benih hingga panen untuk memastikan praktik terbaik
             diimplementasikan. Monitor perkembangan tanaman secara berkala untuk memastikan hasil panen yang optimal dan
             kualitas yang terjaga.
           </p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="h-screen grid items-center">
-      <div class="grid grid-cols-12 gap-x-8 px-12 py-8">
-        <div class="col-span-6">
+    <section class="xl:h-screen grid items-center">
+      <div class="grid grid-cols-12 gap-y-4 md:gap-y-0 gap-x-8 md:px-12 py-8">
+        <div class="col-span-12 md:col-span-6 order-2 md:order-1">
           <h1 class="font-bold text-2xl 2xl:text-3xl">Pemantauan Proses Produksi</h1>
           <p class="text-xl 2xl:text-2xl text-justify mt-2">
             Pantau secara cermat setiap tahapan dari proses panen hingga ekstraksi minyak nilam/atsiri. Pastikan setiap
@@ -71,7 +71,7 @@
           </p>
         </div>
 
-        <div class="col-span-6">
+        <div class="col-span-12 md:col-span-6 order-1 md:order-2">
           <div class="bg-white rounded-xl px-20 pb-8">
             <BaseChart
               chartId="chart3"
@@ -83,42 +83,46 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="px-12 h-screen">
+    <section class="md:px-12 xl:h-screen">
       <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Pemantauan Pendapatan Petani</h1>
       <div class="bg-white rounded-xl px-10 flex justify-center">
         <BaseChart
-          class="h-[480px] 2xl:h-[700px] w-10/12"
+          class="h-[320px] md:h-[480px] 2xl:h-[700px] w-full md:w-10/12"
           chartId="chart4"
           chartType="bar"
           :chartData="barChartData"
           :chartOptions="barChartOptions"
         />
       </div>
-    </div>
+    </section>
 
-    <div class="px-12 h-screen">
+    <section class="md:px-12 xl:h-screen">
       <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Catatan Penjualan</h1>
       <div class="bg-white rounded-xl px-10 flex justify-center">
         <BaseChart
-          class="h-[480px] 2xl:h-[700px] w-10/12"
+          class="h-[320px] md:h-[480px] 2xl:h-[700px] w-full md:w-10/12"
           chartId="chart5"
           chartType="bar"
           :chartData="barChartDataPenjualan"
           :chartOptions="barChartOptionsPenjualan"
         />
       </div>
-    </div>
+    </section>
 
-    <div class="px-12">
+    <section class="md:px-12">
       <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Pemantauan Estimasi Produksi</h1>
       <div class="bg-white rounded-xl py-6 px-4">
         <Maps v-if="!showChart" @show-chart="showChart = true" />
         <template v-else>
           <BaseButton class="mx-6 mb-5" @click="showChart = false">Kembali</BaseButton>
           <div class="grid grid-cols-12 gap-4">
-            <div v-for="(chart, index) in getRandomPetani()" :key="index" class="col-span-3 flex justify-center">
+            <div
+              v-for="(chart, index) in getRandomPetani()"
+              :key="index"
+              class="col-span-12 md:col-span-3 flex justify-center"
+            >
               <BaseChart
                 class="bg-primary-light rounded-2xl border border-primary py-4 px-8 xl:w-10/12"
                 :chartId="`Chart ${index}`"
@@ -135,14 +139,14 @@
           </div>
         </template>
       </div>
-    </div>
+    </section>
 
-    <div class="px-12">
+    <section class="md:px-12">
       <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Kalender Produksi Terpadu</h1>
       <div class="flex justify-center">
         <Calendar :attributes="attributes" :columns="columns" :rows="2" locale="id" expanded />
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -156,7 +160,7 @@ import { useScreens } from 'vue-screen-utils'
 import Maps from '@/pages/sample/Maps.vue'
 import BaseButton from '@/components/BaseButton.vue'
 
-const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1024px' })
+const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '728px', lg: '1024px' })
 const columns = mapCurrent({ lg: 4 }, 1)
 const showChart = ref(false)
 
@@ -396,7 +400,7 @@ const barChartDataPenjualan: ChartData = {
 
 const barChartOptions: ChartOptions<'bar'> = {
   responsive: true,
-  maintainAspectRatio: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       display: true,
@@ -434,7 +438,7 @@ const barChartOptions: ChartOptions<'bar'> = {
 
 const barChartOptionsPenjualan: ChartOptions<'bar'> = {
   responsive: true,
-  maintainAspectRatio: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       display: true,
