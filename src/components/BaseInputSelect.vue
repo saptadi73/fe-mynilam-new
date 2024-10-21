@@ -12,12 +12,13 @@
       <span class="capitalize text-ellipsis whitespace-nowrap overflow-x-hidden">
         {{ dropdownLabel || placeholder }}
       </span>
-      <BaseIcon name="chevron-right" class="rotate-90 ms-3 h-3 text-gray-500" />
+      <BaseIcon v-if="!value" name="chevron-right" class="rotate-90 ms-3 h-5 text-gray-500" />
+      <BaseIcon v-else name="x-mark" @click="clearValue" class="rotate-90 ms-3 h-5 text-red-500" />
     </button>
     <!-- style 2: floating label dropdown-->
     <div v-else class="relative z-0 font-poppins">
-      <div class="absolute top-5 right-2 flex items-center pointer-events-none text-primary-border">
-        <BaseIcon name="chevron-right" class="w-2 rotate-90" />
+      <div class="absolute top-4 right-2 flex items-center pointer-events-none text-primary-border">
+        <BaseIcon name="chevron-right" class="h-5 rotate-90" />
       </div>
       <input
         type="text"
@@ -47,7 +48,11 @@
         </div>
         <ul class="text-sm text-gray-800 w-full max-h-64 overflow-y-auto">
           <li v-for="option in filteredOptions" :key="option[props.valueKey]">
-            <div class="cursor-pointer px-4 py-2 hover:bg-primary-light" @click="handleSelectDropdown(option)">
+            <div
+              :class="{ 'bg-primary-light font-semibold': option[props.valueKey] === value }"
+              class="cursor-pointer px-4 py-2 hover:bg-primary-light"
+              @click="handleSelectDropdown(option)"
+            >
               {{ option[props.labelKey] }}
             </div>
           </li>
@@ -92,7 +97,7 @@ const props = withDefaults(defineProps<Props>(), {
   valueKey: 'value',
 })
 
-const { value, errorMessage } = useField<string | number>(() => props.name)
+const { value, errorMessage, resetField } = useField<string | number>(() => props.name)
 const onFocus = ref(false)
 
 // to get default value
@@ -136,6 +141,12 @@ const handleSelectDropdown = (option: Option) => {
   document.getElementById(uniqueNameId.value)?.click()
 }
 
+const clearValue = () => {
+  document.getElementById(uniqueNameId.value)?.click() // keep dropdown closed
+  resetField()
+  emit('change')
+}
+
 // handle value change
 watch(value, (newValue) => {
   if (!newValue) {
@@ -153,9 +164,14 @@ onMounted(() => {
   const dropdownMenu = document.getElementById(uniqueNameId.value + 'Dropdown')
   const dropdownButton = document.getElementById(uniqueNameId.value)
   if (dropdownButton && dropdownMenu) {
-    const dropdownButtonWidth = dropdownButton.offsetWidth + 16
-    dropdownButton.style.minWidth = dropdownButtonWidth + 'px'
-    dropdownMenu.style.maxWidth = dropdownButtonWidth + 'px'
+    const dropdownButtonWidth = dropdownButton.offsetWidth
+    if (!props.floatingLabel) {
+      const addWidth = 28
+      dropdownButton.style.minWidth = dropdownButtonWidth + addWidth + 'px'
+      dropdownMenu.style.maxWidth = dropdownButtonWidth + addWidth + 'px'
+    } else {
+      dropdownMenu.style.maxWidth = dropdownButtonWidth + 'px'
+    }
   }
 })
 </script>
