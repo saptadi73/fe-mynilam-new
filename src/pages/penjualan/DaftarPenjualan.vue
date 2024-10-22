@@ -2,11 +2,12 @@
   <div class="bg-image-wave2 px-5 md:px-16 pb-4">
     <BaseHeaderTitle title="Daftar Penjualan Minyak Nilam" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
-      <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-5 justify-between">
-        <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
-          <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
+      <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-5 justify-between">
+        <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2">
+          <BaseSearchBar placeholder="Cari nama" class="w-full" />
           <BaseButton>Cari</BaseButton>
           <BaseInputSelect
+            class="w-full"
             name="kabupaten"
             label-key="name"
             value-key="id"
@@ -15,6 +16,7 @@
             @change="setDaftarPenjualanParams"
           />
           <BaseInputSelect
+            class="w-full"
             name="jenis"
             :options="optionsJenis"
             placeholder="Pilih Jenis"

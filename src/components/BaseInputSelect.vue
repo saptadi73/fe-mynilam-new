@@ -166,9 +166,8 @@ onMounted(() => {
   if (dropdownButton && dropdownMenu) {
     const dropdownButtonWidth = dropdownButton.offsetWidth
     if (!props.floatingLabel) {
-      const addWidth = 28
-      dropdownButton.style.minWidth = dropdownButtonWidth + addWidth + 'px'
-      dropdownMenu.style.maxWidth = dropdownButtonWidth + addWidth + 'px'
+      // dropdownButton.style.minWidth = dropdownButtonWidth + addWidth + 'px'
+      dropdownMenu.style.maxWidth = dropdownButtonWidth + 'px'
     } else {
       dropdownMenu.style.maxWidth = dropdownButtonWidth + 'px'
     }

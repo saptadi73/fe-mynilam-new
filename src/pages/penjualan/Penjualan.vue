@@ -42,7 +42,7 @@
           Memungkinkan pengguna untuk membuat dan mengelola daftar penjualan terbaru dari penjualan nilam, memantau
           transaksi, dan melihat rincian penjualan secara lengkap.
         </p>
-        <RouterLink :to="{ name: 'Buat Daftar Produksi Petani' }">
+        <RouterLink :to="{ name: 'Daftar Penjualan' }">
           <BaseButton icon-position="left">
             Lihat Penjualan
             <BaseIcon name="chevron-right" class="w-4 h-4" />
