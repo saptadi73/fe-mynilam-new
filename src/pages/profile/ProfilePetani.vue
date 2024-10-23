@@ -163,7 +163,7 @@ const dataPetani = reactive({
   email: 'bagas@gmail.com',
 })
 
-const { handleSubmit } = useForm({
+const { handleSubmit, setValues } = useForm({
   validationSchema: object({
     nama: string().required().label('Nama'),
     alamat: string().required().label('Alamat'),
@@ -178,7 +178,6 @@ const { handleSubmit } = useForm({
     jenisMitra: string().required().label('Jenis Mitra'),
     email: string().required().label('Email'),
   }),
-  initialValues: dataPetani,
 })
 
 const onSubmit = handleSubmit((values) => {
@@ -189,6 +188,7 @@ let modal = ref<Boolean>(false)
 
 const showModal = () => {
   modal.value = true
+  setValues(dataPetani)
 }
 
 const closeModal = () => {
