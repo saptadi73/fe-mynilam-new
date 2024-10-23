@@ -12,12 +12,13 @@
       <span class="capitalize text-ellipsis whitespace-nowrap overflow-x-hidden">
         {{ dropdownLabel || placeholder }}
       </span>
-      <BaseIcon name="chevron-right" class="rotate-90 ms-3 h-3 text-gray-500" />
+      <BaseIcon v-if="!value" name="chevron-right" class="rotate-90 ms-3 h-5 text-gray-500" />
+      <BaseIcon v-else name="x-mark" @click="clearValue" class="rotate-90 ms-3 h-5 text-red-500" />
     </button>
     <!-- style 2: floating label dropdown-->
     <div v-else class="relative z-0 font-poppins">
-      <div class="absolute top-5 right-2 flex items-center pointer-events-none text-primary-border">
-        <BaseIcon name="chevron-right" class="w-2 rotate-90" />
+      <div class="absolute top-4 right-2 flex items-center pointer-events-none text-primary-border">
+        <BaseIcon name="chevron-right" class="h-5 rotate-90" />
       </div>
       <input
         type="text"
@@ -42,12 +43,16 @@
         :id="uniqueNameId + 'Dropdown'"
         class="z-50 w-full hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow border"
       >
-        <div v-if="!floatingLabel && filteredOptions.length > 7" class="p-3">
+        <div v-if="!floatingLabel && options.length > 7" class="p-3">
           <BaseSearchBar v-model="searchValue" class="w-full" placeholder="Cari" />
         </div>
         <ul class="text-sm text-gray-800 w-full max-h-64 overflow-y-auto">
           <li v-for="option in filteredOptions" :key="option[props.valueKey]">
-            <div class="cursor-pointer px-4 py-2 hover:bg-primary-light" @click="handleSelectDropdown(option)">
+            <div
+              :class="{ 'bg-primary-light font-semibold': option[props.valueKey] === value }"
+              class="cursor-pointer px-4 py-2 hover:bg-primary-light"
+              @click="handleSelectDropdown(option)"
+            >
               {{ option[props.labelKey] }}
             </div>
           </li>
@@ -92,15 +97,16 @@ const props = withDefaults(defineProps<Props>(), {
   valueKey: 'value',
 })
 
-const { value, errorMessage } = useField<string | number>(() => props.name)
+const { value, errorMessage, resetField } = useField<string | number>(() => props.name)
 const onFocus = ref(false)
 
 // to get default value
 const getLabelByValue = (val: string | number) => {
   const obj = props.options.find((option) => option[props.valueKey] === val)
-  return obj?.label
+  return obj?.[props.labelKey]
 }
 
+// generate unique field id (avoid duplication)
 const uniqueNameId = computed(() => {
   return props.name + Math.floor(Math.random() * 9999)
 })
@@ -128,10 +134,17 @@ const handleOnBlur = () => {
 }
 
 const handleSelectDropdown = (option: Option) => {
-  dropdownLabel.value = option[props.labelKey]
   value.value = option[props.valueKey]
+  // set label for floating label
   if (props.floatingLabel) searchValue.value = option[props.labelKey].toString()
-  document.getElementById(uniqueNameId.value)?.click() // to close dropdown menu
+  // to close dropdown menu
+  document.getElementById(uniqueNameId.value)?.click()
+}
+
+const clearValue = () => {
+  document.getElementById(uniqueNameId.value)?.click() // keep dropdown closed
+  resetField()
+  emit('change')
 }
 
 // handle value change
@@ -148,8 +161,16 @@ onMounted(() => {
   // init flowbite dropdown
   initDropdowns()
   // set dropdown width
-  const dropdownButtonWidth = document.getElementById(uniqueNameId.value)?.offsetWidth
   const dropdownMenu = document.getElementById(uniqueNameId.value + 'Dropdown')
-  if (dropdownButtonWidth && dropdownMenu) dropdownMenu.style.maxWidth = dropdownButtonWidth + 15 + 'px'
+  const dropdownButton = document.getElementById(uniqueNameId.value)
+  if (dropdownButton && dropdownMenu) {
+    const dropdownButtonWidth = dropdownButton.offsetWidth
+    if (!props.floatingLabel) {
+      // dropdownButton.style.minWidth = dropdownButtonWidth + addWidth + 'px'
+      dropdownMenu.style.maxWidth = dropdownButtonWidth + 'px'
+    } else {
+      dropdownMenu.style.maxWidth = dropdownButtonWidth + 'px'
+    }
+  }
 })
 </script>
