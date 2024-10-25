@@ -13,18 +13,21 @@
     <template #header>
       <slot name="header" />
     </template>
+    <template v-for="(_slot, name) in $slots" v-slot:[name]="scope">
+      <slot :name="name" v-bind="scope" />
+    </template>
   </BaseTable>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 // prettier-ignore
-import { getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useVueTable } from '@tanstack/vue-table'
+import { ColumnDef, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useVueTable } from '@tanstack/vue-table'
 import { onMounted, reactive, ref } from 'vue'
 import BaseTable from './BaseTable.vue'
 
-export interface TableClientProps {
-  data: any[]
-  columns: any[]
+export interface TableClientProps<T> {
+  data: T[]
+  columns: ColumnDef<T, any>[]
   pageSize?: number
   search?: boolean
   showPagination?: boolean
@@ -33,7 +36,7 @@ export interface TableClientProps {
   searchValue?: string
 }
 
-const props = withDefaults(defineProps<TableClientProps>(), {
+const props = withDefaults(defineProps<TableClientProps<T>>(), {
   pageSize: 10,
   search: true,
   data: () => [],

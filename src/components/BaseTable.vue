@@ -60,7 +60,9 @@
             class="border-b border-primary-border hover:bg-gray-100"
           >
             <td v-for="(cell, index) in row.getVisibleCells()" :key="index" class="px-6 py-4 text-center">
-              <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+              <slot :name="`col|${cell.column.id}`" :cell="cell">
+                <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+              </slot>
             </td>
           </tr>
         </tbody>
@@ -122,21 +124,21 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { FlexRender, type Header } from '@tanstack/vue-table'
+<script setup lang="ts" generic="T">
+import { FlexRender, type Table, type Header } from '@tanstack/vue-table'
 import { computed, onMounted, ref } from 'vue'
 import BaseIcon from '../components/BaseIcon.vue'
 import BaseSearchBar from './BaseSearchBar.vue'
 
-interface Props {
-  table: any
+interface Props<T> {
+  table: Table<T>
   pageSize?: number
   search: boolean
   customHeader?: boolean
   totalData: number
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props<T>>(), {
   pageSize: 5,
   search: true,
   customHeader: false,
@@ -182,7 +184,7 @@ const pagination = computed(() => {
   return range
 })
 
-const handleClickSort = (header: Header<{}, unknown>, $event: MouseEvent) => {
+const handleClickSort = (header: Header<T, unknown>, $event: MouseEvent) => {
   // disable sorting for action column
   if (header.column.id !== 'action') {
     header.column.getToggleSortingHandler()?.($event)
