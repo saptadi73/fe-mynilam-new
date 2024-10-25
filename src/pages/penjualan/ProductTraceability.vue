@@ -37,23 +37,27 @@
       </template>
       <template #col|agenKoperasi="{ cell }">
         <div class="relative">
-          <div class="absolute top-1.5 -left-9">
-            <BaseIcon name="arrow-left" class="rotate-180 w-6 text-primary-700" />
-          </div>
-          <div v-if="cell.getValue()" class="bg-primary-3 text-white font-semibold p-2 rounded-lg drop-shadow">
-            {{ cell.getValue() }}
-          </div>
+          <template v-if="cell.getValue()">
+            <div class="absolute top-1.5 -left-9">
+              <BaseIcon name="arrow-left" class="rotate-180 w-6 text-primary-700" />
+            </div>
+            <div class="bg-primary-3 text-white font-semibold p-2 rounded-lg drop-shadow">
+              {{ cell.getValue() }}
+            </div>
+          </template>
           <div v-else class="p-2 font-semibold text-primary-border">Belum Tersedia</div>
         </div>
       </template>
       <template #col|ugreen="{ cell }">
         <div class="relative">
-          <div class="absolute top-1.5 -left-9">
-            <BaseIcon name="arrow-left" class="rotate-180 w-6 text-primary-700" />
-          </div>
-          <div v-if="cell.getValue()" class="bg-primary-3 text-white font-semibold p-2 rounded-lg drop-shadow">
-            {{ cell.getValue() }}
-          </div>
+          <template v-if="cell.getValue()">
+            <div class="absolute top-1.5 -left-9">
+              <BaseIcon name="arrow-left" class="rotate-180 w-6 text-primary-700" />
+            </div>
+            <div class="bg-primary-3 text-white font-semibold p-2 rounded-lg drop-shadow">
+              {{ cell.getValue() }}
+            </div>
+          </template>
           <div v-else class="p-2 font-semibold text-primary-border">Belum Tersedia</div>
         </div>
       </template>
@@ -93,17 +97,17 @@ const defaultData: Produksi[] = [
     kodeProduksi: 'PTN-005-MNL-001',
     agenKoperasi: 'PTN-005-MNL-001',
     ugreen: null,
-    tanggal: '24/10/2024',
-    tanggalAgen: '25/10/2024',
-    tanggalUgreen: '27/10/2024',
+    tanggal: '25/10/2024',
+    tanggalAgen: '26/10/2024',
+    tanggalUgreen: '28/10/2024',
   },
   {
     kodeProduksi: 'PTN-005-MNL-001',
     agenKoperasi: 'PTN-005-MNL-001',
     ugreen: 'PTN-005-MNL-002',
-    tanggal: '24/10/2024',
-    tanggalAgen: '25/10/2024',
-    tanggalUgreen: '27/10/2024',
+    tanggal: '26/10/2024',
+    tanggalAgen: '27/10/2024',
+    tanggalUgreen: '29/10/2024',
   },
 ]
 
