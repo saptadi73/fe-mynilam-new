@@ -3,7 +3,7 @@
     <div class="bg-white min-h-screen opacity-90 shadow-md rounded-lg font-cera">
       <img
         class="bg-cover object-cover rounded-t-lg h-60 w-full"
-        src="@/assets/images/profile/profile-bg.jpg"
+        src="@/assets/images/profile/profile-bg.png"
         alt="Background Profile"
       />
 
