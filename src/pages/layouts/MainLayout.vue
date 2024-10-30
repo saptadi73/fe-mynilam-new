@@ -1,6 +1,6 @@
 <template>
   <TheNavbar />
-  <div class="pt-[92px]">
+  <div class="pt-[88px]">
     <router-view></router-view>
   </div>
   <TheFooter />

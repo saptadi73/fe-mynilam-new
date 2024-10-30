@@ -19,8 +19,7 @@
       </button>
       <!-- logo -->
       <router-link to="/" active-class="no-class">
-        <!-- <div class="font-cera text-white text-3xl"><span class="text-primary-3">MYNIL</span>AM</div> -->
-        <img class="w-32" src="../assets/images/mynilam.png" alt="Logo MyNilam" />
+        <img class="h-14" src="../assets/images/mynilam.png" alt="Logo MyNilam" />
       </router-link>
       <!-- navbar menu -->
       <ul class="hidden lg:flex items-center text-white bg-primary-3 rounded-full py-1.5 px-1">
