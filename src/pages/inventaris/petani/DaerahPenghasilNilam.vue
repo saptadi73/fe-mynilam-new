@@ -18,10 +18,13 @@ const getRandomColor = () => {
 }
 
 const mapOptions: GeoJSONOptions = {
-  onEachFeature: function (_feature, layer) {
+  onEachFeature: function (feature, layer) {
     layer.on({
       click: () => {
-        router.push({ name: 'Daftar Petani' })
+        router.push({ name: 'Daftar Petani Kabupaten', params: { kabupatenId: feature.properties['Kab_Kota'] } })
+      },
+      mouseover: () => {
+        layer.bindPopup(feature.properties['Kab_Kota']).openPopup()
       },
     })
   },
