@@ -26,7 +26,12 @@
             class="w-full lg:w-44 2xl:w-52"
           />
 
-          <BaseInputDateRange name="tanggal" placeholder-start="Tanggal mulai" placeholder-end="Tanggal akhir" />
+          <BaseInputDateRange
+            name="tanggal"
+            placeholder-start="Tanggal mulai"
+            placeholder-end="Tanggal akhir"
+            @change="(value: string[]) => console.log(value)"
+          />
           <BaseSearchBar v-model="searchValue" placeholder="Cari kode produksi" class="w-full lg:w-52 2xl:w-60" />
         </div>
       </template>

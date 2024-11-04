@@ -7,6 +7,7 @@
         type="text"
         class="border border-primary-border text-center text-gray-800 text-sm rounded focus:ring-4 focus:ring-primary-light focus:border-primary block w-full p-1"
         :placeholder="placeholderStart"
+        @changeDate="handleDateStart"
       />
     </div>
     <span class="mx-2 text-gray-800 text-sm">s/d</span>
@@ -17,6 +18,7 @@
         type="text"
         class="border border-primary-border text-center text-gray-800 text-sm rounded focus:ring-4 focus:ring-primary-light focus:border-primary block w-full p-1"
         :placeholder="placeholderEnd"
+        @changeDate="handleDateEnd"
       />
     </div>
   </div>
@@ -24,15 +26,39 @@
 
 <script setup lang="ts">
 // https://github.com/themesberg/tailwind-vue-starter/blob/main/src/views/Datepicker.vue
-import { onMounted } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { Datepicker, type DatepickerOptions } from 'flowbite'
 
+interface Emits {
+  (e: 'change', value: string[]): string[]
+}
 interface Props {
   placeholderStart: string
   placeholderEnd: string
   name: string
 }
+
+defineOptions({ inheritAttrs: false })
+const emit = defineEmits<Emits>()
 const props = defineProps<Props>()
+
+const dateStart = ref('')
+const dateEnd = ref('')
+
+const handleDateStart = (e: Event) => {
+  const { value } = e.target as HTMLInputElement
+  dateStart.value = value
+}
+
+const handleDateEnd = (e: Event) => {
+  const { value } = e.target as HTMLInputElement
+  dateEnd.value = value
+}
+
+watch([dateStart, dateEnd], () => {
+  const dateRangeValue = [dateStart.value, dateEnd.value]
+  emit('change', dateRangeValue)
+})
 
 onMounted(() => {
   // set the target element of the input field
