@@ -54,6 +54,11 @@ export default {
           name: 'Daerah Penghasil Nilam',
           component: () => import('../pages/inventaris/petani/DaerahPenghasilNilam.vue'),
         },
+        {
+          path: ':kabupatenId',
+          name: 'Daftar Petani Kabupaten',
+          component: () => import('../pages/inventaris/petani/DaftarPetaniKabupaten.vue'),
+        },
       ],
     },
     {
