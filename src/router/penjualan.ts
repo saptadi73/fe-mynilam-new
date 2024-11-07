@@ -21,5 +21,50 @@ export default {
       name: 'Product Traceability',
       component: () => import('../pages/penjualan/ProductTraceability.vue'),
     },
+    {
+      path: 'pilih-jenis-laporan',
+      name: 'Pilih Jenis Laporan Penjualan',
+      component: () => import('../pages/penjualan/PilihJenisLaporan.vue'),
+    },
+    {
+      path: 'laporan-penjualan',
+      children: [
+        {
+          path: '',
+          name: 'Pilih Laporan Penjualan',
+          component: () => import('../pages/penjualan/laporan-penjualan/PilihLaporanPenjualan.vue'),
+        },
+        {
+          path: 'petani',
+          name: 'Laporan Penjualan Petani',
+          component: () => import('../pages/penjualan/laporan-penjualan/LaporanPetani.vue'),
+        },
+        {
+          path: 'agen-koperasi',
+          name: 'Laporan Penjualan Agen Koperasi',
+          component: () => import('../pages/penjualan/laporan-penjualan/LaporanAgenKoperasi.vue'),
+        },
+      ],
+    },
+    {
+      path: 'traceability-product',
+      children: [
+        {
+          path: '',
+          name: 'Pilih Traceability Product',
+          component: () => import('../pages/penjualan/traceability-product/PilihTraceabilityProduct.vue'),
+        },
+        {
+          path: 'petani',
+          name: 'Traceability Petani',
+          component: () => import('../pages/penjualan/traceability-product/TraceabilityPetani.vue'),
+        },
+        {
+          path: 'agen-koperasi',
+          name: 'Traceability Agen Koperasi',
+          component: () => import('../pages/penjualan/traceability-product/TraceabilityAgenKoperasi.vue'),
+        },
+      ],
+    },
   ],
 }
