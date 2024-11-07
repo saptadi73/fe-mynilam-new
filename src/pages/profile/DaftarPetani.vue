@@ -18,8 +18,9 @@
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-y-4 md:gap-y-4 md:gap-x-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Petani" class="col-span-12 md:col-span-6 lg:col-span-3" />
+        <BaseSkeletonCard v-if="isLoading" v-for="n in 3" :key="n" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
-          v-if="!isLoading"
+          v-else
           v-for="(card, cardIndex) in daftarPetani"
           :key="cardIndex"
           card-path="profile/profile-petani"
@@ -129,6 +130,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { useHttp } from '@/api/useHttp'
 import { useKabupaten } from '@/api/useLocalization'
 import type { Petani } from '@/types/petani'
+import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 
 const kabupaten = useKabupaten()
 
