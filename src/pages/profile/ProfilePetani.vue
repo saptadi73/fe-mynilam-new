@@ -8,7 +8,13 @@
       />
 
       <div v-if="!isLoading" class="absolute w-48 h-48 top-24 left-1/4 md:left-36 bg-white rounded-full p-1 mt-20 z-20">
-        <img :src="dataPetani.image" class="w-full h-full rounded-full object-cover" alt="Profile" />
+        <img
+          v-if="dataPetani.image === null"
+          src="@/assets/images/profile/petani-default.png"
+          class="w-full object-cover rounded-xl p-4"
+          alt="Petani Image"
+        />
+        <img v-else :src="dataPetani.image" class="w-full h-full rounded-full object-cover" alt="Profile" />
       </div>
 
       <ButtonEditProfile @click="showModal" />
@@ -221,10 +227,7 @@ const getPetani = async () => {
       education_level_id: string | boolean
     }) => ({
       ...petani,
-      image:
-        petani.image_1920 !== false
-          ? `data:image/png;base64,${petani.image_1920}`
-          : '@/assets/images/profile/petani-default.png',
+      image: petani.image_1920 !== false ? `data:image/png;base64,${petani.image_1920}` : null,
       kabupaten: petani.kabupaten_id !== false ? petani.kabupaten_id[1] : null,
       education_level_id: petani.education_level_id !== false ? petani.education_level_id : null,
     })
