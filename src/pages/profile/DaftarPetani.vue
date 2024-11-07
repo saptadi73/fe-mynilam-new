@@ -116,7 +116,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
@@ -126,7 +125,7 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputFile from '@/components/BaseInputFile.vue'
 import ModalProfile from './components/ModalProfile.vue'
-
+import { onMounted, reactive, ref } from 'vue'
 import { useHttp } from '@/api/useHttp'
 import { useKabupaten } from '@/api/useLocalization'
 import type { Petani } from '@/types/petani'

@@ -7,60 +7,70 @@
           <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
           <BaseButton>Cari</BaseButton>
         </div>
-        <BaseInputSelect name="kabupaten" :options="options" placeholder="Pilih kabupaten"></BaseInputSelect>
+        <BaseInputSelect
+          name="kabupaten"
+          label-key="name"
+          value-key="id"
+          :options="kabupaten.data.value"
+          placeholder="Pilih kabupaten"
+        ></BaseInputSelect>
         <BaseInputSelect name="jenis mitra" :options="options2" placeholder="Pilih jenis mitra"></BaseInputSelect>
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Agen" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
+          v-if="!isLoading"
           v-for="(card, cardIndex) in cardAgen"
           :key="cardIndex"
           card-path="profile/profile-agen"
-          :card-code="card.code"
+          :card-id="card.id"
+          :card-code="card.ilo_associate_code"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >
           <template #card-content>
             <div class="flex justify-center pt-2 h-1/3">
               <img
-                src="@/assets/images/profile/petani-1.jpg"
+                v-if="card.image === null"
+                src="@/assets/images/profile/petani-default.png"
                 class="w-full object-cover rounded-xl"
                 alt="Petani Image"
               />
+              <img v-else :src="card.image" class="w-full object-cover rounded-xl" alt="Agen Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama Petani</h1>
-                <p class="font-bold text-sm">{{ card.petaniName }}</p>
+                <h1 class="text-sm">Nama</h1>
+                <p class="font-bold text-sm">{{ card.name }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Alamat</h1>
-                <p class="font-bold text-sm">{{ card.alamat }}</p>
+                <p class="font-bold text-sm">{{ card.street }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Desa/Kelurahan</h1>
-                <p class="font-bold text-sm">{{ card.desa }}</p>
+                <p class="font-bold text-sm">{{ card.kelurahan ?? '-' }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Kecamatan</h1>
-                <p class="font-bold text-sm">{{ card.kecamatan }}</p>
+                <p class="font-bold text-sm">{{ card.kecamatan ?? '-' }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Kota/Kabupaten</h1>
-                <p class="font-bold text-sm">{{ card.kota }}</p>
+                <p class="font-bold text-sm">{{ card.kabupaten ?? '-' }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Provinsi</h1>
-                <p class="font-bold text-sm">{{ card.provinsi }}</p>
+                <p class="font-bold text-sm">{{ card.provinsi ?? '-' }}</p>
               </div>
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Anggota Keluarga</h1>
-                <p class="font-bold text-sm">{{ card.anggotaKeluarga }} Orang</p>
+                <h1 class="text-sm">Jenis</h1>
+                <p class="font-bold text-sm">{{ card.ilo_associate }} Orang</p>
               </div>
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Jenis Mitra</h1>
-                <p class="font-bold text-sm">{{ card.jenisMitra }}</p>
+                <h1 class="text-sm">No Telepon</h1>
+                <p class="font-bold text-sm">-</p>
               </div>
             </div>
           </template>
@@ -102,7 +112,6 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
@@ -111,6 +120,15 @@ import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import ModalProfile from './components/ModalProfile.vue'
+import { onMounted, reactive, ref } from 'vue'
+import { useKabupaten } from '@/api/useLocalization'
+import { useHttp } from '@/api/useHttp'
+import type { Agen } from '@/types/agen'
+
+const kabupaten = useKabupaten()
+
+let cardAgen = reactive<Agen[]>([])
+const isLoading = ref<boolean>(false)
 
 let modal = ref<Boolean>(false)
 
@@ -130,6 +148,29 @@ const handleSubmit = () => {
   console.log('test')
 }
 
+const getPetani = async () => {
+  isLoading.value = true
+  const response = await useHttp('/partner/agent_koperasi/list')
+  const agenData = await response.data
+
+  cardAgen = agenData.map(
+    (petani: {
+      image_1920: string | boolean
+      kelurahan: string | boolean
+      kecamatan: string | boolean
+      kabupaten_id: any[]
+    }) => ({
+      ...petani,
+      image: petani.image_1920 !== false ? `data:image/png;base64,${petani.image_1920}` : null,
+      kelurahan: petani.kelurahan !== false ? petani.kelurahan : null,
+      kecamatan: petani.kecamatan !== false ? petani.kecamatan : null,
+      kabupaten: petani.kabupaten_id[1],
+    })
+  )
+
+  isLoading.value = false
+}
+
 const optionsStatus = ref([
   { label: 'On Progress', value: 1 },
   { label: 'Finished', value: 2 },
@@ -139,101 +180,6 @@ const optionsStatus = ref([
 const optionsJenisMitra = ref([
   { label: 'Koperasi', value: 1 },
   { label: 'Agen', value: 2 },
-])
-
-const cardAgen = reactive([
-  {
-    code: 'TNM94A2X',
-    petaniName: 'Agus Prayitno',
-    alamat: 'Batu Aji No.11',
-    desa: 'Panton Bili',
-    kecamatan: 'Labuhan Haji Timur',
-    kota: 'Aceh Selatan',
-    provinsi: 'Aceh',
-    anggotaKeluarga: '4',
-    jenisMitra: 'Koperasi',
-  },
-  {
-    code: 'TNM94A2X',
-    petaniName: 'Budi Santoso',
-    alamat: 'Batu Aji No.11',
-    desa: 'Panton Bili',
-    kecamatan: 'Labuhan Haji Timur',
-    kota: 'Aceh Selatan',
-    provinsi: 'Aceh',
-    anggotaKeluarga: '4',
-    jenisMitra: 'Koperasi',
-  },
-  {
-    code: 'TNM94A2X',
-    petaniName: 'Rika Kusuma',
-    alamat: 'Batu Aji No.11',
-    desa: 'Panton Bili',
-    kecamatan: 'Labuhan Haji Timur',
-    kota: 'Aceh Selatan',
-    provinsi: 'Aceh',
-    anggotaKeluarga: '4',
-    jenisMitra: 'Agen',
-  },
-  {
-    code: 'TNM94A2X',
-    petaniName: 'Rika Kusuma',
-    alamat: 'Batu Aji No.11',
-    desa: 'Panton Bili',
-    kecamatan: 'Labuhan Haji Timur',
-    kota: 'Aceh Selatan',
-    provinsi: 'Aceh',
-    anggotaKeluarga: '4',
-    jenisMitra: 'Agen',
-  },
-  {
-    code: 'TNM94A2X',
-    petaniName: 'Rika Kusuma',
-    alamat: 'Batu Aji No.11',
-    desa: 'Panton Bili',
-    kecamatan: 'Labuhan Haji Timur',
-    kota: 'Aceh Selatan',
-    provinsi: 'Aceh',
-    anggotaKeluarga: '4',
-    jenisMitra: 'Agen',
-  },
-  {
-    code: 'TNM94A2X',
-    petaniName: 'Rika Kusuma',
-    alamat: 'Batu Aji No.11',
-    desa: 'Panton Bili',
-    kecamatan: 'Labuhan Haji Timur',
-    kota: 'Aceh Selatan',
-    provinsi: 'Aceh',
-    anggotaKeluarga: '4',
-    jenisMitra: 'Agen',
-  },
-  {
-    code: 'TNM94A2X',
-    petaniName: 'Rika Kusuma',
-    alamat: 'Batu Aji No.11',
-    desa: 'Panton Bili',
-    kecamatan: 'Labuhan Haji Timur',
-    kota: 'Aceh Selatan',
-    provinsi: 'Aceh',
-    anggotaKeluarga: '4',
-    jenisMitra: 'Agen',
-  },
-])
-
-const options = ref([
-  {
-    label: 'Aceh Selatan',
-    value: 1,
-  },
-  {
-    label: 'Aceh Utara',
-    value: 2,
-  },
-  {
-    label: 'Aceh Tengah',
-    value: 3,
-  },
 ])
 
 const options2 = ref([
@@ -246,4 +192,8 @@ const options2 = ref([
     value: 2,
   },
 ])
+
+onMounted(() => {
+  getPetani()
+})
 </script>
