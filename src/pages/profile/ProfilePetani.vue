@@ -204,7 +204,7 @@ let dataPetani = reactive<PetaniProfile>({
   kecamatan: '',
   kabupaten: '',
   provinsi: '',
-  family_members: '5',
+  family_members: '',
   totalAset: '23',
   organization_status: '',
   education_level_id: '',
