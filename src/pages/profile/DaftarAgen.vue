@@ -66,7 +66,7 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Jenis</h1>
-                <p class="font-bold text-sm">{{ card.ilo_associate }} Orang</p>
+                <p class="font-bold text-sm">{{ card.ilo_associate }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">No Telepon</h1>
