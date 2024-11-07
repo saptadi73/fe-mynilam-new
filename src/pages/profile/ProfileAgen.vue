@@ -111,6 +111,8 @@ import { useRoute } from 'vue-router'
 import { useHttp } from '@/api/useHttp'
 import type { AgenProfile } from '@/types/agen'
 
+const route = useRoute()
+
 let profileAgen = reactive<AgenProfile>({
   image: '',
   name: '',
@@ -126,8 +128,6 @@ let profileAgen = reactive<AgenProfile>({
   email: '',
 })
 const isLoading = ref<boolean>(false)
-
-const route = useRoute()
 
 const getProfileAgen = async () => {
   isLoading.value = true

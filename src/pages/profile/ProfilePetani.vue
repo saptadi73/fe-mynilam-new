@@ -194,6 +194,8 @@ import { useRoute } from 'vue-router'
 import { useHttp } from '@/api/useHttp'
 import type { PetaniProfile } from '@/types/petani'
 
+const route = useRoute()
+
 let dataPetani = reactive<PetaniProfile>({
   id: 0,
   name: '',
@@ -204,15 +206,13 @@ let dataPetani = reactive<PetaniProfile>({
   kecamatan: '',
   kabupaten: '',
   provinsi: '',
-  family_members: '',
+  family_members: 0,
   totalAset: '23',
   organization_status: '',
   education_level_id: '',
   ilo_associate: '',
 })
 const isLoading = ref<boolean>(false)
-
-const route = useRoute()
 
 const getPetani = async () => {
   isLoading.value = true

@@ -20,7 +20,7 @@
         <BaseCardAdd @click="showModal" card-title="Petani" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
           v-if="!isLoading"
-          v-for="(card, cardIndex) in cardPetani"
+          v-for="(card, cardIndex) in daftarPetani"
           :key="cardIndex"
           card-path="profile/profile-petani"
           :card-id="card.id"
@@ -132,7 +132,7 @@ import type { Petani } from '@/types/petani'
 
 const kabupaten = useKabupaten()
 
-let cardPetani = reactive<Petani[]>([])
+let daftarPetani = reactive<Petani[]>([])
 const isLoading = ref<boolean>(false)
 
 let modal = ref<Boolean>(false)
@@ -174,7 +174,7 @@ const getPetani = async () => {
   const response = await useHttp('/partner/petani/list')
   const petaniData = await response.data
 
-  cardPetani = petaniData.map(
+  daftarPetani = petaniData.map(
     (petani: {
       image_1920: string | boolean
       kelurahan: string | boolean

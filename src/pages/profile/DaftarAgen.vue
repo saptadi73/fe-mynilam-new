@@ -21,7 +21,7 @@
         <BaseCardAdd @click="showModal" card-title="Agen" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
           v-if="!isLoading"
-          v-for="(card, cardIndex) in cardAgen"
+          v-for="(card, cardIndex) in daftarAgen"
           :key="cardIndex"
           card-path="profile/profile-agen"
           :card-id="card.id"
@@ -127,7 +127,7 @@ import type { Agen } from '@/types/agen'
 
 const kabupaten = useKabupaten()
 
-let cardAgen = reactive<Agen[]>([])
+let daftarAgen = reactive<Agen[]>([])
 const isLoading = ref<boolean>(false)
 
 let modal = ref<Boolean>(false)
@@ -148,23 +148,25 @@ const handleSubmit = () => {
   console.log('test')
 }
 
-const getPetani = async () => {
+const getAgen = async () => {
   isLoading.value = true
   const response = await useHttp('/partner/agent_koperasi/list')
   const agenData = await response.data
 
-  cardAgen = agenData.map(
+  daftarAgen = agenData.map(
     (petani: {
       image_1920: string | boolean
       kelurahan: string | boolean
       kecamatan: string | boolean
-      kabupaten_id: any[]
+      kabupaten_id: any
+      state_id: any
     }) => ({
       ...petani,
       image: petani.image_1920 !== false ? `data:image/png;base64,${petani.image_1920}` : null,
       kelurahan: petani.kelurahan !== false ? petani.kelurahan : null,
       kecamatan: petani.kecamatan !== false ? petani.kecamatan : null,
       kabupaten: petani.kabupaten_id[1],
+      provinsi: petani.state_id !== false ? petani.state_id[1] : null,
     })
   )
 
@@ -194,6 +196,6 @@ const options2 = ref([
 ])
 
 onMounted(() => {
-  getPetani()
+  getAgen()
 })
 </script>

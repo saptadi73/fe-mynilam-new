@@ -22,7 +22,7 @@ export interface PetaniProfile {
   kecamatan: string
   kabupaten: string
   provinsi: string
-  family_members: string
+  family_members: number
   totalAset: string
   organization_status: string
   education_level_id: string
