@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="product-card relative bg-primary-light rounded-3xl border border-[#B2B4E0] cursor-pointer hover:shadow-xl hover:bg-slate-300 duration-300 ease-in-out px-5 pt-3 pb-8 w-full"
-  >
+  <div class="product-card bg-primary-light rounded-3xl border border-[#B2B4E0] px-5 pt-3 pb-8 w-full">
     <div class="flex justify-center">
       <BaseSkeletonText class="w-24 h-4" />
     </div>
