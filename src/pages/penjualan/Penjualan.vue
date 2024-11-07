@@ -15,9 +15,9 @@
     </p>
 
     <section class="my-20 md:my-10 md:p-8 text-primary flex flex-col md:flex-row items-start md:space-x-10 w-full">
-      <div class="md:w-6/12 py-3 space-y-5">
-        <h1 class="text-3xl font-bold">Daftar Penjualan</h1>
-        <p class="text-lg">
+      <div class="md:w-6/12 py-3">
+        <h1 class="text-3xl font-bold mb-3">Daftar Penjualan</h1>
+        <p class="text-lg mb-3">
           Memungkinkan pengguna untuk membuat dan mengelola daftar penjualan terbaru dari penjualan nilam, memantau
           transaksi, dan melihat rincian penjualan secara lengkap.
         </p>
@@ -39,9 +39,9 @@
       <div class="md:w-5/12">
         <img src="@/assets/images/penjualan/penjualan-thumbnail-3.png" class="rounded-3xl w-full" />
       </div>
-      <div class="md:w-7/12 py-3 space-y-5">
-        <h1 class="text-3xl font-bold">Laporan Penjualan dan Tracebility Product</h1>
-        <p class="text-lg">
+      <div class="md:w-7/12 py-3">
+        <h1 class="text-3xl font-bold mb-3">Laporan Penjualan dan Tracebility Product</h1>
+        <p class="text-lg mb-3">
           Menampilkan data penjualan lengkap dari setiap transaksi, mulai dari agen, koperasi, hingga Ugreen, serta
           memantau pergerakan produk secara menyeluruh. Laporan ini mencakup riwayat penjualan, jalur distribusi, dan
           ketepatan waktu pengiriman, sehingga memastikan transparansi produk dan meningkatkan kepercayaan Ugreen.

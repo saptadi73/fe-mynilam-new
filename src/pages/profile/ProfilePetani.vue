@@ -195,6 +195,7 @@ import { useHttp } from '@/api/useHttp'
 import type { PetaniProfile } from '@/types/petani'
 
 let dataPetani = reactive<PetaniProfile>({
+  id: 0,
   name: '',
   image: '',
   email: '',
@@ -221,11 +222,7 @@ const getPetani = async () => {
   const petaniData = await response.data
 
   dataPetani = petaniData.map(
-    (petani: {
-      image_1920: string | boolean
-      kabupaten_id: any[] | boolean
-      education_level_id: string | boolean
-    }) => ({
+    (petani: { image_1920: string | boolean; kabupaten_id: any | boolean; education_level_id: string | boolean }) => ({
       ...petani,
       image: petani.image_1920 !== false ? `data:image/png;base64,${petani.image_1920}` : null,
       kabupaten: petani.kabupaten_id !== false ? petani.kabupaten_id[1] : null,

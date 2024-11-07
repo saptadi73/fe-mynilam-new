@@ -23,6 +23,7 @@ export interface PetaniProfile {
   kabupaten: string
   provinsi: string
   family_members: string
+  totalAset: string
   organization_status: string
   education_level_id: string
 }

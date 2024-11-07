@@ -1,13 +1,15 @@
 <template>
   <div class="bg-image-wave2 px-5 md:px-16 pb-4">
     <BaseHeaderTitle title="Daftar Penjualan Minyak Nilam" />
-    <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
-      <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-5 justify-between">
-        <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2">
-          <BaseSearchBar placeholder="Cari nama" class="w-full" />
-          <BaseButton>Cari</BaseButton>
+    <div class="bg-[#F6FDFF] p-4 rounded-3xl border-2 border-primary-border">
+      <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-5 items-center justify-between">
+        <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4">
+          <div class="flex space-x-2">
+            <BaseSearchBar placeholder="Cari kode produk" class="w-full lg:w-52" v-model="searchValue" />
+            <BaseButton>Cari</BaseButton>
+          </div>
           <BaseInputSelect
-            class="w-full"
+            class="w-full lg:w-52"
             name="kabupaten"
             label-key="name"
             value-key="id"
@@ -16,19 +18,26 @@
             @change="setDaftarPenjualanParams"
           />
           <BaseInputSelect
-            class="w-full"
+            class="w-full lg:w-48"
             name="jenis"
             :options="optionsJenis"
             placeholder="Pilih Jenis"
             @change="setDaftarPenjualanParams"
           />
+          <BaseButton variant="success" icon-position="left">
+            <BaseIcon name="scan" />
+            Scan
+          </BaseButton>
         </div>
-        <BaseButton variant="success" icon-position="left">
-          <BaseIcon name="download" />
-          Unduh
-        </BaseButton>
+        <!-- <div class="flex items-center space-x-2">
+          <div>Tampilkan</div>
+          <select class="border-primary-border bg-primary-light rounded-lg p-1 pl-2.5">
+            <option value="10">10</option>
+          </select>
+          <div>dari {{ daftarPenjualan.data.value?.length }}</div>
+        </div> -->
       </div>
-      <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
+      <hr class="border border-primary-border mt-3 -ml-4 -mr-4" />
       <div v-if="daftarPenjualan.isLoading.value" class="grid place-items-center h-96">Loading...</div>
       <div v-else class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Produk" class="col-span-12 md:col-span-6 lg:col-span-3" />
@@ -120,6 +129,7 @@ interface Form {
 }
 
 const { values } = useForm<Form>()
+const searchValue = ref('')
 
 let modal = ref<Boolean>(false)
 let modalQr = ref<Boolean>(false)
