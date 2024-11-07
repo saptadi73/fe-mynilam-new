@@ -23,6 +23,7 @@
           v-for="(card, cardIndex) in cardPetani"
           :key="cardIndex"
           card-path="profile/profile-petani"
+          :card-id="card.id"
           :card-code="card.ilo_associate_code"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >

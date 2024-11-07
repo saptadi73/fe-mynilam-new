@@ -7,33 +7,55 @@
         alt="Background Profile"
       />
 
-      <div class="absolute top-24 left-1/4 md:left-36 bg-white rounded-full p-1.5 mt-20 z-20">
-        <img src="@/assets/images/profile/profile-petani.png" alt="Profile" />
+      <div v-if="!isLoading" class="absolute w-48 h-48 top-24 left-1/4 md:left-36 bg-white rounded-full p-1 mt-20 z-20">
+        <img :src="dataPetani.image" class="w-full h-full rounded-full object-cover" alt="Profile" />
       </div>
 
       <ButtonEditProfile @click="showModal" />
 
-      <div class="text-3xl font-bold px-5 lg:px-20 mt-28">Bagas Adi Rukmana</div>
+      <div class="text-3xl font-bold px-5 lg:px-20 mt-28">
+        <p v-if="!isLoading">{{ dataPetani.name }}</p>
+        <BaseSkeletonText v-else class="w-48 h-6" />
+      </div>
+
       <div class="grid grid-cols-12 px-5 lg:px-20 pt-5 pb-20">
         <div class="col-span-12 lg:col-span-6">
           <div class="grid grid-cols-12 gap-y-2">
             <div class="col-span-4 font-bold">Alamat</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.alamat }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.street }}</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Desa/Kelurahan</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.desa }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.kelurahan }}</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Kecamatan</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.kecamatan }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.kecamatan }}</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Kota/Kabupaten</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.kota }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.kabupaten ?? '-' }}</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Provinsi</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.provinsi }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.provinsi ?? '-' }}</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Anggota Keluarga</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.anggotaKeluarga }} Orang</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.family_members }} Orang</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Total Asset</div>
             <div class="col-span-8 font-bold text-primary-2">
@@ -50,19 +72,34 @@
         <div class="col-span-12 lg:col-span-6">
           <div class="grid grid-cols-12 gap-y-2">
             <div class="col-span-4 font-bold">Status</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.status }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.organization_status }}</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Pendidikan</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.pendidikan }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.education_level_id ?? '-' }}</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Surat Kontrak</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.suratKontrak }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">-</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Jenis Mitra</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.jenisMitra }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.ilo_associate }}</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Email</div>
-            <div class="col-span-8 font-bold">: &nbsp; {{ dataPetani.email }}</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.email }}</span>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
 
             <div class="col-span-4 font-bold">Total Panen</div>
             <div class="col-span-8 font-bold text-primary-2">
@@ -143,24 +180,61 @@ import ModalProfile from './components/ModalProfile.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseButton from '@/components/BaseButton.vue'
-import { reactive, ref } from 'vue'
+import BaseSkeletonText from '@/components/BaseSkeletonText.vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useForm } from 'vee-validate'
 import { object, string, number, mixed } from 'yup'
+import { useRoute } from 'vue-router'
+import { useHttp } from '@/api/useHttp'
+import type { PetaniProfile } from '@/types/petani'
 
-const dataPetani = reactive({
-  nama: 'Bagas Adi Rukmana',
-  alamat: 'Batu aji No. 10',
-  desa: 'Desa Panton Bili',
-  kecamatan: 'Kecamatan Timang Rasa',
-  kota: 'Kabupaten Bener Meriah',
-  provinsi: 'Aceh',
-  anggotaKeluarga: '5',
+let dataPetani = reactive<PetaniProfile>({
+  name: '',
+  image: '',
+  email: '',
+  street: '',
+  kelurahan: '',
+  kecamatan: '',
+  kabupaten: '',
+  provinsi: '',
+  family_members: '5',
   totalAset: '23',
-  status: 'Anggota Koperasi',
-  pendidikan: 'S-1 Manajemen Pertanian',
-  suratKontrak: '-',
-  jenisMitra: 'Koperasi',
-  email: 'bagas@gmail.com',
+  organization_status: '',
+  education_level_id: '',
+  ilo_associate: '',
+})
+const isLoading = ref<boolean>(false)
+
+const route = useRoute()
+
+const getPetani = async () => {
+  isLoading.value = true
+  const response = await useHttp('/partner/petani/details', {
+    user_id: route.params.id,
+  })
+  const petaniData = await response.data
+
+  dataPetani = petaniData.map(
+    (petani: {
+      image_1920: string | boolean
+      kabupaten_id: any[] | boolean
+      education_level_id: string | boolean
+    }) => ({
+      ...petani,
+      image:
+        petani.image_1920 !== false
+          ? `data:image/png;base64,${petani.image_1920}`
+          : '@/assets/images/profile/petani-default.png',
+      kabupaten: petani.kabupaten_id !== false ? petani.kabupaten_id[1] : null,
+      education_level_id: petani.education_level_id !== false ? petani.education_level_id : null,
+    })
+  )[0]
+
+  isLoading.value = false
+}
+
+onMounted(() => {
+  getPetani()
 })
 
 const { handleSubmit, setValues } = useForm({

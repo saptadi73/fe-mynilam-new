@@ -20,7 +20,7 @@
     </button>
 
     <template v-if="cardPath">
-      <RouterLink :to="`/${cardPath}/${cardCode}`">
+      <RouterLink :to="`/${cardPath}/${cardId}`">
         <slot name="card-content"></slot>
       </RouterLink>
     </template>
@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 interface PropsCard {
+  cardId: number
   cardPath?: string
   cardCode?: string
 }
