@@ -123,6 +123,7 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
+import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputFile from '@/components/BaseInputFile.vue'
 import ModalProfile from './components/ModalProfile.vue'
@@ -130,7 +131,6 @@ import { onMounted, reactive, ref } from 'vue'
 import { useHttp } from '@/api/useHttp'
 import { useKabupaten } from '@/api/useLocalization'
 import type { Petani } from '@/types/petani'
-import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 
 const kabupaten = useKabupaten()
 

@@ -19,8 +19,9 @@
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Agen" class="col-span-12 md:col-span-6 lg:col-span-3" />
+        <BaseSkeletonCard v-if="isLoading" v-for="n in 3" :key="n" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
-          v-if="!isLoading"
+          v-else
           v-for="(card, cardIndex) in daftarAgen"
           :key="cardIndex"
           card-path="profile/profile-agen"
@@ -118,6 +119,7 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
+import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import ModalProfile from './components/ModalProfile.vue'
 import { onMounted, reactive, ref } from 'vue'
