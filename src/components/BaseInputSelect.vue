@@ -152,7 +152,9 @@ watch(value, (newValue) => {
   if (!newValue) {
     dropdownLabel.value = undefined
   } else {
-    dropdownLabel.value = getLabelByValue(newValue)
+    console.log(newValue, getLabelByValue(newValue))
+    if (props.floatingLabel) searchValue.value = getLabelByValue(newValue)
+    else dropdownLabel.value = getLabelByValue(newValue)
     emit('change')
   }
 })
