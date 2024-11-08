@@ -1,7 +1,7 @@
 <template>
-  <div class="px-4 md:p-8">
-    <form @submit.prevent="onSubmit" class="space-y-4">
-      <div class="flex justify-center">
+  <div class="p-4 md:p-8 w-full">
+    <form @submit.prevent="onSubmit">
+      <div class="flex justify-center pb-4">
         <div class="flex flex-col">
           <div v-if="productImage" class="relative relative-container flex justify-center items-center">
             <img class="product-image" :src="productImage" alt="Aset Image" />
@@ -54,50 +54,53 @@
         />
       </div>
 
-      <hr class="-ml-8 -mr-8 border border-[#015438]" />
+      <hr class="-mx-8 border border-primary-border" />
 
-      <div class="grid grid-cols-12 gap-x-5">
-        <div class="col-span-6 space-y-4">
-          <BaseInputFloat label="Nama Penjual" name="nama_penjual" type="text" />
-          <BaseInputFloat label="Nama Pembeli" name="nama_pembeli" type="text" />
+      <section class="grid lg:grid-cols-2 gap-5 my-5">
+        <BaseInputFloat label="Nama Pembeli" name="nama_pembeli" type="text" />
+        <BaseInputSelect name="jenis" placeholder="Jenis" :floating-label="true" />
+        <BaseInputSelect
+          name="kota"
+          label-key="name"
+          value-key="id"
+          :options="kabupaten.data.value"
+          placeholder="Kota/Kabupaten"
+          :floating-label="true"
+        />
+        <div class="flex items-center space-x-3">
+          <BaseInputFloat label="Total" name="total" type="text" class="col-span-7" />
           <BaseInputSelect
-            name="kota"
-            label-key="name"
-            value-key="id"
-            :options="kabupaten.data.value"
-            placeholder="Kota/Kabupaten"
+            :options="optionsSatuan"
+            name="satuan"
+            placeholder="Satuan"
             :floating-label="true"
+            class="col-span-5"
           />
-          <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
         </div>
+        <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
+        <div class="font-semibold text-gray-400">Barcode</div>
+      </section>
 
-        <div class="col-span-6 space-y-4">
-          <BaseInputSelect :options="optionsJenis" name="jenis" placeholder="Jenis" :floating-label="true" />
-          <div class="grid grid-cols-12 gap-x-2">
-            <BaseInputFloat label="Jumlah" name="jumlah" type="text" class="col-span-7" />
-            <BaseInputSelect
-              :options="optionsSatuan"
-              name="satuan"
-              placeholder="Satuan"
-              :floating-label="true"
-              class="col-span-5"
-            />
-          </div>
-          <BaseInputFloat label="Harga/kg" name="harga" type="text" />
-          <BaseInputFloat label="Sub total" name="sub_total" type="text" />
+      <button
+        type="button"
+        class="mb-5 bg-primary-light border border-primary rounded-lg w-full px-4 py-2 font-semibold text-primary-border"
+      >
+        <div class="flex items-center justify-center space-x-2">
+          <span>Penjualan Produk</span>
+          <BaseIcon name="plus" class="size-5" />
         </div>
-      </div>
+      </button>
 
-      <div class="flex justify-center gap-x-4 mx-8">
-        <BaseButton type="submit" class="w-full font-bold">Simpan</BaseButton>
+      <section class="flex justify-center space-x-4 mx-8">
+        <BaseButton type="submit" class="w-full font-bold">Tambah</BaseButton>
         <BaseButton @click="emit('close-modal')" variant="success" class="w-full font-bold">Kembali</BaseButton>
-      </div>
+      </section>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { useKabupaten } from '@/api/useLocalization'
@@ -105,25 +108,31 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import type { ProdukNilamType } from '@/types/produk'
+import type { DaftarPenjualan } from '@/types/transaction'
+import BaseIcon from '@/components/BaseIcon.vue'
+
+interface Props {
+  data?: DaftarPenjualan
+}
 
 const emit = defineEmits()
+const props = defineProps<Props>()
 
 const kabupaten = useKabupaten()
 
-const { handleSubmit } = useForm<ProdukNilamType>({
+const { handleSubmit, resetForm } = useForm<ProdukNilamType>({
   validationSchema: object({
-    nama_penjual: string().required().label('Nama Penjual'),
-    jenis: number().required().label('Jenis'),
     nama_pembeli: string().required().label('Nama Pembeli'),
-    jumlah: number().required().label('Jumlah'),
-    kota: string().required().label('Kota/Kabupaten'),
+    jenis: number().required().label('Jenis'),
+    total: number().required().label('Total'),
+    kota: number().required().label('Kota/Kabupaten'),
     harga: string().required().label('Harga/kg'),
     status: string().required().label('Status'),
-    sub_total: number().required().label('Sub total'),
   }),
 })
 
 const onSubmit = handleSubmit((_values) => {
+  resetForm()
   emit('close-modal')
 })
 
@@ -154,4 +163,12 @@ const handleFileChange = (event: Event) => {
 const handleDeleteProductImage = () => {
   productImage.value = null
 }
+
+onMounted(() => {
+  const form = {
+    nama_pembeli: props.data?.destination_actor[1],
+    kota: props.data?.kabupaten_id[0],
+  }
+  resetForm({ values: form })
+})
 </script>

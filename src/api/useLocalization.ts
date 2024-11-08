@@ -8,5 +8,6 @@ export function useKabupaten() {
   return useQuery({
     queryKey: ['kabupaten'],
     queryFn: getKabupaten,
+    refetchOnMount: false,
   })
 }

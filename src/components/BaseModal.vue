@@ -5,7 +5,7 @@
     aria-hidden="true"
     class="fixed inset-0 top-0 right-0 left-0 z-50 flex justify-center items-center md:inset-0 h-[calc(100%-1rem)] max-h-full w-full"
   >
-    <div class="relative pl-4 py-4 w-full max-w-lg max-h-screen overflow-y-auto">
+    <div class="relative pl-4 py-4 w-full max-h-screen max-w-xl overflow-y-auto" :class="$attrs.class">
       <!-- Modal header -->
       <div class="absolute z-10 top-4 right-0 flex items-center justify-between p-1 border-b rounded-t">
         <button
@@ -27,7 +27,7 @@
         </button>
       </div>
 
-      <div class="relative bg-[#F6FDFF] rounded-lg shadow">
+      <div class="relative bg-[#F6FDFF] rounded-lg shadow border-2 border-primary-border">
         <!-- Modal content -->
         <slot name="modal-content"></slot>
       </div>
@@ -40,6 +40,7 @@ interface PropsModal {
   showModal: Boolean
 }
 
+defineOptions({ inheritAttrs: false })
 defineProps<PropsModal>()
 const emit = defineEmits(['setModal'])
 

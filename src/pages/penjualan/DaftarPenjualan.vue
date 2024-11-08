@@ -46,6 +46,7 @@
           :key="index"
           :card-code="data.name"
           class="col-span-12 md:col-span-6 lg:col-span-3"
+          @click="handleCardClick(data)"
         >
           <template #card-content>
             <div class="flex justify-center pt-2">
@@ -82,9 +83,9 @@
         </BaseCard>
       </div>
 
-      <BaseModal :show-modal="modal" @set-modal="handleModal">
+      <BaseModal :show-modal="modal" @set-modal="handleModal" class="max-w-2xl">
         <template #modal-content>
-          <FormTambahDaftarProduk @close-modal="closeModal" />
+          <FormTambahDaftarProduk :data="selectedData" @close-modal="closeModal" />
         </template>
       </BaseModal>
 
@@ -121,7 +122,7 @@ import { ref } from 'vue'
 import { useKabupaten } from '@/api/useLocalization'
 import { useDaftarPenjualan } from '@/api/useTransaction'
 import { useForm } from 'vee-validate'
-import type { DaftarPenjualanParams } from '@/types/transaction'
+import type { DaftarPenjualan, DaftarPenjualanParams } from '@/types/transaction'
 
 interface Form {
   kabupaten: DaftarPenjualanParams['kabupaten_id']
@@ -130,6 +131,7 @@ interface Form {
 
 const { values } = useForm<Form>()
 const searchValue = ref('')
+const selectedData = ref<DaftarPenjualan>()
 
 let modal = ref<Boolean>(false)
 let modalQr = ref<Boolean>(false)
@@ -155,6 +157,7 @@ const closeModal = () => {
   modal.value = false
 }
 const handleModal = (value: boolean) => {
+  if (!value) selectedData.value = undefined
   modal.value = value
 }
 
@@ -191,6 +194,11 @@ const downloadQrCodeImage = () => {
   link.click()
   document.body.removeChild(link)
   URL.revokeObjectURL(link.href) // Bersihkan URL setelah digunakan
+}
+
+const handleCardClick = (data: DaftarPenjualan) => {
+  selectedData.value = data
+  showModal()
 }
 
 const optionsJenis = ref([
