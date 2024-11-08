@@ -10,10 +10,12 @@ export interface DaftarPenjualan {
   name: string
   specific_codes: string
   destination_actor: [number, string]
+  destination_actor_associate_code: string
   kabupaten_id: [number, string]
   quantity: number
+  product_uom_id: [number, string]
+  reference_code: string
   state: string
-  price: number
   ownership_line_ids: number[]
-  qr_code_id: [number, string]
+  product_image: string
 }
