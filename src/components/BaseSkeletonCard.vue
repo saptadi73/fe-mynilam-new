@@ -21,12 +21,12 @@
     </div>
 
     <div class="grid grid-cols-12 gap-x-1 gap-y-4 pt-8">
-      <div v-for="n in 4" :key="n" class="col-span-6">
+      <div v-for="n in props.row" :key="n" class="col-span-6">
         <BaseSkeletonText class="w-20 h-4" />
         <BaseSkeletonText class="w-28 h-4 mt-1" />
       </div>
 
-      <div v-for="n in 4" :key="n" class="col-span-6">
+      <div v-for="n in props.row" :key="n" class="col-span-6">
         <BaseSkeletonText class="w-20 h-4" />
         <BaseSkeletonText class="w-28 h-4 mt-1" />
       </div>
@@ -36,6 +36,14 @@
 
 <script setup lang="ts">
 import BaseSkeletonText from './BaseSkeletonText.vue'
+
+interface Props {
+  row?: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  row: 4,
+})
 </script>
 
 <style>

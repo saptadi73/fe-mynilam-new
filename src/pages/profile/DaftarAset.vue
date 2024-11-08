@@ -16,8 +16,16 @@
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Aset" class="col-span-12 md:col-span-6 lg:col-span-3" />
-        <template v-for="card in cardAset" :key="card.code">
+        <BaseSkeletonCard
+          :row="3"
+          v-if="isLoading"
+          v-for="n in 3"
+          :key="n"
+          class="col-span-12 md:col-span-6 lg:col-span-3"
+        />
+        <template v-else v-for="card in daftarAset" :key="card.id">
           <BaseCard
+            :card-id="card.id"
             :card-code="card.code"
             class="col-span-12 md:col-span-6 lg:col-span-3"
             @click="$router.push({ name: 'Detail Aset', params: { id: card.code } })"
@@ -34,27 +42,27 @@
               <div class="grid grid-cols-12 gap-x-1 pt-2">
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Nama Pemilik</h1>
-                  <p class="font-bold text-sm">{{ card.petaniName }}</p>
+                  <p class="font-bold text-sm">{{ card.owner_name }}</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Luas</h1>
-                  <p class="font-bold text-sm">{{ card.luas }} Ha</p>
+                  <p class="font-bold text-sm">{{ card.area_ha }} Ha</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Lokasi GPS</h1>
-                  <p class="font-bold text-sm">{{ card.lokasiGps }}</p>
+                  <p class="font-bold text-sm">{{ card.coordinates }}</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Status Kepemilikan</h1>
-                  <p class="font-bold text-sm">{{ card.statusKepemilikan }}</p>
+                  <p class="font-bold text-sm">{{ card.ownership_status }}</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Kota/Kabupaten</h1>
-                  <p class="font-bold text-sm">{{ card.kota }}</p>
+                  <p class="font-bold text-sm">-</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Status Tanam</h1>
-                  <p class="font-bold text-sm">{{ card.statusTanam }}</p>
+                  <p class="font-bold text-sm">{{ card.planting_status }}</p>
                 </div>
               </div>
             </template>
@@ -141,7 +149,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
@@ -149,8 +157,11 @@ import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
+import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
+import { useHttp } from '@/api/useHttp'
+import type { Aset } from '@/types/aset'
 
 let modal = ref<Boolean>(false)
 
@@ -183,18 +194,8 @@ const optionsStatusLahan = ref([
   { label: 'Tidak AKtif', value: 2 },
 ])
 
-const cardAset = reactive([
-  {
-    code: 'TNM94A2X',
-    petaniName: 'Muwad',
-    luas: 5,
-    lokasiGps: '-5.572342, 95.321456',
-    statusKepemilikan: 'Milik Sendiri',
-    kota: 'Aceh Besar',
-    anggotaKeluarga: '4',
-    statusTanam: 'Aktif',
-  },
-])
+let daftarAset = reactive<Aset[]>([])
+const isLoading = ref<boolean>(false)
 
 const options = ref([
   {
@@ -210,4 +211,22 @@ const options = ref([
     value: 3,
   },
 ])
+
+const getAssets = async () => {
+  isLoading.value = true
+  const response = await useHttp('/assets/list')
+  const asetData = await response.data
+
+  daftarAset = asetData.map((aset: { name: string; employee_id: any; kabupaten_id: any }) => ({
+    ...aset,
+    code: aset.name,
+    owner_name: aset.employee_id !== false ? aset.employee_id[1] : null,
+  }))
+
+  isLoading.value = false
+}
+
+onMounted(() => {
+  getAssets()
+})
 </script>
