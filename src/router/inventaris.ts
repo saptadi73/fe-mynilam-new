@@ -59,6 +59,11 @@ export default {
           name: 'Daftar Petani Kabupaten',
           component: () => import('../pages/inventaris/petani/DaftarPetaniKabupaten.vue'),
         },
+        {
+          path: 'daftar-produk/:id',
+          name: 'Daftar Produk Petani',
+          component: () => import('../pages/inventaris/petani/DaftarProdukPetani.vue'),
+        },
       ],
     },
     {
