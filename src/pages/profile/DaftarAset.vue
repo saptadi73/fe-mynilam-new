@@ -6,7 +6,13 @@
         <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
           <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
           <BaseButton>Cari</BaseButton>
-          <BaseInputSelect name="kabupaten" :options="options" placeholder="Pilih Kabupaten"></BaseInputSelect>
+          <BaseInputSelect
+            name="kabupaten"
+            label-key="name"
+            value-key="id"
+            :options="kabupaten.data.value"
+            placeholder="Pilih Kabupaten"
+          ></BaseInputSelect>
         </div>
         <BaseButton variant="success" icon-position="left">
           <BaseIcon name="download" />
@@ -161,7 +167,10 @@ import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import { useHttp } from '@/api/useHttp'
+import { useKabupaten } from '@/api/useLocalization'
 import type { Aset } from '@/types/aset'
+
+const kabupaten = useKabupaten()
 
 let modal = ref<Boolean>(false)
 
@@ -196,21 +205,6 @@ const optionsStatusLahan = ref([
 
 let daftarAset = reactive<Aset[]>([])
 const isLoading = ref<boolean>(false)
-
-const options = ref([
-  {
-    label: 'Aceh Selatan',
-    value: 1,
-  },
-  {
-    label: 'Aceh Utara',
-    value: 2,
-  },
-  {
-    label: 'Aceh Tengah',
-    value: 3,
-  },
-])
 
 const getAssets = async () => {
   isLoading.value = true
