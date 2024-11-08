@@ -222,11 +222,12 @@ const getPetani = async () => {
   const petaniData = await response.data
 
   dataPetani = petaniData.map(
-    (petani: { image_1920: string | boolean; kabupaten_id: any | boolean; education_level_id: string | boolean }) => ({
+    (petani: { image_1920: string | boolean; kabupaten_id: any; state_id: any; education_level_id: any }) => ({
       ...petani,
       image: petani.image_1920 !== false ? `data:image/png;base64,${petani.image_1920}` : null,
       kabupaten: petani.kabupaten_id !== false ? petani.kabupaten_id[1] : null,
-      education_level_id: petani.education_level_id !== false ? petani.education_level_id : null,
+      provinsi: petani.state_id !== false ? petani.state_id[1] : null,
+      education_level_id: petani.education_level_id !== false ? petani.education_level_id[1] : null,
     })
   )[0]
 
