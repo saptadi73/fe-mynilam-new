@@ -14,7 +14,8 @@
         <BaseCard
           v-for="data in stockLocation.data.value"
           :key="data.id"
-          card-path="profile/profile-petani"
+          card-path="inventaris/petani/daftar-produk"
+          :card-id="data.employee_id[0]"
           :card-code="data.id.toString()"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >

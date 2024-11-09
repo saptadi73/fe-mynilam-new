@@ -50,7 +50,7 @@
         >
           <template #card-content>
             <div class="flex justify-center pt-2">
-              <img class="w-full rounded-xl" src="@/assets/images/penjualan/produk.jpg" alt="Aset Image" />
+              <img class="w-full rounded-xl" :src="'data:image/jpeg;base64,' + data.product_image" alt="Aset Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -60,7 +60,7 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Jenis</h1>
-                <p class="font-bold text-sm">Belum</p>
+                <p class="font-bold text-sm capitalize">{{ data.destination_actor_associate_code }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Kota/Kabupaten</h1>
@@ -72,7 +72,7 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Status</h1>
-                <p class="font-bold text-sm">{{ data.state }}</p>
+                <p class="font-bold text-sm capitalize">{{ data.state }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Barcode</h1>

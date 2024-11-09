@@ -29,21 +29,21 @@ const profileCard = reactive([
     profileImage: 'petani',
     profileDescription:
       'Lihat daftar lengkap petani yang terdaftar dalam sistem, serta buat daftar baru petani untuk memperbarui informasi dan menambahkan petani baru yang bergabung dalam jaringan produksi.',
-    profilePath: 'inventaris/petani/daerah-penghasil-nilam',
+    profilePath: 'inventaris/petani/pilih-daerah',
   },
   {
     profileName: 'Agen/Koperasi',
     profileImage: 'agen',
     profileDescription:
       'Lihat daftar lengkap agen/koperasi yang terdaftar dan berperan dalam distribusi produk, serta buat daftar agen baru untuk memperluas jaringan penjualan dan mitra distribusi.',
-    profilePath: 'inventaris/agen/pilih-agen-koperasi',
+    profilePath: 'inventaris/agen-koperasi/pilih-daerah',
   },
   {
     profileName: 'Ugreen',
     profileImage: 'ugreen',
     profileDescription:
       'Lihat daftar entitas UGreen yang berperan dalam rantai distribusi produk, serta tambahkan atau buat profil baru UGreen untuk memperluas dan mengelola jaringan mitra strategis.',
-    profilePath: 'inventaris/profile-ugreen',
+    profilePath: 'inventaris/ugreen',
   },
 ])
 </script>

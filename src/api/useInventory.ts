@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
-import type { StockLocation, StockLocationParams } from '@/types/inventory'
+import type { InventoryQuant, InventoryQuantParams, StockLocation, StockLocationParams } from '@/types/inventory'
 import type { Ref } from 'vue'
 
 export function useStockLocation(params?: Ref<StockLocationParams>) {
@@ -9,5 +9,15 @@ export function useStockLocation(params?: Ref<StockLocationParams>) {
   return useQuery({
     queryKey: ['stockLocation', params],
     queryFn: getStockLocation,
+  })
+}
+
+export function useInventoryQuant(params?: Ref<InventoryQuantParams>) {
+  const path = '/inventory/quant'
+  const getInventoryQuant = (): Promise<InventoryQuant[]> => apiGet(path, params?.value)
+  return useQuery({
+    queryKey: ['inventoryQuant', params],
+    queryFn: getInventoryQuant,
+    enabled: !!params?.value.employee_id, // only fetch if has employee_id
   })
 }
