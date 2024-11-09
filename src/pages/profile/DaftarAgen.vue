@@ -167,7 +167,7 @@ const getAgen = async () => {
       image: petani.image_1920 !== false ? `data:image/png;base64,${petani.image_1920}` : null,
       kelurahan: petani.kelurahan !== false ? petani.kelurahan : null,
       kecamatan: petani.kecamatan !== false ? petani.kecamatan : null,
-      kabupaten: petani.kabupaten_id[1],
+      kabupaten: petani.kabupaten_id !== false ? petani.kabupaten_id[1] : null,
       provinsi: petani.state_id !== false ? petani.state_id[1] : null,
     })
   )
