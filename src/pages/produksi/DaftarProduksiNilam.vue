@@ -22,9 +22,9 @@
                 class="col-span-6"
                 :chartId="`Chart ${card.id}`"
                 chartType="doughnut"
-                :chartData="chartData"
+                :chartData="card.chartData"
                 :chartOptions="chartOptions"
-                :chartInnerLabel="`${chartData.datasets[0].data[0]} %`"
+                :chartInnerLabel="`${card.chartData.datasets[0].data[0]} %`"
               >
                 <template #chartTitle>
                   <h1 class="text-center font-bold text-sm mb-2">Persentase Produksi</h1>
@@ -55,7 +55,7 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Alamat</h1>
-                <p class="font-bold text-sm">{{ card.street }}</p>
+                <p class="font-bold text-sm">{{ card.address }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Status</h1>
@@ -85,18 +85,6 @@ import { onMounted, reactive, ref } from 'vue'
 import { useHttp } from '@/api/useHttp'
 import { formatDate } from '../../utils/useFormatDate'
 
-const chartData: ChartData = {
-  labels: ['', 'Proses'],
-  datasets: [
-    {
-      label: 'Total Data',
-      data: [50, 50],
-      backgroundColor: ['#015438', '#20D173'],
-      hoverOffset: 4,
-    },
-  ],
-}
-
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
   maintainAspectRatio: true,
@@ -115,23 +103,47 @@ interface NilamType {
   date_started: string
   date_harvested: string
   production_estimates: string
-  street: string
+  address: string
   state: string
+  completion_percentage: number
+  chartData: ChartData
 }
 
 let daftarProduksiNilam = reactive<NilamType[]>([])
 const isLoading = ref<boolean>(false)
+
+const mapDataWithChart = (response: any) => {
+  daftarProduksiNilam = response.map(
+    (item: { final_product: any; employee_id: any; completion_percentage: number }) => {
+      const completed = item.completion_percentage
+      const remaining = 100 - completed
+
+      return {
+        ...item,
+        farmer_name: item.employee_id !== false ? item.employee_id[1] : null,
+        production_estimates: item.final_product[0],
+        chartData: {
+          labels: ['', 'Proses'],
+          datasets: [
+            {
+              label: 'Total Data',
+              data: [completed, remaining],
+              backgroundColor: ['#015438', '#20D173'],
+              hoverOffset: 4,
+            },
+          ],
+        },
+      }
+    }
+  )
+}
 
 const getProduksiNilam = async () => {
   isLoading.value = true
   const response = await useHttp('/production/harvesting/list')
   const nilamData = await response.data
 
-  daftarProduksiNilam = nilamData.map((nilam: { employee_id: any; final_product: any }) => ({
-    ...nilam,
-    farmer_name: nilam.employee_id !== false ? nilam.employee_id[1] : null,
-    production_estimates: nilam.final_product[0],
-  }))
+  mapDataWithChart(nilamData)
 
   isLoading.value = false
 }
