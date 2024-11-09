@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { type ChartData, type ChartOptions } from 'chart.js/auto'
+import { type ChartOptions } from 'chart.js/auto'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseCard from '@/components/BaseCard.vue'
@@ -84,6 +84,7 @@ import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import { onMounted, reactive, ref } from 'vue'
 import { useHttp } from '@/api/useHttp'
 import { formatDate } from '../../utils/useFormatDate'
+import { NilamProductionType } from '@/types/nilam'
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
@@ -95,21 +96,7 @@ const chartOptions: ChartOptions<'doughnut'> = {
   },
 }
 
-interface NilamType {
-  id: number
-  production_identifier: string
-  farmer_name: string
-  coordinates: string
-  date_started: string
-  date_harvested: string
-  production_estimates: string
-  address: string
-  state: string
-  completion_percentage: number
-  chartData: ChartData
-}
-
-let daftarProduksiNilam = reactive<NilamType[]>([])
+let daftarProduksiNilam = reactive<NilamProductionType[]>([])
 const isLoading = ref<boolean>(false)
 
 const mapDataWithChart = (response: any) => {
