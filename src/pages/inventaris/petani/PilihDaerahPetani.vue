@@ -1,6 +1,6 @@
 <template>
   <div class="container bg-primary-light pb-14">
-    <BaseHeaderTitle title="Pilih Daerah Penghasil Nilam" />
+    <BaseHeaderTitle title="Pilih Daerah Petani Nilam" />
     <BaseMap shp-file="/maps/aceh_kab.zip" :options="mapOptions" />
   </div>
 </template>
@@ -21,7 +21,7 @@ const mapOptions: GeoJSONOptions = {
   onEachFeature: function (feature, layer) {
     layer.on({
       click: () => {
-        router.push({ name: 'Daftar Petani Kabupaten', params: { kabupatenId: feature.properties['Kab_Kota'] } })
+        router.push({ name: 'Inventaris Petani', params: { daerah: feature.properties['Kab_Kota'] } })
       },
       mouseover: () => {
         layer.bindPopup(feature.properties['Kab_Kota']).openPopup()

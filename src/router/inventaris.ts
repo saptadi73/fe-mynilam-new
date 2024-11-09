@@ -50,14 +50,14 @@ export default {
       path: 'petani',
       children: [
         {
-          path: 'daerah-penghasil-nilam',
-          name: 'Daerah Penghasil Nilam',
-          component: () => import('../pages/inventaris/petani/DaerahPenghasilNilam.vue'),
+          path: 'pilih-daerah',
+          name: 'Pilih Daerah Petani',
+          component: () => import('../pages/inventaris/petani/PilihDaerahPetani.vue'),
         },
         {
-          path: ':kabupatenId',
-          name: 'Daftar Petani Kabupaten',
-          component: () => import('../pages/inventaris/petani/DaftarPetaniKabupaten.vue'),
+          path: ':daerah',
+          name: 'Inventaris Petani',
+          component: () => import('../pages/inventaris/petani/InventarisPetani.vue'),
         },
         {
           path: 'daftar-produk/:id',
@@ -67,14 +67,54 @@ export default {
       ],
     },
     {
+      path: 'agen-koperasi',
+      children: [
+        {
+          path: 'pilih-daerah',
+          name: 'Pilih Daerah Agen Koperasi',
+          component: () => import('../pages/inventaris/agen-koperasi/PilihDaerahAgenKoperasi.vue'),
+        },
+      ],
+    },
+    {
+      path: 'pilih-agen-koperasi/:daerah',
+      name: 'Pilih Agen Koperasi',
+      component: () => import('../pages/inventaris/agen-koperasi/PilihAgenKoperasi.vue'),
+    },
+    {
       path: 'agen',
       children: [
         {
-          path: 'pilih-agen-koperasi',
-          name: 'Pilih Agen Koperasi',
-          component: () => import('../pages/inventaris/agen/PilihAgenKoperasi.vue'),
+          path: ':daerah',
+          name: 'Inventaris Agen',
+          component: () => import('../pages/inventaris/agen-koperasi/agen/InventarisAgen.vue'),
+        },
+        {
+          path: 'daftar-produk/:agenId',
+          name: 'Daftar Produk Agen',
+          component: () => import('../pages/inventaris/agen-koperasi/agen/DaftarProdukAgen.vue'),
         },
       ],
+    },
+    {
+      path: 'koperasi',
+      children: [
+        {
+          path: ':daerah',
+          name: 'Inventaris Koperasi',
+          component: () => import('../pages/inventaris/agen-koperasi/koperasi/InventarisKoperasi.vue'),
+        },
+        {
+          path: 'daftar-produk/:koperasiId',
+          name: 'Daftar Produk Koperasi',
+          component: () => import('../pages/inventaris/agen-koperasi/koperasi/DaftarProdukKoperasi.vue'),
+        },
+      ],
+    },
+    {
+      path: 'ugreen',
+      name: 'Inventaris Ugreen',
+      component: () => import('../pages/inventaris/ugreen/InventarisUgreen.vue'),
     },
   ],
 }
