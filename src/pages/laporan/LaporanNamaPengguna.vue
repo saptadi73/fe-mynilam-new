@@ -1,7 +1,6 @@
 <template>
   <div class="bg-image-wave container">
     <BaseHeaderTitle title="Laporan Nama Pengguna (Profil)" />
-    <!-- <pre>{{ kabupaten.data.value }}</pre> -->
     <BaseTableClient
       :data="petaniList.data.value"
       :columns="columns"
