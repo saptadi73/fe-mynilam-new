@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Kota/Kabupaten</h1>
-                  <p class="font-bold text-sm">-</p>
+                  <p class="font-bold text-sm">{{ card.kabupaten }}</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Status Tanam</h1>
@@ -215,6 +215,7 @@ const getAssets = async () => {
     ...aset,
     code: aset.name,
     owner_name: aset.employee_id !== false ? aset.employee_id[1] : null,
+    kabupaten: aset.kabupaten_id !== false ? aset.kabupaten_id[1] : null,
   }))
 
   isLoading.value = false

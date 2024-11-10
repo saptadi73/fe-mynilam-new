@@ -6,4 +6,5 @@ export interface Aset {
   coordinates: string
   ownership_status: string
   planting_status: string
+  kabupaten: string
 }
