@@ -26,7 +26,7 @@ import { onMounted, reactive, ref } from 'vue'
 import BaseTable from './BaseTable.vue'
 
 export interface TableClientProps<T> {
-  data: T[]
+  data?: T[]
   columns: ColumnDef<T, any>[]
   pageSize?: number
   search?: boolean

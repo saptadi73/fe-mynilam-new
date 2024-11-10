@@ -40,8 +40,6 @@ const laporanList = [
   { title: 'Laporan Nama Pengguna (Profil)', pathName: 'Laporan Nama Pengguna' },
   { title: 'Laporan Produksi', pathName: 'Laporan Produksi' },
   { title: 'Laporan Pergerakan Barang', pathName: 'Laporan Pergerakan Barang' },
-  { title: 'Laporan Produk (Inventaris)', pathName: 'Laporan Produk Inventaris' },
-  { title: 'Laporan Produk (Penjualan)', pathName: 'Laporan Produk Penjualan' },
   { title: 'Laporan Penjualan', pathName: 'Laporan Penjualan' },
 ]
 
