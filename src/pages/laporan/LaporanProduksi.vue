@@ -6,6 +6,7 @@
       :columns="columns"
       :custom-header="true"
       :search-value="searchValue"
+      :is-loading="harvestingList.isLoading.value"
       class="bg-white"
     >
       <template #header>

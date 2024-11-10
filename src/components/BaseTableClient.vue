@@ -4,6 +4,7 @@
     :search="search"
     :custom-header="customHeader"
     :total-data="table.getCoreRowModel().rows.length"
+    :is-loading="props.isLoading"
     @previous-page="handlePreviousPage"
     @next-page="handleNextPage"
     @set-page-index="(page: number) => table.setPageIndex(page)"
@@ -34,6 +35,7 @@ export interface TableClientProps<T> {
   columnVisibility?: { [key: string]: boolean }
   customHeader?: boolean
   searchValue?: string
+  isLoading?: boolean
 }
 
 const props = withDefaults(defineProps<TableClientProps<T>>(), {
@@ -43,6 +45,7 @@ const props = withDefaults(defineProps<TableClientProps<T>>(), {
   showPagination: true,
   customHeader: false,
   searchValue: '',
+  isLoading: false,
 })
 
 const columnVisibility = ref(props.columnVisibility)

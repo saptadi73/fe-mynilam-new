@@ -6,6 +6,7 @@
       :columns="columns"
       :custom-header="true"
       :search-value="searchValue"
+      :is-loading="daftarPenjualan.isLoading.value"
       class="bg-white"
     >
       <template #header>
@@ -47,10 +48,6 @@ const searchValue = ref('')
 const columnHelper = createColumnHelper<DaftarPenjualan>()
 
 const columns = [
-  columnHelper.display({
-    header: 'No',
-    cell: (info) => info.row.index + 1,
-  }),
   columnHelper.accessor('name', {
     cell: (info) => info.getValue(),
     header: 'No Transaksi',

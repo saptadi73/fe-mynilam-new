@@ -55,6 +55,7 @@
         </thead>
         <tbody>
           <tr
+            v-if="!props.isLoading"
             v-for="row in table.getRowModel().rows"
             :key="row.id"
             class="border-b border-primary-border hover:bg-gray-100"
@@ -64,6 +65,9 @@
                 <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
               </slot>
             </td>
+          </tr>
+          <tr v-else>
+            <td :colspan="table.getHeaderGroups()[0].headers.length" class="text-center py-14">Loading...</td>
           </tr>
         </tbody>
       </table>
@@ -84,7 +88,7 @@
       </div>
     </section>
     <!-- table footer -->
-    <section class="flex justify-center p-4 text-primary text-xs font-semibold">
+    <section v-if="!isLoading" class="flex justify-center p-4 text-primary text-xs font-semibold">
       <div class="flex items-center space-x-3 bg-primary-light py-2 px-10 border-2 border-[#B0CAC1] rounded-full">
         <button
           type="button"
@@ -136,6 +140,7 @@ interface Props<T> {
   search: boolean
   customHeader?: boolean
   totalData: number
+  isLoading: boolean
 }
 
 const props = withDefaults(defineProps<Props<T>>(), {
