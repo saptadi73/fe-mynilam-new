@@ -1,7 +1,7 @@
 export function formatDate(dateString: string | number | Date) {
   const date = new Date(dateString)
 
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: '2-digit',
