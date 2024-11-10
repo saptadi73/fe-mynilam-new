@@ -4,6 +4,7 @@
     :search="search"
     :custom-header="customHeader"
     :total-data="totalData"
+    :is-loading="isLoading"
     @previous-page="handlePreviousPage"
     @next-page="handleNextPage"
     @set-page-index="handleSetPageIndex"
@@ -17,7 +18,7 @@
 <script setup lang="ts">
 import { getCoreRowModel, useVueTable } from '@tanstack/vue-table'
 import axios from 'axios'
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import BaseTable from './BaseTable.vue'
 
 interface CustomParamKey {
@@ -47,16 +48,22 @@ const props = withDefaults(defineProps<Props>(), {
   customHeader: false,
 })
 
+const isLoading = ref()
 const tableData = reactive({ rows: [], pageCount: 1 })
 const pagination: Pagination = reactive({ pageIndex: 0, pageSize: props.pageSize })
 
 const getTableData = async () => {
+  isLoading.value = true
   const { pageIndex, pageSize } = pagination
   const params = { [props.customParamKey.page]: pageIndex + 1, [props.customParamKey.per_page]: pageSize }
-  await axios(props.url, { params }).then((res) => {
-    tableData.rows = res.data.data
-    tableData.pageCount = res.data.total_pages
-  })
+  await axios(props.url, { params })
+    .then((res) => {
+      tableData.rows = res.data.data
+      tableData.pageCount = res.data.total_pages
+    })
+    .finally(() => {
+      isLoading.value = false
+    })
 }
 
 const handlePreviousPage = () => {
