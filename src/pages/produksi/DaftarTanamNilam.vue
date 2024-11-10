@@ -47,11 +47,11 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Mulai Produksi</h1>
-                <p class="font-bold text-sm">{{ card.date_planned_start }}</p>
+                <p class="font-bold text-sm">{{ formatDate(card.date_planned_start) }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Akhir Produksi</h1>
-                <p class="font-bold text-sm">{{ card.date_planned_finish }}</p>
+                <p class="font-bold text-sm">{{ formatDate(card.date_planned_finish) }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Estimasi Panen</h1>
@@ -92,6 +92,7 @@ import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import { onMounted, reactive, ref } from 'vue'
 import { useHttp } from '@/api/useHttp'
 import { NilamPlantingType } from '@/types/nilam'
+import { formatDate } from '@/utils/useFormatDate'
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
