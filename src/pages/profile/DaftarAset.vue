@@ -68,7 +68,7 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Status Tanam</h1>
-                  <p class="font-bold text-sm">{{ card.planting_status }}</p>
+                  <p class="font-bold text-sm capitalize">{{ card.planting_status }}</p>
                 </div>
               </div>
             </template>
