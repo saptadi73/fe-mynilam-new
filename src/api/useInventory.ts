@@ -5,7 +5,7 @@ import type { Ref } from 'vue'
 
 export function useStockLocation(params?: Ref<StockLocationParams>) {
   const path = '/inventory/stock/location'
-  const getStockLocation = (): Promise<StockLocation[]> => apiGet(path)
+  const getStockLocation = (): Promise<StockLocation[]> => apiGet(path, params?.value)
   return useQuery({
     queryKey: ['stockLocation', params],
     queryFn: getStockLocation,

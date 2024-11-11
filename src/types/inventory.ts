@@ -1,5 +1,6 @@
 export interface StockLocationParams {
-  kabupaten_id: number
+  kabupaten_id?: number
+  associate_type?: string
 }
 
 export interface StockLocation {
