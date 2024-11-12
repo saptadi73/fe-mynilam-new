@@ -1,7 +1,7 @@
 <template>
   <form @submit="onSubmit">
     <div class="mb-8">
-      <BaseInputFloat name="email" type="email" label="Enter Email" />
+      <BaseInputFloat name="username" type="text" label="Enter Username" />
     </div>
     <div class="mb-5">
       <BaseInputFloat name="password" type="password" label="Enter Password" />
@@ -31,12 +31,9 @@ const login = useLogin()
 
 const { handleSubmit } = useForm<LoginForm>({
   validationSchema: object({
-    email: string().required().email().label('Email'),
-    password: string().required().min(6).label('Password'),
+    username: string().required().label('Username'),
+    password: string().required().label('Password'),
   }),
-  initialValues: {
-    email: 'test@gmail.com',
-  },
 })
 
 const onSubmit = handleSubmit((values) => {
