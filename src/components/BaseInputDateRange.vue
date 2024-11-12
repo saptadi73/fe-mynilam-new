@@ -56,7 +56,9 @@ const handleDateEnd = (e: Event) => {
 }
 
 watch([dateStart, dateEnd], () => {
-  const dateRangeValue = [dateStart.value, dateEnd.value]
+  const formattedStartDate = dateStart.value.split('/').reverse().join('-') // yyyy-mm-dd
+  const formattedEndDate = dateEnd.value.split('/').reverse().join('-') // yyyy-mm-dd
+  const dateRangeValue = [formattedStartDate, formattedEndDate]
   emit('change', dateRangeValue)
 })
 

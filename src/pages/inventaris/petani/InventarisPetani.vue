@@ -58,12 +58,15 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useStockLocation } from '@/api/useInventory'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
-import { useStockLocation } from '@/api/useInventory'
+import type { StockLocationParams } from '@/types/inventory'
 
-const stockLocation = useStockLocation()
+const params = ref<StockLocationParams>({ associate_type: 'Petani' })
+const stockLocation = useStockLocation(params)
 </script>

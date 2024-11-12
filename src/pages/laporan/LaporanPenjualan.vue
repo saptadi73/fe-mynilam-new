@@ -2,7 +2,7 @@
   <div class="bg-image-wave container">
     <BaseHeaderTitle title="Laporan Transaksi Penjualan" />
     <BaseTableClient
-      :data="daftarPenjualan.data.value"
+      :data="daftarPenjualan.data.value || []"
       :columns="columns"
       :custom-header="true"
       :search-value="searchValue"
@@ -14,7 +14,12 @@
           class="p-4 lg:flex items-center lg:space-x-3 space-y-4 lg:space-y-0 overflow-x-auto overflow-y-visible z-10"
         >
           <BaseSearchBar v-model="searchValue" placeholder="Cari nama pembeli" class="w-full lg:w-52 2xl:w-60" />
-          <BaseInputDateRange name="tanggal" placeholder-start="Tanggal mulai" placeholder-end="Tanggal akhir" />
+          <BaseInputDateRange
+            name="tanggal"
+            placeholder-start="Tanggal mulai"
+            placeholder-end="Tanggal akhir"
+            @change="handleDateChange"
+          />
           <BaseInputSelect
             name="daerah"
             label-key="name"
@@ -22,6 +27,7 @@
             placeholder="Pilih daerah"
             :options="kabupaten.data.value"
             class="w-full lg:w-44 2xl:w-52"
+            @change="handleDaerahChange"
           />
         </div>
       </template>
@@ -39,15 +45,21 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import { useDaftarPenjualan } from '@/api/useTransaction'
 import { useKabupaten } from '@/api/useLocalization'
-import type { DaftarPenjualan } from '@/types/transaction'
+import type { DaftarPenjualan, DaftarPenjualanParams } from '@/types/transaction'
 
-const daftarPenjualan = useDaftarPenjualan()
+const daftarPenjualanParams = ref<DaftarPenjualanParams>({})
+const daftarPenjualan = useDaftarPenjualan(daftarPenjualanParams)
 const kabupaten = useKabupaten()
+
 const searchValue = ref('')
 
 const columnHelper = createColumnHelper<DaftarPenjualan>()
 
 const columns = [
+  columnHelper.display({
+    header: 'No',
+    cell: (info) => info.row.index + 1,
+  }),
   columnHelper.accessor('name', {
     cell: (info) => info.getValue(),
     header: 'No Transaksi',
@@ -93,4 +105,13 @@ const columns = [
     header: 'Status Pembayaran',
   }),
 ]
+
+const handleDaerahChange = (value: number) => {
+  daftarPenjualanParams.value.kabupaten_id = value
+}
+
+const handleDateChange = (value: string[]) => {
+  daftarPenjualanParams.value.start_date = value[0]
+  daftarPenjualanParams.value.end_date = value[1]
+}
 </script>
