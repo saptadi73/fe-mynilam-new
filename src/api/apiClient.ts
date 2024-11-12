@@ -16,7 +16,9 @@ const getToken = () => {
 
 export const apiClient = axios.create({
   baseURL: baseURL,
-  headers: { Authorization: getToken() },
+  headers: {
+    Authorization: getToken(),
+  },
 })
 
 export const apiGet = async (path: string, params?: Params) => {
@@ -30,6 +32,10 @@ export const apiGet = async (path: string, params?: Params) => {
 }
 
 export const apiPost = async (path: string, params: any) => {
-  const response = await apiClient.post(path, params)
+  const response = await apiClient.post(path, params, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  })
   return response.data
 }
