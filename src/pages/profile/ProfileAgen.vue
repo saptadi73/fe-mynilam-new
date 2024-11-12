@@ -137,9 +137,9 @@ const getProfileAgen = async () => {
   const agenData = await response.data
 
   profileAgen = agenData.map(
-    (petani: { image_1920: string | boolean; kabupaten_id: any | boolean; state_id: any | boolean }) => ({
+    (petani: { image_1920_url: string | boolean; kabupaten_id: any | boolean; state_id: any | boolean }) => ({
       ...petani,
-      image: petani.image_1920 !== false ? `data:image/png;base64,${petani.image_1920}` : null,
+      image: petani.image_1920_url !== false ? petani.image_1920_url : null,
       kabupaten: petani.kabupaten_id !== false ? petani.kabupaten_id[1] : null,
       provinsi: petani.state_id !== false ? petani.state_id[1] : null,
     })
