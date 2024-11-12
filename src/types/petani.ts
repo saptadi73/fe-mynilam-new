@@ -23,7 +23,12 @@ export interface PetaniProfile {
   kabupaten: string
   provinsi: string
   family_members: number
-  totalAset: string
+  total_area_ha: number
   organization_status: string
   education_level_id: string
+  production_capacity: number
+  total_oil_quantity: number
+  total_planting_quantity: number
+  in_progress_oil_percentage_quantity: number
+  in_progress_percentage_quantity: number
 }

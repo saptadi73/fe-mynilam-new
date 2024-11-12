@@ -64,9 +64,12 @@
             </div>
 
             <div class="col-span-4 font-bold">Total Asset</div>
-            <div class="col-span-8 font-bold text-primary-2">
+            <div class="col-span-8 font-bold text-primary-2 flex items-center">
               : &nbsp;
-              <RouterLink :to="{ name: 'Daftar Aset Petani' }">{{ dataPetani.totalAset }} ha</RouterLink>
+              <RouterLink v-if="!isLoading" :to="{ name: 'Daftar Aset Petani' }"
+                >{{ dataPetani.total_area_ha }} ha</RouterLink
+              >
+              <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
 
             <div class="col-span-4 font-bold text-primary-2">
@@ -108,33 +111,50 @@
             </div>
 
             <div class="col-span-4 font-bold">Total Panen</div>
-            <div class="col-span-8 font-bold text-primary-2">
-              <p>
-                :
-                <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani' }">&nbsp; 65.000 kg (35% target panen)</RouterLink>
-              </p>
-              <ProgressBar progress="35%" />
+            <div class="col-span-8 font-bold text-primary-2" :class="isLoading ? 'flex items-center' : ''">
+              <span v-if="isLoading"> : &nbsp;</span>
+              <template v-if="!isLoading">
+                <p>
+                  : &nbsp;
+                  <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani' }">
+                    {{ Math.round(dataPetani.total_oil_quantity) }} kg ({{
+                      dataPetani.in_progress_oil_percentage_quantity
+                    }}% target panen)</RouterLink
+                  >
+                </p>
+
+                <ProgressBar :progress="`${dataPetani.in_progress_percentage_quantity}%`" />
+              </template>
+              <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
 
             <div class="col-span-4 font-bold">Total Produksi</div>
-            <div class="col-span-8 font-bold text-primary-2">
-              <p>
-                :
-                <RouterLink :to="{ name: 'Daftar Produksi Nilam Petani' }"
-                  >&nbsp; 523 kg (80% target produksi)</RouterLink
-                >
-              </p>
-              <ProgressBar progress="80% " />
+            <div class="col-span-8 font-bold text-primary-2" :class="isLoading ? 'flex items-center' : ''">
+              <span v-if="isLoading"> : &nbsp;</span>
+              <template v-if="!isLoading">
+                <p>
+                  : &nbsp;
+                  <RouterLink :to="{ name: 'Daftar Produksi Nilam Petani' }">
+                    {{ dataPetani.production_capacity }} kg ({{ dataPetani.in_progress_percentage_quantity }}% target
+                    produksi)</RouterLink
+                  >
+                </p>
+                <ProgressBar :progress="`${dataPetani.in_progress_percentage_quantity}%`" />
+              </template>
+              <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
 
             <div class="col-span-4 font-bold">Tanam (sekarang)</div>
-            <div class="col-span-8 font-bold text-primary-2">
-              <p>
-                :
-                <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani Progress' }"
-                  >&nbsp; 5 ha (500 kg target panen)</RouterLink
-                >
-              </p>
+            <div class="col-span-8 font-bold text-primary-2 flex items-center">
+              : &nbsp;
+              <template v-if="!isLoading">
+                <p>
+                  <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani Progress' }">
+                    {{ dataPetani.total_planting_quantity }} kg target panen</RouterLink
+                  >
+                </p>
+              </template>
+              <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
           </div>
         </div>
@@ -185,6 +205,7 @@ import ProgressBar from './components/ProgressBar.vue'
 import ModalProfile from './components/ModalProfile.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
+import BaseInputFile from '@/components/BaseInputFile.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseSkeletonText from '@/components/BaseSkeletonText.vue'
 import { onMounted, reactive, ref } from 'vue'
@@ -207,10 +228,15 @@ let dataPetani = reactive<PetaniProfile>({
   kabupaten: '',
   provinsi: '',
   family_members: 0,
-  totalAset: '23',
+  total_area_ha: 0,
   organization_status: '',
   education_level_id: '',
   ilo_associate: '',
+  production_capacity: 0,
+  total_oil_quantity: 0,
+  total_planting_quantity: 0,
+  in_progress_oil_percentage_quantity: 0,
+  in_progress_percentage_quantity: 0,
 })
 const isLoading = ref<boolean>(false)
 
@@ -219,17 +245,16 @@ const getPetani = async () => {
   const response = await useHttp('/partner/petani/details', {
     user_id: route.params.id,
   })
-  const petaniData = await response.data
+  const data = await response.data
 
-  dataPetani = petaniData.map(
-    (petani: { image_1920: string | boolean; kabupaten_id: any; state_id: any; education_level_id: any }) => ({
-      ...petani,
-      image: petani.image_1920 !== false ? `data:image/png;base64,${petani.image_1920}` : null,
-      kabupaten: petani.kabupaten_id !== false ? petani.kabupaten_id[1] : null,
-      provinsi: petani.state_id !== false ? petani.state_id[1] : null,
-      education_level_id: petani.education_level_id !== false ? petani.education_level_id[1] : null,
-    })
-  )[0]
+  dataPetani = {
+    ...data,
+    image: data.image_1920_url !== false ? data.image_1920_url : null,
+    kabupaten: data.kabupaten_id !== false ? data.kabupaten_id[1] : null,
+    provinsi: data.state_id !== false ? data.state_id[1] : null,
+    education_level_id: data.education_level_id !== false ? data.education_level_id[1] : null,
+    production_capacity: data.assets !== false ? data.assets[0].production_capacity : null,
+  }
 
   isLoading.value = false
 }
