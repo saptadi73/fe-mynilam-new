@@ -15,12 +15,6 @@
         >
           <BaseSearchBar v-model="searchValue" placeholder="Cari nama pembeli" class="w-full lg:w-52 2xl:w-60" />
           <BaseInputDateRange name="tanggal" placeholder-start="Tanggal mulai" placeholder-end="Tanggal akhir" />
-          <BaseInputSelect
-            name="jenis"
-            placeholder="Pilih jenis"
-            :options="jenisOptions"
-            class="w-full lg:w-44 2xl:w-52"
-          />
         </div>
       </template>
     </BaseTableClient>
@@ -34,7 +28,6 @@ import { createColumnHelper } from '@tanstack/vue-table'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseInputDateRange from '@/components/BaseInputDateRange.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
-import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import { useHarvestingList } from '@/api/useProduction'
 import type { Harvesting } from '@/types/production'
 
@@ -104,11 +97,5 @@ const columns = [
     cell: (info) => info.getValue(),
     header: 'Tanggal Diubah',
   }),
-]
-
-const jenisOptions = [
-  { label: 'Semua', value: '' },
-  { label: 'Petani', value: 'petani' },
-  { label: 'Agen/Koperasi', value: 'agent' },
 ]
 </script>
