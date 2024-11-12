@@ -7,7 +7,12 @@ export default {
       component: () => import('../pages/profile/Profile.vue'),
     },
     {
-      path: 'profile-petani',
+      path: 'pilih-daerah-petani',
+      name: 'PilihDaerahPetani',
+      component: () => import('../pages/profile/PilihDaerahPetani.vue'),
+    },
+    {
+      path: 'daftar-petani/:daerah',
       name: 'Daftar Petani',
       component: () => import('../pages/profile/DaftarPetani.vue'),
     },

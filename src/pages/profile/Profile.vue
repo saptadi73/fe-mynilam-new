@@ -29,7 +29,7 @@ const profileCard = reactive([
     profileImage: 'petani',
     profileDescription:
       'Lihat daftar lengkap petani yang terdaftar dalam sistem, serta buat daftar baru petani untuk memperbarui informasi dan menambahkan petani baru yang bergabung dalam jaringan produksi.',
-    profilePath: 'profile/profile-petani',
+    profilePath: 'profile/pilih-daerah-petani',
   },
   {
     profileName: 'Agen/Koperasi',

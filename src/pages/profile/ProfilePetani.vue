@@ -213,7 +213,7 @@ import { useForm } from 'vee-validate'
 import { object, string, number, mixed } from 'yup'
 import { useRoute } from 'vue-router'
 import { useHttp } from '@/api/useHttp'
-import type { PetaniProfile } from '@/types/petani'
+import type { PetaniProfile } from '@/types/partner'
 
 const route = useRoute()
 

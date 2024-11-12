@@ -7,21 +7,19 @@
           <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
           <BaseButton>Cari</BaseButton>
         </div>
-        <BaseInputSelect
-          name="kabupaten"
-          label-key="name"
-          value-key="id"
-          :options="kabupaten.data.value"
-          placeholder="Pilih kabupaten"
-        ></BaseInputSelect>
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-y-4 md:gap-y-4 md:gap-x-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Petani" class="col-span-12 md:col-span-6 lg:col-span-3" />
-        <BaseSkeletonCard v-if="isLoading" v-for="n in 3" :key="n" class="col-span-12 md:col-span-6 lg:col-span-3" />
+        <BaseSkeletonCard
+          v-if="petaniList.isLoading.value"
+          v-for="n in 3"
+          :key="n"
+          class="col-span-12 md:col-span-6 lg:col-span-3"
+        />
         <BaseCard
           v-else
-          v-for="(card, cardIndex) in daftarPetani"
+          v-for="(card, cardIndex) in petaniList.data.value"
           :key="cardIndex"
           card-path="profile/profile-petani"
           :card-id="card.id"
@@ -31,12 +29,12 @@
           <template #card-content>
             <div class="flex justify-center pt-2 h-1/3">
               <img
-                v-if="card.image === null"
+                v-if="!card.image_1920_url"
                 src="@/assets/images/profile/petani-default.png"
                 class="w-full object-cover rounded-xl"
                 alt="Petani Image"
               />
-              <img v-else :src="card.image" class="w-full object-cover rounded-xl" alt="Petani Image" />
+              <img v-else :src="card.image_1920_url" class="w-full object-cover rounded-xl" alt="Petani Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -58,11 +56,11 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Kota/Kabupaten</h1>
-                <p class="font-bold text-sm">{{ card.kabupaten ?? '-' }}</p>
+                <p class="font-bold text-sm">{{ card.kabupaten_id[1] ?? '-' }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Provinsi</h1>
-                <p class="font-bold text-sm">{{ card.provinsi ?? '-' }}</p>
+                <p class="font-bold text-sm">{{ card.state_id[1] ?? '-' }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Anggota Keluarga</h1>
@@ -127,15 +125,35 @@ import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputFile from '@/components/BaseInputFile.vue'
 import ModalProfile from './components/ModalProfile.vue'
-import { onMounted, reactive, ref } from 'vue'
-import { useHttp } from '@/api/useHttp'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import type { Petani } from '@/types/petani'
+import { usePetaniList } from '@/api/usePetani'
 
-const kabupaten = useKabupaten()
+const route = useRoute()
+const daerah = route.params.daerah
 
-let daftarPetani = reactive<Petani[]>([])
-const isLoading = ref<boolean>(false)
+const kabupatenList = useKabupaten()
+
+const params = ref({ kabupaten_id: 0 })
+
+const fetchKabupaten = async () => {
+  await kabupatenList.refetch()
+  const kabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
+
+  if (kabupaten) {
+    params.value.kabupaten_id = kabupaten?.id
+  }
+}
+
+const petaniList = usePetaniList(params)
+
+onMounted(async () => {
+  await fetchKabupaten()
+  if (params.value.kabupaten_id) {
+    petaniList.refetch() // Memanggil refetch jika kabupaten_id sudah ada
+  }
+})
 
 let modal = ref<Boolean>(false)
 
@@ -170,33 +188,4 @@ const optionsJenisMitra = ref([
 function handleFileSuratKontrak(file: File) {
   console.log('Selected file:', file)
 }
-
-const getPetani = async () => {
-  isLoading.value = true
-  const response = await useHttp('/partner/petani/list')
-  const petaniData = await response.data
-
-  daftarPetani = petaniData.map(
-    (petani: {
-      image_1920_url: string | boolean
-      kelurahan: string | boolean
-      kecamatan: string | boolean
-      kabupaten_id: any
-      state_id: any
-    }) => ({
-      ...petani,
-      image: petani.image_1920_url !== false ? petani.image_1920_url : null,
-      kelurahan: petani.kelurahan !== false ? petani.kelurahan : null,
-      kecamatan: petani.kecamatan !== false ? petani.kecamatan : null,
-      kabupaten: petani.kabupaten_id !== false ? petani.kabupaten_id[1] : null,
-      provinsi: petani.state_id !== false ? petani.state_id[1] : null,
-    })
-  )
-
-  isLoading.value = false
-}
-
-onMounted(() => {
-  getPetani()
-})
 </script>
