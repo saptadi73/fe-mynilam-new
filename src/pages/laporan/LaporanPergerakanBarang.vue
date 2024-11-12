@@ -1,13 +1,12 @@
 <template>
   <div class="bg-image-wave container">
     <BaseHeaderTitle title="Laporan Pergerakan Barang" />
-    <!-- <pre>{{ kabupaten.data.value }}</pre> -->
     <BaseTableClient
-      :data="data"
+      :data="harvestingList.data.value"
       :columns="columns"
-      :page-size="5"
       :custom-header="true"
       :search-value="searchValue"
+      :is-loading="harvestingList.isLoading.value"
       class="bg-white"
     >
       <template #header>
@@ -29,112 +28,54 @@ import { createColumnHelper } from '@tanstack/vue-table'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseInputDateRange from '@/components/BaseInputDateRange.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
+import { useHarvestingList } from '@/api/useProduction'
+import type { Harvesting } from '@/types/production'
 
-interface Produksi {
-  no?: number
-  kodeProduksi: string
-  agen: string
-  ugreen: string
-  green: string
-  jumlah: string
-  satuan: string
-  tanggal: string
-}
-
-const defaultData: Produksi[] = [
-  {
-    kodeProduksi: 'ABC1234',
-    agen: 'QWERTY777',
-    ugreen: 'ASDFG56',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '27/08/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '11/08/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '01/06/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '20/08/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '10/08/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '01/05/2024',
-  },
-]
-
-const data = ref(defaultData)
+const harvestingList = useHarvestingList()
 const searchValue = ref('')
 
-const columnHelper = createColumnHelper<Produksi>()
+const columnHelper = createColumnHelper<Harvesting>()
 
 const columns = [
-  columnHelper.accessor('no', {
-    cell: (info) => info.row.index + 1,
+  columnHelper.display({
     header: 'No',
+    cell: (info) => info.row.index + 1,
   }),
-  columnHelper.accessor('kodeProduksi', {
-    cell: (info) => info.getValue(),
-    header: 'Kode Produksi',
+  columnHelper.accessor('asset_id', {
+    cell: (info) => info.getValue()[1],
+    header: 'Kode Transaksi',
   }),
-  columnHelper.accessor('agen', {
-    cell: (info) => info.getValue(),
-    header: 'Agen',
+  columnHelper.accessor('employee_id', {
+    cell: (info) => info.getValue()[1],
+    header: 'Agen/Koperasi',
   }),
-  columnHelper.accessor('ugreen', {
+  columnHelper.accessor('kabupaten_id', {
     cell: (info) => info.getValue(),
     header: 'Ugreen',
   }),
-  columnHelper.accessor('green', {
+  columnHelper.accessor('kabupaten_id', {
     cell: (info) => info.getValue(),
     header: 'Green',
   }),
-  columnHelper.accessor('jumlah', {
+  columnHelper.accessor('address', {
     cell: (info) => info.getValue(),
     header: 'Jumlah',
   }),
-  columnHelper.accessor('satuan', {
+  columnHelper.accessor('kabupaten_id', {
     cell: (info) => info.getValue(),
     header: 'Satuan',
   }),
-  columnHelper.accessor('tanggal', {
+  columnHelper.accessor('date_started', {
     cell: (info) => info.getValue(),
-    header: 'Tanggal',
+    header: 'Status',
+  }),
+  columnHelper.accessor('kabupaten_id', {
+    cell: (info) => info.getValue(),
+    header: 'Tanggal Dibuat',
+  }),
+  columnHelper.accessor('kabupaten_id', {
+    cell: (info) => info.getValue(),
+    header: 'Tanggal Diubah',
   }),
 ]
 </script>
