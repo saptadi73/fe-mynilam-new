@@ -1,6 +1,6 @@
 export interface StockLocationParams {
   kabupaten_id?: number
-  associate_type?: string
+  associate_type?: 'Agent' | 'Koperasi' | 'Petani' | 'Ugreen'
 }
 
 export interface StockLocation {
