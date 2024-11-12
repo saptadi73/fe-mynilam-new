@@ -12,7 +12,7 @@
           <img src="@/assets/images/profile/profile-ugreen.png" alt="Profile" />
         </div>
 
-        <div class="text-3xl font-bold px-5 lg:px-20 ml-56 mt-3">PT Ugreen Aromatis International</div>
+        <div class="text-3xl font-bold px-5 lg:px-20 ml-56 mt-3">PT UGreen Aromatics International</div>
       </div>
 
       <!-- <ButtonEditProfile /> -->
