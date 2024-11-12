@@ -23,7 +23,7 @@
           :key="cardIndex"
           card-path="profile/profile-petani"
           :card-id="card.id"
-          :card-code="card.ilo_associate_code"
+          :card-code="card.name"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >
           <template #card-content>
@@ -39,8 +39,8 @@
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama Petani</h1>
-                <p class="font-bold text-sm">{{ card.name }}</p>
+                <h1 class="text-sm">Kode</h1>
+                <p class="font-bold text-sm">{{ card.ilo_associate_code }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Alamat</h1>
