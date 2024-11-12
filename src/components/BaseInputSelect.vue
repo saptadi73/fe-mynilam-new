@@ -144,7 +144,7 @@ const handleSelectDropdown = (option: Option) => {
 const clearValue = () => {
   document.getElementById(uniqueNameId.value)?.click() // keep dropdown closed
   resetField()
-  emit('change')
+  emit('change', undefined)
 }
 
 // handle value change
@@ -152,10 +152,9 @@ watch(value, (newValue) => {
   if (!newValue) {
     dropdownLabel.value = undefined
   } else {
-    console.log(newValue, getLabelByValue(newValue))
     if (props.floatingLabel) searchValue.value = getLabelByValue(newValue)
     else dropdownLabel.value = getLabelByValue(newValue)
-    emit('change')
+    emit('change', newValue)
   }
 })
 

@@ -12,9 +12,19 @@ export default {
       component: () => import('../pages/laporan/LaporanNamaPengguna.vue'),
     },
     {
-      path: 'produksi',
-      name: 'Laporan Produksi',
-      component: () => import('../pages/laporan/LaporanProduksi.vue'),
+      path: 'pilih-laporan-produksi',
+      name: 'Pilih Laporan Produksi',
+      component: () => import('../pages/laporan/PilihLaporanProduksi.vue'),
+    },
+    {
+      path: 'produksi-tanam',
+      name: 'Laporan Produksi Tanam',
+      component: () => import('../pages/laporan/LaporanProduksiTanam.vue'),
+    },
+    {
+      path: 'produksi-minyak-nilam',
+      name: 'Laporan Produksi Minyak',
+      component: () => import('../pages/laporan/LaporanProduksiMinyak.vue'),
     },
     {
       path: 'pergerakan-barang',

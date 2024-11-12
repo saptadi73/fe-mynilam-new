@@ -38,7 +38,7 @@ import BaseImage from '@/components/BaseImage.vue'
 
 const laporanList = [
   { title: 'Laporan Nama Pengguna (Profil)', pathName: 'Laporan Nama Pengguna' },
-  { title: 'Laporan Produksi', pathName: 'Laporan Produksi' },
+  { title: 'Laporan Produksi', pathName: 'Pilih Laporan Produksi' },
   { title: 'Laporan Pergerakan Barang', pathName: 'Laporan Pergerakan Barang' },
   { title: 'Laporan Penjualan', pathName: 'Laporan Penjualan' },
 ]

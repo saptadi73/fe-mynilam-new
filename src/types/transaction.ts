@@ -2,6 +2,8 @@ export interface DaftarPenjualanParams {
   name?: string
   kabupaten_id?: number
   associate_type?: 'agent' | 'koperasi'
+  start_date?: string
+  end_date?: string
 }
 
 export interface DaftarPenjualan {

@@ -1,6 +1,6 @@
 <template>
   <div class="bg-image-wave container">
-    <BaseHeaderTitle title="Laporan Pergerakan Barang" />
+    <BaseHeaderTitle title="Laporan Lengkap Minyak Nilam" />
     <BaseTableClient
       :data="harvestingList.data.value"
       :columns="columns"
@@ -43,29 +43,49 @@ const columns = [
   }),
   columnHelper.accessor('asset_id', {
     cell: (info) => info.getValue()[1],
-    header: 'Kode Transaksi',
+    header: 'Kode Tanam',
   }),
   columnHelper.accessor('employee_id', {
     cell: (info) => info.getValue()[1],
-    header: 'Agen/Koperasi',
+    header: 'Nama Petani',
   }),
   columnHelper.accessor('kabupaten_id', {
     cell: (info) => info.getValue(),
-    header: 'Ugreen',
-  }),
-  columnHelper.accessor('kabupaten_id', {
-    cell: (info) => info.getValue(),
-    header: 'Green',
-  }),
-  columnHelper.accessor('address', {
-    cell: (info) => info.getValue(),
-    header: 'Jumlah',
+    header: 'Luas Lahan',
   }),
   columnHelper.accessor('kabupaten_id', {
     cell: (info) => info.getValue(),
     header: 'Satuan',
   }),
+  columnHelper.accessor('address', {
+    cell: (info) => info.getValue(),
+    header: 'Alamat',
+  }),
+  columnHelper.accessor('kabupaten_id', {
+    cell: (info) => info.getValue(),
+    header: 'Desa/Kelurahan',
+  }),
   columnHelper.accessor('date_started', {
+    cell: (info) => info.getValue(),
+    header: 'Mulai Produksi',
+  }),
+  columnHelper.accessor('date_harvested', {
+    cell: (info) => info.getValue(),
+    header: 'Akhir Produksi',
+  }),
+  columnHelper.accessor('final_quantity', {
+    cell: (info) => info.getValue(),
+    header: 'Estimasi Panen',
+  }),
+  columnHelper.accessor('uom', {
+    cell: (info) => info.getValue()[1],
+    header: 'Satuan',
+  }),
+  columnHelper.accessor('coordinates', {
+    cell: (info) => info.getValue(),
+    header: 'Lokasi',
+  }),
+  columnHelper.accessor('state', {
     cell: (info) => info.getValue(),
     header: 'Status',
   }),
