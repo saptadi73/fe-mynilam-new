@@ -50,7 +50,7 @@ const profileCard = reactive([
     profileImage: 'aset',
     profileDescription:
       'Daftar aset petani mencakup nama pemilik, luas dan lokasi lahan, status kepemilikan, serta status tanam. Pantau perkembangan lahan secara efisien',
-    profilePath: 'profile/profile-aset',
+    profilePath: 'profile/pilih-daerah-aset',
   },
 ])
 </script>

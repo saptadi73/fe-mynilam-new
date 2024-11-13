@@ -6,13 +6,6 @@
         <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
           <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
           <BaseButton>Cari</BaseButton>
-          <BaseInputSelect
-            name="kabupaten"
-            label-key="name"
-            value-key="id"
-            :options="kabupaten.data.value"
-            placeholder="Pilih Kabupaten"
-          ></BaseInputSelect>
         </div>
         <BaseButton variant="success" icon-position="left">
           <BaseIcon name="download" />
@@ -24,12 +17,12 @@
         <BaseCardAdd @click="showModal" card-title="Aset" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseSkeletonCard
           :row="3"
-          v-if="isLoading"
+          v-if="asetList.isLoading.value"
           v-for="n in 3"
           :key="n"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         />
-        <template v-else v-for="card in daftarAset" :key="card.id">
+        <template v-else v-for="card in asetList.data.value" :key="card.id">
           <BaseCard
             :card-id="card.id"
             :card-code="card.code"
@@ -48,7 +41,7 @@
               <div class="grid grid-cols-12 gap-x-1 pt-2">
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Nama Pemilik</h1>
-                  <p class="font-bold text-sm">{{ card.owner_name }}</p>
+                  <p class="font-bold text-sm">{{ card.employee_id[1] }}</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Luas</h1>
@@ -64,7 +57,7 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Kota/Kabupaten</h1>
-                  <p class="font-bold text-sm">{{ card.kabupaten }}</p>
+                  <p class="font-bold text-sm">{{ card.kabupaten_id[1] }}</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Status Tanam</h1>
@@ -155,7 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
@@ -166,11 +159,34 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
-import { useHttp } from '@/api/useHttp'
+import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import type { Aset } from '@/types/aset'
+import { useAsetList } from '@/api/useAset'
 
-const kabupaten = useKabupaten()
+const route = useRoute()
+const daerah = route.params.daerah
+
+const kabupatenList = useKabupaten()
+
+const params = ref({ kabupaten_id: 0 })
+
+const fetchKabupaten = async () => {
+  await kabupatenList.refetch()
+  const kabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
+
+  if (kabupaten) {
+    params.value.kabupaten_id = kabupaten?.id
+  }
+}
+
+const asetList = useAsetList(params)
+
+onMounted(async () => {
+  await fetchKabupaten()
+  if (params.value.kabupaten_id) {
+    asetList.refetch() // Memanggil refetch jika kabupaten_id sudah ada
+  }
+})
 
 let modal = ref<Boolean>(false)
 
@@ -202,26 +218,4 @@ const optionsStatusLahan = ref([
   { label: 'Aktif', value: 1 },
   { label: 'Tidak AKtif', value: 2 },
 ])
-
-let daftarAset = reactive<Aset[]>([])
-const isLoading = ref<boolean>(false)
-
-const getAssets = async () => {
-  isLoading.value = true
-  const response = await useHttp('/assets/list')
-  const asetData = await response.data
-
-  daftarAset = asetData.map((aset: { name: string; employee_id: any; kabupaten_id: any }) => ({
-    ...aset,
-    code: aset.name,
-    owner_name: aset.employee_id !== false ? aset.employee_id[1] : null,
-    kabupaten: aset.kabupaten_id !== false ? aset.kabupaten_id[1] : null,
-  }))
-
-  isLoading.value = false
-}
-
-onMounted(() => {
-  getAssets()
-})
 </script>

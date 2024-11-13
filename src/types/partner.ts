@@ -58,3 +58,18 @@ export interface Agen {
   state_id: any
   ilo_associate: string
 }
+
+export interface DaftarAsetParams {
+  kabupaten_id?: number | null
+}
+
+export interface Aset {
+  id: number
+  code: string
+  employee_id: any
+  area_ha: string
+  coordinates: string
+  ownership_status: string
+  planting_status: string
+  kabupaten_id: any
+}

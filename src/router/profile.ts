@@ -22,7 +22,7 @@ export default {
       component: () => import('../pages/profile/ProfilePetani.vue'),
     },
     {
-      path: 'profile-agen',
+      path: 'daftar-agen',
       name: 'Daftar Agen',
       component: () => import('../pages/profile/DaftarAgen.vue'),
     },
@@ -37,11 +37,16 @@ export default {
       component: () => import('../pages/profile/ProfileUgreen.vue'),
     },
     {
-      path: 'profile-aset',
+      path: 'pilih-daerah-aset',
+      name: 'Pilih Daerah Aset',
+      component: () => import('../pages/profile/PilihDaerahAset.vue'),
+    },
+    {
+      path: 'daftar-aset/:daerah',
       children: [
         {
           path: '',
-          name: 'Profile Aset',
+          name: 'Daftar Aset',
           component: () => import('../pages/profile/DaftarAset.vue'),
         },
         {
