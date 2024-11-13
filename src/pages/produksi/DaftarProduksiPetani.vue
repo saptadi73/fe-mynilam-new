@@ -11,12 +11,12 @@ const cardContent = [
   {
     title: 'Tanam',
     content: 'Melihat Proses Tanam Nilam Secara Menyeluruh, Mulai dari Penanaman Benih hingga Waktu Panen',
-    pathName: 'Daftar Tanam Nilam',
+    pathName: 'Pilih Daerah Tanam',
   },
   {
     title: 'Minyak Nilam',
     content: ' Menampilkan Proses Produksi Minyak Nilam dari Awal hingga Selesai, Termasuk Pengolahan dan Hasil Akhir.',
-    pathName: 'Daftar Produksi Nilam',
+    pathName: 'Pilih Daerah Produksi',
   },
 ]
 </script>
