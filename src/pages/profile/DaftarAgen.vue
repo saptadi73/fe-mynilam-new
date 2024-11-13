@@ -19,10 +19,15 @@
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Agen" class="col-span-12 md:col-span-6 lg:col-span-3" />
-        <BaseSkeletonCard v-if="isLoading" v-for="n in 3" :key="n" class="col-span-12 md:col-span-6 lg:col-span-3" />
+        <BaseSkeletonCard
+          v-if="agenList.isLoading.value"
+          v-for="n in 3"
+          :key="n"
+          class="col-span-12 md:col-span-6 lg:col-span-3"
+        />
         <BaseCard
           v-else
-          v-for="(card, cardIndex) in daftarAgen"
+          v-for="(card, cardIndex) in agenList.data.value"
           :key="cardIndex"
           card-path="profile/profile-agen"
           :card-id="card.id"
@@ -32,12 +37,12 @@
           <template #card-content>
             <div class="flex justify-center pt-2 h-1/3">
               <img
-                v-if="card.image === null"
+                v-if="!card.image_1920_url"
                 src="@/assets/images/profile/petani-default.png"
                 class="w-full object-cover rounded-xl"
                 alt="Petani Image"
               />
-              <img v-else :src="card.image" class="w-full object-cover rounded-xl" alt="Agen Image" />
+              <img v-else :src="card.image_1920_url" class="w-full object-cover rounded-xl" alt="Agen Image" />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -59,11 +64,11 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Kota/Kabupaten</h1>
-                <p class="font-bold text-sm">{{ card.kabupaten ?? '-' }}</p>
+                <p class="font-bold text-sm">{{ card.kabupaten_id[1] ?? '-' }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Provinsi</h1>
-                <p class="font-bold text-sm">{{ card.provinsi ?? '-' }}</p>
+                <p class="font-bold text-sm">{{ card.state_id[1] ?? '-' }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Jenis</h1>
@@ -122,15 +127,12 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import ModalProfile from './components/ModalProfile.vue'
-import { onMounted, reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useKabupaten } from '@/api/useLocalization'
-import { useHttp } from '@/api/useHttp'
-import type { Agen } from '@/types/agen'
+import { useAgenList } from '@/api/useAgen'
 
 const kabupaten = useKabupaten()
-
-let daftarAgen = reactive<Agen[]>([])
-const isLoading = ref<boolean>(false)
+const agenList = useAgenList()
 
 let modal = ref<Boolean>(false)
 
@@ -148,31 +150,6 @@ const handleModal = (value: boolean) => {
 
 const handleSubmit = () => {
   console.log('test')
-}
-
-const getAgen = async () => {
-  isLoading.value = true
-  const response = await useHttp('/partner/agent_koperasi/list')
-  const agenData = await response.data
-
-  daftarAgen = agenData.map(
-    (petani: {
-      image_1920_url: string | boolean
-      kelurahan: string | boolean
-      kecamatan: string | boolean
-      kabupaten_id: any
-      state_id: any
-    }) => ({
-      ...petani,
-      image: petani.image_1920_url !== false ? petani.image_1920_url : null,
-      kelurahan: petani.kelurahan !== false ? petani.kelurahan : null,
-      kecamatan: petani.kecamatan !== false ? petani.kecamatan : null,
-      kabupaten: petani.kabupaten_id !== false ? petani.kabupaten_id[1] : null,
-      provinsi: petani.state_id !== false ? petani.state_id[1] : null,
-    })
-  )
-
-  isLoading.value = false
 }
 
 const optionsStatus = ref([
@@ -196,8 +173,4 @@ const options2 = ref([
     value: 2,
   },
 ])
-
-onMounted(() => {
-  getAgen()
-})
 </script>

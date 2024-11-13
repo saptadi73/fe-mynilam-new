@@ -40,3 +40,21 @@ export interface PetaniProfile {
   in_progress_oil_percentage_quantity: number
   in_progress_percentage_quantity: number
 }
+
+export interface DaftarAgenParams {
+  kabupaten_id?: number | null
+  associate_type?: 'Agent' | 'Koperasi'
+}
+
+export interface Agen {
+  id: number
+  ilo_associate_code: string
+  image_1920_url: string
+  name: string
+  street: string
+  kelurahan: string
+  kecamatan: string
+  kabupaten_id: any
+  state_id: any
+  ilo_associate: string
+}
