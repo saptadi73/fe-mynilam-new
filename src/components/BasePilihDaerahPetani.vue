@@ -36,7 +36,10 @@ const mapOptions: GeoJSONOptions = {
         router.push({ name: props.routerName, params: { daerah: handleDaerahName(feature.properties['Kab_Kota']) } })
       },
       mouseover: () => {
-        layer.bindPopup(feature.properties['Kab_Kota']).openPopup()
+        layer.bindTooltip(feature.properties['Kab_Kota']).openTooltip()
+      },
+      mouseout: () => {
+        layer.bindTooltip(feature.properties['Kab_Kota']).closeTooltip()
       },
     })
   },
