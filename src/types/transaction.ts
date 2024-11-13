@@ -19,5 +19,29 @@ export interface DaftarPenjualan {
   reference_code: string
   state: string
   ownership_line_ids: number[]
-  product_image: string
+  product_image_url: string
+}
+
+export interface ReferenceSummary {
+  id: number
+  reference_1: string
+  date_order_1: string
+  reference_2: string
+  date_order_2: string
+  reference_3: string
+  date_order_3: string
+  reference_4: string
+  date_order_4: string
+  reference_5: string
+  date_order_5: string
+  actor_1: [number, string]
+  actor_2: [number, string]
+  actor_3: string
+  actor_4: string
+  actor_5: string
+  kabupaten_1: [number, string]
+  kabupaten_2: [number, string]
+  kabupaten_3: [number, string]
+  kabupaten_4: [number, string]
+  kabupaten_5: [number, string]
 }
