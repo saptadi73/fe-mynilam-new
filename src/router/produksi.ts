@@ -20,7 +20,7 @@ export default {
           component: () => import('../pages/produksi/PilihDaerahTanam.vue'),
         },
         {
-          path: 'daftar-tanam-nilam',
+          path: 'daftar-tanam-nilam/:daerah',
           name: 'Daftar Tanam Nilam',
           component: () => import('../pages/produksi/DaftarTanamNilam.vue'),
         },
