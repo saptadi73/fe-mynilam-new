@@ -1,8 +1,16 @@
 <template>
   <div class="bg-image-wave2 px-16">
     <BaseHeaderTitle title="Daftar Tanam" />
+
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
-      <div class="grid grid-cols-12 gap-4">
+      <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-5 justify-start">
+        <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
+          <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
+          <BaseButton>Cari</BaseButton>
+        </div>
+      </div>
+      <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
+      <div class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd card-title="Nilam" class="col-span-3" />
         <BaseSkeletonCard v-if="isLoading" v-for="n in 3" :key="n" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
@@ -83,12 +91,14 @@
 </template>
 
 <script setup lang="ts">
-import { type ChartOptions } from 'chart.js/auto'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
+import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseCard from '@/components/BaseCard.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import BaseChart from '@/components/BaseChart.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
+import { type ChartOptions } from 'chart.js/auto'
 import { onMounted, reactive, ref } from 'vue'
 import { useHttp } from '@/api/useHttp'
 import { NilamPlantingType } from '@/types/nilam'
