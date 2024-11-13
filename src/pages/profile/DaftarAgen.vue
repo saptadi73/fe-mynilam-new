@@ -25,74 +25,74 @@
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Agen" class="col-span-12 md:col-span-6 lg:col-span-3" />
-        <div
-          class="col-span-9 self-center text-center text-gray-600"
-          v-if="!agenList.data.value && !agenList.isLoading.value"
-        >
-          Tidak ada data untuk ditampilkan
-        </div>
         <BaseSkeletonCard
           v-if="agenList.isLoading.value"
           v-for="n in 3"
           :key="n"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         />
-        <BaseCard
-          v-else
-          v-for="(card, cardIndex) in agenList.data.value"
-          :key="cardIndex"
-          card-path="profile/profile-agen"
-          :card-id="card.id"
-          :card-code="card.ilo_associate_code"
-          class="col-span-12 md:col-span-6 lg:col-span-3"
-        >
-          <template #card-content>
-            <div class="flex justify-center pt-2 h-1/3">
-              <img
-                v-if="!card.image_1920_url"
-                src="@/assets/images/profile/petani-default.png"
-                class="w-full object-cover rounded-xl"
-                alt="Petani Image"
-              />
-              <img v-else :src="card.image_1920_url" class="w-full object-cover rounded-xl" alt="Agen Image" />
-            </div>
+        <template v-else>
+          <div class="col-span-9 self-center text-center text-gray-600" v-if="agenList.data.value === null">
+            Tidak ada data untuk ditampilkan
+          </div>
 
-            <div class="grid grid-cols-12 gap-x-1 pt-2">
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama</h1>
-                <p class="font-bold text-sm">{{ card.name }}</p>
+          <BaseCard
+            v-else
+            v-for="(card, cardIndex) in agenList.data.value"
+            :key="cardIndex"
+            card-path="profile/profile-agen"
+            :card-id="card.id"
+            :card-code="card.ilo_associate_code"
+            class="col-span-12 md:col-span-6 lg:col-span-3"
+          >
+            <template #card-content>
+              <div class="flex justify-center pt-2 h-1/3">
+                <img
+                  v-if="!card.image_1920_url"
+                  src="@/assets/images/profile/petani-default.png"
+                  class="w-full object-cover rounded-xl"
+                  alt="Petani Image"
+                />
+                <img v-else :src="card.image_1920_url" class="w-full object-cover rounded-xl" alt="Agen Image" />
               </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Alamat</h1>
-                <p class="font-bold text-sm">{{ card.street }}</p>
+
+              <div class="grid grid-cols-12 gap-x-1 pt-2">
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Nama</h1>
+                  <p class="font-bold text-sm">{{ card.name }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Alamat</h1>
+                  <p class="font-bold text-sm">{{ card.street }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Desa/Kelurahan</h1>
+                  <p class="font-bold text-sm">{{ card.kelurahan ?? '-' }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Kecamatan</h1>
+                  <p class="font-bold text-sm">{{ card.kecamatan ?? '-' }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Kota/Kabupaten</h1>
+                  <p class="font-bold text-sm">{{ card.kabupaten_id[1] ?? '-' }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Provinsi</h1>
+                  <p class="font-bold text-sm">{{ card.state_id[1] ?? '-' }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Jenis</h1>
+                  <p class="font-bold text-sm capitalize">{{ card.ilo_associate }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">No Telepon</h1>
+                  <p class="font-bold text-sm">-</p>
+                </div>
               </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Desa/Kelurahan</h1>
-                <p class="font-bold text-sm">{{ card.kelurahan ?? '-' }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Kecamatan</h1>
-                <p class="font-bold text-sm">{{ card.kecamatan ?? '-' }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Kota/Kabupaten</h1>
-                <p class="font-bold text-sm">{{ card.kabupaten_id[1] ?? '-' }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Provinsi</h1>
-                <p class="font-bold text-sm">{{ card.state_id[1] ?? '-' }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Jenis</h1>
-                <p class="font-bold text-sm capitalize">{{ card.ilo_associate }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">No Telepon</h1>
-                <p class="font-bold text-sm">-</p>
-              </div>
-            </div>
-          </template>
-        </BaseCard>
+            </template>
+          </BaseCard>
+        </template>
       </div>
     </div>
 

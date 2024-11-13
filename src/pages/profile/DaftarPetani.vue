@@ -11,74 +11,74 @@
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-y-4 md:gap-y-4 md:gap-x-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Petani" class="col-span-12 md:col-span-6 lg:col-span-3" />
-        <div
-          class="col-span-9 self-center text-center text-gray-600"
-          v-if="!petaniList.data.value && !petaniList.isLoading.value"
-        >
-          Tidak ada data untuk ditampilkan
-        </div>
         <BaseSkeletonCard
           v-if="petaniList.isLoading.value"
           v-for="n in 3"
           :key="n"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         />
-        <BaseCard
-          v-else
-          v-for="(card, cardIndex) in petaniList.data.value"
-          :key="cardIndex"
-          card-path="profile/profile-petani"
-          :card-id="card.id"
-          :card-code="card.name"
-          class="col-span-12 md:col-span-6 lg:col-span-3"
-        >
-          <template #card-content>
-            <div class="flex justify-center pt-2 h-1/3">
-              <img
-                v-if="!card.image_1920_url"
-                src="@/assets/images/profile/petani-default.png"
-                class="w-full object-cover rounded-xl"
-                alt="Petani Image"
-              />
-              <img v-else :src="card.image_1920_url" class="w-full object-cover rounded-xl" alt="Petani Image" />
-            </div>
+        <template v-else>
+          <div class="col-span-9 self-center text-center text-gray-600" v-if="petaniList.data.value === null">
+            Tidak ada data untuk ditampilkan
+          </div>
 
-            <div class="grid grid-cols-12 gap-x-1 pt-2">
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Kode</h1>
-                <p class="font-bold text-sm">{{ card.ilo_associate_code }}</p>
+          <BaseCard
+            v-else
+            v-for="(card, cardIndex) in petaniList.data.value"
+            :key="cardIndex"
+            card-path="profile/profile-petani"
+            :card-id="card.id"
+            :card-code="card.name"
+            class="col-span-12 md:col-span-6 lg:col-span-3"
+          >
+            <template #card-content>
+              <div class="flex justify-center pt-2 h-1/3">
+                <img
+                  v-if="!card.image_1920_url"
+                  src="@/assets/images/profile/petani-default.png"
+                  class="w-full object-cover rounded-xl"
+                  alt="Petani Image"
+                />
+                <img v-else :src="card.image_1920_url" class="w-full object-cover rounded-xl" alt="Petani Image" />
               </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Alamat</h1>
-                <p class="font-bold text-sm">{{ card.street }}</p>
+
+              <div class="grid grid-cols-12 gap-x-1 pt-2">
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Kode</h1>
+                  <p class="font-bold text-sm">{{ card.ilo_associate_code }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Alamat</h1>
+                  <p class="font-bold text-sm">{{ card.street }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Desa/Kelurahan</h1>
+                  <p class="font-bold text-sm">{{ card.kelurahan ?? '-' }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Kecamatan</h1>
+                  <p class="font-bold text-sm">{{ card.kecamatan ?? '-' }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Kota/Kabupaten</h1>
+                  <p class="font-bold text-sm">{{ card.kabupaten_id[1] ?? '-' }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Provinsi</h1>
+                  <p class="font-bold text-sm">{{ card.state_id[1] ?? '-' }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Anggota Keluarga</h1>
+                  <p class="font-bold text-sm">{{ card.family_members }} Orang</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Surat Kontrak</h1>
+                  <p class="font-bold text-sm">-</p>
+                </div>
               </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Desa/Kelurahan</h1>
-                <p class="font-bold text-sm">{{ card.kelurahan ?? '-' }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Kecamatan</h1>
-                <p class="font-bold text-sm">{{ card.kecamatan ?? '-' }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Kota/Kabupaten</h1>
-                <p class="font-bold text-sm">{{ card.kabupaten_id[1] ?? '-' }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Provinsi</h1>
-                <p class="font-bold text-sm">{{ card.state_id[1] ?? '-' }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Anggota Keluarga</h1>
-                <p class="font-bold text-sm">{{ card.family_members }} Orang</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Surat Kontrak</h1>
-                <p class="font-bold text-sm">-</p>
-              </div>
-            </div>
-          </template>
-        </BaseCard>
+            </template>
+          </BaseCard>
+        </template>
       </div>
     </div>
 
