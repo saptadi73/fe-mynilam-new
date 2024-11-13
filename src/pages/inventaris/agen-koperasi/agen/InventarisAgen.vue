@@ -16,18 +16,22 @@
           :key="data.id"
           card-path="inventaris/agen/daftar-produk"
           :card-id="data.employee_id[0]"
-          :card-code="data.id.toString()"
+          :card-code="data.employee_id[1]"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >
           <template #card-content>
             <div class="flex justify-center pt-2 h-1/3">
-              <img src="https://placehold.co/400" class="w-full object-cover rounded-xl" alt="Petani Image" />
+              <img
+                :src="data.employee_image_url || '@/assets/images/profile/petani-default.png'"
+                class="w-full object-cover rounded-xl"
+                :alt="data.employee_id[1] + ' Image'"
+              />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
               <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama Petani</h1>
-                <p class="font-bold text-sm">{{ data.employee_id[1] || '-' }}</p>
+                <h1 class="text-sm">Kode</h1>
+                <p class="font-bold text-sm">{{ data.employee_ilo_associate_code || '-' }}</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Alamat</h1>
@@ -58,8 +62,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { useStockLocation } from '@/api/useInventory'
+import { useKabupaten } from '@/api/useLocalization'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
@@ -67,6 +73,22 @@ import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import type { StockLocationParams } from '@/types/inventory'
 
-const params = ref<StockLocationParams>({ associate_type: 'Agent' })
+const route = useRoute()
+const { daerah } = route.params
+
+const params = ref<StockLocationParams>({})
 const stockLocation = useStockLocation(params)
+
+const kabupaten = useKabupaten()
+
+const handleParamValue = () => {
+  const selectedKabupaten = kabupaten.data.value?.find((data) => data.name == daerah)
+  if (selectedKabupaten) params.value = { associate_type: 'Agent', kabupaten_id: selectedKabupaten.id }
+}
+
+watch(kabupaten.data, handleParamValue)
+
+onMounted(() => {
+  handleParamValue()
+})
 </script>

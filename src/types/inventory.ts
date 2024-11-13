@@ -6,13 +6,19 @@ export interface StockLocationParams {
 export interface StockLocation {
   id: number
   name: string
+  employee_id: [number, string]
+  employee_ilo_associate: string
+  employee_ilo_associate_code: string
+  location_code: string
+  warehouse_id: [number, string]
+  kabupaten_id: [number, string]
   address: string
   kecamatan: string
   region: string
   kelurahan: string
   city: string
-  kabupaten_id: [number, string]
-  employee_id: [number, string]
+  source_location: boolean
+  employee_image_url: string
 }
 
 export interface InventoryQuantParams {
