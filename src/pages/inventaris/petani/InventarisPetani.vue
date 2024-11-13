@@ -11,6 +11,18 @@
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-y-4 md:gap-y-4 md:gap-x-4 mt-2">
         <BaseCardAdd card-title="Petani" class="col-span-12 md:col-span-6 lg:col-span-3" />
+        <div
+          class="col-span-9 self-center text-center text-gray-600"
+          v-if="!stockLocation.data.value && !stockLocation.isLoading.value"
+        >
+          Tidak ada data untuk ditampilkan
+        </div>
+        <BaseSkeletonCard
+          v-if="stockLocation.isLoading.value"
+          v-for="n in 3"
+          :key="n"
+          class="col-span-12 md:col-span-6 lg:col-span-3"
+        />
         <BaseCard
           v-for="data in stockLocation.data.value"
           :key="data.id"
@@ -58,15 +70,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { useStockLocation } from '@/api/useInventory'
+import { useKabupaten } from '@/api/useLocalization'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
+import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import type { StockLocationParams } from '@/types/inventory'
 
-const params = ref<StockLocationParams>({ associate_type: 'Petani' })
+const route = useRoute()
+const { daerah } = route.params
+
+const params = ref<StockLocationParams>({})
 const stockLocation = useStockLocation(params)
+
+const kabupaten = useKabupaten()
+
+watch(kabupaten.data, () => {
+  const selectedKabupaten = kabupaten.data.value?.find((data) => data.name == daerah)
+  if (selectedKabupaten) {
+    params.value = { associate_type: 'Petani', kabupaten_id: selectedKabupaten.id }
+  }
+})
 </script>

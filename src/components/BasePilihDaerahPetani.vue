@@ -23,11 +23,20 @@ const getRandomColor = () => {
   return '#' + Math.floor(Math.random() * 16777215).toString(16)
 }
 
+const handleDaerahName = (name: string) => {
+  switch (name) {
+    case 'Kota Banda Aceh':
+      return 'Banda Aceh'
+    default:
+      return name
+  }
+}
+
 const mapOptions: GeoJSONOptions = {
   onEachFeature: function (feature, layer) {
     layer.on({
       click: () => {
-        router.push({ name: props.routerName, params: { daerah: feature.properties['Kab_Kota'] } })
+        router.push({ name: props.routerName, params: { daerah: handleDaerahName(feature.properties['Kab_Kota']) } })
       },
       mouseover: () => {
         layer.bindPopup(feature.properties['Kab_Kota']).openPopup()
