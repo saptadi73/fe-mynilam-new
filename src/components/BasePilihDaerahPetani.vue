@@ -24,12 +24,9 @@ const getRandomColor = () => {
 }
 
 const handleDaerahName = (name: string) => {
-  switch (name) {
-    case 'Kota Banda Aceh':
-      return 'Banda Aceh'
-    default:
-      return name
-  }
+  // Remove the word "Kota" (case-insensitive) from the string
+  const cleanedName = name.replace(/\bKota\b/i, '').trim()
+  return cleanedName
 }
 
 const mapOptions: GeoJSONOptions = {
