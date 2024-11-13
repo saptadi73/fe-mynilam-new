@@ -13,8 +13,14 @@
           value-key="id"
           :options="kabupaten.data.value"
           placeholder="Pilih kabupaten"
+          @change="setDaftarAgenParams"
         ></BaseInputSelect>
-        <BaseInputSelect name="jenis mitra" :options="options2" placeholder="Pilih jenis mitra"></BaseInputSelect>
+        <BaseInputSelect
+          name="jenis"
+          :options="options2"
+          placeholder="Pilih jenis mitra"
+          @change="setDaftarAgenParams"
+        ></BaseInputSelect>
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
@@ -128,11 +134,29 @@ import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import ModalProfile from './components/ModalProfile.vue'
 import { ref } from 'vue'
+import { useForm } from 'vee-validate'
 import { useKabupaten } from '@/api/useLocalization'
 import { useAgenList } from '@/api/useAgen'
+import type { DaftarAgenParams } from '@/types/partner'
 
 const kabupaten = useKabupaten()
-const agenList = useAgenList()
+
+interface Form {
+  kabupaten: DaftarAgenParams['kabupaten_id']
+  jenis: DaftarAgenParams['associate_type']
+}
+
+const { values } = useForm<Form>()
+
+const daftarAgenParams = ref<DaftarAgenParams>({})
+const agenList = useAgenList(daftarAgenParams)
+
+const setDaftarAgenParams = () => {
+  daftarAgenParams.value = {
+    kabupaten_id: values.kabupaten,
+    associate_type: values.jenis,
+  }
+}
 
 let modal = ref<Boolean>(false)
 
@@ -166,11 +190,11 @@ const optionsJenisMitra = ref([
 const options2 = ref([
   {
     label: 'Agen',
-    value: 1,
+    value: 'agent',
   },
   {
     label: 'Koperasi',
-    value: 2,
+    value: 'koperasi',
   },
 ])
 </script>
