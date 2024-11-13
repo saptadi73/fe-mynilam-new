@@ -41,7 +41,7 @@ export default {
           component: () => import('../pages/produksi/PilihDaerahProduksi.vue'),
         },
         {
-          path: 'daftar-produksi-nilam',
+          path: 'daftar-produksi-nilam/:daerah',
           name: 'Daftar Produksi Nilam',
           component: () => import('../pages/produksi/DaftarProduksiNilam.vue'),
         },

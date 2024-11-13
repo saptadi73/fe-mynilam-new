@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
 import { Ref } from 'vue'
-import type { NilamPlantingType } from '@/types/production'
-import type { DaftarTanamParams } from '@/types/production'
+import type { NilamPlantingType, NilamProductionType } from '@/types/production'
+import type { DaftarTanamParams, DaftarProduksiParams } from '@/types/production'
 
 const mapDataWithChart = (response: any) => {
   return response.map((item: { completion_percentage: number }) => {
@@ -37,6 +37,21 @@ export function useDaftarTanam(params?: Ref<DaftarTanamParams>) {
   return useQuery({
     queryKey: ['tanamNilamList', params],
     queryFn: getDaftarTanam,
+    enabled: () => !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
+  })
+}
+
+export function useDaftarProduksi(params?: Ref<DaftarProduksiParams>) {
+  const path = '/production/harvesting/list'
+
+  const getDaftarProduksi = async (): Promise<NilamProductionType[]> => {
+    const response = await apiGet(path, params?.value)
+    return response ? mapDataWithChart(response) : response
+  }
+
+  return useQuery({
+    queryKey: ['produksiNilamList', params],
+    queryFn: getDaftarProduksi,
     enabled: () => !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
   })
 }

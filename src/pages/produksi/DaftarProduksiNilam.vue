@@ -11,71 +11,86 @@
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd card-title="Produksi" class="col-span-3" />
-        <BaseSkeletonCard v-if="isLoading" v-for="n in 3" :key="n" class="col-span-12 md:col-span-6 lg:col-span-3" />
-        <BaseCard
-          v-else
-          v-for="(card, cardIndex) in daftarProduksiNilam"
-          :key="cardIndex"
-          :card-code="card.production_identifier"
-          class="col-span-3"
-        >
-          <template #card-content>
-            <div class="grid grid-cols-12 items-center gap-x-2">
-              <div class="col-span-6">
-                <img class="rounded-xl" src="@/assets/images/produksi/produksi-nilam.jpeg" alt="Produksi Nilam Image" />
-              </div>
+        <BaseSkeletonCard
+          v-if="produksiNilamList.isLoading.value"
+          v-for="n in 3"
+          :key="n"
+          class="col-span-12 md:col-span-6 lg:col-span-3"
+        />
+        <template v-else>
+          <div class="col-span-9 self-center text-center text-gray-600" v-if="produksiNilamList.data.value === null">
+            Tidak ada data untuk ditampilkan
+          </div>
 
-              <BaseChart
-                class="col-span-6"
-                :chartId="`Chart ${card.id}`"
-                chartType="doughnut"
-                :chartData="card.chartData"
-                :chartOptions="chartOptions"
-                :chartInnerLabel="`${card.chartData.datasets[0].data[0]} %`"
-              >
-                <template #chartTitle>
-                  <h1 class="text-center font-bold text-sm mb-2">Persentase Produksi</h1>
-                </template>
-              </BaseChart>
-            </div>
+          <BaseCard
+            v-else
+            v-for="(card, cardIndex) in produksiNilamList.data.value"
+            :key="cardIndex"
+            :card-code="card.production_identifier"
+            class="col-span-3"
+          >
+            <template #card-content>
+              <div class="grid grid-cols-12 items-center gap-x-2">
+                <div class="col-span-6">
+                  <img
+                    class="rounded-xl"
+                    src="@/assets/images/produksi/produksi-nilam.jpeg"
+                    alt="Produksi Nilam Image"
+                  />
+                </div>
 
-            <div class="grid grid-cols-12 gap-x-1 pt-2">
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama Petani</h1>
-                <p class="font-bold text-sm">{{ card.farmer_name }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Lokasi</h1>
-                <p class="font-bold text-sm">{{ card.coordinates }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Mulai Produksi</h1>
-                <p class="font-bold text-sm">{{ formatDate(card.date_started) }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Akhir Produksi</h1>
-                <p class="font-bold text-sm">{{ formatDate(card.date_harvested) }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Estimasi Produksi</h1>
-                <p class="font-bold text-sm">{{ card.production_estimates }} kg</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Alamat</h1>
-                <p class="font-bold text-sm">{{ card.address }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Status</h1>
-                <p
-                  :class="{ 'bg-[#20D173]': card.state === 'draft', 'bg-[#015438]': card.state === 'done' }"
-                  class="text-white font-bold text-sm capitalize rounded-lg inline-block px-2.5 py-1"
+                <BaseChart
+                  class="col-span-6"
+                  :chartId="`Chart ${card.id}`"
+                  chartType="doughnut"
+                  :chartData="card.chartData"
+                  :chartOptions="chartOptions"
+                  :chartInnerLabel="`${card.chartData.datasets[0].data[0]} %`"
                 >
-                  {{ card.state }}
-                </p>
+                  <template #chartTitle>
+                    <h1 class="text-center font-bold text-sm mb-2">Persentase Produksi</h1>
+                  </template>
+                </BaseChart>
               </div>
-            </div>
-          </template>
-        </BaseCard>
+
+              <div class="grid grid-cols-12 gap-x-1 pt-2">
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Nama Petani</h1>
+                  <p class="font-bold text-sm">{{ card.employee_id[1] }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Lokasi</h1>
+                  <p class="font-bold text-sm">{{ card.coordinates }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Mulai Produksi</h1>
+                  <p class="font-bold text-sm">{{ formatDate(card.date_started) }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Akhir Produksi</h1>
+                  <p class="font-bold text-sm">{{ formatDate(card.date_harvested) }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Estimasi Produksi</h1>
+                  <p class="font-bold text-sm">{{ card.produce_product[0] }} kg</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Alamat</h1>
+                  <p class="font-bold text-sm">{{ card.address }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Status</h1>
+                  <p
+                    :class="{ 'bg-[#20D173]': card.state === 'in_progress', 'bg-[#015438]': card.state === 'done' }"
+                    class="text-white font-bold text-sm capitalize rounded-lg inline-block px-2.5 py-1"
+                  >
+                    {{ card.state === 'in_progress' ? 'On Progress' : card.state }}
+                  </p>
+                </div>
+              </div>
+            </template>
+          </BaseCard>
+        </template>
       </div>
     </div>
   </div>
@@ -90,10 +105,12 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseChart from '@/components/BaseChart.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import { type ChartOptions } from 'chart.js/auto'
-import { onMounted, reactive, ref } from 'vue'
-import { useHttp } from '@/api/useHttp'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useKabupaten } from '@/api/useLocalization'
+import { useDaftarProduksi } from '@/api/useProductionPetani'
+import { DaftarProduksiParams } from '@/types/production'
 import { formatDate } from '../../utils/useFormatDate'
-import { NilamProductionType } from '@/types/nilam'
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
@@ -105,46 +122,22 @@ const chartOptions: ChartOptions<'doughnut'> = {
   },
 }
 
-let daftarProduksiNilam = reactive<NilamProductionType[]>([])
-const isLoading = ref<boolean>(false)
+const route = useRoute()
+const { daerah } = route.params
 
-const mapDataWithChart = (response: any) => {
-  daftarProduksiNilam = response.map(
-    (item: { final_product: any; employee_id: any; completion_percentage: number }) => {
-      const completed = item.completion_percentage
-      const remaining = 100 - completed
+const kabupatenList = useKabupaten()
 
-      return {
-        ...item,
-        farmer_name: item.employee_id !== false ? item.employee_id[1] : null,
-        production_estimates: item.final_product[0],
-        chartData: {
-          labels: ['', 'Proses'],
-          datasets: [
-            {
-              label: 'Total Data',
-              data: [completed, remaining],
-              backgroundColor: ['#015438', '#20D173'],
-              hoverOffset: 4,
-            },
-          ],
-        },
-      }
-    }
-  )
+const params = ref<DaftarProduksiParams>({})
+const produksiNilamList = useDaftarProduksi(params)
+
+const handleParamValue = () => {
+  const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
+  if (selectedKabupaten) params.value = { kabupaten_id: selectedKabupaten.id }
 }
 
-const getProduksiNilam = async () => {
-  isLoading.value = true
-  const response = await useHttp('/production/harvesting/list')
-  const nilamData = await response.data
-
-  mapDataWithChart(nilamData)
-
-  isLoading.value = false
-}
+watch(kabupatenList.data, handleParamValue)
 
 onMounted(() => {
-  getProduksiNilam()
+  handleParamValue()
 })
 </script>

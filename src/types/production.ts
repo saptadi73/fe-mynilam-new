@@ -39,11 +39,11 @@ export interface NilamPlantingType {
 export interface NilamProductionType {
   id: number
   production_identifier: string
-  farmer_name: string
+  employee_id: any
   coordinates: string
   date_started: string
   date_harvested: string
-  production_estimates: string
+  produce_product: any
   address: string
   state: string
   completion_percentage: number
@@ -51,5 +51,9 @@ export interface NilamProductionType {
 }
 
 export interface DaftarTanamParams {
+  kabupaten_id?: number
+}
+
+export interface DaftarProduksiParams {
   kabupaten_id?: number
 }
