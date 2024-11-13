@@ -36,7 +36,7 @@ const profileCard = reactive([
     profileImage: 'agen',
     profileDescription:
       'Lihat daftar lengkap agen/koperasi yang terdaftar dan berperan dalam distribusi produk, serta buat daftar agen baru untuk memperluas jaringan penjualan dan mitra distribusi.',
-    profilePath: 'profile/profile-agen',
+    profilePath: 'profile/daftar-agen',
   },
   {
     profileName: 'Ugreen',
