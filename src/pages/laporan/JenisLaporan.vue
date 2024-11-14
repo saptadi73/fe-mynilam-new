@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import BaseButton from '@/components/BaseButton.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
-import BaseIcon from '@/components/BaseIcon.vue'
+// import BaseIcon from '@/components/BaseIcon.vue'
 import BaseImage from '@/components/BaseImage.vue'
 
 const laporanList = [
