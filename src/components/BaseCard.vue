@@ -4,7 +4,7 @@
   >
     <div class="text-center font-bold text-lg">{{ cardCode }}</div>
 
-    <button
+    <!-- <button
       class="absolute top-2 right-2 w-9 h-9 rounded-full text-[#8ca39b] hover:bg-[#E6EEEB] hover:text-primary inline-flex justify-center items-center transition-all duration-200 ease-in-out"
     >
       <svg
@@ -17,7 +17,7 @@
       >
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
       </svg>
-    </button>
+    </button> -->
 
     <template v-if="cardPath">
       <RouterLink :to="`/${cardPath}/${cardId}`">
