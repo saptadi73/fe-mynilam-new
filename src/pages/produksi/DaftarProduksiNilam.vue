@@ -82,10 +82,13 @@
                   <h1 class="text-sm">Status</h1>
                   <p
                     :class="{ 'bg-[#20D173]': card.state === 'in_progress', 'bg-[#015438]': card.state === 'done' }"
-                    class="text-white font-bold text-sm capitalize rounded-lg inline-block px-2.5 py-1"
+                    class="text-white font-bold text-sm capitalize rounded-xl flex justify-center px-2.5 py-1"
                   >
                     {{ card.state === 'in_progress' ? 'On Progress' : card.state }}
                   </p>
+                </div>
+                <div class="col-span-6 place-content-end pt-2">
+                  <BaseButton class="!text-sm font-bold w-full">Catatan</BaseButton>
                 </div>
               </div>
             </template>

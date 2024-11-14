@@ -49,7 +49,7 @@
                   :chartInnerLabel="`${card.chartData.datasets[0].data[0]} %`"
                 >
                   <template #chartTitle>
-                    <h1 class="text-center font-bold text-sm mb-2">Persentase Produksi</h1>
+                    <h1 class="text-center font-bold text-sm mb-2">Persentase Tanam</h1>
                   </template>
                 </BaseChart>
               </div>
@@ -87,10 +87,11 @@
                   <h1 class="text-sm">Status</h1>
                   <p
                     :class="{ 'bg-[#20D173]': card.state === 'in_progress', 'bg-[#015438]': card.state === 'done' }"
-                    class="text-white font-bold text-sm capitalize rounded-lg inline-block px-2.5 py-1"
+                    class="text-white font-bold text-sm capitalize rounded-xl w-full flex justify-center px-2.5 py-1"
                   >
                     {{ card.state == 'in_progress' ? 'On Progress' : card.state }}
                   </p>
+                  <BaseButton class="!text-sm font-bold mt-4 w-full">Catatan</BaseButton>
                 </div>
               </div>
             </template>
