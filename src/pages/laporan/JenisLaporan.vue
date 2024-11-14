@@ -19,10 +19,10 @@
             <router-link :to="{ name: laporan.pathName }" class="w-full">
               <BaseButton variant="success" class="!rounded !text-sm w-full">Lihat</BaseButton>
             </router-link>
-            <BaseButton variant="primary-light" icon-position="left" class="!rounded !text-sm w-full">
+            <!-- <BaseButton variant="primary-light" icon-position="left" class="!rounded !text-sm w-full">
               <BaseIcon name="download" class="text-primary" />
               Unduh
-            </BaseButton>
+            </BaseButton> -->
           </div>
         </div>
       </div>
