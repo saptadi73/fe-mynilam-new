@@ -1,4 +1,4 @@
-export function formatDate(dateString: string | number | Date) {
+export function formatDate(dateString: string | number | Date, showTime?: boolean) {
   const date = new Date(dateString)
 
   const options: Intl.DateTimeFormatOptions = {
@@ -7,6 +7,11 @@ export function formatDate(dateString: string | number | Date) {
     day: '2-digit',
   }
 
-  // Format menggunakan Intl.DateTimeFormat
+  if (showTime) {
+    options.hour = '2-digit'
+    options.minute = '2-digit'
+    options.hour12 = false
+  }
+
   return new Intl.DateTimeFormat('id-ID', options).format(date)
 }

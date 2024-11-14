@@ -57,3 +57,14 @@ export interface DaftarTanamParams {
 export interface DaftarProduksiParams {
   kabupaten_id?: number
 }
+
+export interface NoteParams {
+  id?: number
+}
+
+export interface Note {
+  id: number
+  author_id: any
+  date: string
+  body: string
+}

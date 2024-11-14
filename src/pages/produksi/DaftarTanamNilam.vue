@@ -91,7 +91,7 @@
                   >
                     {{ card.state == 'in_progress' ? 'On Progress' : card.state }}
                   </p>
-                  <BaseButton class="!text-sm font-bold mt-4 w-full">Catatan</BaseButton>
+                  <BaseButton @click="showModal(card.id)" class="!text-sm font-bold mt-4 w-full">Catatan</BaseButton>
                 </div>
               </div>
             </template>
@@ -99,6 +99,8 @@
         </template>
       </div>
     </div>
+
+    <ModalAuditTrail v-if="noteList.data.value" :modal="modal" @set-modal="handleModal" :data="noteList.data.value" />
   </div>
 </template>
 
@@ -110,13 +112,14 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseChart from '@/components/BaseChart.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
+import ModalAuditTrail from './components/ModalAuditTrail.vue'
 import { type ChartOptions } from 'chart.js/auto'
 import { onMounted, ref, watch } from 'vue'
 import { formatDate } from '@/utils/useFormatDate'
-import { useDaftarTanam } from '@/api/useProductionPetani'
+import { useDaftarTanam, useNote } from '@/api/useProductionPetani'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { DaftarTanamParams } from '@/types/production'
+import { DaftarTanamParams, NoteParams } from '@/types/production'
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
@@ -143,7 +146,24 @@ const handleParamValue = () => {
 
 watch(kabupatenList.data, handleParamValue)
 
+let paramsList = ref<NoteParams>({})
+const noteList = useNote(paramsList)
+
 onMounted(() => {
   handleParamValue()
 })
+
+const modal = ref<boolean>(false)
+
+const handleModal = (value: boolean) => {
+  modal.value = value
+}
+
+const showModal = (id: number) => {
+  if (id) {
+    paramsList.value = { id: id }
+  }
+
+  modal.value = true
+}
 </script>

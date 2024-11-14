@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
 import { Ref } from 'vue'
-import type { NilamPlantingType, NilamProductionType } from '@/types/production'
+import type { NilamPlantingType, NilamProductionType, Note, NoteParams } from '@/types/production'
 import type { DaftarTanamParams, DaftarProduksiParams } from '@/types/production'
 
 const mapDataWithChart = (response: any) => {
@@ -53,5 +53,16 @@ export function useDaftarProduksi(params?: Ref<DaftarProduksiParams>) {
     queryKey: ['produksiNilamList', params],
     queryFn: getDaftarProduksi,
     enabled: () => !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
+  })
+}
+
+export function useNote(params?: Ref<NoteParams>) {
+  const path = '/note'
+  const getNoteList = (): Promise<Note[]> => apiGet(path, params?.value)
+
+  return useQuery({
+    queryKey: ['noteList', params],
+    queryFn: getNoteList,
+    enabled: () => !!params?.value.id, // only fetch if has kabupaten_id
   })
 }
