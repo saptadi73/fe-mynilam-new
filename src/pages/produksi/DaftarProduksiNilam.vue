@@ -88,7 +88,7 @@
                   </p>
                 </div>
                 <div class="col-span-6 place-content-end pt-2">
-                  <BaseButton class="!text-sm font-bold w-full">Catatan</BaseButton>
+                  <BaseButton @click="showModal(card.id)" class="!text-sm font-bold w-full">Catatan</BaseButton>
                 </div>
               </div>
             </template>
@@ -96,6 +96,8 @@
         </template>
       </div>
     </div>
+
+    <ModalAuditTrail v-if="noteList.data.value" :modal="modal" @set-modal="handleModal" :data="noteList.data.value" />
   </div>
 </template>
 
@@ -107,12 +109,13 @@ import BaseCard from '@/components/BaseCard.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseChart from '@/components/BaseChart.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
+import ModalAuditTrail from './components/ModalAuditTrail.vue'
 import { type ChartOptions } from 'chart.js/auto'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { useDaftarProduksi } from '@/api/useProductionPetani'
-import { DaftarProduksiParams } from '@/types/production'
+import { useDaftarProduksi, useNote } from '@/api/useProductionPetani'
+import { DaftarProduksiParams, NoteParams } from '@/types/production'
 import { formatDate } from '../../utils/useFormatDate'
 
 const chartOptions: ChartOptions<'doughnut'> = {
@@ -139,6 +142,23 @@ const handleParamValue = () => {
 }
 
 watch(kabupatenList.data, handleParamValue)
+
+let paramsList = ref<NoteParams>({})
+const noteList = useNote(paramsList)
+
+const modal = ref<boolean>(false)
+
+const handleModal = (value: boolean) => {
+  modal.value = value
+}
+
+const showModal = (id: number) => {
+  if (id) {
+    paramsList.value = { id: id }
+  }
+
+  modal.value = true
+}
 
 onMounted(() => {
   handleParamValue()
