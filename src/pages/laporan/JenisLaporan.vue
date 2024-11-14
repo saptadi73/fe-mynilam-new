@@ -1,7 +1,7 @@
 <template>
   <div class="bg-primary-light px-4 lg:px-16 pb-10">
-    <BaseHeaderTitle title="Pilih Jenis Laporan" />
-    <section class="bg-white p-3 border-2 border-primary-border rounded-xl grid grid-cols-4 gap-2">
+    <BaseHeaderTitle title="Pilih Jenis Laporan" :back-button="false" />
+    <section class="bg-white p-3 border-2 border-primary-border rounded-xl grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
       <div
         v-for="(laporan, i) in laporanList"
         :key="i"
