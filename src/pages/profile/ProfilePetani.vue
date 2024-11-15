@@ -167,9 +167,16 @@
           <form @submit.prevent="onSubmit" class="space-y-4">
             <BaseInputFloat label="Nama" name="nama" type="text" />
             <BaseInputFloat label="Alamat" name="alamat" type="text" />
-            <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
-            <BaseInputSelect :options="[]" name="kecamatan" placeholder="Kecamatan" :floating-label="true" />
-            <BaseInputSelect :options="[]" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
+            <BaseInputFloat label="Desa/Kelurahan" name="desa" type="text" />
+            <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
+            <BaseInputSelect
+              name="kota"
+              :options="kabupatenList.data.value"
+              label-key="name"
+              value-key="id"
+              placeholder="Kota/Kabupaten"
+              :floating-label="true"
+            />
             <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
             <BaseInputFloat label="Anggota Keluarga" name="anggotaKeluarga" type="number" />
             <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
@@ -213,9 +220,11 @@ import { useForm } from 'vee-validate'
 import { object, string, number, mixed } from 'yup'
 import { useRoute } from 'vue-router'
 import { useHttp } from '@/api/useHttp'
+import { useKabupaten } from '@/api/useLocalization'
 import type { PetaniProfile } from '@/types/partner'
 
 const route = useRoute()
+const kabupatenList = useKabupaten()
 
 let dataPetani = reactive<PetaniProfile>({
   id: 0,
@@ -230,7 +239,7 @@ let dataPetani = reactive<PetaniProfile>({
   family_members: 0,
   total_area_ha: 0,
   organization_status: '',
-  education_level_id: '',
+  pendidikan: '',
   ilo_associate: '',
   production_capacity: 0,
   total_oil_quantity: 0,
@@ -252,7 +261,7 @@ const getPetani = async () => {
     image: data.image_1920_url !== false ? data.image_1920_url : null,
     kabupaten: data.kabupaten_id !== false ? data.kabupaten_id[1] : null,
     provinsi: data.state_id !== false ? data.state_id[1] : null,
-    education_level_id: data.education_level_id !== false ? data.education_level_id[1] : null,
+    pendidikan: data.education_level_id !== false ? data.education_level_id[1] : null,
     production_capacity: data.assets !== false ? data.assets[0].production_capacity : null,
   }
 

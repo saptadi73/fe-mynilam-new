@@ -102,9 +102,16 @@
           <form @submit.prevent="handleSubmit" class="space-y-4">
             <BaseInputFloat label="Nama Agen/Koperasi" name="name" type="text" />
             <BaseInputFloat label="Alamat" name="alamat" type="text" />
-            <BaseInputFloat label="Desa/Kelurahan" name="desa" />
+            <BaseInputFloat label="Desa/Kelurahan" name="desa" type="text" />
             <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
-            <BaseInputSelect :options="[]" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
+            <BaseInputSelect
+              name="kabupaten"
+              :options="kabupaten.data.value"
+              label-key="name"
+              value-key="id"
+              placeholder="Kota/Kabupaten"
+              :floating-label="true"
+            />
             <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
             <BaseInputSelect
               :options="optionsJenisMitra"

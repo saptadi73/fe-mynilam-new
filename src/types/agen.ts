@@ -12,12 +12,13 @@ export interface Agen {
 }
 
 export interface AgenProfile {
-  image: string | null
+  image_1920_url: string | null
   name: string
   street: string
   kelurahan: string
   kecamatan: string
-  kabupaten: string
+  kabupaten_id: any
+  kabupaten: number
   provinsi: string
   ilo_associate: string
   email: string

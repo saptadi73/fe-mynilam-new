@@ -33,7 +33,7 @@ export interface PetaniProfile {
   family_members: number
   total_area_ha: number
   organization_status: string
-  education_level_id: string
+  pendidikan: string
   production_capacity: number
   total_oil_quantity: number
   total_planting_quantity: number
@@ -44,6 +44,10 @@ export interface PetaniProfile {
 export interface DaftarAgenParams {
   kabupaten_id?: number | null
   associate_type?: 'Agent' | 'Koperasi'
+}
+
+export interface AgenProfileParams {
+  user_id?: number | null
 }
 
 export interface Agen {
