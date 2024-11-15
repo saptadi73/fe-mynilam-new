@@ -100,16 +100,12 @@
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="handleSubmit" class="space-y-4">
-            <BaseInputFloat label="Nama" name="name" type="text" />
+            <BaseInputFloat label="Nama Agen/Koperasi" name="name" type="text" />
             <BaseInputFloat label="Alamat" name="alamat" type="text" />
-            <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
-            <BaseInputSelect :options="[]" name="kecamatan" placeholder="Kecamatan" :floating-label="true" />
+            <BaseInputFloat label="Desa/Kelurahan" name="desa" />
+            <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
             <BaseInputSelect :options="[]" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
             <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
-            <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
-            <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
-            <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
-            <BaseInputFloat label="Koperasi/Agen" name="agen" type="text" />
             <BaseInputSelect
               :options="optionsJenisMitra"
               name="jenisMitra"
@@ -181,12 +177,6 @@ const handleModal = (value: boolean) => {
 const handleSubmit = () => {
   console.log('test')
 }
-
-const optionsStatus = ref([
-  { label: 'On Progress', value: 1 },
-  { label: 'Finished', value: 2 },
-  { label: 'Failed', value: 3 },
-])
 
 const optionsJenisMitra = ref([
   { label: 'Koperasi', value: 1 },
