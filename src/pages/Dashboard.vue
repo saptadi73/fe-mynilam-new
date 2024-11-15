@@ -23,7 +23,7 @@
 
     <section class="md:px-12 xl:h-screen">
       <h1 class="font-bold text-center text-2xl 2xl:text-3xl pt-12 pb-4">Analisis Produktivitas Petani</h1>
-      <div class="bg-white p-4 rounded-xl flex justify-center">
+      <div class="bg-white border border-primary p-4 rounded-xl flex justify-center">
         <BaseChart
           class="w-full h-[280px] md:h-[480px] 2xl:h-[700px]"
           chartId="chart1"
@@ -37,7 +37,7 @@
     <section class="xl:h-screen grid items-center">
       <div class="grid grid-cols-12 gap-y-4 md:gap-y-0 gap-x-8 md:px-12 py-8">
         <div class="col-span-12 md:col-span-6">
-          <div class="bg-white rounded-xl px-20 pb-8">
+          <div class="bg-white shadow-chart rounded-xl px-20 pb-8">
             <BaseChart
               chartId="chart2"
               chartType="pie"
@@ -72,7 +72,7 @@
         </div>
 
         <div class="col-span-12 md:col-span-6 order-1 md:order-2">
-          <div class="bg-white rounded-xl px-20 pb-8">
+          <div class="bg-white shadow-chart rounded-xl px-20 pb-8">
             <BaseChart
               chartId="chart3"
               chartType="pie"
@@ -87,7 +87,7 @@
 
     <section class="md:px-12 xl:h-screen">
       <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Pemantauan Pendapatan Petani</h1>
-      <div class="bg-white rounded-xl px-10 flex justify-center">
+      <div class="bg-white shadow-chart rounded-xl px-10 flex justify-center">
         <BaseChart
           class="h-[320px] md:h-[480px] 2xl:h-[700px] w-full md:w-10/12"
           chartId="chart4"
@@ -100,7 +100,7 @@
 
     <section class="md:px-12 xl:h-screen">
       <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Catatan Penjualan</h1>
-      <div class="bg-white rounded-xl px-10 flex justify-center">
+      <div class="bg-white shadow-chart rounded-xl px-10 flex justify-center">
         <BaseChart
           class="h-[320px] md:h-[480px] 2xl:h-[700px] w-full md:w-10/12"
           chartId="chart5"
@@ -661,7 +661,8 @@ const estimastiProduksiChartOptions: ChartOptions<'pie'> = {
 </script>
 
 <style scoped>
-.banner-image {
+.banner-image,
+.shadow-chart {
   box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
 }
 </style>
