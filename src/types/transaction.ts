@@ -1,5 +1,5 @@
 export interface DaftarPenjualanParams {
-  name?: string
+  destination_actor_name?: string
   kabupaten_id?: number
   associate_type?: 'agent' | 'koperasi'
   start_date?: string
@@ -44,4 +44,21 @@ export interface ReferenceSummary {
   kabupaten_3: [number, string]
   kabupaten_4: [number, string]
   kabupaten_5: [number, string]
+}
+
+export interface FarmerReport {
+  id: number
+  name: string
+  date_order: string
+  product_image_url: string
+  specific_code: string
+  source_actor: [number, string]
+  reference_code: number[]
+  destination_actor: [number, string]
+  kabupaten_id: [number, string]
+  product_id: [number, string]
+  production_code: string
+  quantity: number
+  price: number
+  ownership_code_id: [number, string]
 }

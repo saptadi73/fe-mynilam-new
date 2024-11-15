@@ -12,13 +12,13 @@ const cardContent = [
     title: 'Petani',
     content:
       'Menampilkan data penjualan petani, rincian ke agen/koperasi, serta analisis tren dari tanam hingga distribusi.',
-    pathName: 'Laporan Penjualan Petani',
+    pathName: 'Daftar Petani Penjualan',
   },
   {
     title: 'Agen/Koperasi',
     content:
       ' Menampilkan data penjualan, rincian distribusi, serta analisis perkembangan penjualan dari agen dan koperasi ke Ugreen.',
-    pathName: 'Laporan Penjualan Agen Koperasi',
+    pathName: 'Daftar Agen Koperasi Penjualan',
   },
 ]
 </script>
