@@ -8,3 +8,9 @@ export interface LoginAuth {
   description: string
   access_token: string
 }
+
+export interface User {
+  id: number
+  name: string
+  image_1920_url: string
+}

@@ -37,15 +37,25 @@
       <div class="xl:relative">
         <div class="max-w-[190px] cursor-pointer" id="profile-button" data-dropdown-toggle="profile-dropdown">
           <div class="flex items-center space-x-2 text-white bg-primary-3 hover:bg-[#20D173] p-1.5 rounded-full">
-            <img src="https://placehold.co/100" class="w-8 h-8 rounded-full border-2 border-white" />
-            <div class="text-ellipsis whitespace-nowrap overflow-x-hidden hidden xl:block">Bagas Adi Rukma</div>
+            <img
+              :src="user.data.value?.[0].image_1920_url"
+              class="w-8 h-8 object-cover rounded-full border-2 border-white"
+            />
+            <div v-if="!user.isLoading.value" class="text-ellipsis whitespace-nowrap overflow-x-hidden hidden xl:block">
+              {{ user.data.value?.[0].name }}
+            </div>
+            <BaseSkeletonText v-else class="w-28 h-4" />
           </div>
         </div>
         <!-- pop up -->
         <div id="profile-dropdown" class="hidden bg-primary-3 rounded-b-md">
           <div class="flex items-center space-x-2 text-white bg-primary-3 p-3 rounded-full cursor-default">
-            <img src="https://placehold.co/100" class="w-7 h-7 rounded-full border-2 border-white" />
-            <div class="font-semibold">Bagas Adi Rukma</div>
+            <img
+              :src="user.data.value?.[0].image_1920_url"
+              class="w-7 h-7 object-cover rounded-full border-2 border-white"
+            />
+            <div v-if="!user.isLoading.value" class="font-semibold">{{ user.data.value?.[0].name }}</div>
+            <BaseSkeletonText v-else class="w-28 h-4" />
           </div>
           <div class="text-center text-white text-sm font-semibold">
             <div class="py-2 cursor-pointer hover:bg-[#20D173]">View Profile</div>
@@ -73,11 +83,14 @@
 </template>
 
 <script setup lang="ts">
+import { useUser } from '@/api/useLogin'
 import { initDropdowns } from 'flowbite'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import BaseSkeletonText from './BaseSkeletonText.vue'
 
 const router = useRouter()
+const user = useUser()
 
 const menuList = [
   { name: 'Beranda', path: '/' },
