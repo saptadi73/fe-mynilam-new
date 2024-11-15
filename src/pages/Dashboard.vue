@@ -141,10 +141,26 @@
       </div>
     </section>
 
-    <section class="md:px-12">
-      <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Kalender Produksi Terpadu</h1>
+    <section class="md:px-12 mt-14">
       <div class="flex justify-center">
-        <Calendar :attributes="attributes" :columns="columns" :rows="2" locale="id" expanded />
+        <div class="bg-white pb-2 rounded-lg shadow-md border border-primary w-full">
+          <h1 class="font-bold text-2xl 2xl:text-3xl text-center pt-8 pb-3">Kalender Produksi Terpadu</h1>
+          <ul class="flex justify-start gap-4 px-8 list-none font-cera">
+            <li class="flex items-center text-md font-semibold">
+              <span class="w-4 h-4 rounded-full mr-1 bg-[#34C759]"></span> Tanam
+            </li>
+            <li class="flex items-center text-md font-semibold">
+              <span class="w-4 h-4 rounded-full mr-1 bg-[#FFCC00]"></span> Panen
+            </li>
+            <li class="flex items-center text-md font-semibold">
+              <span class="w-4 h-4 rounded-full mr-1 bg-[#32ADE6]"></span> Mulai Produksi
+            </li>
+            <li class="flex items-center text-md font-semibold">
+              <span class="w-4 h-4 rounded-full mr-1 bg-[#800000]"></span> Selesai Produksi
+            </li>
+          </ul>
+          <Calendar :attributes="attributes" :columns="columns" :rows="2" locale="id" class="p-4" expanded borderless />
+        </div>
       </div>
     </section>
   </div>
