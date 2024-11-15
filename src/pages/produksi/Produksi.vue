@@ -25,7 +25,7 @@
           Selesai, untuk Memantau Kemajuan dan Hasil Kerja Petani secara Menyeluruh.
         </p>
         <RouterLink :to="{ name: 'Daftar Produksi Petani' }">
-          <BaseButton icon-position="left">
+          <BaseButton icon-position="left" class="mt-2">
             Lihat Produksi
             <BaseIcon name="chevron-right" class="w-4 h-4" />
           </BaseButton>
@@ -48,7 +48,7 @@
           Produksi
         </p>
         <RouterLink :to="{ name: 'Buat Daftar Produksi Petani' }">
-          <BaseButton icon-position="left">
+          <BaseButton icon-position="left" class="mt-2">
             Buat Daftar Baru
             <BaseIcon name="chevron-right" class="w-4 h-4" />
           </BaseButton>
@@ -66,7 +66,7 @@
           Analisis Menyeluruh dan Evaluasi Kinerja Pertanian yang Efektif
         </p>
         <RouterLink :to="{ name: 'Laporan Produksi' }">
-          <BaseButton icon-position="left">
+          <BaseButton icon-position="left" class="mt-2">
             Lihat Laporan
             <BaseIcon name="chevron-right" class="w-4 h-4" />
           </BaseButton>
