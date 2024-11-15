@@ -147,8 +147,7 @@ const clearValue = () => {
   emit('change', undefined)
 }
 
-// handle value change
-watch(value, (newValue) => {
+const handleChangeValue = (newValue: string | number) => {
   if (!newValue) {
     dropdownLabel.value = undefined
   } else {
@@ -156,9 +155,15 @@ watch(value, (newValue) => {
     else dropdownLabel.value = getLabelByValue(newValue)
     emit('change', newValue)
   }
+}
+
+// handle value change
+watch(value, (newValue) => {
+  handleChangeValue(newValue)
 })
 
 onMounted(() => {
+  if (value.value) handleChangeValue(value.value)
   // init flowbite dropdown
   initDropdowns()
   // set dropdown width
