@@ -1,6 +1,6 @@
 <template>
   <div class="bg-image-wave2 px-5 md:px-16 pb-4">
-    <BaseHeaderTitle title="Petani" />
+    <BaseHeaderTitle :title="`Petani ${route.params.daerah}`" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="flex flex-col md:flex-row gap-y-2 md:gap-y-0 md:gap-x-5 justify-start">
         <div class="flex flex-col md:flex-row gap-y-2 md:gap-y-0 md:gap-x-2">
@@ -88,9 +88,16 @@
           <form @submit.prevent="handleSubmit" class="space-y-4">
             <BaseInputFloat label="Nama" name="name" type="text" />
             <BaseInputFloat label="Alamat" name="alamat" type="text" />
-            <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
-            <BaseInputSelect :options="[]" name="kecamatan" placeholder="Kecamatan" :floating-label="true" />
-            <BaseInputSelect :options="[]" name="kota" placeholder="Kota/Kabupaten" :floating-label="true" />
+            <BaseInputFloat label="Desa/Kelurahan" name="desa" type="text" />
+            <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
+            <BaseInputSelect
+              name="kota"
+              :options="kabupatenList.data.value"
+              label-key="name"
+              value-key="id"
+              placeholder="Kota/Kabupaten"
+              :floating-label="true"
+            />
             <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
             <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
             <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
@@ -137,7 +144,7 @@ import { useKabupaten } from '@/api/useLocalization'
 import { usePetaniList } from '@/api/usePetani'
 
 const route = useRoute()
-const daerah = route.params.daerah
+const { daerah } = route.params
 
 const kabupatenList = useKabupaten()
 
