@@ -88,7 +88,7 @@
 
             <div class="col-span-4 font-bold">Pendidikan</div>
             <div class="col-span-8 font-bold flex items-center">
-              : &nbsp; <span v-if="!isLoading">{{ dataPetani.education_level_id ?? '-' }}</span>
+              : &nbsp; <span v-if="!isLoading">{{ dataPetani.pendidikan ?? '-' }}</span>
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
 
