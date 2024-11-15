@@ -7,7 +7,7 @@
 
       <div class="md:px-12 flex justify-center">
         <img
-          class="banner-image rounded-3xl border-4 border-[#B2B4E0]"
+          class="banner-image rounded-3xl"
           src="../assets/images/banner-dashboard.jpg"
           alt="Banner Dashboard Image"
         />
