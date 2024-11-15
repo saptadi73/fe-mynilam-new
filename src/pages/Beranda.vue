@@ -11,7 +11,7 @@
         />
       </div>
 
-      <p class="text-center 2xl:text-xl xl:px-40 py-2 2xl:py-8">
+      <p class="text-center 2xl:text-xl xl:px-40 py-4 2xl:py-8">
         Melalui penerapan teknik manajemen lahan yang inovatif dan berkelanjutan, kami berkomitmen untuk memaksimalkan
         potensi setiap jengkal tanah. Dengan pendekatan holistik yang mencakup pemilihan varietas unggul, pengelolaan
         nutrisi yang tepat, dan pemanfaatan teknologi modern, kami memastikan bahwa setiap upaya kami menghasilkan panen
@@ -198,6 +198,7 @@ import BaseIcon from '@/components/BaseIcon.vue'
 </script>
 
 <style scoped>
+.banner-image,
 .thumbnail-image {
   box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
 }
