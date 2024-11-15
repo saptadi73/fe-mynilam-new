@@ -30,9 +30,24 @@ export default {
       path: 'laporan-penjualan',
       children: [
         {
-          path: '',
+          path: 'pilih-daerah',
+          name: 'Pilih Daerah Penjualan',
+          component: () => import('../pages/penjualan/laporan-penjualan/PilihDaerahPenjualan.vue'),
+        },
+        {
+          path: 'pilih-petani-agen/:daerah',
           name: 'Pilih Laporan Penjualan',
           component: () => import('../pages/penjualan/laporan-penjualan/PilihLaporanPenjualan.vue'),
+        },
+        {
+          path: 'daftar-petani/:daerah',
+          name: 'Daftar Petani Penjualan',
+          component: () => import('../pages/penjualan/laporan-penjualan/DaftarPetaniPenjualan.vue'),
+        },
+        {
+          path: 'daftar-agen-koperasi/:daerah',
+          name: 'Daftar Agen Koperasi Penjualan',
+          component: () => import('../pages/penjualan/laporan-penjualan/DaftarAgenKoperasiPenjualan.vue'),
         },
         {
           path: 'petani',

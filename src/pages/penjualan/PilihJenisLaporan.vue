@@ -2,7 +2,7 @@
   <div class="bg-image-wave px-5 md:px-16">
     <BaseHeaderTitle title="Pilih Jenis Laporan" />
     <div class="bg-[#F6FDFF] rounded-xl shadow-lg p-8 grid grid-cols-12 gap-y-8 md:gap-y-0 md:gap-x-12">
-      <router-link :to="{ name: 'Pilih Laporan Penjualan' }" class="col-span-12 md:col-span-4 md:col-start-3">
+      <router-link :to="{ name: 'Pilih Daerah Penjualan' }" class="col-span-12 md:col-span-4 md:col-start-3">
         <div
           class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
         >
