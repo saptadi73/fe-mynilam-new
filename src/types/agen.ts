@@ -19,9 +19,6 @@ export interface AgenProfile {
   kecamatan: string
   kabupaten: string
   provinsi: string
-  family_members: number
-  organization_status: string
-  organization_name: string
   ilo_associate: string
   email: string
 }

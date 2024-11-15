@@ -58,35 +58,12 @@
               : &nbsp; <span v-if="!isLoading">{{ profileAgen.provinsi ?? '-' }} </span>
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
-
-            <div class="col-span-4 font-bold">Anggota Keluarga</div>
-            <div class="col-span-8 font-bold flex items-center">
-              : &nbsp; <span v-if="!isLoading">{{ profileAgen.family_members }} Orang</span>
-              <BaseSkeletonText v-else class="w-40 h-4" />
-            </div>
           </div>
         </div>
         <div class="col-span-12 lg:col-span-6">
           <div class="grid grid-cols-12 gap-y-2">
-            <div class="col-span-4 font-bold">Status</div>
-            <div class="col-span-8 font-bold flex items-center">
-              : &nbsp; <span v-if="!isLoading">{{ profileAgen.organization_status }}</span>
-              <BaseSkeletonText v-else class="w-40 h-4" />
-            </div>
-
-            <div class="col-span-4 font-bold">Koperasi/Agen</div>
-            <div class="col-span-8 font-bold flex items-center">
-              : &nbsp; <span v-if="!isLoading">{{ profileAgen.organization_name }}</span>
-              <BaseSkeletonText v-else class="w-40 h-4" />
-            </div>
-
-            <div class="col-span-4 font-bold">Pendidikan</div>
-            <div class="col-span-8 font-bold flex items-center">
-              : &nbsp; <span v-if="!isLoading">S-1 Management Lahan</span> <BaseSkeletonText v-else class="w-40 h-4" />
-            </div>
-
             <div class="col-span-4 font-bold">Jenis Mitra</div>
-            <div class="col-span-8 font-bold flex items-center">
+            <div class="col-span-8 font-bold flex items-center capitalize">
               : &nbsp; <span v-if="!isLoading">{{ profileAgen.ilo_associate }}</span>
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
@@ -121,9 +98,6 @@ let profileAgen = reactive<AgenProfile>({
   kecamatan: '',
   kabupaten: '',
   provinsi: '',
-  family_members: 0,
-  organization_status: '',
-  organization_name: '',
   ilo_associate: '',
   email: '',
 })
