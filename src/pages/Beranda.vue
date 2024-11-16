@@ -5,7 +5,7 @@
 
       <div class="md:px-12 flex justify-center">
         <img
-          class="banner-image rounded-3xl"
+          class="banner-image border-4 border-primary rounded-3xl"
           src="@/assets/images/beranda/banner-beranda.jpg"
           alt="Banner Dashboard Image"
         />

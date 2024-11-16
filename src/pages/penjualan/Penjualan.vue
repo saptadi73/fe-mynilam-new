@@ -3,7 +3,7 @@
     <h1 class="font-bold text-center text-3xl py-8 text-primary">Manajemen Penjualan Produk Nilam</h1>
     <div class="md:px-12">
       <img
-        class="banner-image rounded-3xl"
+        class="banner-image border-4 border-primary rounded-3xl"
         src="@/assets/images/produksi/banner-header-produksi.png"
         alt="Banner Header Produksi"
       />
