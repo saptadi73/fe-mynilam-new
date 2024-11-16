@@ -1,6 +1,6 @@
 <template>
   <div class="bg-image-wave2 px-5 md:px-16 pb-4">
-    <BaseHeaderTitle title="Aset" />
+    <BaseHeaderTitle title="Lahan" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-5 justify-between">
         <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
@@ -33,7 +33,7 @@
             :card-id="card.id"
             :card-code="card.code"
             class="col-span-12 md:col-span-6 lg:col-span-3"
-            @click="$router.push({ name: 'Detail Aset', params: { id: card.code } })"
+            @click="$router.push({ name: 'Detail Aset', params: { id: card.id } })"
           >
             <template #card-content>
               <div class="flex justify-center pt-2">
