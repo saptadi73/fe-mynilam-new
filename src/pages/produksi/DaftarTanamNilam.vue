@@ -5,8 +5,8 @@
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-5 justify-start">
         <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
-          <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
-          <BaseButton>Cari</BaseButton>
+          <BaseSearchBar v-model="search" placeholder="Cari nama"></BaseSearchBar>
+          <BaseButton @click="handleParamValue">Cari</BaseButton>
         </div>
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
@@ -133,6 +133,7 @@ const chartOptions: ChartOptions<'doughnut'> = {
 
 const route = useRoute()
 const { daerah } = route.params
+const search = ref<string>('')
 
 const kabupatenList = useKabupaten()
 
@@ -141,7 +142,12 @@ const tanamNilamList = useDaftarTanam(params)
 
 const handleParamValue = () => {
   const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
-  if (selectedKabupaten) params.value = { kabupaten_id: selectedKabupaten.id }
+  if (selectedKabupaten) {
+    params.value = {
+      kabupaten_id: selectedKabupaten.id,
+      name: search.value || undefined,
+    }
+  }
 }
 
 watch(kabupatenList.data, handleParamValue)

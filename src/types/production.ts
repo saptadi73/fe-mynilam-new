@@ -51,10 +51,12 @@ export interface NilamProductionType {
 }
 
 export interface DaftarTanamParams {
+  name?: string
   kabupaten_id?: number
 }
 
 export interface DaftarProduksiParams {
+  name?: string
   kabupaten_id?: number
 }
 
