@@ -19,21 +19,25 @@ export interface PetaniListParams {
   kabupaten_id?: number | null
 }
 
+export interface PetaniProfileParams {
+  user_id?: number | null
+}
+
 export interface PetaniProfile {
   id: number
   ilo_associate: string
-  image: string
+  image_1920_url: string | null
   name: string
   email: string
   street: string
   kelurahan: string
   kecamatan: string
-  kabupaten: string
-  provinsi: string
+  kabupaten_id: any
+  state_id: any
   family_members: number
   total_area_ha: number
   organization_status: string
-  pendidikan: string
+  education_level_id: string
   production_capacity: number
   total_oil_quantity: number
   total_planting_quantity: number

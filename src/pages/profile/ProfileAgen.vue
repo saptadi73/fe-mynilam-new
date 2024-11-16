@@ -137,7 +137,7 @@ import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { useKabupaten } from '@/api/useLocalization'
 import { useAgenProfile } from '@/api/useAgen'
-import { AgenProfileParams } from '@/types/partner'
+import type { AgenProfileParams } from '@/types/partner'
 
 const route = useRoute()
 const kabupaten = useKabupaten()
