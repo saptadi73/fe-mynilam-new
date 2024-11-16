@@ -42,6 +42,7 @@ export interface PetaniProfile {
 }
 
 export interface DaftarAgenParams {
+  name?: string
   kabupaten_id?: number | null
   associate_type?: 'Agent' | 'Koperasi'
 }
@@ -52,15 +53,18 @@ export interface AgenProfileParams {
 
 export interface Agen {
   id: number
-  ilo_associate_code: string
-  image_1920_url: string
   name: string
+  ilo_associate: string
+  ilo_associate_code: string
   street: string
   kelurahan: string
   kecamatan: string
-  kabupaten_id: any
-  state_id: any
-  ilo_associate: string
+  kabupaten_id: [number, string]
+  state_id: boolean
+  country_id: boolean
+  family_members: number
+  image_1920_url: string
+  phone: string
 }
 
 export interface DaftarAsetParams {
