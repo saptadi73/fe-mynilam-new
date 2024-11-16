@@ -1,6 +1,6 @@
 <template>
   <div class="container bg-primary-light pb-14">
-    <BaseHeaderTitle title="Pilih Daerah Petani Nilam" />
+    <BaseHeaderTitle :title="props.titleName ? `${props.titleName}` : 'Pilih Daerah Petani Nilam'" />
     <BaseMap shp-file="/maps/aceh_kab.zip" :options="mapOptions" />
   </div>
 </template>
@@ -15,6 +15,7 @@ const router = useRouter()
 
 interface Props {
   routerName: string
+  titleName?: string
 }
 
 const props = defineProps<Props>()

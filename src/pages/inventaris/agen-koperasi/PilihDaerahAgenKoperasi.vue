@@ -1,5 +1,5 @@
 <template>
-  <BasePilihDaerahPetani router-name="Pilih Agen Koperasi" />
+  <BasePilihDaerahPetani router-name="Pilih Agen Koperasi" title-name="Pilih Daerah Agen/Koperasi Nilam" />
 </template>
 
 <script setup lang="ts">
