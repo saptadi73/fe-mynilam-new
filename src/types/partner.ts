@@ -14,7 +14,7 @@ export interface Petani {
   employment_contract: any
 }
 
-export interface DaftarPetaniParams {
+export interface PetaniListParams {
   name?: string
   kabupaten_id?: number | null
 }

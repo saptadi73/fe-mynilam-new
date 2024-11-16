@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
-import type { Petani } from '@/types/partner'
+import type { Petani, PetaniListParams } from '@/types/partner'
+import type { Ref } from 'vue'
 
-export function usePetaniList() {
+export function usePetaniList(params?: Ref<PetaniListParams>) {
   const path = '/partner/petani/list'
-  const getPetaniList = (): Promise<Petani[]> => apiGet(path)
+  const getPetaniList = (): Promise<Petani[]> => apiGet(path, params?.value)
   return useQuery({
-    queryKey: ['petaniList'],
+    queryKey: ['petaniList', params],
     queryFn: getPetaniList,
   })
 }
