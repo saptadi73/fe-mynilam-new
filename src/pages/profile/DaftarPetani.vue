@@ -159,7 +159,7 @@ const handleParamValue = async () => {
   if (selectedKabupaten) {
     params.value = {
       kabupaten_id: selectedKabupaten?.id,
-      name: search.value,
+      name: search.value || undefined,
     }
   }
 }

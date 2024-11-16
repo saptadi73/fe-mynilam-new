@@ -4,8 +4,8 @@
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-5 justify-between">
         <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
-          <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
-          <BaseButton>Cari</BaseButton>
+          <BaseSearchBar v-model="search" placeholder="Cari nama"></BaseSearchBar>
+          <BaseButton @click="handleParamValue">Cari</BaseButton>
         </div>
         <BaseButton variant="success" icon-position="left">
           <BaseIcon name="download" />
@@ -154,7 +154,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
@@ -168,30 +168,32 @@ import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
 import { useAsetList } from '@/api/useAset'
+import { DaftarAsetParams } from '@/types/partner'
 
 const route = useRoute()
 const daerah = route.params.daerah
+const search = ref<string>('')
 
 const kabupatenList = useKabupaten()
 
-const params = ref({ kabupaten_id: 0 })
+const params = ref<DaftarAsetParams>({})
+const asetList = useAsetList(params)
 
-const fetchKabupaten = async () => {
-  await kabupatenList.refetch()
-  const kabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
+const handleParamValue = async () => {
+  const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
 
-  if (kabupaten) {
-    params.value.kabupaten_id = kabupaten?.id
+  if (selectedKabupaten) {
+    params.value = {
+      kabupaten_id: selectedKabupaten?.id,
+      name: search.value || undefined,
+    }
   }
 }
 
-const asetList = useAsetList(params)
+watch(kabupatenList.data, handleParamValue)
 
-onMounted(async () => {
-  await fetchKabupaten()
-  if (params.value.kabupaten_id) {
-    asetList.refetch() // Memanggil refetch jika kabupaten_id sudah ada
-  }
+onMounted(() => {
+  handleParamValue()
 })
 
 let modal = ref<Boolean>(false)
