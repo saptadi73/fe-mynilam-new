@@ -60,7 +60,7 @@ export default {
           component: () => import('../pages/inventaris/agen-koperasi/agen/InventarisAgen.vue'),
         },
         {
-          path: 'daftar-produk/:agenId',
+          path: 'daftar-produk/:id',
           name: 'Daftar Produk Agen',
           component: () => import('../pages/inventaris/agen-koperasi/agen/DaftarProdukAgen.vue'),
         },
@@ -75,7 +75,7 @@ export default {
           component: () => import('../pages/inventaris/agen-koperasi/koperasi/InventarisKoperasi.vue'),
         },
         {
-          path: 'daftar-produk/:koperasiId',
+          path: 'daftar-produk/:id',
           name: 'Daftar Produk Koperasi',
           component: () => import('../pages/inventaris/agen-koperasi/koperasi/DaftarProdukKoperasi.vue'),
         },
