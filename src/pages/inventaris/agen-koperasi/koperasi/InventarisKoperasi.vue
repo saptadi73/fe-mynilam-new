@@ -26,7 +26,7 @@
         <BaseCard
           v-for="data in stockLocation.data.value"
           :key="data.id"
-          card-path="inventaris/agen/daftar-produk"
+          card-path="inventaris/koperasi/daftar-produk"
           :card-id="data.employee_id[0]"
           :card-code="data.employee_id[1]"
           class="col-span-12 md:col-span-6 lg:col-span-3"

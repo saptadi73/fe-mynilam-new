@@ -25,12 +25,23 @@
         <BaseCard
           v-for="data in inventoryQuant.data.value"
           :key="data.id"
-          :card-code="data.id.toString()"
+          :card-code="data.product_id[1]"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >
           <template #card-content>
             <div class="flex justify-center pt-2 h-1/3">
-              <img src="https://placehold.co/400x300" class="w-full object-cover rounded-xl" alt="Petani Image" />
+              <img
+                v-if="!data.product_image_url"
+                src="@/assets/images/profile/petani-default.png"
+                class="w-full object-cover rounded-xl"
+                :alt="data.product_id + ' Image'"
+              />
+              <img
+                v-else
+                :src="data.product_image_url"
+                class="w-full object-cover rounded-xl"
+                :alt="data.product_id + ' Image'"
+              />
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
