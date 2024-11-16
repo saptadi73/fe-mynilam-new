@@ -146,7 +146,7 @@ import { PetaniListParams } from '@/types/partner'
 
 const route = useRoute()
 const { daerah } = route.params
-const search = ref<string>()
+const search = ref<string>('')
 
 const kabupatenList = useKabupaten()
 

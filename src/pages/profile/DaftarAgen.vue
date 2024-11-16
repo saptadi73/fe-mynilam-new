@@ -4,8 +4,8 @@
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-5 justify-start">
         <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
-          <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
-          <BaseButton>Cari</BaseButton>
+          <BaseSearchBar v-model="search" placeholder="Cari nama"></BaseSearchBar>
+          <BaseButton @click="setDaftarAgenParams">Cari</BaseButton>
         </div>
         <BaseInputSelect
           name="kabupaten"
@@ -156,6 +156,7 @@ interface Form {
 }
 
 const { values } = useForm<Form>()
+const search = ref<string>('')
 
 const daftarAgenParams = ref<DaftarAgenParams>({})
 const agenList = useAgenList(daftarAgenParams)
@@ -164,6 +165,7 @@ const setDaftarAgenParams = () => {
   daftarAgenParams.value = {
     kabupaten_id: values.kabupaten,
     associate_type: values.jenis,
+    name: search.value,
   }
 }
 
