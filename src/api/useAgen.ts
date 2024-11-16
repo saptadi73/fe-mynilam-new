@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
 import { Ref } from 'vue'
-import type { Agen, AgenProfileParams } from '@/types/partner'
-import type { DaftarAgenParams } from '@/types/partner'
+import type { Agen, AgenProfileParams, DaftarAgenParams } from '@/types/partner'
 import { AgenProfile } from '@/types/agen'
 
 export function useAgenList(params?: Ref<DaftarAgenParams>) {

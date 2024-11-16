@@ -1,8 +1,14 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
 import { Ref } from 'vue'
-import type { NilamPlantingType, NilamProductionType, Note, NoteParams } from '@/types/production'
-import type { DaftarTanamParams, DaftarProduksiParams } from '@/types/production'
+import type {
+  NilamPlantingType,
+  NilamProductionType,
+  DaftarTanamParams,
+  DaftarProduksiParams,
+  Note,
+  NoteParams,
+} from '@/types/production'
 
 const mapDataWithChart = (response: any) => {
   return response.map((item: { completion_percentage: number }) => {

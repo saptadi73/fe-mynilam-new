@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
 import { Ref } from 'vue'
-import type { Aset } from '@/types/partner'
-import type { DaftarAsetParams } from '@/types/partner'
+import type { Aset, DaftarAsetParams } from '@/types/partner'
 
 export function useAsetList(params?: Ref<DaftarAsetParams>) {
   const path = '/assets/list'

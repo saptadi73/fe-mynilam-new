@@ -8,18 +8,25 @@
       />
 
       <div class="flex flex-row gap-x-8">
-        <div class="absolute top-24 left-1/4 md:left-36 bg-white rounded-full p-1.5 mt-20 z-20">
-          <img src="@/assets/images/profile/profile-ugreen.png" alt="Profile" />
+        <div class="absolute w-52 h-52 top-24 left-1/4 md:left-36 bg-white rounded-full mt-20 z-20">
+          <img
+            v-if="!isLoading"
+            :src="profileUgreen?.[0].image_1920_url"
+            alt="Profile"
+            class="w-full object-cover rounded-xl p-4"
+          />
         </div>
 
-        <div class="text-3xl font-bold px-5 lg:px-20 ml-56 mt-3">PT UGreen Aromatics International</div>
+        <div v-if="!isLoading" class="text-3xl font-bold px-5 lg:px-20 ml-64 mt-3">
+          PT {{ profileUgreen?.[0].name }}
+        </div>
       </div>
 
       <!-- <ButtonEditProfile /> -->
 
       <div class="grid grid-cols-12 px-5 lg:px-20 pt-5 pb-20 mt-16">
         <div class="col-span-12">
-          <div v-if="!isLoading" v-html="profileUgreen"></div>
+          <div class="indent-12" v-if="!isLoading" v-html="profileUgreen?.[0].comment"></div>
           <template v-else>
             <BaseSkeletonText v-for="n in 6" :key="n" class="w-full h-4 mt-2" />
           </template>
