@@ -10,7 +10,7 @@ export function usePetaniList(params?: Ref<PetaniListParams>) {
   return useQuery({
     queryKey: ['petaniList', params],
     queryFn: getPetaniList,
-    enabled: !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
+    enabled: () => !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
   })
 }
 

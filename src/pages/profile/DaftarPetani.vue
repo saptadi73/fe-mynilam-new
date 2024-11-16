@@ -4,8 +4,8 @@
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="flex flex-col md:flex-row gap-y-2 md:gap-y-0 md:gap-x-5 justify-start">
         <div class="flex flex-col md:flex-row gap-y-2 md:gap-y-0 md:gap-x-2">
-          <BaseSearchBar placeholder="Cari nama"></BaseSearchBar>
-          <BaseButton>Cari</BaseButton>
+          <BaseSearchBar v-model="search" placeholder="Cari nama"></BaseSearchBar>
+          <BaseButton @click="handleParamValue">Cari</BaseButton>
         </div>
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
@@ -138,34 +138,36 @@ import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputFile from '@/components/BaseInputFile.vue'
 import ModalProfile from './components/ModalProfile.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
 import { usePetaniList } from '@/api/usePetani'
+import { PetaniListParams } from '@/types/partner'
 
 const route = useRoute()
 const { daerah } = route.params
+const search = ref<string>()
 
 const kabupatenList = useKabupaten()
 
-const params = ref({ kabupaten_id: 0 })
+const params = ref<PetaniListParams>({})
+const petaniList = usePetaniList(params)
 
-const fetchKabupaten = async () => {
-  await kabupatenList.refetch()
-  const kabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
+const handleParamValue = async () => {
+  const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
 
-  if (kabupaten) {
-    params.value.kabupaten_id = kabupaten?.id
+  if (selectedKabupaten) {
+    params.value = {
+      kabupaten_id: selectedKabupaten?.id,
+      name: search.value,
+    }
   }
 }
 
-const petaniList = usePetaniList(params)
+watch(kabupatenList.data, handleParamValue)
 
-onMounted(async () => {
-  await fetchKabupaten()
-  if (params.value.kabupaten_id) {
-    petaniList.refetch() // Memanggil refetch jika kabupaten_id sudah ada
-  }
+onMounted(() => {
+  handleParamValue()
 })
 
 let modal = ref<Boolean>(false)
