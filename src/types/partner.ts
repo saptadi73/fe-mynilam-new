@@ -64,7 +64,7 @@ export interface Agen {
   kelurahan: string
   kecamatan: string
   kabupaten_id: [number, string]
-  state_id: boolean
+  state_id: [number, string]
   country_id: boolean
   family_members: number
   image_1920_url: string
