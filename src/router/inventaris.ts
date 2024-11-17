@@ -82,9 +82,9 @@ export default {
       ],
     },
     {
-      path: 'ugreen',
-      name: 'Inventaris Ugreen',
-      component: () => import('../pages/inventaris/ugreen/InventarisUgreen.vue'),
+      path: 'daftar-produk/ugreen',
+      name: 'Daftar Produk Ugreen',
+      component: () => import('../pages/inventaris/ugreen/DaftarProdukUgreen.vue'),
     },
   ],
 }
