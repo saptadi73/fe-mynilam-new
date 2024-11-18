@@ -74,7 +74,7 @@
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
 
-            <div class="col-span-4 font-bold">Total Asset</div>
+            <div class="col-span-4 font-bold">Total Lahan</div>
             <div class="col-span-8 font-bold text-primary-2 flex items-center">
               : &nbsp;
               <RouterLink
