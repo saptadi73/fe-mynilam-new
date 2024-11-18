@@ -238,19 +238,4 @@ const optionsStatusLahan = ref([
   { label: 'Aktif', value: 1 },
   { label: 'Tidak AKtif', value: 2 },
 ])
-
-const options = ref([
-  {
-    label: 'Aceh Selatan',
-    value: 1,
-  },
-  {
-    label: 'Aceh Utara',
-    value: 2,
-  },
-  {
-    label: 'Aceh Tengah',
-    value: 3,
-  },
-])
 </script>
