@@ -20,7 +20,7 @@ import BaseTableClient from '@/components/BaseTableClient.vue'
 import type { InventoryQuant, StockMoves, StockMovesParams } from '@/types/inventory'
 
 interface Props {
-  selectedProductId: number
+  selectedProductId?: number
 }
 
 const props = defineProps<Props>()
