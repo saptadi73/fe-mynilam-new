@@ -88,7 +88,10 @@
       </div>
     </section>
     <!-- table footer -->
-    <section v-if="!isLoading" class="flex justify-center p-4 text-primary text-xs font-semibold">
+    <section
+      v-if="!isLoading && totalData >= pageSize"
+      class="flex justify-center p-4 text-primary text-xs font-semibold"
+    >
       <div class="flex items-center space-x-3 bg-primary-light py-2 px-10 border-2 border-[#B0CAC1] rounded-full">
         <button
           type="button"
