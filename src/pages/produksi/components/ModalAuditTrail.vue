@@ -2,9 +2,9 @@
   <BaseModal :show-modal="modal" @set-modal="closeModal" class="max-w-3xl">
     <template #modal-content>
       <div class="p-4 h-72 flex flex-col justify-between">
-        <p v-if="isLoading" class="flex justify-center mt-28">Loading ...</p>
+        <p v-if="isLoading" class="flex justify-center text-primary mt-28">Loading ...</p>
         <template v-else>
-          <p v-if="data === null" class="flex justify-center mt-28">Tidak ada catatan</p>
+          <p v-if="data === null" class="flex justify-center text-primary mt-28">Tidak ada catatan</p>
           <div v-else v-for="data in data" :key="data.id" class="bg-white shadow-sm rounded-xl p-4 mt-auto">
             <div class="flex flex-row items-center gap-2">
               <h1 class="font-semibold text-primary">{{ data.author_id[1] }}</h1>
