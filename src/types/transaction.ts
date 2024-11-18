@@ -44,6 +44,11 @@ export interface ReferenceSummary {
   kabupaten_3: [number, string]
   kabupaten_4: [number, string]
   kabupaten_5: [number, string]
+  latest_quantity: number
+  product_uom_id: [number, string]
+  state: string
+  date_created: string
+  date_modified: string
 }
 
 export interface FarmerReport {

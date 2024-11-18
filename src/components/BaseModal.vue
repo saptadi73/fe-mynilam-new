@@ -3,7 +3,7 @@
     v-if="showModal"
     tabindex="-1"
     aria-hidden="true"
-    class="fixed inset-0 top-0 right-0 left-0 z-50 flex justify-center items-center md:inset-0 h-[calc(100%-1rem)] max-h-full w-full"
+    class="bg-primary-2 bg-opacity-20 fixed inset-0 top-0 right-0 left-0 z-50 flex justify-center items-center md:inset-0 h-full max-h-full w-full"
   >
     <div class="relative pl-4 py-4 w-full max-h-screen max-w-xl overflow-y-auto" :class="$attrs.class">
       <!-- Modal header -->

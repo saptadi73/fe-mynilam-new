@@ -2,11 +2,11 @@
   <div class="bg-image-wave container">
     <BaseHeaderTitle title="Laporan Pergerakan Barang" />
     <BaseTableClient
-      :data="harvestingList.data.value"
+      :data="referenceSummary.data.value"
       :columns="columns"
       :custom-header="true"
       :search-value="searchValue"
-      :is-loading="harvestingList.isLoading.value"
+      :is-loading="referenceSummary.isLoading.value"
       class="bg-white"
     >
       <template #header>
@@ -28,52 +28,52 @@ import { createColumnHelper } from '@tanstack/vue-table'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseInputDateRange from '@/components/BaseInputDateRange.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
-import { useHarvestingList } from '@/api/useProduction'
-import type { Harvesting } from '@/types/production'
+import { useReferenceSummary } from '@/api/useTransaction'
+import type { ReferenceSummary } from '@/types/transaction'
 
-const harvestingList = useHarvestingList()
+const referenceSummary = useReferenceSummary()
 const searchValue = ref('')
 
-const columnHelper = createColumnHelper<Harvesting>()
+const columnHelper = createColumnHelper<ReferenceSummary>()
 
 const columns = [
   columnHelper.display({
     header: 'No',
     cell: (info) => info.row.index + 1,
   }),
-  columnHelper.accessor('asset_id', {
-    cell: (info) => info.getValue()[1],
+  columnHelper.accessor('reference_1', {
+    cell: (info) => info.getValue(),
     header: 'Kode Transaksi',
   }),
-  columnHelper.accessor('employee_id', {
-    cell: (info) => info.getValue()[1],
+  columnHelper.accessor('reference_2', {
+    cell: (info) => info.getValue(),
     header: 'Agen/Koperasi',
   }),
-  columnHelper.accessor('kabupaten_id', {
+  columnHelper.accessor('reference_3', {
     cell: (info) => info.getValue(),
     header: 'Ugreen',
   }),
-  columnHelper.accessor('kabupaten_id', {
+  columnHelper.accessor('reference_4', {
     cell: (info) => info.getValue(),
     header: 'Green',
   }),
-  columnHelper.accessor('address', {
+  columnHelper.accessor('latest_quantity', {
     cell: (info) => info.getValue(),
     header: 'Jumlah',
   }),
-  columnHelper.accessor('kabupaten_id', {
-    cell: (info) => info.getValue(),
+  columnHelper.accessor('product_uom_id', {
+    cell: (info) => info.getValue()[1],
     header: 'Satuan',
   }),
-  columnHelper.accessor('date_started', {
+  columnHelper.accessor('state', {
     cell: (info) => info.getValue(),
     header: 'Status',
   }),
-  columnHelper.accessor('kabupaten_id', {
+  columnHelper.accessor('date_created', {
     cell: (info) => info.getValue(),
     header: 'Tanggal Dibuat',
   }),
-  columnHelper.accessor('kabupaten_id', {
+  columnHelper.accessor('date_modified', {
     cell: (info) => info.getValue(),
     header: 'Tanggal Diubah',
   }),

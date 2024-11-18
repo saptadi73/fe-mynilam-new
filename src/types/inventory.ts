@@ -34,3 +34,28 @@ export interface InventoryQuant {
   product_image_url: string
   availability_status: string
 }
+
+export interface StockMovesParams {
+  kabupaten_id?: number
+  product_id?: number
+  employee_id?: number
+}
+
+export interface StockMoves {
+  id: number
+  product_id: [number, string]
+  quantity: number
+  product_uom_id: [number, string]
+  location_id: [number, string]
+  location_dest_id: [number, string]
+  date: string
+  state: string
+  movement_type: string
+  movement_date: string
+  source_employee_location: [number, string]
+  source_employee_ilo_associate: string
+  source_employee_ilo_associate_code: string
+  destination_employee_location: [number, string]
+  destination_employee_ilo_associate: string
+  destination_employee_ilo_associate_code: string
+}
