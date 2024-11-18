@@ -72,7 +72,7 @@ export interface Agen {
 }
 
 export interface DaftarAsetParams {
-  name?: string
+  name?: string | undefined
   kabupaten_id?: number | null
 }
 

@@ -9,6 +9,5 @@ export function useAsetList(params?: Ref<DaftarAsetParams>) {
   return useQuery({
     queryKey: ['asetList', params],
     queryFn: getAsetList,
-    enabled: () => !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
   })
 }

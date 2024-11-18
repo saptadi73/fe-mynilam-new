@@ -77,7 +77,9 @@
             <div class="col-span-4 font-bold">Total Asset</div>
             <div class="col-span-8 font-bold text-primary-2 flex items-center">
               : &nbsp;
-              <RouterLink v-if="!petaniProfile.isLoading.value" :to="{ name: 'Daftar Aset Petani' }"
+              <RouterLink
+                v-if="!petaniProfile.isLoading.value"
+                :to="{ name: 'Daftar Aset Petani', params: { name: petaniProfile.data.value?.name } }"
                 >{{ petaniProfile.data.value?.total_area_ha }} ha</RouterLink
               >
               <BaseSkeletonText v-else class="w-40 h-4" />

@@ -57,7 +57,7 @@ export default {
       ],
     },
     {
-      path: 'daftar-aset-petani/:id',
+      path: 'daftar-aset-petani/:name',
       name: 'Daftar Aset Petani',
       component: () => import('../pages/profile/DaftarAsetPetani.vue'),
     },
