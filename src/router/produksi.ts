@@ -46,7 +46,7 @@ export default {
           component: () => import('../pages/produksi/DaftarProduksiNilam.vue'),
         },
         {
-          path: 'daftar-produksi-nilam-petani/:id',
+          path: 'daftar-produksi-nilam-petani/:name',
           name: 'Daftar Produksi Nilam Petani',
           component: () => import('../pages/produksi/DaftarProduksiNilamPetani.vue'),
         },

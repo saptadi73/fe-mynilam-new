@@ -58,7 +58,6 @@ export function useDaftarProduksi(params?: Ref<DaftarProduksiParams>) {
   return useQuery({
     queryKey: ['produksiNilamList', params],
     queryFn: getDaftarProduksi,
-    enabled: () => !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
   })
 }
 

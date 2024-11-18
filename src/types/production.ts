@@ -43,6 +43,7 @@ export interface NilamProductionType {
   coordinates: string
   date_started: string
   date_harvested: string
+  final_product: any
   produce_product: any
   address: string
   state: string
