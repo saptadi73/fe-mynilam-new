@@ -43,7 +43,6 @@ export function useDaftarTanam(params?: Ref<DaftarTanamParams>) {
   return useQuery({
     queryKey: ['tanamNilamList', params],
     queryFn: getDaftarTanam,
-    enabled: () => !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
   })
 }
 

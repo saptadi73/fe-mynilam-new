@@ -137,7 +137,9 @@
               <template v-if="!petaniProfile.isLoading.value && petaniProfile.data.value">
                 <p>
                   : &nbsp;
-                  <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani' }">
+                  <RouterLink
+                    :to="{ name: 'Daftar Tanam Nilam Petani', params: { name: petaniProfile.data.value?.name } }"
+                  >
                     {{ Math.round(petaniProfile.data.value.total_oil_quantity) }} kg ({{
                       petaniProfile.data.value?.in_progress_oil_percentage_quantity
                     }}% target panen)</RouterLink
@@ -176,7 +178,12 @@
               : &nbsp;
               <template v-if="!petaniProfile.isLoading.value">
                 <p>
-                  <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani Progress' }">
+                  <RouterLink
+                    :to="{
+                      name: 'Daftar Tanam Nilam Petani Progress',
+                      params: { name: petaniProfile.data.value?.name },
+                    }"
+                  >
                     {{ petaniProfile.data.value?.total_planting_quantity }} kg target panen</RouterLink
                   >
                 </p>

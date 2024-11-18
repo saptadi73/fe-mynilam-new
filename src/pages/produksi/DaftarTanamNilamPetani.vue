@@ -4,97 +4,107 @@
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="grid grid-cols-12 gap-4">
         <BaseCardAdd card-title="Nilam" class="col-span-3" />
-        <BaseCard v-for="(card, cardIndex) in cardPetani" :key="cardIndex" :card-code="card.code" class="col-span-3">
-          <template #card-content>
-            <div class="grid grid-cols-12 items-center gap-x-2">
-              <div class="col-span-6 h-40 flex items-center justify-center">
-                <img
-                  class="rounded-xl h-full object-cover"
-                  src="@/assets/images/produksi/nilam.jpeg"
-                  alt="Nilam Image"
-                />
-              </div>
+        <BaseSkeletonCard
+          v-if="tanamNilamList.isLoading.value"
+          v-for="n in 3"
+          :key="n"
+          class="col-span-12 md:col-span-6 lg:col-span-3"
+        />
+        <template v-else>
+          <div class="col-span-9 self-center text-center text-gray-600" v-if="tanamNilamList.data.value === null">
+            Tidak ada data untuk ditampilkan
+          </div>
 
-              <BaseChart
-                class="col-span-6"
-                :chartId="`Chart ${card.id}`"
-                chartType="doughnut"
-                :chartData="chartData"
-                :chartOptions="chartOptions"
-                :chartInnerLabel="`${chartData.datasets[0].data[0]} %`"
-              >
-                <template #chartTitle>
-                  <h1 class="text-center font-bold text-sm mb-2">Persentase Produksi</h1>
-                </template>
-              </BaseChart>
-            </div>
+          <BaseCard
+            v-else
+            v-for="(card, cardIndex) in tanamNilamList.data.value"
+            :key="cardIndex"
+            :card-code="card.production_identifier"
+            class="col-span-3"
+          >
+            <template #card-content>
+              <div class="grid grid-cols-12 items-center gap-x-2">
+                <div class="col-span-6 h-40 flex items-center justify-center">
+                  <img
+                    class="rounded-xl h-full object-cover"
+                    src="@/assets/images/produksi/nilam.jpeg"
+                    alt="Nilam Image"
+                  />
+                </div>
 
-            <div class="grid grid-cols-12 gap-x-1 pt-2">
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Nama Petani</h1>
-                <p class="font-bold text-sm">{{ card.petaniName }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Luas Lahan</h1>
-                <p class="font-bold text-sm">{{ card.luasLahan }} ha</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Mulai Produksi</h1>
-                <p class="font-bold text-sm">{{ card.mulaiProduksi }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Akhir Produksi</h1>
-                <p class="font-bold text-sm">{{ card.akhirProduksi }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Estimasi Panen</h1>
-                <p class="font-bold text-sm">{{ card.estimasiPanen }} kg</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Lokasi</h1>
-                <p class="font-bold text-sm">{{ card.lokasi }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Alamat</h1>
-                <p class="font-bold text-sm">{{ card.alamat }}</p>
-              </div>
-              <div class="col-span-6 pt-2">
-                <h1 class="text-sm">Status</h1>
-                <p
-                  v-if="card.status == 'done'"
-                  class="bg-primary text-white font-bold text-sm rounded-lg inline-block px-2.5 py-1"
+                <BaseChart
+                  class="col-span-6"
+                  :chartId="`Chart ${card.id}`"
+                  chartType="doughnut"
+                  :chartData="card.chartData"
+                  :chartOptions="chartOptions"
+                  :chartInnerLabel="`${card.chartData.datasets[0].data[0]} %`"
                 >
-                  Done
-                </p>
+                  <template #chartTitle>
+                    <h1 class="text-center font-bold text-sm mb-2">Persentase Produksi</h1>
+                  </template>
+                </BaseChart>
               </div>
-            </div>
-          </template>
-        </BaseCard>
+
+              <div class="grid grid-cols-12 gap-x-1 pt-2">
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Nama Petani</h1>
+                  <p class="font-bold text-sm">{{ card.employee_id[1] }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Luas Lahan</h1>
+                  <p class="font-bold text-sm">{{ card.area }} ha</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Mulai Produksi</h1>
+                  <p class="font-bold text-sm">{{ formatDate(card.date_planned_start) }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Akhir Produksi</h1>
+                  <p class="font-bold text-sm">{{ formatDate(card.date_planned_finish) }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Estimasi Panen</h1>
+                  <p class="font-bold text-sm">{{ card.produce_product[0] }} kg</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Lokasi</h1>
+                  <p class="font-bold text-sm">{{ card.coordinates }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Alamat</h1>
+                  <p class="font-bold text-sm">{{ card.address }}</p>
+                </div>
+                <div class="col-span-6 pt-2">
+                  <h1 class="text-sm">Status</h1>
+                  <p
+                    v-if="card.state == 'done'"
+                    class="bg-primary text-white font-bold text-sm rounded-lg inline-block px-2.5 py-1"
+                  >
+                    Done
+                  </p>
+                </div>
+              </div>
+            </template>
+          </BaseCard>
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { type ChartData, type ChartOptions } from 'chart.js/auto'
+import { type ChartOptions } from 'chart.js/auto'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseChart from '@/components/BaseChart.vue'
-
-import { reactive } from 'vue'
-
-const chartData: ChartData = {
-  labels: ['', 'Proses'],
-  datasets: [
-    {
-      label: 'Total Data',
-      data: [100, 0],
-      backgroundColor: ['#015438', '#20D173'],
-      hoverOffset: 4,
-    },
-  ],
-}
+import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
+import { useRoute } from 'vue-router'
+import { onMounted, ref } from 'vue'
+import { DaftarTanamParams } from '@/types/production'
+import { useDaftarTanam } from '@/api/useProductionPetani'
+import { formatDate } from '@/utils/useFormatDate'
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
@@ -106,54 +116,21 @@ const chartOptions: ChartOptions<'doughnut'> = {
   },
 }
 
-const cardPetani = reactive([
-  {
-    id: 1,
-    code: 'PNNUTX231',
-    petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '15',
-    mulaiProduksi: '4 Juni 2023',
-    akhirProduksi: '17 Desember 2023',
-    estimasiPanen: '20000',
-    lokasi: '4.747883, 96.748811',
-    alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
-  },
-  {
-    id: 2,
-    code: 'PNN61528X',
-    petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '30',
-    mulaiProduksi: '23 Juli 2022',
-    akhirProduksi: '2 Januari 2023',
-    estimasiPanen: '45000',
-    lokasi: '4.747883, 96.748811',
-    alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
-  },
-  {
-    id: 3,
-    code: 'PNN61529X',
-    petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '30',
-    mulaiProduksi: '2 Juli 2023',
-    akhirProduksi: '2 Desember 2022',
-    estimasiPanen: '15000',
-    lokasi: '4.747883, 96.748811',
-    alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
-  },
-  {
-    id: 4,
-    code: 'PNN61529X',
-    petaniName: 'Bagas Adi Rukmana',
-    luasLahan: '30',
-    mulaiProduksi: '2 Juni 2022',
-    akhirProduksi: '2 Desember 2022',
-    estimasiPanen: '15000',
-    lokasi: '4.747883, 96.748811',
-    alamat: 'Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh',
-    status: 'done',
-  },
-])
+const route = useRoute()
+const { name } = route.params
+
+const params = ref<DaftarTanamParams>({})
+const tanamNilamList = useDaftarTanam(params)
+
+const handleParamValue = () => {
+  if (name) {
+    params.value = {
+      name: String(name) || undefined,
+    }
+  }
+}
+
+onMounted(() => {
+  handleParamValue()
+})
 </script>

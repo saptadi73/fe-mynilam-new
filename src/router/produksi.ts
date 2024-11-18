@@ -25,12 +25,12 @@ export default {
           component: () => import('../pages/produksi/DaftarTanamNilam.vue'),
         },
         {
-          path: 'daftar-tanam-nilam-petani/:id',
+          path: 'daftar-tanam-nilam-petani/:name',
           name: 'Daftar Tanam Nilam Petani',
           component: () => import('../pages/produksi/DaftarTanamNilamPetani.vue'),
         },
         {
-          path: 'daftar-tanam-nilam-progress/:id',
+          path: 'daftar-tanam-nilam-progress/:name',
           name: 'Daftar Tanam Nilam Petani Progress',
           component: () => import('../pages/produksi/DaftarTanamNilamProgress.vue'),
         },
