@@ -43,7 +43,7 @@ const profileCard = reactive([
     profileImage: 'ugreen',
     profileDescription:
       'Lihat daftar entitas UGreen yang berperan dalam rantai distribusi produk, serta tambahkan atau buat profil baru UGreen untuk memperluas dan mengelola jaringan mitra strategis.',
-    profilePath: 'inventaris/ugreen',
+    profilePath: 'inventaris/daftar-produk/ugreen',
   },
 ])
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="bg-image-wave2 px-5 md:px-16 pb-4">
-    <BaseHeaderTitle title="Daftar Produk" />
+    <BaseHeaderTitle title="Daftar Produk Ugreen" />
     <div class="bg-[#F6FDFF] p-4 rounded-3xl border border-[#015438]">
       <div class="flex flex-col md:flex-row gap-y-2 md:gap-y-0 md:gap-x-5 justify-start">
         <div class="flex flex-col md:flex-row gap-y-2 md:gap-y-0 md:gap-x-2">
@@ -66,18 +66,14 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useInventoryQuant } from '@/api/useInventory'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
-import { useInventoryQuant } from '@/api/useInventory'
-import { useRoute } from 'vue-router'
-import { ref } from 'vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 
-const route = useRoute()
-const id = route.params.id
-
-const params = ref({ employee_id: Number(id) || null })
+const params = ref({ employee_id: 57 }) // id ugreen
 const inventoryQuant = useInventoryQuant(params)
 </script>

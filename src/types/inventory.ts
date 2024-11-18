@@ -31,5 +31,6 @@ export interface InventoryQuant {
   quantity_available: number
   quantity_sold: number
   employee_id: [number, string]
+  product_image_url: string
   availability_status: string
 }

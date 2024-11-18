@@ -132,11 +132,11 @@
               :class="petaniProfile.isLoading.value ? 'flex items-center' : ''"
             >
               <span v-if="petaniProfile.isLoading.value"> : &nbsp;</span>
-              <template v-if="!petaniProfile.isLoading.value">
+              <template v-if="!petaniProfile.isLoading.value && petaniProfile.data.value">
                 <p>
                   : &nbsp;
                   <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani' }">
-                    {{ Math.round(petaniProfile.data.value?.total_oil_quantity) }} kg ({{
+                    {{ Math.round(petaniProfile.data.value.total_oil_quantity) }} kg ({{
                       petaniProfile.data.value?.in_progress_oil_percentage_quantity
                     }}% target panen)</RouterLink
                   >
