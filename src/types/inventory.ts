@@ -37,6 +37,8 @@ export interface InventoryQuant {
 
 export interface StockMovesParams {
   kabupaten_id?: number
+  product_id?: number
+  employee_id?: number
 }
 
 export interface StockMoves {
@@ -50,4 +52,10 @@ export interface StockMoves {
   state: string
   movement_type: string
   movement_date: string
+  source_employee_location: [number, string]
+  source_employee_ilo_associate: string
+  source_employee_ilo_associate_code: string
+  destination_employee_location: [number, string]
+  destination_employee_ilo_associate: string
+  destination_employee_ilo_associate_code: string
 }

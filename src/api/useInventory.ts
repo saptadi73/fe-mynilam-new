@@ -31,7 +31,7 @@ export function useInventoryQuant(params?: Ref<InventoryQuantParams>) {
 }
 
 export function useStockMoves(params?: Ref<StockMovesParams>) {
-  const path = '/inventory/quant'
+  const path = '/inventory/stock/moves'
   const getStockMoves = (): Promise<StockMoves[]> => apiGet(path, params?.value)
   return useQuery({
     queryKey: ['stockMoves', params],

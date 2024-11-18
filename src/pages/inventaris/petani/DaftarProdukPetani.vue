@@ -27,6 +27,7 @@
           :key="data.id"
           :card-code="data.product_id[1]"
           class="col-span-12 md:col-span-6 lg:col-span-3"
+          @click="handleCardClick(data.product_id[0])"
         >
           <template #card-content>
             <div class="flex justify-center pt-2 h-1/3">
@@ -62,6 +63,11 @@
         </BaseCard>
       </div>
     </div>
+    <BaseModal class="max-w-[90%]" :show-modal="showModal" @set-modal="(val: boolean) => showModal = val">
+      <template #modal-content>
+        <TableStokBarang :selectedProductId="selectedProductId" />
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -74,10 +80,19 @@ import { useInventoryQuant } from '@/api/useInventory'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
+import BaseModal from '@/components/BaseModal.vue'
+import TableStokBarang from '@/pages/inventaris/components/TableStokBarang.vue'
 
 const route = useRoute()
 const id = route.params.id
+const showModal = ref(false)
+const selectedProductId = ref<number>()
 
 const params = ref({ employee_id: Number(id) || null })
 const inventoryQuant = useInventoryQuant(params)
+
+const handleCardClick = (productId: number) => {
+  showModal.value = true
+  selectedProductId.value = productId
+}
 </script>
