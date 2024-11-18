@@ -26,7 +26,7 @@ export interface PetaniProfileParams {
 export interface PetaniProfile {
   id: number
   ilo_associate: string
-  image_1920_url: string | null
+  image_1920_url: string
   name: string
   email: string
   street: string
