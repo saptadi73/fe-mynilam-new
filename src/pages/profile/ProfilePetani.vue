@@ -159,7 +159,7 @@
                 <p>
                   : &nbsp;
                   <RouterLink :to="{ name: 'Daftar Produksi Nilam Petani' }">
-                    {{ petaniProfile.data.value?.production_capacity }} kg ({{
+                    {{ petaniProfile.data.value?.assets?.[0]?.production_capacity }} kg ({{
                       petaniProfile.data.value?.in_progress_percentage_quantity
                     }}% target produksi)</RouterLink
                   >
