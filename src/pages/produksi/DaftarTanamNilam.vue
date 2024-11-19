@@ -100,7 +100,12 @@
       </div>
     </div>
 
-    <ModalAuditTrail v-if="noteList.data.value" :modal="modal" @set-modal="handleModal" :data="noteList.data.value" />
+    <ModalAuditTrail
+      :modal="modal"
+      @set-modal="handleModal"
+      :data="noteList.data.value"
+      :is-loading="noteList.isLoading.value"
+    />
   </div>
 </template>
 

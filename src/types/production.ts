@@ -23,6 +23,7 @@ export interface Harvesting {
 export interface NilamPlantingType {
   id: number
   production_identifier: string
+  production_planting_image_url: string
   employee_id: any
   coordinates: string
   kabupaten_id: any
