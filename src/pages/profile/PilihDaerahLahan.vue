@@ -1,5 +1,5 @@
 <template>
-  <BasePilihDaerahPetani router-name="Daftar Aset" />
+  <BasePilihDaerahPetani router-name="Daftar Lahan" />
 </template>
 
 <script setup lang="ts">

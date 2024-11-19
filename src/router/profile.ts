@@ -37,29 +37,29 @@ export default {
       component: () => import('../pages/profile/ProfileUgreen.vue'),
     },
     {
-      path: 'pilih-daerah-aset',
-      name: 'Pilih Daerah Aset',
-      component: () => import('../pages/profile/PilihDaerahAset.vue'),
+      path: 'pilih-daerah-lahan',
+      name: 'Pilih Daerah Lahan',
+      component: () => import('../pages/profile/PilihDaerahLahan.vue'),
     },
     {
-      path: 'daftar-aset/:daerah',
+      path: 'daftar-lahan/:daerah',
       children: [
         {
           path: '',
-          name: 'Daftar Aset',
-          component: () => import('../pages/profile/DaftarAset.vue'),
+          name: 'Daftar Lahan',
+          component: () => import('../pages/profile/DaftarLahan.vue'),
         },
         {
           path: ':id',
-          name: 'Detail Aset',
-          component: () => import('../pages/profile/DetailAset.vue'),
+          name: 'Detail Lahan',
+          component: () => import('../pages/profile/DetailLahan.vue'),
         },
       ],
     },
     {
-      path: 'daftar-aset-petani/:name',
-      name: 'Daftar Aset Petani',
-      component: () => import('../pages/profile/DaftarAsetPetani.vue'),
+      path: 'daftar-lahan-petani/:name',
+      name: 'Daftar Lahan Petani',
+      component: () => import('../pages/profile/DaftarLahanPetani.vue'),
     },
   ],
 }

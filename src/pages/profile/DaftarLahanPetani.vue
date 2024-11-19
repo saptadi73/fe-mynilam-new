@@ -22,7 +22,7 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
-        <BaseCardAdd @click="showModal" card-title="Aset" class="col-span-12 md:col-span-6 lg:col-span-3" />
+        <BaseCardAdd @click="showModal" card-title="Lahan" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseSkeletonCard
           :row="3"
           v-if="asetList.isLoading.value"
@@ -44,7 +44,7 @@
           >
             <template #card-content>
               <div class="flex justify-center pt-2">
-                <img class="w-full rounded-xl" src="@/assets/images/profile/aset-image.png" alt="Aset Image" />
+                <img class="w-full rounded-xl" src="@/assets/images/profile/lahan-image.png" alt="Lahan Image" />
               </div>
 
               <div class="grid grid-cols-12 gap-x-1 pt-2">

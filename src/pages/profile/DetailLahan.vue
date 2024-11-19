@@ -1,6 +1,6 @@
 <template>
   <div class="container mb-14">
-    <BaseHeaderTitle title="Detail Aset" />
+    <BaseHeaderTitle title="Detail Lahan" />
     <BaseMap shp-file="/maps/shp_aset_lahan.zip" :options="mapOptions" />
   </div>
 </template>
