@@ -2,7 +2,7 @@
   <div class="bg-image-wave container">
     <BaseHeaderTitle title="Laporan Lengkap Tanam" />
     <BaseTableClient
-      :data="harvestingList.data.value"
+      :data="harvestingList.data.value || []"
       :columns="columns"
       :custom-header="true"
       :search-value="searchValue"
@@ -20,6 +20,15 @@
             placeholder-end="Tanggal akhir"
             @change="handleDateChange"
           />
+          <BaseInputSelect
+            name="kabupaten"
+            placeholder="Pilih kabupaten"
+            label-key="name"
+            value-key="id"
+            :options="kabupaten.data.value"
+            class="w-full lg:w-52 2xl:w-64"
+            @change="handleDaerahChange"
+          />
         </div>
       </template>
     </BaseTableClient>
@@ -33,16 +42,23 @@ import { createColumnHelper } from '@tanstack/vue-table'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseInputDateRange from '@/components/BaseInputDateRange.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
+import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import { useHarvestingList } from '@/api/useProduction'
+import { useKabupaten } from '@/api/useLocalization'
 import type { Harvesting, HarvestingParams } from '@/types/production'
 
 const params = ref<HarvestingParams>({})
 const harvestingList = useHarvestingList(params)
+const kabupaten = useKabupaten()
 const searchValue = ref('')
 
 const handleDateChange = (value: string[]) => {
   params.value.start_date = value[0]
   params.value.end_date = value[1]
+}
+
+const handleDaerahChange = (value: number) => {
+  params.value.kabupaten_id = value
 }
 
 const columnHelper = createColumnHelper<Harvesting>()
