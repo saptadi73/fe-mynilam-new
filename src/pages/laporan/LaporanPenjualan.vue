@@ -60,32 +60,32 @@ const columns = [
     header: 'No',
     cell: (info) => info.row.index + 1,
   }),
-  columnHelper.accessor('name', {
-    cell: (info) => info.getValue(),
+  columnHelper.accessor('transaction_number', {
+    cell: (info) => info.getValue()[1],
     header: 'No Transaksi',
   }),
-  columnHelper.accessor('kabupaten_id', {
-    cell: () => 'belum',
+  columnHelper.accessor('source_actor', {
+    cell: (info) => info.getValue()[1],
     header: 'Penjual',
   }),
-  columnHelper.accessor('kabupaten_id', {
-    cell: () => 'belum',
-    header: 'Mitra Penjual',
+  columnHelper.accessor('source_actor_associate_code', {
+    cell: (info) => info.getValue(),
+    header: 'Status',
   }),
   columnHelper.accessor('kabupaten_id', {
     cell: (info) => info.getValue()[1],
     header: 'Kota/Kabupaten',
   }),
-  columnHelper.accessor('kabupaten_id', {
-    cell: () => 'belum',
+  columnHelper.accessor('destination_actor', {
+    cell: (info) => info.getValue()[1],
     header: 'Pembeli',
   }),
-  columnHelper.accessor('kabupaten_id', {
-    cell: () => 'belum',
-    header: 'Mitra Pembeli',
+  columnHelper.accessor('destination_actor_associate_code', {
+    cell: (info) => info.getValue(),
+    header: 'Status',
   }),
-  columnHelper.accessor('kabupaten_id', {
-    cell: () => 'belum',
+  columnHelper.accessor('price', {
+    cell: (info) => info.getValue(),
     header: 'Harga/kg',
   }),
   columnHelper.accessor('quantity', {
@@ -100,7 +100,7 @@ const columns = [
     cell: (info) => info.getValue(),
     header: 'Tanggal',
   }),
-  columnHelper.accessor('state', {
+  columnHelper.accessor('statue', {
     cell: (info) => info.getValue(),
     header: 'Status Pembayaran',
   }),

@@ -8,18 +8,27 @@ export interface DaftarPenjualanParams {
 
 export interface DaftarPenjualan {
   id: number
-  date_order: string
-  name: string
-  specific_codes: string
   destination_actor: [number, string]
   destination_actor_associate_code: string
-  kabupaten_id: [number, string]
-  quantity: number
-  product_uom_id: [number, string]
-  reference_code: string
-  state: string
-  ownership_line_ids: number[]
   product_image_url: string
+  specific_code: string
+  source_actor: [number, string]
+  product_id: [number, string]
+  product_uom_id: [number, string]
+  price: number
+  quantity: number
+  value: number
+  subtotal: number
+  batch_code: string
+  ownership_code_id: [number, string]
+  transaction_number: string
+  qr_code_id: [number, string]
+  qr_code_image: string
+  stock_move_id: [number, string]
+  date_order: string
+  source_actor_associate_code: string
+  kabupaten_id: [number, string]
+  statue: string
 }
 
 export interface ReferenceSummary {
