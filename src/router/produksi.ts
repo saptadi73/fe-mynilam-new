@@ -68,7 +68,7 @@ export default {
         {
           path: 'laporan-lengkap-tanam',
           name: 'Laporan Lengkap Tanam',
-          component: () => import('../pages/produksi/LaporanLengkapTanam.vue'),
+          component: () => import('../pages/laporan/LaporanProduksiTanam.vue'),
         },
       ],
     },
