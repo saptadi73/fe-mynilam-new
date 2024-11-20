@@ -22,11 +22,9 @@ import BaseCheckbox from '@/components/BaseCheckbox.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import { useForm } from 'vee-validate'
 import { useLogin } from '@/api/useLogin'
-import { useRouter } from 'vue-router'
 import { string, object } from 'yup'
 import type { LoginForm } from '@/types/login'
 
-const router = useRouter()
 const login = useLogin()
 
 const { handleSubmit } = useForm<LoginForm>({
@@ -40,7 +38,7 @@ const onSubmit = handleSubmit((values) => {
   login.mutate(values, {
     onSuccess: (data) => {
       localStorage.setItem('token', data.access_token)
-      router.push('/')
+      window.location.href = '/'
     },
   })
 })
