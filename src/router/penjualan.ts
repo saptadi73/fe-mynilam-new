@@ -50,12 +50,12 @@ export default {
           component: () => import('../pages/penjualan/laporan-penjualan/DaftarAgenKoperasiPenjualan.vue'),
         },
         {
-          path: 'petani',
+          path: 'petani/:name/:id',
           name: 'Laporan Penjualan Petani',
           component: () => import('../pages/penjualan/laporan-penjualan/LaporanPetani.vue'),
         },
         {
-          path: 'agen-koperasi',
+          path: 'agen-koperasi/:name/:id',
           name: 'Laporan Penjualan Agen Koperasi',
           component: () => import('../pages/penjualan/laporan-penjualan/LaporanAgenKoperasi.vue'),
         },

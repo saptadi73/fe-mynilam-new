@@ -67,3 +67,31 @@ export interface FarmerReport {
   price: number
   ownership_code_id: [number, string]
 }
+
+export interface TransactionDetailsParams {
+  id_petani?: number
+  id_destination_actor?: number
+  start_date?: string
+  end_date?: string
+}
+
+export interface TransactionDetails {
+  id: number
+  product_image_url: string
+  specific_code: string
+  source_actor: number
+  destination_actor: [number, string]
+  product_id: [number, string]
+  product_uom_id: [number, string]
+  price: number
+  quantity: number
+  value: number
+  subtotal: number
+  batch_code: string
+  ownership_code_id: [number, string]
+  transaction_number: string
+  qr_code_id: [number, string]
+  qr_code_image: string
+  stock_move_id: [number, string]
+  date_order: string
+}
