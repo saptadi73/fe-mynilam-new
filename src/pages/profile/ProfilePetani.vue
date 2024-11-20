@@ -85,6 +85,15 @@
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
 
+            <div class="col-span-4 font-bold">Total Penjualan</div>
+            <div class="col-span-8 font-bold flex items-center">
+              : &nbsp;
+              <p v-if="!petaniProfile.isLoading.value">
+                {{ formatRupiah(petaniProfile.data.value?.total_transaction_value ?? 0) }}
+              </p>
+              <BaseSkeletonText v-else class="w-40 h-4" />
+            </div>
+
             <div class="col-span-4 font-bold text-primary-2">
               <RouterLink :to="{ name: 'Product Traceability' }">Product Traceability</RouterLink>
             </div>
@@ -256,6 +265,7 @@ import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
 import { usePetaniProfile } from '@/api/usePetani'
 import type { PetaniProfileParams } from '@/types/partner'
+import { formatRupiah } from '@/utils/useFormatRupiah'
 
 const route = useRoute()
 const kabupatenList = useKabupaten()
