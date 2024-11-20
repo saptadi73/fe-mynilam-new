@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
-import type { Harvesting } from '@/types/production'
+import type { Harvesting, HarvestingParams } from '@/types/production'
+import type { Ref } from 'vue'
 
-export function useHarvestingList() {
+export function useHarvestingList(params?: Ref<HarvestingParams>) {
   const path = '/production/harvesting/list'
-  const getHarvestingList = (): Promise<Harvesting[]> => apiGet(path)
+  const getHarvestingList = (): Promise<Harvesting[]> => apiGet(path, params?.value)
   return useQuery({
-    queryKey: ['harvestingList'],
+    queryKey: ['harvestingList', params],
     queryFn: getHarvestingList,
   })
 }

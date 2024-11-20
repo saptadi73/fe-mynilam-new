@@ -1,4 +1,13 @@
 import type { ChartData } from 'chart.js'
+
+export interface HarvestingParams {
+  name?: string
+  kabupaten_id?: number
+  associate_code?: 'agent' | 'koperasi'
+  start_date?: string
+  end_date?: string
+}
+
 export interface Harvesting {
   id: number
   name: string
@@ -18,6 +27,10 @@ export interface Harvesting {
   percentage_final_quantity: number
   completion_percentage: number
   address: any
+  date_created: string
+  date_modified: string
+  area_ha: number
+  area_uom: [number, string]
 }
 
 export interface NilamPlantingType {
