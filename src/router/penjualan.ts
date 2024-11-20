@@ -4,7 +4,7 @@ export default {
     {
       path: '',
       name: 'Penjualan',
-      component: () => import('../pages/penjualan/Penjualan.vue'),
+      component: () => import('../pages/penjualan/PilihJenisLaporan.vue'),
     },
     {
       path: 'daftar-mitra',
@@ -20,11 +20,6 @@ export default {
       path: 'product-traceability/:id',
       name: 'Product Traceability',
       component: () => import('../pages/penjualan/ProductTraceability.vue'),
-    },
-    {
-      path: 'pilih-jenis-laporan',
-      name: 'Pilih Jenis Laporan Penjualan',
-      component: () => import('../pages/penjualan/PilihJenisLaporan.vue'),
     },
     {
       path: 'laporan-penjualan',
