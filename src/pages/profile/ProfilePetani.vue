@@ -86,11 +86,13 @@
             </div>
 
             <div class="col-span-4 font-bold">Total Penjualan</div>
-            <div class="col-span-8 font-bold flex items-center">
+            <div class="col-span-8 font-bold text-primary-2 flex items-center">
               : &nbsp;
-              <p v-if="!petaniProfile.isLoading.value">
-                {{ formatRupiah(petaniProfile.data.value?.total_transaction_value ?? 0) }}
-              </p>
+              <RouterLink
+                v-if="!petaniProfile.isLoading.value"
+                :to="{ name: 'Laporan Penjualan Petani', params: { name: petaniProfile.data.value?.name } }"
+                >{{ formatRupiah(petaniProfile.data.value?.total_transaction_value ?? 0) }}</RouterLink
+              >
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
 
