@@ -15,7 +15,7 @@ import BaseButton from './BaseButton.vue'
 import BaseIcon from './BaseIcon.vue'
 
 interface Props {
-  title: string
+  title?: string
   backButton?: boolean | string
 }
 withDefaults(defineProps<Props>(), {

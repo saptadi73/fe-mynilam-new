@@ -1,5 +1,6 @@
 <template>
   <div class="bg-image-wave relative px-5 lg:px-16 py-10">
+    <BaseHeaderTitle />
     <div class="bg-white min-h-screen opacity-90 shadow-md rounded-lg font-cera">
       <img
         class="bg-cover object-cover rounded-t-lg h-60 w-full"
@@ -125,6 +126,7 @@
 </template>
 
 <script setup lang="ts">
+import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import ButtonEditProfile from './components/ButtonEditProfile.vue'
 import BaseSkeletonText from '@/components/BaseSkeletonText.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'

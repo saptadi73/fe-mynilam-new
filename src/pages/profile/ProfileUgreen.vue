@@ -1,5 +1,6 @@
 <template>
   <div class="bg-image-wave relative px-5 lg:px-16 py-10">
+    <BaseHeaderTitle />
     <div class="bg-white min-h-screen opacity-90 shadow-md rounded-lg font-cera">
       <img
         class="bg-cover object-cover rounded-t-lg h-60 w-full"
@@ -8,7 +9,7 @@
       />
 
       <div class="flex flex-row gap-x-8">
-        <div class="absolute w-52 h-52 top-24 left-1/4 md:left-36 bg-white rounded-full mt-20 z-20">
+        <div class="absolute w-52 h-52 top-40 left-1/4 md:left-36 bg-white rounded-full mt-20 z-20">
           <img
             v-if="!isLoading"
             :src="profileUgreen?.[0].image_1920_url"
@@ -37,6 +38,7 @@
 </template>
 
 <script setup lang="ts">
+import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseSkeletonText from '@/components/BaseSkeletonText.vue'
 // import ButtonEditProfile from './components/ButtonEditProfile.vue'
 import { onMounted, ref } from 'vue'
