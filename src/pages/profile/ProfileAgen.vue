@@ -10,7 +10,7 @@
 
       <div
         v-if="!agenProfile.isLoading.value"
-        class="absolute w-48 h-48 top-24 left-1/4 md:left-36 bg-white rounded-full p-1.5 mt-20 z-20"
+        class="absolute w-48 h-48 top-40 left-1/4 md:left-36 bg-white rounded-full p-1.5 mt-20 z-20"
       >
         <img
           v-if="!agenProfile.data.value?.[0].image_1920_url"

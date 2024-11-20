@@ -10,7 +10,7 @@
 
       <div
         v-if="!petaniProfile.isLoading.value"
-        class="absolute w-48 h-48 top-24 left-1/4 md:left-36 bg-white rounded-full p-1 mt-20 z-20"
+        class="absolute w-48 h-48 top-40 left-1/4 md:left-36 bg-white rounded-full p-1 mt-20 z-20"
       >
         <img
           v-if="!petaniProfile.data.value?.image_1920_url"
