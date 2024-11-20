@@ -100,7 +100,7 @@ const columns = [
     cell: (info) => info.getValue(),
     header: 'Tanggal',
   }),
-  columnHelper.accessor('statue', {
+  columnHelper.accessor('state', {
     cell: (info) => info.getValue(),
     header: 'Status Pembayaran',
   }),

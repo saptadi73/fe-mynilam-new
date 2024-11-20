@@ -7,6 +7,7 @@ export interface DaftarPenjualanParams {
 }
 
 export interface DaftarPenjualan {
+  name: string
   id: number
   destination_actor: [number, string]
   destination_actor_associate_code: string
@@ -28,7 +29,7 @@ export interface DaftarPenjualan {
   date_order: string
   source_actor_associate_code: string
   kabupaten_id: [number, string]
-  statue: string
+  state: string
 }
 
 export interface ReferenceSummary {
