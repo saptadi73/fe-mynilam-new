@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 interface PropsCard {
-  cardId?: number
+  cardId?: number | string
   cardPath?: string
   cardCode?: string
 }
