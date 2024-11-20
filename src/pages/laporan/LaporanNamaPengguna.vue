@@ -2,11 +2,11 @@
   <div class="bg-image-wave container">
     <BaseHeaderTitle title="Laporan Nama Pengguna (Profil)" />
     <BaseTableClient
-      :data="petaniList.data.value"
+      :data="handleDataTable"
       :columns="columns"
       :custom-header="true"
       :search-value="searchValue"
-      :is-loading="petaniList.isLoading.value"
+      :is-loading="petaniList.isLoading.value || agenKoperasiList.isLoading.value"
       class="bg-white"
     >
       <template #header>
@@ -14,7 +14,15 @@
           class="p-4 lg:flex items-center lg:space-x-3 space-y-4 lg:space-y-0 overflow-x-auto overflow-y-visible z-10"
         >
           <BaseSearchBar v-model="searchValue" placeholder="Cari nama pembeli" class="w-full lg:w-52 2xl:w-60" />
-          <BaseInputDateRange name="tanggal" placeholder-start="Tanggal mulai" placeholder-end="Tanggal akhir" />
+          <BaseInputSelect
+            name="kabupaten"
+            placeholder="Pilih kabupaten"
+            label-key="name"
+            value-key="id"
+            :options="kabupaten.data.value"
+            class="w-full lg:w-52 2xl:w-64"
+            @change="(val: number) => params = { kabupaten_id: val }"
+          />
           <BaseInputSelect
             name="jenis"
             placeholder="Pilih jenis"
@@ -28,20 +36,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import BaseTableClient from '@/components/BaseTableClient.vue'
 import { createColumnHelper } from '@tanstack/vue-table'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
-import BaseInputDateRange from '@/components/BaseInputDateRange.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
-import { usePetaniList } from '@/api/usePartner'
-import type { Petani } from '@/types/partner'
+import { useAgenKoperasiList, usePetaniList } from '@/api/usePartner'
+import { useKabupaten } from '@/api/useLocalization'
+import { useForm } from 'vee-validate'
+import type { Petani, Agen } from '@/types/partner'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 
-const petaniList = usePetaniList()
+const params = ref({})
+const petaniList = usePetaniList(params)
+const agenKoperasiList = useAgenKoperasiList(params)
+const kabupaten = useKabupaten()
 const searchValue = ref('')
 
-const columnHelper = createColumnHelper<Petani>()
+const { values } = useForm({
+  initialValues: {
+    jenis: 'petani',
+  },
+})
+
+const handleDataTable = computed(() => {
+  if (values.jenis === 'petani') return petaniList.data.value || []
+  else return agenKoperasiList.data.value || []
+})
+
+const columnHelper = createColumnHelper<Petani | Agen>()
 
 const columns = [
   columnHelper.display({
@@ -75,7 +98,6 @@ const columns = [
 ]
 
 const jenisOptions = [
-  { label: 'Semua', value: '' },
   { label: 'Petani', value: 'petani' },
   { label: 'Agen/Koperasi', value: 'agent' },
 ]
