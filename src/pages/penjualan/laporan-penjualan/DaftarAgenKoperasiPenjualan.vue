@@ -26,8 +26,8 @@
         <BaseCard
           v-for="data in agenKoperasiList.data.value"
           :key="data.id"
-          card-path="penjualan/laporan-penjualan"
-          :card-id="data.id"
+          card-path="penjualan/laporan-penjualan/agen-koperasi"
+          :card-id="data.name + '/' + data.id"
           :card-code="data.name"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         >

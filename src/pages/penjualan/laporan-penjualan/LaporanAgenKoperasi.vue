@@ -1,13 +1,12 @@
 <template>
   <div class="bg-image-wave container">
-    <BaseHeaderTitle title="Laporan Agen/Koperasi" />
-    <!-- <pre>{{ kabupaten.data.value }}</pre> -->
+    <BaseHeaderTitle :title="'Laporan ' + name" />
     <BaseTableClient
-      :data="data"
+      :data="transactionDetails.data.value"
       :columns="columns"
-      :page-size="5"
       :custom-header="true"
       :search-value="searchValue"
+      :is-loading="transactionDetails.isLoading.value"
       class="bg-white"
     >
       <template #header>
@@ -24,117 +23,73 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import BaseTableClient from '@/components/BaseTableClient.vue'
 import { createColumnHelper } from '@tanstack/vue-table'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseInputDateRange from '@/components/BaseInputDateRange.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
+import { useTransactionDetails } from '@/api/useTransaction'
+import type { TransactionDetails, TransactionDetailsParams } from '@/types/transaction'
 
-interface Produksi {
-  no?: number
-  kodeProduksi: string
-  agen: string
-  ugreen: string
-  green: string
-  jumlah: string
-  satuan: string
-  tanggal: string
-}
+const route = useRoute()
+const { id, name } = route.params
 
-const defaultData: Produksi[] = [
-  {
-    kodeProduksi: 'ABC1234',
-    agen: 'QWERTY777',
-    ugreen: 'ASDFG56',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '27/08/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '11/08/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '01/06/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '20/08/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '10/08/2024',
-  },
-  {
-    kodeProduksi: 'F64ABD5',
-    agen: '2A3B78C',
-    ugreen: '436BD21',
-    green: '98D5672',
-    jumlah: '800',
-    satuan: 'kg',
-    tanggal: '01/05/2024',
-  },
-]
+const params = ref<TransactionDetailsParams>({ id_destination_actor: Number(id) || undefined })
+const transactionDetails = useTransactionDetails(params)
 
-const data = ref(defaultData)
 const searchValue = ref('')
 
-const columnHelper = createColumnHelper<Produksi>()
+const columnHelper = createColumnHelper<TransactionDetails>()
 
 const columns = [
-  columnHelper.accessor('no', {
+  columnHelper.display({
     cell: (info) => info.row.index + 1,
     header: 'No',
   }),
-  columnHelper.accessor('kodeProduksi', {
+  columnHelper.accessor('date_order', {
     cell: (info) => info.getValue(),
-    header: 'Kode Produksi',
+    header: 'Tanggal Penjualan',
   }),
-  columnHelper.accessor('agen', {
+  columnHelper.accessor('specific_code', {
     cell: (info) => info.getValue(),
-    header: 'Agen',
+    header: 'Kode Penjualan',
   }),
-  columnHelper.accessor('ugreen', {
-    cell: (info) => info.getValue(),
-    header: 'Ugreen',
+  columnHelper.accessor('destination_actor', {
+    cell: (info) => info.getValue()[1],
+    header: 'Pembeli',
   }),
-  columnHelper.accessor('green', {
-    cell: (info) => info.getValue(),
-    header: 'Green',
+  columnHelper.accessor('destination_actor', {
+    cell: '-',
+    header: 'Jenis',
   }),
-  columnHelper.accessor('jumlah', {
-    cell: (info) => info.getValue(),
-    header: 'Jumlah',
+  columnHelper.accessor('destination_actor', {
+    cell: '-',
+    header: 'Kota/Kabupaten',
   }),
-  columnHelper.accessor('satuan', {
+  columnHelper.accessor('quantity', {
     cell: (info) => info.getValue(),
+    header: 'Total',
+  }),
+  columnHelper.accessor('product_uom_id', {
+    cell: (info) => info.getValue()[1],
     header: 'Satuan',
   }),
-  columnHelper.accessor('tanggal', {
+  columnHelper.accessor('price', {
     cell: (info) => info.getValue(),
-    header: 'Tanggal',
+    header: 'Harga/kg',
+  }),
+  columnHelper.accessor('value', {
+    cell: (info) => info.getValue(),
+    header: 'Total Harga',
+  }),
+  columnHelper.accessor('ownership_code_id', {
+    cell: (info) => info.getValue()[1],
+    header: 'Kode Referensi',
+  }),
+  columnHelper.accessor('destination_actor', {
+    cell: '-',
+    header: 'Status',
   }),
 ]
 </script>
