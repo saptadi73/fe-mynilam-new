@@ -53,10 +53,6 @@ const columns = [
     cell: (info) => info.getValue(),
     header: 'Ugreen',
   }),
-  columnHelper.accessor('reference_4', {
-    cell: (info) => info.getValue(),
-    header: 'Green',
-  }),
   columnHelper.accessor('latest_quantity', {
     cell: (info) => info.getValue(),
     header: 'Jumlah',
