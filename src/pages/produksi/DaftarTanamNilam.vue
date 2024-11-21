@@ -29,6 +29,7 @@
             :key="cardIndex"
             :card-code="card.production_identifier"
             class="col-span-3"
+            @click="showModalDetailTanam(card.id)"
           >
             <template #card-content>
               <div class="grid grid-cols-12 items-center gap-x-2">
@@ -91,7 +92,9 @@
                   >
                     {{ card.state == 'in_progress' ? 'On Progress' : card.state }}
                   </p>
-                  <BaseButton @click="showModal(card.id)" class="!text-sm font-bold mt-4 w-full">Catatan</BaseButton>
+                  <BaseButton @click.stop="showModal(card.id)" class="!text-sm font-bold mt-4 w-full"
+                    >Catatan</BaseButton
+                  >
                 </div>
               </div>
             </template>
@@ -106,6 +109,8 @@
       :data="noteList.data.value"
       :is-loading="noteList.isLoading.value"
     />
+
+    <ModalDetailTanam :modal="modalDetail" @set-modal="handleModalDetail" :data="{}" />
   </div>
 </template>
 
@@ -118,6 +123,7 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseChart from '@/components/BaseChart.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import ModalAuditTrail from './components/ModalAuditTrail.vue'
+import ModalDetailTanam from './ModalDetailTanam.vue'
 import { type ChartOptions } from 'chart.js/auto'
 import { onMounted, ref, watch } from 'vue'
 import { formatDate } from '@/utils/useFormatDate'
@@ -176,5 +182,13 @@ const showModal = (id: number) => {
   }
 
   modal.value = true
+}
+
+const modalDetail = ref<boolean>(false)
+const showModalDetailTanam = (id: number) => {
+  modalDetail.value = true
+}
+const handleModalDetail = (value: boolean) => {
+  modalDetail.value = value
 }
 </script>
