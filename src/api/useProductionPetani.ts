@@ -8,6 +8,7 @@ import type {
   DaftarProduksiParams,
   Note,
   NoteParams,
+  TanamDetailParams,
 } from '@/types/production'
 
 const mapDataWithChart = (response: any) => {
@@ -68,5 +69,16 @@ export function useNote(params?: Ref<NoteParams>) {
     queryKey: ['noteList', params],
     queryFn: getNoteList,
     enabled: () => !!params?.value.id, // only fetch if has kabupaten_id
+  })
+}
+
+export function useNilamDetail(params: Ref<TanamDetailParams>) {
+  const path = '/production/planting/detail'
+  const getNilamDetail = (): Promise<Note[]> => apiGet(path, params?.value)
+
+  return useQuery({
+    queryKey: ['nilamDetail', params],
+    queryFn: getNilamDetail,
+    enabled: () => !!params?.value.id_employee, // only fetch if has kabupaten_id
   })
 }

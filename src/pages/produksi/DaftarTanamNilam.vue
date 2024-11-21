@@ -29,14 +29,14 @@
             :key="cardIndex"
             :card-code="card.production_identifier"
             class="col-span-3"
-            @click="showModalDetailTanam(card.id)"
+            @click="showModalDetailTanam(card.employee_id[0])"
           >
             <template #card-content>
               <div class="grid grid-cols-12 items-center gap-x-2">
                 <div class="col-span-6 h-40 flex items-center justify-center">
                   <img
                     class="rounded-xl h-full object-cover"
-                    src="@/assets/images/produksi/nilam.jpeg"
+                    :src="card.production_planting_image_url"
                     alt="Nilam Image"
                   />
                 </div>
@@ -110,7 +110,7 @@
       :is-loading="noteList.isLoading.value"
     />
 
-    <ModalDetailTanam :modal="modalDetail" @set-modal="handleModalDetail" :data="{}" />
+    <ModalDetailTanam :modal="modalDetail" @set-modal="handleModalDetail" :data="nilamDetail.data.value" />
   </div>
 </template>
 
@@ -127,10 +127,10 @@ import ModalDetailTanam from './ModalDetailTanam.vue'
 import { type ChartOptions } from 'chart.js/auto'
 import { onMounted, ref, watch } from 'vue'
 import { formatDate } from '@/utils/useFormatDate'
-import { useDaftarTanam, useNote } from '@/api/useProductionPetani'
+import { useDaftarTanam, useNilamDetail, useNote } from '@/api/useProductionPetani'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { DaftarTanamParams, NoteParams } from '@/types/production'
+import { DaftarTanamParams, NoteParams, TanamDetailParams } from '@/types/production'
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
@@ -185,9 +185,17 @@ const showModal = (id: number) => {
 }
 
 const modalDetail = ref<boolean>(false)
+const idDetail = ref<TanamDetailParams>({})
+const nilamDetail = useNilamDetail(idDetail)
+
 const showModalDetailTanam = (id: number) => {
+  if (id) {
+    idDetail.value = { id_employee: id }
+  }
+
   modalDetail.value = true
 }
+
 const handleModalDetail = (value: boolean) => {
   modalDetail.value = value
 }

@@ -1,97 +1,97 @@
 <template>
-  <BaseModal :show-modal="modal" @set-modal="closeModal" class="max-w-4xl">
+  <BaseModal :show-modal="modal" @set-modal="closeModal" class="max-w-4xl mt-16">
     <template #modal-content>
       <slot name="content">
         <img
           class="bg-cover object-cover rounded-t-lg h-28 w-full"
-          src="@/assets/images/profile/profile-rectangle-bg.png"
-          alt="Background Profile"
+          :src="data[0].production_planting_image_url"
+          alt="Nilam Image"
         />
 
-        <div class="text-xl text-primary font-semibold flex justify-center py-3">Agus Priyatno</div>
+        <div class="text-xl text-primary font-semibold flex justify-center py-3">{{ data[0].employee_id[1] }}</div>
 
         <div class="grid grid-cols-12 gap-x-4 p-5">
-          <div class="col-span-6">
+          <div class="col-span-6 space-y-1">
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Nama Produk</div>
-              <div class="col-span-6">:&nbsp; Nilam</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].produce_product[1] }}</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Estimasi Panen Diharapkan</div>
-              <div class="col-span-6">:&nbsp; 18.000 Kg</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].produce_product[0] }} kg</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Kabupaten/Kota</div>
-              <div class="col-span-6">:&nbsp; Aceh Selatan</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].kabupaten_id[1] }}</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Lahan Yang Digunakan</div>
-              <div class="col-span-6">:&nbsp; LP-ACE-AS-FA046-0015</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].asset_id[1] }}</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Tanggal Mulai Produksi</div>
-              <div class="col-span-6">:&nbsp; 17 April 2024</div>
+              <div class="col-span-6">:&nbsp; {{ formatDate(data[0].date_planned_start) }}</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Tanggal Selesai Produksi</div>
-              <div class="col-span-6">:&nbsp; 17 Agustus 2024</div>
+              <div class="col-span-6">:&nbsp; {{ formatDate(data[0].date_planned_finish) }}</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Lokasi Perkebunan</div>
-              <div class="col-span-6">:&nbsp; Timang Rasa, Timang Gajah, Bener Meriah Regency, Aceh</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].address }}</div>
             </div>
           </div>
 
-          <div class="col-span-6">
+          <div class="col-span-6 space-y-1">
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Status Produksi</div>
-              <div class="col-span-6">:&nbsp; Selesai</div>
+              <div class="col-span-6 capitalize">:&nbsp; {{ data[0].state }}</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Kode Produksi</div>
-              <div class="col-span-6">:&nbsp; TNM94A2X</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].production_identifier }}</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
-              <div class="col-span-6 font-semibold text-primary">Persentase Selesai</div>
-              <div class="col-span-6">:&nbsp; 100%</div>
+              <div class="col-span-6 font-semibold text-primary">Persentase Tanam</div>
+              <div class="col-span-6">:&nbsp; {{ Math.round(data[0].completion_percentage) }}%</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Luas</div>
-              <div class="col-span-6">:&nbsp; 1.000 m²</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].area }} m²</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Tanggal Telat Panen</div>
-              <div class="col-span-6">:&nbsp; 4 September 2024</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].date_missed }}</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Hasil Sebenarnya</div>
-              <div class="col-span-6">:&nbsp; 4.000 Kg</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].actual_quantity }} kg</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
-              <div class="col-span-6 font-semibold text-primary">Hasil Sebenarnya</div>
-              <div class="col-span-6">:&nbsp; 4.000 Kg</div>
+              <div class="col-span-6 font-semibold text-primary">Kerugian Panen</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].quantity_loss }} kg</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Kondisi Cuaca</div>
-              <div class="col-span-6">:&nbsp; Musim Kemarau</div>
+              <div class="col-span-6 capitalize">:&nbsp; {{ data[0].weather_conditions }}</div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1.5">
               <div class="col-span-6 font-semibold text-primary">Koordinat Lokasi</div>
-              <div class="col-span-6">:&nbsp; 4.747883, 96.748811</div>
+              <div class="col-span-6">:&nbsp; {{ data[0].coordinates }}</div>
             </div>
           </div>
         </div>
@@ -102,10 +102,12 @@
 
 <script setup lang="ts">
 import BaseModal from '@/components/BaseModal.vue'
+import { NilamDetailType } from '@/types/production'
+import { formatDate } from '@/utils/useFormatDate'
 
 interface PropsModal {
   modal: Boolean
-  data: any
+  data: NilamDetailType[]
 }
 
 defineProps<PropsModal>()
