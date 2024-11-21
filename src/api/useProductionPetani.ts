@@ -9,6 +9,7 @@ import type {
   Note,
   NoteParams,
   TanamDetailParams,
+  NilamDetailType,
 } from '@/types/production'
 
 const mapDataWithChart = (response: any) => {
@@ -74,7 +75,7 @@ export function useNote(params?: Ref<NoteParams>) {
 
 export function useNilamDetail(params: Ref<TanamDetailParams>) {
   const path = '/production/planting/detail'
-  const getNilamDetail = (): Promise<Note[]> => apiGet(path, params?.value)
+  const getNilamDetail = (): Promise<NilamDetailType[]> => apiGet(path, params?.value)
 
   return useQuery({
     queryKey: ['nilamDetail', params],
