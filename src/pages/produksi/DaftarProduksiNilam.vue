@@ -28,6 +28,7 @@
             :key="cardIndex"
             :card-code="card.production_identifier"
             class="col-span-3"
+            @click="showModalDetailProduksi()"
           >
             <template #card-content>
               <div class="grid grid-cols-12 items-center gap-x-2">
@@ -88,7 +89,7 @@
                   </p>
                 </div>
                 <div class="col-span-6 place-content-end pt-2">
-                  <BaseButton @click="showModal(card.id)" class="!text-sm font-bold w-full">Catatan</BaseButton>
+                  <BaseButton @click.stop="showModal(card.id)" class="!text-sm font-bold w-full">Catatan</BaseButton>
                 </div>
               </div>
             </template>
@@ -103,6 +104,8 @@
       :data="noteList.data.value"
       :is-loading="noteList.isLoading.value"
     />
+
+    <ModalDetailProduksi :modal="modalDetail" @set-modal="handleModalDetail" />
   </div>
 </template>
 
@@ -122,6 +125,7 @@ import { useKabupaten } from '@/api/useLocalization'
 import { useDaftarProduksi, useNote } from '@/api/useProductionPetani'
 import { DaftarProduksiParams, NoteParams } from '@/types/production'
 import { formatDate } from '../../utils/useFormatDate'
+import ModalDetailProduksi from './ModalDetailProduksi.vue'
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
@@ -174,4 +178,14 @@ const showModal = (id: number) => {
 onMounted(() => {
   handleParamValue()
 })
+
+const modalDetail = ref<boolean>(false)
+
+const showModalDetailProduksi = () => {
+  modalDetail.value = true
+}
+
+const handleModalDetail = (value: boolean) => {
+  modalDetail.value = value
+}
 </script>
