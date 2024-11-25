@@ -87,3 +87,27 @@ export interface Aset {
   planting_status: string
   kabupaten_id: any
 }
+
+export interface LahanDetail {
+  id: number
+  farm_id: string
+  product_id: any
+  employee_id: any
+  asset_image_url: string
+  production_capacity: number
+  employee_ilo_associate: string
+  employee_ilo_associate_code: string
+  coordinates: string
+  area_ha: string
+  ownership_status: string
+  planting_status: string
+  harvesting_status: string
+  address: string
+  state_id: any
+  kabupaten_id: any
+  shp_filename: string
+}
+
+export interface LahanDetailParams {
+  asset_id?: number
+}

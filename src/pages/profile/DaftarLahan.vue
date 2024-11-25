@@ -151,7 +151,7 @@
       </BaseModal>
     </div>
 
-    <ModalDetailLahan :modal="modalDetail" @set-modal="handleModalDetail" />
+    <ModalDetailLahan :modal="modalDetail" @set-modal="handleModalDetail" :data="lahanDetail.data.value" />
   </div>
 </template>
 
@@ -170,8 +170,8 @@ import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import ModalDetailLahan from './ModalDetailLahan.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { useAsetList } from '@/api/useAset'
-import { DaftarAsetParams } from '@/types/partner'
+import { useAsetList, useLahanDetail } from '@/api/useAset'
+import type { DaftarAsetParams, LahanDetailParams } from '@/types/partner'
 
 const route = useRoute()
 const daerah = route.params.daerah
@@ -231,8 +231,14 @@ const optionsStatusLahan = ref([
 ])
 
 const modalDetail = ref<boolean>(false)
+const idDetail = ref<LahanDetailParams>({})
+const lahanDetail = useLahanDetail(idDetail)
 
 const showModalDetailLahan = (id: number) => {
+  if (id) {
+    idDetail.value = { asset_id: id }
+  }
+
   modalDetail.value = true
 }
 
