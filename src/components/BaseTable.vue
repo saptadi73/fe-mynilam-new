@@ -55,7 +55,7 @@
         </thead>
         <tbody>
           <tr
-            v-if="!props.isLoading"
+            v-if="!isLoading"
             v-for="row in table.getRowModel().rows"
             :key="row.id"
             class="border-b border-primary-border hover:bg-gray-100"
@@ -68,6 +68,11 @@
           </tr>
           <tr v-else>
             <td :colspan="table.getHeaderGroups()[0].headers.length" class="text-center py-14">Loading...</td>
+          </tr>
+          <tr v-if="!isLoading && !totalData" class="border-b border-primary-border hover:bg-gray-100">
+            <td :colspan="table.getHeaderGroups()[0].headers.length" class="text-center py-14">
+              Tidak ada data untuk ditampilkan.
+            </td>
           </tr>
         </tbody>
       </table>
