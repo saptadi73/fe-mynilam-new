@@ -33,7 +33,7 @@
             :card-id="card.id"
             :card-code="card.code"
             class="col-span-12 md:col-span-6 lg:col-span-3"
-            @click="$router.push({ name: 'Detail Lahan', params: { id: card.id } })"
+            @click="showModalDetailLahan(card.id)"
           >
             <template #card-content>
               <div class="flex justify-center pt-2">
@@ -150,6 +150,8 @@
         </template>
       </BaseModal>
     </div>
+
+    <ModalDetailLahan :modal="modalDetail" @set-modal="handleModalDetail" />
   </div>
 </template>
 
@@ -165,6 +167,7 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
+import ModalDetailLahan from './ModalDetailLahan.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
 import { useAsetList } from '@/api/useAset'
@@ -226,4 +229,14 @@ const optionsStatusLahan = ref([
   { label: 'Aktif', value: 1 },
   { label: 'Tidak AKtif', value: 2 },
 ])
+
+const modalDetail = ref<boolean>(false)
+
+const showModalDetailLahan = (id: number) => {
+  modalDetail.value = true
+}
+
+const handleModalDetail = (value: boolean) => {
+  modalDetail.value = value
+}
 </script>
