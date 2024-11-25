@@ -2,7 +2,7 @@
   <div class="bg-image-wave container">
     <BaseHeaderTitle :title="'Laporan ' + name" />
     <BaseTableClient
-      :data="transactionDetails.data.value"
+      :data="transactionDetails.data.value || []"
       :columns="columns"
       :custom-header="true"
       :search-value="searchValue"
@@ -14,7 +14,12 @@
           class="p-4 lg:flex items-center lg:space-x-3 space-y-4 lg:space-y-0 overflow-x-auto overflow-y-visible z-10"
         >
           <BaseSearchBar v-model="searchValue" placeholder="Cari nama pembeli" class="w-full lg:w-52 2xl:w-60" />
-          <BaseInputDateRange name="tanggal" placeholder-start="Tanggal mulai" placeholder-end="Tanggal akhir" />
+          <BaseInputDateRange
+            name="tanggal"
+            placeholder-start="Tanggal mulai"
+            placeholder-end="Tanggal akhir"
+            @change="handleDateChange"
+          />
         </div>
       </template>
     </BaseTableClient>
@@ -39,6 +44,11 @@ const params = ref<TransactionDetailsParams>({ id_destination_actor: Number(id) 
 const transactionDetails = useTransactionDetails(params)
 
 const searchValue = ref('')
+
+const handleDateChange = (value: string[]) => {
+  params.value.start_date = value[0]
+  params.value.end_date = value[1]
+}
 
 const columnHelper = createColumnHelper<TransactionDetails>()
 
