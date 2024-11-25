@@ -29,7 +29,7 @@
             :key="cardIndex"
             :card-code="card.production_identifier"
             class="col-span-3"
-            @click="showModalDetailTanam(card.employee_id[0])"
+            @click="showModalDetailTanam(card.id)"
           >
             <template #card-content>
               <div class="grid grid-cols-12 items-center gap-x-2">
@@ -190,7 +190,7 @@ const nilamDetail = useNilamDetail(idDetail)
 
 const showModalDetailTanam = (id: number) => {
   if (id) {
-    idDetail.value = { id_employee: id }
+    idDetail.value = { id_planting: id }
   }
 
   modalDetail.value = true

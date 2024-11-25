@@ -82,7 +82,7 @@ export function useNilamDetail(params: Ref<TanamDetailParams>) {
   return useQuery({
     queryKey: ['nilamDetail', params],
     queryFn: getNilamDetail,
-    enabled: () => !!params?.value.id_employee, // only fetch if has kabupaten_id
+    enabled: () => !!params?.value.id_planting, // only fetch if has id_planting
   })
 }
 

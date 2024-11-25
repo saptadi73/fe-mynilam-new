@@ -117,7 +117,7 @@ export interface DaftarTanamParams {
 }
 
 export interface TanamDetailParams {
-  id_employee?: number
+  id_planting?: number
 }
 
 export interface DaftarProduksiParams {
