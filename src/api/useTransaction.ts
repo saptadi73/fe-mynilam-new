@@ -5,6 +5,7 @@ import type {
   DaftarPenjualanParams,
   FarmerReport,
   ReferenceSummary,
+  ReferenceSummaryParams,
   TransactionDetails,
   TransactionDetailsParams,
 } from '@/types/transaction'
@@ -20,11 +21,11 @@ export function useDaftarPenjualan(params?: Ref<DaftarPenjualanParams>) {
   })
 }
 
-export function useReferenceSummary() {
+export function useReferenceSummary(params?: Ref<ReferenceSummaryParams>) {
   const path = '/transaction/reference/summary'
-  const getReferenceSummary = (): Promise<ReferenceSummary[]> => apiGet(path)
+  const getReferenceSummary = (): Promise<ReferenceSummary[]> => apiGet(path, params?.value)
   return useQuery({
-    queryKey: ['referenceSummary'],
+    queryKey: ['referenceSummary', params],
     queryFn: getReferenceSummary,
   })
 }

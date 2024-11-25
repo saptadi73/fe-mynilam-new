@@ -1,8 +1,8 @@
 <template>
   <div class="bg-image-wave px-4 lg:px-16">
-    <BaseHeaderTitle title="Tracebility Product Petani" />
+    <BaseHeaderTitle title="Traceability Product Petani" />
     <BaseTableClient
-      :data="referenceSummary.data.value"
+      :data="referenceSummary.data.value || []"
       :columns="columns"
       :custom-header="true"
       :search-value="searchValue"
@@ -20,6 +20,7 @@
             value-key="id"
             :options="kabupaten.data.value"
             class="w-full lg:w-44 2xl:w-52"
+            @change="handleDaerahChange"
           />
           <BaseInputSelect
             name="agen"
@@ -32,7 +33,7 @@
             name="tanggal"
             placeholder-start="Tanggal mulai"
             placeholder-end="Tanggal akhir"
-            @change="(value: string[]) => console.log(value)"
+            @change="handleDateChange"
           />
           <BaseSearchBar v-model="searchValue" placeholder="Cari kode produksi" class="w-full lg:w-52 2xl:w-60" />
         </div>
@@ -85,9 +86,10 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import { useReferenceSummary } from '@/api/useTransaction'
 import { useKabupaten } from '@/api/useLocalization'
-import type { ReferenceSummary } from '@/types/transaction'
+import type { ReferenceSummary, ReferenceSummaryParams } from '@/types/transaction'
 
-const referenceSummary = useReferenceSummary()
+const params = ref<ReferenceSummaryParams>({})
+const referenceSummary = useReferenceSummary(params)
 const kabupaten = useKabupaten()
 const searchValue = ref('')
 
@@ -96,6 +98,15 @@ const agenList = ref([
   { label: 'Agen Indonesia Raya', value: 2 },
   { label: 'Agen Aceh', value: 3 },
 ])
+
+const handleDaerahChange = (value: number) => {
+  params.value.kabupaten_id = value
+}
+
+const handleDateChange = (value: string[]) => {
+  params.value.start_date = value[0]
+  params.value.end_date = value[1]
+}
 
 const columnHelper = createColumnHelper<ReferenceSummary>()
 

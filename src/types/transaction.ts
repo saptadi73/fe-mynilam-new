@@ -32,6 +32,14 @@ export interface DaftarPenjualan {
   state: string
 }
 
+export interface ReferenceSummaryParams {
+  id_petani?: number
+  id_agent_koperasi?: number
+  kabupaten_id?: number
+  start_date?: string
+  end_date?: string
+}
+
 export interface ReferenceSummary {
   id: number
   reference_1: string
