@@ -86,6 +86,31 @@ export interface NilamProductionType {
   chartData: ChartData
 }
 
+export interface NilamProductionDetailType {
+  id: number
+  asset_id: any
+  production_identifier: string
+  production_harvesting_image_url: string
+  employee_id: any
+  coordinates: string
+  weather_conditions: string
+  kabupaten_id: any
+  area_ha: number
+  date_started: string
+  date_harvested: string
+  date_actual: string
+  extraction_method: string
+  produce_product: any
+  final_product: any
+  final_quantity: string
+  product_quality: string
+  address: string
+  state: string
+  completion_percentage: number
+  percentage_final_quantity: number
+  planting_produce_quantity: number
+}
+
 export interface DaftarTanamParams {
   name?: string
   kabupaten_id?: number
@@ -98,6 +123,10 @@ export interface TanamDetailParams {
 export interface DaftarProduksiParams {
   name?: string
   kabupaten_id?: number
+}
+
+export interface ProduksiDetailParams {
+  id_harvesting?: number
 }
 
 export interface NoteParams {

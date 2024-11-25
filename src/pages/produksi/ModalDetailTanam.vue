@@ -100,7 +100,7 @@
 
 <script setup lang="ts">
 import BaseModal from '@/components/BaseModal.vue'
-import { NilamDetailType } from '@/types/production'
+import type { NilamDetailType } from '@/types/production'
 import { formatDate } from '@/utils/useFormatDate'
 
 interface PropsModal {

@@ -28,7 +28,7 @@
             :key="cardIndex"
             :card-code="card.production_identifier"
             class="col-span-3"
-            @click="showModalDetailProduksi()"
+            @click="showModalDetailProduksi(card.id)"
           >
             <template #card-content>
               <div class="grid grid-cols-12 items-center gap-x-2">
@@ -105,7 +105,7 @@
       :is-loading="noteList.isLoading.value"
     />
 
-    <ModalDetailProduksi :modal="modalDetail" @set-modal="handleModalDetail" />
+    <ModalDetailProduksi :modal="modalDetail" @set-modal="handleModalDetail" :data="nilamDetail.data.value" />
   </div>
 </template>
 
@@ -118,14 +118,14 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseChart from '@/components/BaseChart.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import ModalAuditTrail from './components/ModalAuditTrail.vue'
+import ModalDetailProduksi from './ModalDetailProduksi.vue'
 import { type ChartOptions } from 'chart.js/auto'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { useDaftarProduksi, useNote } from '@/api/useProductionPetani'
-import { DaftarProduksiParams, NoteParams } from '@/types/production'
+import { useDaftarProduksi, useNote, useProduksiDetail } from '@/api/useProductionPetani'
+import type { DaftarProduksiParams, NoteParams, ProduksiDetailParams } from '@/types/production'
 import { formatDate } from '../../utils/useFormatDate'
-import ModalDetailProduksi from './ModalDetailProduksi.vue'
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
@@ -180,8 +180,14 @@ onMounted(() => {
 })
 
 const modalDetail = ref<boolean>(false)
+const idDetail = ref<ProduksiDetailParams>({})
+const nilamDetail = useProduksiDetail(idDetail)
 
-const showModalDetailProduksi = () => {
+const showModalDetailProduksi = (id: number) => {
+  if (id) {
+    idDetail.value = { id_harvesting: id }
+  }
+
   modalDetail.value = true
 }
 

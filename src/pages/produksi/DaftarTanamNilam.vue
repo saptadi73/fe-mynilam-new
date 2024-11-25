@@ -130,7 +130,7 @@ import { formatDate } from '@/utils/useFormatDate'
 import { useDaftarTanam, useNilamDetail, useNote } from '@/api/useProductionPetani'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { DaftarTanamParams, NoteParams, TanamDetailParams } from '@/types/production'
+import type { DaftarTanamParams, NoteParams, TanamDetailParams } from '@/types/production'
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
