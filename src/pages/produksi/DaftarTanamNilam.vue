@@ -156,7 +156,7 @@ const handleParamValue = () => {
   if (selectedKabupaten) {
     params.value = {
       kabupaten_id: selectedKabupaten.id,
-      name: search.value || undefined,
+      nama_petani: search.value || undefined,
     }
   }
 }

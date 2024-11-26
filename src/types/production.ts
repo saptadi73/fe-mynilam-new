@@ -112,7 +112,7 @@ export interface NilamProductionDetailType {
 }
 
 export interface DaftarTanamParams {
-  name?: string
+  nama_petani?: string
   kabupaten_id?: number
 }
 
@@ -121,7 +121,7 @@ export interface TanamDetailParams {
 }
 
 export interface DaftarProduksiParams {
-  name?: string
+  nama_petani?: string
   kabupaten_id?: number
 }
 
