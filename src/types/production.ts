@@ -47,6 +47,7 @@ export interface NilamPlantingType {
   address: string
   state: string
   completion_percentage: number
+  quantity: number
   chartData: ChartData
 }
 
@@ -74,6 +75,7 @@ export interface NilamDetailType {
 export interface NilamProductionType {
   id: number
   production_identifier: string
+  production_harvesting_image_url: string
   employee_id: any
   coordinates: string
   date_started: string
@@ -83,6 +85,7 @@ export interface NilamProductionType {
   address: string
   state: string
   completion_percentage: number
+  final_quantity: number
   chartData: ChartData
 }
 
@@ -112,8 +115,10 @@ export interface NilamProductionDetailType {
 }
 
 export interface DaftarTanamParams {
+  id_petani?: number
   nama_petani?: string
   kabupaten_id?: number
+  status?: 'done' | 'in_progress'
 }
 
 export interface TanamDetailParams {
@@ -121,6 +126,7 @@ export interface TanamDetailParams {
 }
 
 export interface DaftarProduksiParams {
+  id_petani?: number
   nama_petani?: string
   kabupaten_id?: number
 }

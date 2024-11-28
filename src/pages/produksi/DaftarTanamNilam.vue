@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Estimasi Panen</h1>
-                  <p class="font-bold text-sm">{{ card.produce_product[0] }} kg</p>
+                  <p class="font-bold text-sm">{{ card.quantity }} kg</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Lokasi</h1>

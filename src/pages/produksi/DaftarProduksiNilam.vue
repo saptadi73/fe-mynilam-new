@@ -32,10 +32,10 @@
           >
             <template #card-content>
               <div class="grid grid-cols-12 items-center gap-x-2">
-                <div class="col-span-6">
+                <div class="col-span-6 h-40 flex items-center justify-center">
                   <img
-                    class="rounded-xl"
-                    src="@/assets/images/produksi/produksi-nilam.jpeg"
+                    class="rounded-xl h-full object-cover"
+                    :src="card.production_harvesting_image_url"
                     alt="Produksi Nilam Image"
                   />
                 </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Estimasi Produksi</h1>
-                  <p class="font-bold text-sm">{{ card.produce_product[0] }} kg</p>
+                  <p class="font-bold text-sm">{{ card.final_quantity }} kg</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Alamat</h1>
