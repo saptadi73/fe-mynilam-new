@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Estimasi Produksi</h1>
-                  <p class="font-bold text-sm">{{ card.final_quantity }} kg</p>
+                  <p class="font-bold text-sm">{{ Math.floor(card.final_quantity) }} kg</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Lokasi</h1>
@@ -78,10 +78,10 @@
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Status</h1>
                   <p
-                    v-if="card.state == 'done'"
-                    class="bg-primary text-white font-bold text-sm rounded-lg inline-block px-2.5 py-1"
+                    :class="{ 'bg-[#20D173]': card.state === 'in_progress', 'bg-[#015438]': card.state === 'done' }"
+                    class="text-white font-bold text-sm capitalize rounded-lg inline-block px-2.5 py-1"
                   >
-                    Done
+                    {{ card.state === 'in_progress' ? 'On Progress' : card.state }}
                   </p>
                 </div>
               </div>
