@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Estimasi Produksi</h1>
-                  <p class="font-bold text-sm">{{ card.produce_product[0] }} kg</p>
+                  <p class="font-bold text-sm">{{ card.final_quantity }} kg</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Lokasi</h1>
@@ -106,17 +106,14 @@ import { useDaftarProduksi } from '@/api/useProductionPetani'
 import { formatDate } from '@/utils/useFormatDate'
 
 const route = useRoute()
-const { name } = route.params
-const search = ref<string>('')
+const { id } = route.params
 
 const params = ref<DaftarProduksiParams>({})
 const produksiNilamList = useDaftarProduksi(params)
 
 const handleParamValue = () => {
-  if (name) {
-    params.value = {
-      name: String(name) || search.value || undefined,
-    }
+  params.value = {
+    id_petani: Number(id),
   }
 }
 

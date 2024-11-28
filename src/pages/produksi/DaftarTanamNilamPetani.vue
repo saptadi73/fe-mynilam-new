@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Estimasi Panen</h1>
-                  <p class="font-bold text-sm">{{ card.produce_product[0] }} kg</p>
+                  <p class="font-bold text-sm">{{ card.quantity }} kg</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Lokasi</h1>
@@ -117,15 +117,16 @@ const chartOptions: ChartOptions<'doughnut'> = {
 }
 
 const route = useRoute()
-const { name } = route.params
+const { id } = route.params
 
 const params = ref<DaftarTanamParams>({})
 const tanamNilamList = useDaftarTanam(params)
 
 const handleParamValue = () => {
-  if (name) {
+  if (id) {
     params.value = {
-      name: String(name) || undefined,
+      id_petani: Number(id),
+      status: 'done',
     }
   }
 }
