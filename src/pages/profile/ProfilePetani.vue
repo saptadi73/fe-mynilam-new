@@ -116,7 +116,7 @@
             <div class="col-span-8 font-bold flex items-center">
               : &nbsp;
               <span v-if="!petaniProfile.isLoading.value">{{
-                petaniProfile.data.value?.education_level_id ?? '-'
+                petaniProfile.data.value?.education_level_id ? petaniProfile.data.value?.education_level_id[1] : '-'
               }}</span>
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
@@ -149,16 +149,15 @@
               <template v-if="!petaniProfile.isLoading.value && petaniProfile.data.value">
                 <p>
                   : &nbsp;
-                  <RouterLink
-                    :to="{ name: 'Daftar Tanam Nilam Petani', params: { name: petaniProfile.data.value?.name } }"
-                  >
-                    {{ Math.round(petaniProfile.data.value.total_oil_quantity) }} kg ({{
-                      petaniProfile.data.value?.in_progress_oil_percentage_quantity
-                    }}% target panen)</RouterLink
-                  >
+                  <RouterLink :to="{ name: 'Daftar Tanam Nilam Petani', params: { id: petaniProfile.data.value?.id } }">
+                    {{ petaniProfile.data.value.total_planting_quantity }} kg
+                    <!-- ({{
+                      roundNumber(petaniProfile.data.value?.in_progress_percentage_quantity)
+                    }}% target panen) -->
+                  </RouterLink>
                 </p>
 
-                <ProgressBar :progress="`${petaniProfile.data.value?.in_progress_percentage_quantity}%`" />
+                <!-- <ProgressBar :progress="`${roundNumber(petaniProfile.data.value?.in_progress_percentage_quantity)}%`" /> -->
               </template>
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
@@ -173,31 +172,41 @@
                 <p>
                   : &nbsp;
                   <RouterLink
-                    :to="{ name: 'Daftar Produksi Nilam Petani', params: { name: petaniProfile.data.value?.name } }"
+                    :to="{ name: 'Daftar Produksi Nilam Petani', params: { id: petaniProfile.data.value?.id } }"
                   >
-                    {{ petaniProfile.data.value?.assets?.[0]?.production_capacity }} kg ({{
-                      petaniProfile.data.value?.in_progress_percentage_quantity
+                    {{ petaniProfile.data.value?.total_oil_quantity }} kg ({{
+                      roundNumber(petaniProfile.data.value?.in_progress_oil_percentage_quantity ?? 0)
                     }}% target produksi)</RouterLink
                   >
                 </p>
-                <ProgressBar :progress="`${petaniProfile.data.value?.in_progress_percentage_quantity}%`" />
+                <ProgressBar
+                  :progress="`${roundNumber(petaniProfile.data.value?.in_progress_oil_percentage_quantity ?? 0)}%`"
+                />
               </template>
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
 
             <div class="col-span-4 font-bold">Tanam (sekarang)</div>
-            <div class="col-span-8 font-bold text-primary-2 flex items-center">
-              : &nbsp;
+            <div
+              class="col-span-8 font-bold text-primary-2"
+              :class="petaniProfile.isLoading.value ? 'flex items-center' : ''"
+            >
+              <span v-if="petaniProfile.isLoading.value"> : &nbsp;</span>
               <template v-if="!petaniProfile.isLoading.value">
                 <p>
+                  : &nbsp;
                   <RouterLink
                     :to="{
                       name: 'Daftar Tanam Nilam Petani Progress',
-                      params: { name: petaniProfile.data.value?.name },
+                      params: { id: petaniProfile.data.value?.id },
                     }"
                   >
-                    {{ petaniProfile.data.value?.total_planting_quantity }} kg target panen</RouterLink
+                    {{ petaniProfile.data.value?.in_progress_planting_quantity }} kg target tanam</RouterLink
                   >
+
+                  <ProgressBar
+                    :progress="`${roundNumber(petaniProfile.data.value?.in_progress_percentage_quantity ?? 0)}%`"
+                  />
                 </p>
               </template>
               <BaseSkeletonText v-else class="w-40 h-4" />
@@ -315,6 +324,10 @@ const showModal = () => {
       values: updatedPetaniProfileData,
     })
   }
+}
+
+const roundNumber = (num: number) => {
+  return Math.floor(num * 100) / 100
 }
 
 const closeModal = () => {
