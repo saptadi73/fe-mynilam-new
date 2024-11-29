@@ -10,7 +10,6 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-y-4 md:gap-y-4 md:gap-x-4 mt-2">
-        <BaseCardAdd card-title="Petani" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <div
           class="col-span-9 self-center text-center text-gray-600"
           v-if="!petaniList.data.value && !petaniList.isLoading.value"
@@ -19,7 +18,7 @@
         </div>
         <BaseSkeletonCard
           v-if="petaniList.isLoading.value"
-          v-for="n in 3"
+          v-for="n in 4"
           :key="n"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         />
@@ -89,7 +88,6 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
-import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import type { PetaniListParams } from '@/types/partner'
 
