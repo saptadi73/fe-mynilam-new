@@ -87,7 +87,7 @@
         </BaseCard>
       </div>
 
-      <BaseModal :show-modal="modal" @set-modal="handleModal" class="max-w-2xl">
+      <BaseModal :show-modal="modal" @set-modal="handleModal" class="max-w-4xl">
         <template #modal-content>
           <FormTambahDaftarProduk :data="selectedData" @close-modal="closeModal" />
         </template>
