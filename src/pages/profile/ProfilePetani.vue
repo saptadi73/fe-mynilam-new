@@ -232,7 +232,15 @@
               placeholder="Kota/Kabupaten"
               :floating-label="true"
             />
-            <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
+            <BaseInputSelect
+              :options="provinsi.data.value"
+              label-key="name"
+              value-key="id"
+              name="provinsi"
+              placeholder="Provinsi"
+              :floating-label="true"
+              :disabled="true"
+            />
             <BaseInputFloat label="Anggota Keluarga" name="family_members" type="number" />
             <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
             <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
@@ -275,13 +283,14 @@ import { ref } from 'vue'
 import { useForm } from 'vee-validate'
 import { object, string, number, mixed } from 'yup'
 import { useRoute } from 'vue-router'
-import { useKabupaten } from '@/api/useLocalization'
+import { useKabupaten, useProvinsi } from '@/api/useLocalization'
 import { usePetaniProfile } from '@/api/usePetani'
 import type { PetaniProfileParams } from '@/types/partner'
 import { formatRupiah } from '@/utils/useFormatRupiah'
 
 const route = useRoute()
 const kabupatenList = useKabupaten()
+const provinsi = useProvinsi()
 
 const petaniProfileParams = ref<PetaniProfileParams>({ user_id: Number(route.params.id) })
 const petaniProfile = usePetaniProfile(petaniProfileParams)
@@ -293,7 +302,7 @@ const { handleSubmit, resetForm } = useForm({
     kelurahan: string().required().label('Desa/Kelurahan'),
     kecamatan: string().required().label('Kecamatan'),
     kabupaten: number().required().label('Kota/Kabupaten'),
-    provinsi: string().required().label('Provinsi'),
+    provinsi: number().required().label('Provinsi'),
     family_members: number().required().label('Anggota Keluarga'),
     status: string().required().label('Status'),
     pendidikan: string().required().label('Pendidikan'),
@@ -313,10 +322,11 @@ const showModal = () => {
   modal.value = true
   const petaniProfileData = petaniProfile.data.value
 
-  if (petaniProfileData && petaniProfileData.kabupaten_id) {
+  if (petaniProfileData && petaniProfileData.kabupaten_id && provinsi.data.value) {
     const updatedPetaniProfileData = {
       ...petaniProfileData,
       kabupaten: petaniProfileData.kabupaten_id[0],
+      provinsi: provinsi.data.value[0].id,
       pendidikan: petaniProfileData.education_level_id,
     }
 

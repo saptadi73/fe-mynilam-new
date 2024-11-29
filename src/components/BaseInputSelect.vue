@@ -29,6 +29,7 @@
         @blur="handleOnBlur"
         class="block pt-3 pb-1.5 pl-0 pr-6 w-full font-semibold text-primary-2 bg-transparent border-0 border-b-2 border-primary-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary-2 peer"
         placeholder=" "
+        :disabled="disabled"
       />
       <label
         :for="name"
@@ -85,6 +86,7 @@ interface Props {
   options?: Option[]
   name: string
   placeholder: string
+  disabled?: boolean
   floatingLabel?: boolean
   labelKey?: string // custom label key
   valueKey?: string // custom value key
@@ -93,6 +95,7 @@ interface Props {
 const emit = defineEmits()
 const props = withDefaults(defineProps<Props>(), {
   options: () => [],
+  disabled: false,
   labelKey: 'label',
   valueKey: 'value',
 })
