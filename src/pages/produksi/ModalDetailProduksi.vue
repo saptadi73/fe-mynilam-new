@@ -95,7 +95,9 @@
 
           <div class="grid grid-cols-12 gap-x-1.5">
             <div class="col-span-6 font-semibold text-primary">Kabupaten/Kota</div>
-            <div class="col-span-6 capitalize">:&nbsp; {{ data?.[0].kabupaten_id[1] }}</div>
+            <div class="col-span-6 capitalize">
+              :&nbsp; {{ data?.[0].kabupaten_id ? data?.[0].kabupaten_id[1] : '-' }}
+            </div>
           </div>
 
           <div class="grid grid-cols-12 gap-x-1.5">

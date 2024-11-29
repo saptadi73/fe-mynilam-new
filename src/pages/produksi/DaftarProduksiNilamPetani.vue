@@ -21,13 +21,14 @@
             :key="cardIndex"
             :card-code="card.production_identifier"
             class="col-span-3"
+            @click="showModalDetailProduksi(card.id)"
           >
             <template #card-content>
               <div class="grid grid-cols-12 items-center gap-x-2">
                 <div class="col-span-6 h-40 flex items-center justify-center">
                   <img
                     class="rounded-xl h-full object-cover"
-                    src="@/assets/images/produksi/nilam.jpeg"
+                    :src="card.production_harvesting_image_url"
                     alt="Nilam Image"
                   />
                 </div>
@@ -90,6 +91,8 @@
         </template>
       </div>
     </div>
+
+    <ModalDetailProduksi :modal="modalDetail" @set-modal="handleModalDetail" :data="nilamDetail.data.value" />
   </div>
 </template>
 
@@ -99,10 +102,11 @@ import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseChart from '@/components/BaseChart.vue'
+import ModalDetailProduksi from './ModalDetailProduksi.vue'
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
-import { DaftarProduksiParams } from '@/types/production'
-import { useDaftarProduksi } from '@/api/useProductionPetani'
+import { DaftarProduksiParams, ProduksiDetailParams } from '@/types/production'
+import { useDaftarProduksi, useProduksiDetail } from '@/api/useProductionPetani'
 import { formatDate } from '@/utils/useFormatDate'
 
 const route = useRoute()
@@ -120,6 +124,22 @@ const handleParamValue = () => {
 onMounted(() => {
   handleParamValue()
 })
+
+const modalDetail = ref<boolean>(false)
+const idDetail = ref<ProduksiDetailParams>({})
+const nilamDetail = useProduksiDetail(idDetail)
+
+const showModalDetailProduksi = (id: number) => {
+  if (id) {
+    idDetail.value = { id_harvesting: id }
+  }
+
+  modalDetail.value = true
+}
+
+const handleModalDetail = (value: boolean) => {
+  modalDetail.value = value
+}
 
 const chartOptions: ChartOptions<'doughnut'> = {
   responsive: true,
