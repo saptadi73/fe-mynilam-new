@@ -155,7 +155,12 @@
       </BaseModal>
     </div>
 
-    <ModalDetailLahan :modal="modalDetail" @set-modal="handleModalDetail" :data="lahanDetail.data.value" />
+    <ModalDetailLahan
+      :modal="modalDetail"
+      @set-modal="handleModalDetail"
+      :data="lahanDetail.data.value"
+      :is-loading="lahanDetail.isLoading.value"
+    />
   </div>
 </template>
 
