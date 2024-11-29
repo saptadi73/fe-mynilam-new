@@ -6,14 +6,6 @@
         <div class="flex flex-col lg:flex-row gap-y-2 lg:gap-y-0 lg:gap-x-2">
           <BaseSearchBar v-model="search" placeholder="Cari nama"></BaseSearchBar>
           <BaseButton @click="setDaftarAgenParams">Cari</BaseButton>
-          <BaseInputSelect
-            name="kabupaten"
-            label-key="name"
-            value-key="id"
-            :options="kabupatenList.data.value"
-            placeholder="Pilih Kabupaten"
-            @change="setDaftarAgenParams"
-          ></BaseInputSelect>
         </div>
         <BaseButton variant="success" icon-position="left">
           <BaseIcon name="download" />
@@ -38,13 +30,15 @@
             v-else
             v-for="(card, cardIndex) in asetList.data.value"
             :key="cardIndex"
-            card-path="profile/profile-agen"
             :card-code="card.code"
+            @click="showModalDetailLahan(card.id)"
             class="col-span-12 md:col-span-6 lg:col-span-3"
           >
             <template #card-content>
               <div class="flex justify-center pt-2">
-                <img class="w-full rounded-xl" src="@/assets/images/profile/lahan-image.png" alt="Lahan Image" />
+                <BaseNoImage v-if="!card.asset_image_url" />
+
+                <img v-else class="w-full rounded-xl" :src="card.asset_image_url" alt="Lahan Image" />
               </div>
 
               <div class="grid grid-cols-12 gap-x-1 pt-2">
@@ -153,6 +147,8 @@
         </template>
       </BaseModal>
     </div>
+
+    <ModalDetailLahan :modal="modalDetail" @set-modal="handleModalDetail" :data="lahanDetail.data.value" />
   </div>
 </template>
 
@@ -168,30 +164,21 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
-import { DaftarAsetParams } from '@/types/partner'
+import BaseNoImage from '@/components/BaseNoImage.vue'
+import ModalDetailLahan from './ModalDetailLahan.vue'
+import { DaftarAsetParams, LahanDetailParams } from '@/types/partner'
 import { useRoute } from 'vue-router'
-import { useKabupaten } from '@/api/useLocalization'
-import { useAsetList } from '@/api/useAset'
-import { useForm } from 'vee-validate'
-
-interface Form {
-  kabupaten: DaftarAsetParams['kabupaten_id']
-}
-
-const { values } = useForm<Form>()
+import { useAsetList, useLahanDetail } from '@/api/useAset'
 
 const route = useRoute()
 const { name } = route.params
 const search = ref<string>('')
-
-const kabupatenList = useKabupaten()
 
 const params = ref<DaftarAsetParams>({})
 const asetList = useAsetList(params)
 
 const setDaftarAgenParams = () => {
   params.value = {
-    kabupaten_id: values.kabupaten,
     name: search.value || String(name) || undefined,
   }
 }
@@ -220,6 +207,22 @@ const closeModal = () => {
 
 const handleModal = (value: boolean) => {
   modal.value = value
+}
+
+const modalDetail = ref<boolean>(false)
+const idDetail = ref<LahanDetailParams>({})
+const lahanDetail = useLahanDetail(idDetail)
+
+const showModalDetailLahan = (id: number) => {
+  if (id) {
+    idDetail.value = { asset_id: id }
+  }
+
+  modalDetail.value = true
+}
+
+const handleModalDetail = (value: boolean) => {
+  modalDetail.value = value
 }
 
 const handleSubmit = () => {
