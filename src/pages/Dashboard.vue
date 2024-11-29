@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 bg-primary-light">
     <section class="xl:h-screen">
-      <h1 class="font-bold text-center text-3xl 2xl:text-4xl py-8">
+      <h1 class="font-bold text-dark text-center text-3xl 2xl:text-4xl py-8">
         Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani
       </h1>
 
@@ -13,7 +13,7 @@
         />
       </div>
 
-      <p class="text-center 2xl:text-xl md:px-20 xl:px-40 py-8">
+      <p class="text-center text-dark 2xl:text-xl md:px-20 xl:px-40 py-8">
         Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi
         hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat. Atur
         jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor seluruh
@@ -22,7 +22,7 @@
     </section>
 
     <section class="md:px-12 xl:h-screen">
-      <h1 class="font-bold text-center text-2xl 2xl:text-3xl pt-12 pb-4">Analisis Produktivitas Petani</h1>
+      <h1 class="font-bold text-dark text-center text-2xl 2xl:text-3xl pt-12 pb-4">Analisis Produktivitas Petani</h1>
       <div class="bg-white border border-primary p-4 rounded-xl flex justify-center">
         <BaseChart
           class="w-full h-[280px] md:h-[480px] 2xl:h-[700px]"
@@ -49,8 +49,8 @@
         </div>
 
         <div class="col-span-12 md:col-span-6">
-          <h1 class="font-bold text-2xl 2xl:text-3xl">Pemantauan Proses Tanam</h1>
-          <p class="md:text-xl 2xl:text-2xl text-justify mt-2">
+          <h1 class="font-bold text-dark text-2xl 2xl:text-3xl">Pemantauan Proses Tanam</h1>
+          <p class="text-dark md:text-xl 2xl:text-2xl text-justify mt-2">
             Pantau setiap tahap pertumbuhan nilam dari penanaman benih hingga panen untuk memastikan praktik terbaik
             diimplementasikan. Monitor perkembangan tanaman secara berkala untuk memastikan hasil panen yang optimal dan
             kualitas yang terjaga.
@@ -62,8 +62,8 @@
     <section class="xl:h-screen grid items-center">
       <div class="grid grid-cols-12 gap-y-4 md:gap-y-0 gap-x-8 md:px-12 py-8">
         <div class="col-span-12 md:col-span-6 order-2 md:order-1">
-          <h1 class="font-bold text-2xl 2xl:text-3xl">Pemantauan Proses Produksi</h1>
-          <p class="text-xl 2xl:text-2xl text-justify mt-2">
+          <h1 class="font-bold text-dark text-2xl 2xl:text-3xl">Pemantauan Proses Produksi</h1>
+          <p class="text-dark text-xl 2xl:text-2xl text-justify mt-2">
             Pantau secara cermat setiap tahapan dari proses panen hingga ekstraksi minyak nilam/atsiri. Pastikan setiap
             langkah dijalankan dengan optimal, mulai dari pemilihan waktu panen yang tepat, pengolahan bahan baku,
             hingga proses distilasi yang menghasilkan minyak dengan kualitas terbaik. Jamin efisiensi dan kualitas dalam
@@ -86,7 +86,7 @@
     </section>
 
     <section class="md:px-12 xl:h-screen">
-      <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Pemantauan Pendapatan Petani</h1>
+      <h1 class="font-bold text-dark text-2xl 2xl:text-3xl text-center py-8">Pemantauan Pendapatan Petani</h1>
       <div class="bg-white shadow-chart rounded-xl px-10 flex justify-center">
         <BaseChart
           class="h-[320px] md:h-[480px] 2xl:h-[700px] w-full md:w-10/12"
@@ -99,7 +99,7 @@
     </section>
 
     <section class="md:px-12 xl:h-screen">
-      <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Catatan Penjualan</h1>
+      <h1 class="font-bold text-dark text-2xl 2xl:text-3xl text-center py-8">Catatan Penjualan</h1>
       <div class="bg-white shadow-chart rounded-xl px-10 flex justify-center">
         <BaseChart
           class="h-[320px] md:h-[480px] 2xl:h-[700px] w-full md:w-10/12"
@@ -112,7 +112,7 @@
     </section>
 
     <section class="md:px-12">
-      <h1 class="font-bold text-2xl 2xl:text-3xl text-center py-8">Pemantauan Estimasi Produksi</h1>
+      <h1 class="font-bold text-dark text-2xl 2xl:text-3xl text-center py-8">Pemantauan Estimasi Produksi</h1>
       <div class="bg-white rounded-xl py-6 px-4">
         <Maps v-if="!showChart" @show-chart="showChart = true" />
         <template v-else>
@@ -144,7 +144,7 @@
     <section class="md:px-12 mt-14">
       <div class="flex justify-center">
         <div class="bg-white pb-2 rounded-lg shadow-md border border-primary w-full">
-          <h1 class="font-bold text-2xl 2xl:text-3xl text-center pt-8 pb-3">Kalender Produksi Terpadu</h1>
+          <h1 class="font-bold text-dark text-2xl 2xl:text-3xl text-center pt-8 pb-3">Kalender Produksi Terpadu</h1>
           <ul class="flex justify-start gap-4 px-8 list-none font-cera">
             <li class="flex items-center text-md font-semibold">
               <span class="w-4 h-4 rounded-full mr-1 bg-[#34C759]"></span> Tanam

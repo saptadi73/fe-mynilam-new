@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 bg-primary-light">
-    <h1 class="font-bold text-center text-3xl py-8 text-primary">Manajemen Produksi Daftar Pembuatan dan Laporan</h1>
+    <h1 class="font-bold text-center text-3xl py-8 text-dark">Manajemen Produksi Daftar Pembuatan dan Laporan</h1>
     <div class="md:px-12">
       <img
         class="banner-image border-4 border-primary rounded-3xl"
@@ -9,15 +9,13 @@
       />
     </div>
 
-    <p class="text-center md:px-48 py-4 text-primary md:text-lg">
+    <p class="text-center md:px-48 py-4 text-dark md:text-lg">
       Kelola produksi dengan daftar produksi terbaru yang baru dibuat, pantau daftar produksi yang sedang berjalan, dan
       tinjau laporan produksi untuk mendapatkan gambaran menyeluruh tentang hasil dan efisiensi. Pastikan setiap tahap
       produksi terdokumentasi dengan baik dari pembuatan hingga pelaporan.
     </p>
 
-    <section
-      class="my-20 md:my-10 md:p-8 text-primary flex flex-col-reverse md:flex-row items-start md:space-x-10 w-full"
-    >
+    <section class="my-20 md:my-10 md:p-8 text-dark flex flex-col-reverse md:flex-row items-start md:space-x-10 w-full">
       <div class="md:w-1/2 py-3 space-y-5">
         <h1 class="text-3xl font-bold">Daftar Produksi Petani Nilam</h1>
         <p class="text-lg">
@@ -36,7 +34,7 @@
       </div>
     </section>
 
-    <section class="my-20 md:my-10 md:p-8 text-primary flex flex-col md:flex-row items-start md:space-x-10 w-full">
+    <section class="my-20 md:my-10 md:p-8 text-dark flex flex-col md:flex-row items-start md:space-x-10 w-full">
       <div class="md:w-5/12">
         <img src="@/assets/images/produksi/produksi-thumbnail-2.png" class="rounded-3xl w-full" />
       </div>
@@ -56,9 +54,7 @@
       </div>
     </section>
 
-    <section
-      class="my-20 md:my-10 md:p-8 text-primary flex flex-col-reverse md:flex-row items-start md:space-x-10 w-full"
-    >
+    <section class="my-20 md:my-10 md:p-8 text-dark flex flex-col-reverse md:flex-row items-start md:space-x-10 w-full">
       <div class="md:w-1/2 py-3 space-y-5">
         <h1 class="text-3xl font-bold">Laporan Produksi</h1>
         <p class="text-lg">

@@ -12,6 +12,7 @@ export default {
         'primary-3': '#1DBA66',
         'primary-light': '#E9FDF2',
         'primary-border': '#B0CAC1',
+        dark: '#013F2A',
       },
       fontFamily: {
         cera: ['Cera Pro', 'sans-serif'],

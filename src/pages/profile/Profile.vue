@@ -1,7 +1,7 @@
 <template>
   <div class="bg-image-wave2 px-5 md:px-16">
     <div class="container mx-auto py-4">
-      <h1 class="text-center text-primary font-bold text-3xl py-4">Profil Petani, Agen/Koperasi, UGreen dan Lahan</h1>
+      <h1 class="text-center text-dark font-bold text-3xl py-4">Profil Petani, Agen/Koperasi, UGreen dan Lahan</h1>
       <div class="bg-[#F6FDFF] rounded-xl shadow-md px-6 py-4">
         <div class="grid grid-cols-12 gap-y-6 md:gap-x-6">
           <BaseProfileCard

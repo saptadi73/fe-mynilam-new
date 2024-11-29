@@ -6,7 +6,7 @@
         <span class="text-sm md:text-lg">Kembali</span>
       </BaseButton>
     </div>
-    <h1 class="mx-auto text-center font-bold text-3xl text-primary">{{ title }}</h1>
+    <h1 class="mx-auto text-center font-bold text-3xl text-dark">{{ title }}</h1>
   </div>
 </template>
 
