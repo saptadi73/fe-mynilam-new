@@ -13,17 +13,17 @@
         <div class="col-span-6 space-y-1">
           <div class="grid grid-cols-12 gap-x-1.5">
             <div class="col-span-6 font-semibold text-primary">Nama Produk</div>
-            <div class="col-span-6">:&nbsp; {{ data?.[0].produce_product[1] }}</div>
+            <div class="col-span-6">:&nbsp; {{ data?.[0].produce_product ? data?.[0].produce_product[1] : '-' }}</div>
           </div>
 
           <div class="grid grid-cols-12 gap-x-1.5">
             <div class="col-span-6 font-semibold text-primary">Estimasi Panen Diharapkan</div>
-            <div class="col-span-6">:&nbsp; {{ data?.[0].produce_product[0] }} kg</div>
+            <div class="col-span-6">:&nbsp; {{ data?.[0].quantity }} kg</div>
           </div>
 
           <div class="grid grid-cols-12 gap-x-1.5">
             <div class="col-span-6 font-semibold text-primary">Kabupaten/Kota</div>
-            <div class="col-span-6">:&nbsp; {{ data?.[0].kabupaten_id[1] }}</div>
+            <div class="col-span-6">:&nbsp; {{ data?.[0].kabupaten_id ? data?.[0].kabupaten_id[1] : '-' }}</div>
           </div>
 
           <div class="grid grid-cols-12 gap-x-1.5">

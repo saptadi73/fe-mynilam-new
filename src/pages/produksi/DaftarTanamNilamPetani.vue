@@ -21,13 +21,14 @@
             :key="cardIndex"
             :card-code="card.production_identifier"
             class="col-span-3"
+            @click="showModalDetailTanam(card.id)"
           >
             <template #card-content>
               <div class="grid grid-cols-12 items-center gap-x-2">
                 <div class="col-span-6 h-40 flex items-center justify-center">
                   <img
                     class="rounded-xl h-full object-cover"
-                    src="@/assets/images/produksi/nilam.jpeg"
+                    :src="card.production_planting_image_url"
                     alt="Nilam Image"
                   />
                 </div>
@@ -90,6 +91,8 @@
         </template>
       </div>
     </div>
+
+    <ModalDetailTanam :modal="modalDetail" @set-modal="handleModalDetail" :data="nilamDetail.data.value" />
   </div>
 </template>
 
@@ -100,10 +103,11 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseChart from '@/components/BaseChart.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
+import ModalDetailTanam from './ModalDetailTanam.vue'
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
-import { DaftarTanamParams } from '@/types/production'
-import { useDaftarTanam } from '@/api/useProductionPetani'
+import { DaftarTanamParams, TanamDetailParams } from '@/types/production'
+import { useDaftarTanam, useNilamDetail } from '@/api/useProductionPetani'
 import { formatDate } from '@/utils/useFormatDate'
 
 const chartOptions: ChartOptions<'doughnut'> = {
@@ -134,4 +138,20 @@ const handleParamValue = () => {
 onMounted(() => {
   handleParamValue()
 })
+
+const modalDetail = ref<boolean>(false)
+const idDetail = ref<TanamDetailParams>({})
+const nilamDetail = useNilamDetail(idDetail)
+
+const showModalDetailTanam = (id: number) => {
+  if (id) {
+    idDetail.value = { id_planting: id }
+  }
+
+  modalDetail.value = true
+}
+
+const handleModalDetail = (value: boolean) => {
+  modalDetail.value = value
+}
 </script>

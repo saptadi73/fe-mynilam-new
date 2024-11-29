@@ -66,6 +66,7 @@ export interface NilamDetailType {
   date_missed: string
   produce_product: any
   actual_quantity: number
+  quantity: number
   quantity_loss: number
   address: string
   state: string
