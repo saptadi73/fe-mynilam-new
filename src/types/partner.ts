@@ -81,6 +81,7 @@ export interface DaftarAsetParams {
 export interface Aset {
   id: number
   code: string
+  asset_image_url: string
   employee_id: any
   area_ha: string
   coordinates: string

@@ -1,6 +1,6 @@
 <template>
-  <div class="product-card bg-primary-light rounded-3xl border border-[#B2B4E0] px-5 pt-3 pb-8 w-full">
-    <div class="flex justify-center">
+  <div class="product-card bg-primary-light animate-pulse rounded-3xl border border-[#B2B4E0] px-5 pt-3 pb-8 w-full">
+    <div v-if="!noTitle" class="flex justify-center">
       <BaseSkeletonText class="w-24 h-4" />
     </div>
 
@@ -39,10 +39,12 @@ import BaseSkeletonText from './BaseSkeletonText.vue'
 
 interface Props {
   row?: number
+  noTitle?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   row: 4,
+  noTitle: false,
 })
 </script>
 

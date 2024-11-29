@@ -1,7 +1,7 @@
 <template>
   <BaseModal :show-modal="modal" @set-modal="closeModal" class="!max-w-4xl mt-16">
     <template #modal-content>
-      <img class="bg-cover object-cover rounded-t-lg h-28 w-full" :src="data?.[0].asset_image_url" alt="Lahan Image" />
+      <img class="bg-cover object-cover rounded-t-lg h-28 w-full" :src="data?.[0].asset_image_url" alt="Foto Lahan" />
 
       <div class="text-xl text-primary font-semibold flex justify-center py-3">{{ data?.[0].employee_id[1] }}</div>
 

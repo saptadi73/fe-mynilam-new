@@ -17,6 +17,7 @@
         <BaseCardAdd @click="showModal" card-title="Lahan" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseSkeletonCard
           :row="3"
+          :no-title="true"
           v-if="asetList.isLoading.value"
           v-for="n in 3"
           :key="n"
@@ -36,11 +37,14 @@
             @click="showModalDetailLahan(card.id)"
           >
             <template #card-content>
-              <div class="flex justify-center pt-2">
+              <div class="flex justify-center pt-2 h-1/3">
+                <BaseNoImage v-if="!card.asset_image_url" />
+
                 <img
+                  v-else
                   class="w-full rounded-xl border border-primary-border"
-                  src="@/assets/images/profile/aset-lahan-1.png"
-                  alt="Lahan Image"
+                  :src="card.asset_image_url"
+                  alt="Foto Lahan"
                 />
               </div>
 
@@ -172,6 +176,7 @@ import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
 import { useAsetList, useLahanDetail } from '@/api/useAset'
 import type { DaftarAsetParams, LahanDetailParams } from '@/types/partner'
+import BaseNoImage from '@/components/BaseNoImage.vue'
 
 const route = useRoute()
 const daerah = route.params.daerah
