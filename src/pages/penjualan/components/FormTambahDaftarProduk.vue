@@ -83,15 +83,23 @@
         <BaseInputDate label="Tanggal Terima Produk" name="tanggalTerima" />
       </section>
 
-      <button
+      <!-- <button
         type="button"
         class="mb-5 bg-primary-light border border-primary rounded-lg w-full px-4 py-2 font-semibold text-primary-border"
+        @click="$emit('addProduct')"
       >
         <div class="flex items-center justify-center space-x-2">
           <span>Daftar Produk Dibeli</span>
           <BaseIcon name="plus" class="size-5" />
         </div>
-      </button>
+      </button> -->
+
+      <div class="my-10">
+        <h1 class="font-semibold text-primary uppercase mb-3">Daftar Produk Dibeli</h1>
+        <div class="overflow-x-auto">
+          <TableProdukDibeli />
+        </div>
+      </div>
 
       <section class="flex justify-center space-x-4 mx-8">
         <BaseButton type="submit" class="w-full font-bold">Tambah</BaseButton>
@@ -111,8 +119,8 @@ import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import type { ProdukNilamType } from '@/types/produk'
 import type { DaftarPenjualan } from '@/types/transaction'
-import BaseIcon from '@/components/BaseIcon.vue'
 import BaseInputDate from '@/components/BaseInputDate.vue'
+import TableProdukDibeli from './TableProdukDibeli.vue'
 
 interface Props {
   data?: DaftarPenjualan

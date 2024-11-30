@@ -87,9 +87,11 @@
         </BaseCard>
       </div>
 
-      <BaseModal :show-modal="modal" @set-modal="handleModal" class="max-w-4xl">
+      <BaseModal :show-modal="modal" @set-modal="handleModal" class="!max-w-[80rem]">
         <template #modal-content>
-          <FormTambahDaftarProduk :data="selectedData" @close-modal="closeModal" />
+          <div class="px-4 py-16">
+            <FormTambahDaftarProduk :data="selectedData" @close-modal="closeModal" @add-product="modalProduk = true" />
+          </div>
         </template>
       </BaseModal>
 
@@ -120,7 +122,6 @@ import BaseIcon from '@/components/BaseIcon.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import FormTambahDaftarProduk from './components/FormTambahDaftarProduk.vue'
-
 import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { ref } from 'vue'
 import { useKabupaten } from '@/api/useLocalization'
@@ -137,9 +138,10 @@ const { values } = useForm<Form>()
 const searchValue = ref('')
 const selectedData = ref<DaftarPenjualan>()
 
-let modal = ref<Boolean>(false)
-let modalQr = ref<Boolean>(false)
-let qrcode = ref<string>('')
+const modal = ref(false)
+const modalProduk = ref(false)
+const modalQr = ref(false)
+let qrcode = ref('')
 
 const kabupaten = useKabupaten()
 
