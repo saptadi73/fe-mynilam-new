@@ -126,6 +126,7 @@
               name="ilo_associate"
               placeholder="Jenis Mitra"
               :floating-label="true"
+              :disabled="true"
             />
             <BaseInputFloat label="Email" name="email" type="email" />
 
@@ -210,6 +211,7 @@ const showModal = () => {
     resetForm({
       values: {
         provinsi: provinsi.data.value[0].id,
+        ilo_associate: 'farmers',
       },
     })
   }
@@ -230,16 +232,11 @@ const onSubmit = handleSubmit((values) => {
 })
 
 const optionsStatus = ref([
-  { label: 'Agus Nur Drajat', value: 1 },
-  { label: 'Jayadi Idzes', value: 2 },
-  { label: 'Martin Paes', value: 3 },
+  { label: 'Member', value: 'member' },
+  { label: 'Not Member', value: 'not_member' },
 ])
 
-const optionsJenisMitra = ref([
-  { label: 'Agus Nur Drajat', value: 1 },
-  { label: 'Jayadi Idzes', value: 2 },
-  { label: 'Martin Paes', value: 3 },
-])
+const optionsJenisMitra = ref([{ label: 'Petani', value: 'farmers' }])
 
 function handleFileSuratKontrak(file: File) {
   console.log('Selected file:', file)
