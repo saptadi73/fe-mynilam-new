@@ -85,7 +85,7 @@
     <ModalProfile :modal="modal" @set-modal="handleModal">
       <template #body-form>
         <div class="p-4 md:p-12">
-          <form @submit.prevent="handleSubmit" class="space-y-4">
+          <form @submit.prevent="onSubmit" class="space-y-4">
             <BaseInputFloat label="Nama" name="name" type="text" />
             <BaseInputFloat label="Alamat" name="alamat" type="text" />
             <BaseInputFloat label="Desa/Kelurahan" name="desa" type="text" />
@@ -98,7 +98,15 @@
               placeholder="Kota/Kabupaten"
               :floating-label="true"
             />
-            <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
+            <BaseInputSelect
+              :options="provinsi.data.value"
+              label-key="name"
+              value-key="id"
+              name="provinsi"
+              placeholder="Provinsi"
+              :floating-label="true"
+              :disabled="true"
+            />
             <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
             <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
             <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
@@ -140,15 +148,18 @@ import BaseInputFile from '@/components/BaseInputFile.vue'
 import ModalProfile from './components/ModalProfile.vue'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useKabupaten } from '@/api/useLocalization'
+import { useKabupaten, useProvinsi } from '@/api/useLocalization'
 import { usePetaniList } from '@/api/usePetani'
 import { PetaniListParams } from '@/types/partner'
+import { useForm } from 'vee-validate'
+import { mixed, number, object, string } from 'yup'
 
 const route = useRoute()
 const { daerah } = route.params
 const search = ref<string>('')
 
 const kabupatenList = useKabupaten()
+const provinsi = useProvinsi()
 
 const params = ref<PetaniListParams>({})
 const petaniList = usePetaniList(params)
@@ -170,9 +181,34 @@ onMounted(() => {
   handleParamValue()
 })
 
+const { handleSubmit, resetForm } = useForm({
+  validationSchema: object({
+    name: string().required().label('Nama'),
+    street: string().required().label('Alamat'),
+    kelurahan: string().required().label('Desa/Kelurahan'),
+    kecamatan: string().required().label('Kecamatan'),
+    kabupaten: number().required().label('Kota/Kabupaten'),
+    provinsi: number().required().label('Provinsi'),
+    family_members: number().required().label('Anggota Keluarga'),
+    status: string().required().label('Status'),
+    pendidikan: string().required().label('Pendidikan'),
+    // suratKontrak: mixed().required().label('Surat Kontrak'),
+    jenisMitra: string().required().label('Jenis Mitra'),
+    email: string().required().label('Email'),
+  }),
+})
+
 let modal = ref<Boolean>(false)
 
 const showModal = () => {
+  if (provinsi.data.value) {
+    resetForm({
+      values: {
+        provinsi: provinsi.data.value[0].id,
+      },
+    })
+  }
+
   modal.value = true
 }
 
@@ -184,9 +220,9 @@ const handleModal = (value: boolean) => {
   modal.value = value
 }
 
-const handleSubmit = () => {
-  console.log('test')
-}
+const onSubmit = handleSubmit((values) => {
+  console.log(values)
+})
 
 const optionsStatus = ref([
   { label: 'Agus Nur Drajat', value: 1 },
