@@ -7,9 +7,11 @@
     </label>
     <span class="ml-2 text-primary">{{ fileName }}</span>
   </div>
+  <div class="text-xs my-1 text-gray-900" v-if="errorMessage">{{ errorMessage }}</div>
 </template>
 
 <script setup lang="ts">
+import { useField } from 'vee-validate'
 import { ref } from 'vue'
 
 interface Props {
@@ -31,5 +33,7 @@ function handleFileChange(event: Event) {
   }
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const { errorMessage } = useField(() => props.name)
 </script>
