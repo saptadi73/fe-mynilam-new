@@ -7,7 +7,10 @@ import type { LoginAuth, LoginForm, User } from '@/types/login'
  */
 export function useLogin() {
   const path = '/login_auth/token'
-  const loginFn = (form: LoginForm): Promise<LoginAuth> => apiPost(path, form)
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }
+  const loginFn = (form: LoginForm): Promise<LoginAuth> => apiPost(path, form, headers)
   return useMutation({
     mutationFn: loginFn,
   })

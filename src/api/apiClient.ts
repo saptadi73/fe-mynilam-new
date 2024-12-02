@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosHeaders } from 'axios'
 import { push } from 'notivue'
 
 interface Params {
@@ -31,11 +31,9 @@ export const apiGet = async (path: string, params?: Params) => {
   return response
 }
 
-export const apiPost = async (path: string, params: any) => {
+export const apiPost = async (path: string, params: any, headers: AxiosHeaders) => {
   const response = await apiClient.post(path, params, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
+    headers: headers,
   })
   return response.data
 }
