@@ -2,7 +2,12 @@
   <div
     class="product-card relative bg-primary-light rounded-3xl border border-[#B2B4E0] cursor-pointer hover:shadow-xl hover:bg-slate-300 duration-300 ease-in-out px-5 pt-3 pb-8 w-full"
   >
-    <div class="text-center font-bold text-lg">{{ cardCode }}</div>
+    <div
+      v-if="cardCode"
+      class="font-bold text-lg text-ellipsis line-clamp-2 w-full h-16 flex items-center text-center justify-center"
+    >
+      {{ cardCode }}
+    </div>
 
     <!-- <button
       class="absolute top-2 right-2 w-9 h-9 rounded-full text-[#8ca39b] hover:bg-[#E6EEEB] hover:text-primary inline-flex justify-center items-center transition-all duration-200 ease-in-out"
