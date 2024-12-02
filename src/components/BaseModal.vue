@@ -3,9 +3,9 @@
     v-if="showModal"
     tabindex="-1"
     aria-hidden="true"
-    class="bg-primary-2 bg-opacity-20 fixed inset-0 top-0 right-0 left-0 z-50 flex justify-center items-center md:inset-0 h-full max-h-full w-full"
+    class="bg-primary-2 bg-opacity-20 fixed inset-0 top-0 right-0 z-50 flex justify-center items-center h-full max-h-full w-full"
   >
-    <div class="relative pl-4 py-4 w-full max-h-screen max-w-xl overflow-y-auto" :class="$attrs.class">
+    <div class="relative w-full max-h-screen max-w-xl overflow-y-auto" :class="$attrs.class">
       <!-- Modal header -->
       <div class="absolute z-10 top-4 right-0 flex items-center justify-between p-1 border-b rounded-t">
         <button
