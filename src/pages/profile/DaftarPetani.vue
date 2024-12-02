@@ -86,16 +86,16 @@
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="onSubmit" class="space-y-4">
-            <BaseInputFloat label="Nama" name="name" type="text" />
-            <BaseInputFloat label="Alamat" name="alamat" type="text" />
-            <BaseInputFloat label="Desa/Kelurahan" name="desa" type="text" />
-            <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
+            <BaseInputFloat label="Nama*" name="name" type="text" />
+            <BaseInputFloat label="Alamat*" name="street" type="text" />
+            <BaseInputFloat label="Desa/Kelurahan*" name="kelurahan" type="text" />
+            <BaseInputFloat label="Kecamatan*" name="kecamatan" type="text" />
             <BaseInputSelect
-              name="kota"
+              name="kabupaten_id"
               :options="kabupatenList.data.value"
               label-key="name"
               value-key="id"
-              placeholder="Kota/Kabupaten"
+              placeholder="Kota/Kabupaten*"
               :floating-label="true"
             />
             <BaseInputSelect
@@ -107,22 +107,27 @@
               :floating-label="true"
               :disabled="true"
             />
-            <BaseInputFloat label="Anggota Keluarga" name="anggota" type="text" />
-            <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
-            <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
+            <BaseInputFloat label="Anggota Keluarga*" name="family_members" type="number" />
+            <BaseInputSelect
+              :options="optionsStatus"
+              name="organization_status"
+              placeholder="Status*"
+              :floating-label="true"
+            />
+            <BaseInputFloat label="Pendidikan*" name="pendidikan" type="text" />
             <BaseInputFile
               name="suratKontrak"
-              label="Surat Kontrak"
+              label="Surat Kontrak*"
               file-type=".pdf"
               @file-selected="handleFileSuratKontrak"
             ></BaseInputFile>
             <BaseInputSelect
               :options="optionsJenisMitra"
-              name="jenisMitra"
+              name="ilo_associate"
               placeholder="Jenis Mitra"
               :floating-label="true"
             />
-            <BaseInputFloat label="Email" name="koperasi" type="email" />
+            <BaseInputFloat label="Email" name="email" type="email" />
 
             <div class="flex justify-center gap-x-4 mx-8">
               <BaseButton type="submit" class="w-full font-bold">Simpan</BaseButton>
@@ -187,14 +192,14 @@ const { handleSubmit, resetForm } = useForm({
     street: string().required().label('Alamat'),
     kelurahan: string().required().label('Desa/Kelurahan'),
     kecamatan: string().required().label('Kecamatan'),
-    kabupaten: number().required().label('Kota/Kabupaten'),
-    provinsi: number().required().label('Provinsi'),
+    kabupaten_id: number().required().label('Kota/Kabupaten'),
+    state_id: number().required().label('Provinsi'),
     family_members: number().required().label('Anggota Keluarga'),
-    status: string().required().label('Status'),
+    organization_status: string().required().label('Status'),
     pendidikan: string().required().label('Pendidikan'),
-    // suratKontrak: mixed().required().label('Surat Kontrak'),
-    jenisMitra: string().required().label('Jenis Mitra'),
-    email: string().required().label('Email'),
+    suratKontrak: mixed().required().label('Surat Kontrak'),
+    ilo_associate: string().required().label('Jenis Mitra'),
+    email: string().label('Email'),
   }),
 })
 
