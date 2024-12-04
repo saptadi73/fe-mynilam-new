@@ -37,3 +37,10 @@ export const apiPost = async (path: string, params: any, headers: AxiosHeaders) 
   })
   return response.data
 }
+
+export const apiPatch = async (path: string, params: any, headers: AxiosHeaders) => {
+  const response = await apiClient.patch(path, params, {
+    headers: headers,
+  })
+  return response.data
+}
