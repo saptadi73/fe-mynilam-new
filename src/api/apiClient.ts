@@ -22,13 +22,13 @@ export const apiClient = axios.create({
 })
 
 export const apiGet = async (path: string, params?: Params) => {
-  const response = await apiClient
-    .get(path, { params })
-    .then((res) => res.data.data)
-    .catch((error) => {
-      push.error({ title: isDev ? path : undefined, message: error.response.data.detail })
-    })
-  return response
+  try {
+    const response = await apiClient.get(path, { params })
+    return response.data.data
+  } catch (error: any) {
+    push.error({ title: isDev ? path : undefined, message: error.response.data.detail })
+    return null
+  }
 }
 
 export const apiPost = async (path: string, params: any, headers: AxiosHeaders) => {
