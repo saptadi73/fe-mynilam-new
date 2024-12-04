@@ -1,7 +1,8 @@
-import { useQuery } from '@tanstack/vue-query'
-import { apiGet } from './apiClient'
+import { useMutation, useQuery } from '@tanstack/vue-query'
+import { apiGet, apiPost } from './apiClient'
 import { Ref } from 'vue'
-import type { Petani, PetaniProfile, PetaniProfileParams, PetaniListParams } from '@/types/partner'
+import type { Petani, PetaniProfile, PetaniProfileParams, PetaniListParams, PetaniForm } from '@/types/partner'
+import { AxiosHeaders } from 'axios'
 
 export function usePetaniList(params?: Ref<PetaniListParams>) {
   const path = '/partner/petani/list'
@@ -19,5 +20,16 @@ export function usePetaniProfile(params?: Ref<PetaniProfileParams>) {
   return useQuery({
     queryKey: ['petaniProfile', params],
     queryFn: getPetaniProfile,
+  })
+}
+
+export function usePetaniCreate() {
+  const path = '/partner/petani/create'
+  const headers = new AxiosHeaders({
+    'Content-Type': 'application/json',
+  })
+  const petaniCreateFn = (form: PetaniForm): Promise<string> => apiPost(path, form, headers)
+  return useMutation({
+    mutationFn: petaniCreateFn,
   })
 }

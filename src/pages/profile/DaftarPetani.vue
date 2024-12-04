@@ -102,7 +102,7 @@
               :options="provinsi.data.value"
               label-key="name"
               value-key="id"
-              name="provinsi"
+              name="state_id"
               placeholder="Provinsi"
               :floating-label="true"
               :disabled="true"
@@ -110,11 +110,16 @@
             <BaseInputFloat label="Anggota Keluarga*" name="family_members" type="number" />
             <BaseInputSelect
               :options="optionsStatus"
-              name="organization_status"
+              name="organization_statue"
               placeholder="Status*"
               :floating-label="true"
             />
-            <BaseInputFloat label="Pendidikan*" name="pendidikan" type="text" />
+            <BaseInputSelect
+              :options="optionsPendidikan"
+              name="education_level_id"
+              placeholder="Pendidikan*"
+              :floating-label="true"
+            />
             <BaseInputFile
               name="suratKontrak"
               label="Surat Kontrak*"
@@ -155,10 +160,11 @@ import ModalProfile from './components/ModalProfile.vue'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten, useProvinsi } from '@/api/useLocalization'
-import { usePetaniList } from '@/api/usePetani'
-import { PetaniListParams } from '@/types/partner'
+import { usePetaniCreate, usePetaniList } from '@/api/usePetani'
+import { PetaniForm, PetaniListParams } from '@/types/partner'
 import { useForm } from 'vee-validate'
-import { mixed, number, object, string } from 'yup'
+import { number, object, string } from 'yup'
+import { push } from 'notivue'
 
 const route = useRoute()
 const { daerah } = route.params
@@ -169,6 +175,8 @@ const provinsi = useProvinsi()
 
 const params = ref<PetaniListParams>({})
 const petaniList = usePetaniList(params)
+
+const createPetani = usePetaniCreate()
 
 const handleParamValue = async () => {
   const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
@@ -187,7 +195,7 @@ onMounted(() => {
   handleParamValue()
 })
 
-const { handleSubmit, resetForm } = useForm({
+const { handleSubmit, resetForm } = useForm<PetaniForm>({
   validationSchema: object({
     name: string().required().label('Nama'),
     street: string().required().label('Alamat'),
@@ -196,9 +204,9 @@ const { handleSubmit, resetForm } = useForm({
     kabupaten_id: number().required().label('Kota/Kabupaten'),
     state_id: number().required().label('Provinsi'),
     family_members: number().required().label('Anggota Keluarga'),
-    organization_status: string().required().label('Status'),
-    pendidikan: string().required().label('Pendidikan'),
-    suratKontrak: mixed().required().label('Surat Kontrak'),
+    organization_statue: string().required().label('Status'),
+    education_level_id: number().required().label('Pendidikan'),
+    // suratKontrak: mixed().required().label('Surat Kontrak'),
     ilo_associate: string().required().label('Jenis Mitra'),
     email: string().label('Email'),
   }),
@@ -210,7 +218,8 @@ const showModal = () => {
   if (provinsi.data.value) {
     resetForm({
       values: {
-        provinsi: provinsi.data.value[0].id,
+        kabupaten_id: kabupatenList.data.value?.find((item) => item.name === daerah)?.id,
+        state_id: provinsi.data.value[0].id,
         ilo_associate: 'farmers',
       },
     })
@@ -228,7 +237,14 @@ const handleModal = (value: boolean) => {
 }
 
 const onSubmit = handleSubmit((values) => {
-  console.log(values)
+  values.country_id = 100
+  createPetani.mutate(values, {
+    onSuccess: (data: any) => {
+      petaniList.refetch()
+      closeModal()
+      push.success({ message: data.description })
+    },
+  })
 })
 
 const optionsStatus = ref([
@@ -237,6 +253,12 @@ const optionsStatus = ref([
 ])
 
 const optionsJenisMitra = ref([{ label: 'Petani', value: 'farmers' }])
+
+const optionsPendidikan = ref([
+  { label: 'SMA', value: 1 },
+  { label: 'SMP', value: 2 },
+  { label: 'SD', value: 3 },
+])
 
 function handleFileSuratKontrak(file: File) {
   console.log('Selected file:', file)

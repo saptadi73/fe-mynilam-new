@@ -23,6 +23,21 @@ export interface PetaniProfileParams {
   user_id?: number | null
 }
 
+export interface PetaniForm {
+  name: string
+  street: string
+  kelurahan: string
+  kecamatan: string
+  kabupaten_id: number
+  state_id: number
+  country_id: number
+  family_members: number
+  ilo_associate: string
+  organization_statue: string
+  education_level_id: number
+  email: string
+}
+
 export interface PetaniProfile {
   id: number
   ilo_associate: string
