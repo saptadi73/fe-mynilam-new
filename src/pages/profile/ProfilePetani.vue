@@ -242,7 +242,12 @@
               :disabled="true"
             />
             <BaseInputFloat label="Anggota Keluarga" name="family_members" type="number" />
-            <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
+            <BaseInputSelect
+              :options="optionsStatus"
+              name="organization_statue"
+              placeholder="Status"
+              :floating-label="true"
+            />
             <BaseInputSelect
               :options="optionsPendidikan"
               name="education_level_id"
@@ -290,10 +295,11 @@ import { useForm } from 'vee-validate'
 import { object, string, number } from 'yup'
 import { useRoute } from 'vue-router'
 import { useKabupaten, useProvinsi } from '@/api/useLocalization'
-import { usePetaniProfile } from '@/api/usePetani'
-import type { PetaniProfileParams } from '@/types/partner'
+import { usePetaniProfile, usePetaniUpdate } from '@/api/usePetani'
+import type { PetaniForm, PetaniProfileParams } from '@/types/partner'
 import { formatRupiah } from '@/utils/useFormatRupiah'
 import { optionsJenisMitra, optionsPendidikan, optionsStatus } from '@/constants/options'
+import { push } from 'notivue'
 
 const route = useRoute()
 const kabupatenList = useKabupaten()
@@ -302,7 +308,9 @@ const provinsi = useProvinsi()
 const petaniProfileParams = ref<PetaniProfileParams>({ user_id: Number(route.params.id) })
 const petaniProfile = usePetaniProfile(petaniProfileParams)
 
-const { handleSubmit, resetForm } = useForm({
+const updatePetani = usePetaniUpdate(Number(route.params.id))
+
+const { handleSubmit, resetForm } = useForm<PetaniForm>({
   validationSchema: object({
     name: string().required().label('Nama'),
     street: string().required().label('Alamat'),
@@ -311,7 +319,7 @@ const { handleSubmit, resetForm } = useForm({
     kabupaten_id: number().required().label('Kota/Kabupaten'),
     state_id: number().required().label('Provinsi'),
     family_members: number().required().label('Anggota Keluarga'),
-    status: string().required().label('Status'),
+    organization_statue: string().required().label('Status'),
     education_level_id: number().required().label('Pendidikan'),
     // suratKontrak: mixed().required().label('Surat Kontrak'),
     ilo_associate: string().required().label('Jenis Mitra'),
@@ -320,7 +328,14 @@ const { handleSubmit, resetForm } = useForm({
 })
 
 const onSubmit = handleSubmit((values) => {
-  console.log(values)
+  values.country_id = 100
+  updatePetani.mutate(values, {
+    onSuccess: (data: any) => {
+      petaniProfile.refetch()
+      closeModal()
+      push.success({ message: data.description })
+    },
+  })
 })
 
 let modal = ref<Boolean>(false)
@@ -331,9 +346,17 @@ const showModal = () => {
 
   if (petaniProfileData && petaniProfileData.kabupaten_id && provinsi.data.value) {
     const updatedPetaniProfileData = {
-      ...petaniProfileData,
+      name: petaniProfileData.name,
+      street: petaniProfileData.street,
+      kelurahan: petaniProfileData.kelurahan,
+      kecamatan: petaniProfileData.kecamatan,
       kabupaten_id: petaniProfileData.kabupaten_id[0],
       state_id: provinsi.data.value[0].id,
+      family_members: petaniProfileData.family_members,
+      organization_statue: petaniProfileData.organization_status,
+      education_level_id: Number(petaniProfileData.education_level_id),
+      ilo_associate: petaniProfileData.ilo_associate,
+      email: petaniProfileData.email,
     }
 
     resetForm({

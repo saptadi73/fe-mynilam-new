@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import { apiGet, apiPost } from './apiClient'
+import { apiGet, apiPatch, apiPost } from './apiClient'
 import { Ref } from 'vue'
 import type { Petani, PetaniProfile, PetaniProfileParams, PetaniListParams, PetaniForm } from '@/types/partner'
 import { AxiosHeaders } from 'axios'
@@ -29,6 +29,17 @@ export function usePetaniCreate() {
     'Content-Type': 'application/json',
   })
   const petaniCreateFn = (form: PetaniForm): Promise<string> => apiPost(path, form, headers)
+  return useMutation({
+    mutationFn: petaniCreateFn,
+  })
+}
+
+export function usePetaniUpdate(id: any) {
+  const path = '/partner/petani/update'
+  const headers = new AxiosHeaders({
+    'Content-Type': 'application/json',
+  })
+  const petaniCreateFn = (form: PetaniForm): Promise<string> => apiPatch(path, id, form, headers)
   return useMutation({
     mutationFn: petaniCreateFn,
   })
