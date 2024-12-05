@@ -165,6 +165,7 @@ import { PetaniForm, PetaniListParams } from '@/types/partner'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { push } from 'notivue'
+import { optionsJenisMitra, optionsPendidikan, optionsStatus } from '@/constants/options'
 
 const route = useRoute()
 const { daerah } = route.params
@@ -246,19 +247,6 @@ const onSubmit = handleSubmit((values) => {
     },
   })
 })
-
-const optionsStatus = ref([
-  { label: 'Member', value: 'member' },
-  { label: 'Not Member', value: 'not_member' },
-])
-
-const optionsJenisMitra = ref([{ label: 'Petani', value: 'farmers' }])
-
-const optionsPendidikan = ref([
-  { label: 'SMA', value: 1 },
-  { label: 'SMP', value: 2 },
-  { label: 'SD', value: 3 },
-])
 
 function handleFileSuratKontrak(file: File) {
   console.log('Selected file:', file)
