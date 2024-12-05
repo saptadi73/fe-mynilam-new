@@ -225,7 +225,7 @@
             <BaseInputFloat label="Desa/Kelurahan" name="kelurahan" type="text" />
             <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
             <BaseInputSelect
-              name="kabupaten"
+              name="kabupaten_id"
               :options="kabupatenList.data.value"
               label-key="name"
               value-key="id"
@@ -236,14 +236,19 @@
               :options="provinsi.data.value"
               label-key="name"
               value-key="id"
-              name="provinsi"
+              name="state_id"
               placeholder="Provinsi"
               :floating-label="true"
               :disabled="true"
             />
             <BaseInputFloat label="Anggota Keluarga" name="family_members" type="number" />
             <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
-            <BaseInputFloat label="Pendidikan" name="pendidikan" type="text" />
+            <BaseInputSelect
+              :options="optionsPendidikan"
+              name="education_level_id"
+              placeholder="Pendidikan"
+              :floating-label="true"
+            />
             <BaseInputFile
               name="suratKontrak"
               label="Surat Kontrak"
@@ -252,9 +257,10 @@
             ></BaseInputFile>
             <BaseInputSelect
               :options="optionsJenisMitra"
-              name="jenisMitra"
+              name="ilo_associate"
               placeholder="Jenis Mitra"
               :floating-label="true"
+              :disabled="true"
             />
             <BaseInputFloat label="Email" name="email" type="email" />
 
@@ -281,12 +287,13 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseSkeletonText from '@/components/BaseSkeletonText.vue'
 import { ref } from 'vue'
 import { useForm } from 'vee-validate'
-import { object, string, number, mixed } from 'yup'
+import { object, string, number } from 'yup'
 import { useRoute } from 'vue-router'
 import { useKabupaten, useProvinsi } from '@/api/useLocalization'
 import { usePetaniProfile } from '@/api/usePetani'
 import type { PetaniProfileParams } from '@/types/partner'
 import { formatRupiah } from '@/utils/useFormatRupiah'
+import { optionsJenisMitra, optionsPendidikan, optionsStatus } from '@/constants/options'
 
 const route = useRoute()
 const kabupatenList = useKabupaten()
@@ -301,13 +308,13 @@ const { handleSubmit, resetForm } = useForm({
     street: string().required().label('Alamat'),
     kelurahan: string().required().label('Desa/Kelurahan'),
     kecamatan: string().required().label('Kecamatan'),
-    kabupaten: number().required().label('Kota/Kabupaten'),
-    provinsi: number().required().label('Provinsi'),
+    kabupaten_id: number().required().label('Kota/Kabupaten'),
+    state_id: number().required().label('Provinsi'),
     family_members: number().required().label('Anggota Keluarga'),
     status: string().required().label('Status'),
-    pendidikan: string().required().label('Pendidikan'),
-    suratKontrak: mixed().required().label('Surat Kontrak'),
-    jenisMitra: string().required().label('Jenis Mitra'),
+    education_level_id: number().required().label('Pendidikan'),
+    // suratKontrak: mixed().required().label('Surat Kontrak'),
+    ilo_associate: string().required().label('Jenis Mitra'),
     email: string().required().label('Email'),
   }),
 })
@@ -325,9 +332,8 @@ const showModal = () => {
   if (petaniProfileData && petaniProfileData.kabupaten_id && provinsi.data.value) {
     const updatedPetaniProfileData = {
       ...petaniProfileData,
-      kabupaten: petaniProfileData.kabupaten_id[0],
-      provinsi: provinsi.data.value[0].id,
-      pendidikan: petaniProfileData.education_level_id,
+      kabupaten_id: petaniProfileData.kabupaten_id[0],
+      state_id: provinsi.data.value[0].id,
     }
 
     resetForm({
@@ -347,22 +353,6 @@ const closeModal = () => {
 const handleModal = (value: boolean) => {
   modal.value = value
 }
-
-const optionsStatus = ref([
-  { label: 'Anggota Koperasi', value: 1 },
-  { label: 'Non Anggota', value: 2 },
-])
-
-const optionsJenisMitra = ref([
-  {
-    label: 'Agen',
-    value: 1,
-  },
-  {
-    label: 'Koperasi',
-    value: 2,
-  },
-])
 
 function handleFileSuratKontrak(file: File) {
   console.log('Selected file:', file)
