@@ -82,9 +82,10 @@ import { ref } from 'vue'
 
 interface PropsModal {
   modal: Boolean
+  profilePhoto?: string
 }
 
-defineProps<PropsModal>()
+const props = defineProps<PropsModal>()
 const emit = defineEmits({
   setModal: (status) => typeof status === 'boolean',
   'file-uploaded': (file) => file instanceof File,
@@ -94,7 +95,7 @@ const closeModal = () => {
   emit('setModal', false)
 }
 
-const userPhoto = ref<string | null>(null)
+const userPhoto = ref<string | undefined>(props.profilePhoto)
 const userPhotoInput = ref<HTMLInputElement | null>(null)
 
 const triggerUserPhotoInput = () => {

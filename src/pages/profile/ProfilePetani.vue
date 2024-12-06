@@ -216,7 +216,12 @@
       </div>
     </div>
 
-    <ModalProfile :modal="modal" @set-modal="handleModal" @file-uploaded="handleFileUpload">
+    <ModalProfile
+      :modal="modal"
+      @set-modal="handleModal"
+      :profile-photo="profilePhoto"
+      @file-uploaded="handleFileUpload"
+    >
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="onSubmit" class="space-y-4">
@@ -327,6 +332,7 @@ const { handleSubmit, resetForm } = useForm<PetaniForm>({
     email: string().required().label('Email'),
   }),
 })
+const profilePhoto = ref<string>()
 
 const updateBoth = async (values: any) => {
   try {
@@ -376,6 +382,8 @@ const showModal = () => {
   const petaniProfileData = petaniProfile.data.value
 
   if (petaniProfileData && petaniProfileData.kabupaten_id && provinsi.data.value) {
+    profilePhoto.value = petaniProfileData?.image_1920_url
+
     const updatedPetaniProfileData = {
       name: petaniProfileData.name,
       street: petaniProfileData.street,
