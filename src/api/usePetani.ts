@@ -39,8 +39,19 @@ export function usePetaniUpdate(id: any) {
   const headers = new AxiosHeaders({
     'Content-Type': 'application/json',
   })
-  const petaniCreateFn = (form: PetaniForm): Promise<string> => apiPatch(path, id, form, headers)
+  const petaniUpdateFn = (form: PetaniForm): Promise<string> => apiPatch(path, form, headers, id)
   return useMutation({
-    mutationFn: petaniCreateFn,
+    mutationFn: petaniUpdateFn,
+  })
+}
+
+export function usePetaniUploadPhoto() {
+  const path = '/partner/petani/upload-photo'
+  const headers = new AxiosHeaders({
+    'Content-Type': 'multipart/form-data',
+  })
+  const petaniUploadPhotoFn = (form: FormData): Promise<string> => apiPost(path, form, headers)
+  return useMutation({
+    mutationFn: petaniUploadPhotoFn,
   })
 }

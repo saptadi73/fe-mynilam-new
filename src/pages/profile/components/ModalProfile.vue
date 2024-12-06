@@ -85,7 +85,10 @@ interface PropsModal {
 }
 
 defineProps<PropsModal>()
-const emit = defineEmits(['setModal'])
+const emit = defineEmits({
+  setModal: (status) => typeof status === 'boolean',
+  'file-uploaded': (file) => file instanceof File,
+})
 
 const closeModal = () => {
   emit('setModal', false)
@@ -102,9 +105,9 @@ const handleFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
   if (file) {
-    // Handle the file upload or processing here
     const fileURL = URL.createObjectURL(file)
     userPhoto.value = fileURL
+    emit('file-uploaded', file)
   }
 }
 

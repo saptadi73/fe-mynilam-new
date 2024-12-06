@@ -38,8 +38,9 @@ export const apiPost = async (path: string, params: any, headers: AxiosHeaders) 
   return response.data
 }
 
-export const apiPatch = async (path: string, id: number, formBody: any, headers: AxiosHeaders) => {
-  const response = await apiClient.patch(`${path}/${id}`, formBody, {
+export const apiPatch = async (path: string, formBody: any, headers: AxiosHeaders, id?: number) => {
+  const url = id ? `${path}/${id}` : path
+  const response = await apiClient.patch(url, formBody, {
     headers: headers,
   })
   return response.data

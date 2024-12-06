@@ -216,7 +216,7 @@
       </div>
     </div>
 
-    <ModalProfile :modal="modal" @set-modal="handleModal">
+    <ModalProfile :modal="modal" @set-modal="handleModal" @file-uploaded="handleFileUpload">
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="onSubmit" class="space-y-4">
@@ -295,7 +295,7 @@ import { useForm } from 'vee-validate'
 import { object, string, number } from 'yup'
 import { useRoute } from 'vue-router'
 import { useKabupaten, useProvinsi } from '@/api/useLocalization'
-import { usePetaniProfile, usePetaniUpdate } from '@/api/usePetani'
+import { usePetaniProfile, usePetaniUpdate, usePetaniUploadPhoto } from '@/api/usePetani'
 import type { PetaniForm, PetaniProfileParams } from '@/types/partner'
 import { formatRupiah } from '@/utils/useFormatRupiah'
 import { optionsJenisMitra, optionsPendidikan, optionsStatus } from '@/constants/options'
@@ -309,6 +309,7 @@ const petaniProfileParams = ref<PetaniProfileParams>({ user_id: Number(route.par
 const petaniProfile = usePetaniProfile(petaniProfileParams)
 
 const updatePetani = usePetaniUpdate(Number(route.params.id))
+const updatePhotoPetani = usePetaniUploadPhoto()
 
 const { handleSubmit, resetForm } = useForm<PetaniForm>({
   validationSchema: object({
@@ -327,15 +328,45 @@ const { handleSubmit, resetForm } = useForm<PetaniForm>({
   }),
 })
 
+const updateBoth = async (values: any) => {
+  try {
+    const formData = new FormData()
+    const id = route.params.id
+    formData.append('partner_id', id.toString())
+    formData.append('photo', file.value)
+
+    const photoPetaniPromise = new Promise((resolve, reject) => {
+      updatePhotoPetani.mutate(formData, {
+        onSuccess: (data: any) => {
+          resolve(data)
+        },
+        onError: (error: any) => reject(error),
+      })
+    })
+
+    values.country_id = 100
+
+    const petaniPromise = new Promise((resolve, reject) => {
+      updatePetani.mutate(values, {
+        onSuccess: (data: any) => {
+          push.success({ message: data.description })
+          resolve(data)
+        },
+        onError: (error: any) => reject(error),
+      })
+    })
+
+    await Promise.all([photoPetaniPromise, petaniPromise])
+
+    petaniProfile.refetch()
+    closeModal()
+  } catch (error) {
+    console.error('Error updating data:', error)
+  }
+}
+
 const onSubmit = handleSubmit((values) => {
-  values.country_id = 100
-  updatePetani.mutate(values, {
-    onSuccess: (data: any) => {
-      petaniProfile.refetch()
-      closeModal()
-      push.success({ message: data.description })
-    },
-  })
+  updateBoth(values)
 })
 
 let modal = ref<Boolean>(false)
@@ -379,5 +410,10 @@ const handleModal = (value: boolean) => {
 
 function handleFileSuratKontrak(file: File) {
   console.log('Selected file:', file)
+}
+
+const file = ref()
+const handleFileUpload = (uploadedFile: any) => {
+  file.value = uploadedFile
 }
 </script>
