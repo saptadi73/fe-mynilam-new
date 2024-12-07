@@ -14,6 +14,16 @@ export function usePetaniList(params?: Ref<PetaniListParams>) {
   })
 }
 
+export function usePetaniOptionsList(params?: Ref<PetaniListParams>) {
+  const path = '/partner/petani'
+  const getPetaniOptionsList = (): Promise<Petani[]> => apiGet(path, params?.value)
+  return useQuery({
+    queryKey: ['petaniOptionsList', params],
+    queryFn: getPetaniOptionsList,
+    enabled: () => !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
+  })
+}
+
 export function usePetaniProfile(params?: Ref<PetaniProfileParams>) {
   const path = '/partner/petani/details'
   const getPetaniProfile = (): Promise<PetaniProfile> => apiGet(path, params?.value)

@@ -135,9 +135,23 @@
 
               <div class="grid grid-cols-12 gap-x-5">
                 <div class="col-span-6 space-y-4">
-                  <BaseInputSelect :options="[]" name="name" placeholder="Nama Pemilik" :floating-label="true" />
+                  <BaseInputSelect
+                    :options="petaniOptionsList.data.value"
+                    name="name"
+                    label-key="name"
+                    value-key="id"
+                    placeholder="Nama Pemilik"
+                    :floating-label="true"
+                  />
                   <BaseInputFloat label="Lokasi GPS" name="name" type="text" />
-                  <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
+                  <BaseInputSelect
+                    :options="kabupatenList.data.value"
+                    name="kabupaten_id"
+                    label-key="name"
+                    value-key="id"
+                    placeholder="Kabupaten"
+                    :floating-label="true"
+                  />
                 </div>
 
                 <div class="col-span-6 space-y-4">
@@ -202,8 +216,9 @@ import ModalDetailLahan from './ModalDetailLahan.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
 import { useAsetList, useLahanDetail } from '@/api/useAset'
-import type { DaftarAsetParams, LahanDetailParams } from '@/types/partner'
+import type { DaftarAsetParams, LahanDetailParams, PetaniListParams } from '@/types/partner'
 import { optionsSatuan, optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
+import { usePetaniOptionsList } from '@/api/usePetani'
 
 const route = useRoute()
 const daerah = route.params.daerah
@@ -214,6 +229,9 @@ const kabupatenList = useKabupaten()
 const params = ref<DaftarAsetParams>({})
 const asetList = useAsetList(params)
 
+const paramsPetani = ref<PetaniListParams>({})
+const petaniOptionsList = usePetaniOptionsList(paramsPetani)
+
 const handleParamValue = async () => {
   const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
 
@@ -221,6 +239,10 @@ const handleParamValue = async () => {
     params.value = {
       kabupaten_id: selectedKabupaten?.id,
       name: search.value || undefined,
+    }
+
+    paramsPetani.value = {
+      kabupaten_id: selectedKabupaten?.id,
     }
   }
 }
