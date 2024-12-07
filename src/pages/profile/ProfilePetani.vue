@@ -382,6 +382,7 @@ const showModal = () => {
   const petaniProfileData = petaniProfile.data.value
 
   if (petaniProfileData && petaniProfileData.kabupaten_id && provinsi.data.value) {
+    console.log(petaniProfileData.image_1920_url)
     profilePhoto.value = petaniProfileData?.image_1920_url
 
     const updatedPetaniProfileData = {
