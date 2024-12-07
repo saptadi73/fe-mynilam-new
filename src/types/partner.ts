@@ -75,7 +75,7 @@ export interface AgenProfileParams {
 export interface Agen {
   id: number
   name: string
-  ilo_associate: string
+  ilo_associate: 'agent' | 'koperasi'
   ilo_associate_code: string
   street: string
   kelurahan: string
@@ -86,6 +86,7 @@ export interface Agen {
   family_members: number
   image_1920_url: string
   phone: string
+  state: string
 }
 
 export interface DaftarAsetParams {

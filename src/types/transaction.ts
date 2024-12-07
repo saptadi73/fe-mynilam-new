@@ -1,6 +1,7 @@
 export interface DaftarPenjualanParams {
   destination_actor_name?: string
   kabupaten_id?: number
+  id_petani?: number
   associate_type?: 'agent' | 'koperasi'
   start_date?: string
   end_date?: string
