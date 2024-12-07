@@ -78,9 +78,9 @@
                 <h1 class="text-sm">Status</h1>
                 <p class="font-bold text-sm capitalize">{{ data.state }}</p>
               </div>
-              <div class="col-span-6 pt-2">
+              <div @click.stop="showModalQr(data.qr_code_image)" class="col-span-6 pt-2">
                 <h1 class="text-sm">Barcode</h1>
-                <p @click="showModalQr(data.name)" class="font-bold text-sm cursor-pointer">Lihat Barcode</p>
+                <p class="font-bold text-sm cursor-pointer">Lihat Barcode</p>
               </div>
             </div>
           </template>
@@ -100,7 +100,7 @@
           <div class="flex flex-col justify-center">
             <p class="text-center text-primary text-lg font-semibold pt-8">Silahkan Scan QR Code ini</p>
             <div class="px-32 py-4">
-              <img class="w-full" :src="qrcode" alt="QR Code" />
+              <img class="w-full" :src="'data:image/jpg;base64, ' + qrCodeImage" alt="QR Code" />
             </div>
             <div class="flex justify-center pb-4">
               <BaseButton @click="downloadQrCodeImage" class="w-52 font-semibold">Download</BaseButton>
@@ -122,7 +122,6 @@ import BaseIcon from '@/components/BaseIcon.vue'
 import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import FormTambahDaftarProduk from './components/FormTambahDaftarProduk.vue'
-import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { ref } from 'vue'
 import { useKabupaten } from '@/api/useLocalization'
 import { useDaftarPenjualan } from '@/api/useTransaction'
@@ -141,7 +140,7 @@ const selectedData = ref<DaftarPenjualan>()
 const modal = ref(false)
 const modalProduk = ref(false)
 const modalQr = ref(false)
-let qrcode = ref('')
+const qrCodeImage = ref('')
 
 const kabupaten = useKabupaten()
 
@@ -167,8 +166,8 @@ const handleModal = (value: boolean) => {
   modal.value = value
 }
 
-const showModalQr = (code: string) => {
-  qrcode = useQRCode(code)
+const showModalQr = (image: string) => {
+  qrCodeImage.value = image
   modalQr.value = true
 }
 
@@ -177,10 +176,10 @@ const handleModalQr = (value: boolean) => {
 }
 
 const downloadQrCodeImage = () => {
-  if (!qrcode.value) return
+  if (!qrCodeImage.value) return
 
   // Mengonversi Base64 ke Blob
-  const base64Data = qrcode.value.split(',')[1] // Ambil bagian Base64
+  const base64Data = qrCodeImage.value
 
   const byteCharacters = atob(base64Data)
   const byteNumbers = new Array(byteCharacters.length)
