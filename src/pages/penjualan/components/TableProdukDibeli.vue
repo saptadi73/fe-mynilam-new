@@ -65,8 +65,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="i in count" :key="i" class="border-b-2 border-primary-border">
-        <td class="py-4 text-center">FA0101-010-01</td>
+      <tr v-for="item in daftarPenjualan.data.value" :key="item.id" class="border-b-2 border-primary-border">
+        <td class="py-4 text-center">{{ item.specific_code }}</td>
         <td class="py-4 text-center">MNL-001</td>
         <td class="py-4 text-center">
           <BaseInputSelect
@@ -79,8 +79,8 @@
           />
         </td>
         <td class="py-4 text-center">Petani</td>
-        <td class="py-4 text-center">Nilam Jaya</td>
-        <td class="py-4 text-center">Koperasi</td>
+        <td class="py-4 text-center">{{ item.destination_actor[1] }}</td>
+        <td class="py-4 text-center">{{ item.destination_actor_associate_code === 'agent' ? 'Agen' : 'Koperasi' }}</td>
         <td class="py-4 text-center">Minyak Nilam</td>
         <td class="py-4 text-center">
           <input
@@ -99,7 +99,7 @@
         </td>
         <td class="py-4 text-center">1.000.000</td>
       </tr>
-      <tr @click="count++" class="border-b-2 border-primary-border hover:bg-gray-100">
+      <tr class="border-b-2 border-primary-border hover:bg-gray-100">
         <td colspan="12" class="bg-primary-light py-4 cursor-pointer">
           <div class="flex items-center space-x-2 justify-center text-primary-border">
             <span class="font-semibold">Tambah data</span>
@@ -113,10 +113,18 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useDaftarPenjualan } from '@/api/useTransaction'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
+import type { DaftarPenjualanParams } from '@/types/transaction'
 
-const count = ref(0)
+interface Props {
+  id: number
+}
+const props = defineProps<Props>()
+
+const params = ref<DaftarPenjualanParams>({ id_pembeli: props.id })
+const daftarPenjualan = useDaftarPenjualan(params)
 
 const penjualList = [
   { id: 1, name: 'Bagas Adi' },
