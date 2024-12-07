@@ -151,6 +151,7 @@
                     value-key="id"
                     placeholder="Kabupaten"
                     :floating-label="true"
+                    :disabled="true"
                   />
                 </div>
 
@@ -215,12 +216,13 @@ import BaseNoImage from '@/components/BaseNoImage.vue'
 import ModalDetailLahan from './ModalDetailLahan.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { useAsetList, useLahanDetail } from '@/api/useAset'
+import { useAsetList, useLahanCreate, useLahanDetail } from '@/api/useAset'
 import type { DaftarAsetParams, LahanDetailParams, LahanForm, PetaniListParams } from '@/types/partner'
 import { optionsSatuan, optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { usePetaniOptionsList } from '@/api/usePetani'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
+import { push } from 'notivue'
 
 const route = useRoute()
 const daerah = route.params.daerah
@@ -233,6 +235,8 @@ const asetList = useAsetList(params)
 
 const paramsPetani = ref<PetaniListParams>({})
 const petaniOptionsList = usePetaniOptionsList(paramsPetani)
+
+const createLahan = useLahanCreate()
 
 const handleParamValue = async () => {
   const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
@@ -270,7 +274,13 @@ const { handleSubmit, resetForm } = useForm<LahanForm>({
 })
 
 const onSubmit = handleSubmit((values) => {
-  console.log(values)
+  createLahan.mutate(values, {
+    onSuccess: (data: any) => {
+      asetList.refetch()
+      closeModal()
+      push.success({ message: data.description })
+    },
+  })
 })
 
 const lahanPhoto = ref<string | null | undefined>()
