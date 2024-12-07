@@ -142,13 +142,7 @@
 
                 <div class="col-span-6 space-y-4">
                   <div class="grid grid-cols-12 gap-x-2">
-                    <BaseInputSelect
-                      class="col-span-7"
-                      :options="[]"
-                      name="desa"
-                      placeholder="Luas Lahan"
-                      :floating-label="true"
-                    />
+                    <BaseInputFloat class="col-span-7" name="luas_lahan" label="Luas Lahan" type="text" />
                     <BaseInputSelect
                       class="col-span-5"
                       :options="optionsSatuan"
@@ -209,6 +203,7 @@ import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
 import { useAsetList, useLahanDetail } from '@/api/useAset'
 import type { DaftarAsetParams, LahanDetailParams } from '@/types/partner'
+import { optionsSatuan, optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 
 const route = useRoute()
 const daerah = route.params.daerah
@@ -274,19 +269,6 @@ const handleModal = (value: boolean) => {
 const handleSubmit = () => {
   console.log('test')
 }
-
-const optionsSatuan = ref([{ label: 'Ha', value: 1 }])
-
-const optionsStatusKepemilikan = ref([
-  { label: 'Milik Pribadi', value: 1 },
-  { label: 'Sewa', value: 2 },
-  { label: 'Pinjam', value: 2 },
-])
-
-const optionsStatusLahan = ref([
-  { label: 'Aktif', value: 1 },
-  { label: 'Tidak AKtif', value: 2 },
-])
 
 const modalDetail = ref<boolean>(false)
 const idDetail = ref<LahanDetailParams>({})
