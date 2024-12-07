@@ -34,3 +34,14 @@ export function useLahanCreate() {
     mutationFn: lahanCreateFn,
   })
 }
+
+export function useLahanUploadPhoto() {
+  const path = '/assets/upload-photo'
+  const headers = new AxiosHeaders({
+    'Content-Type': 'multipart/form-data',
+  })
+  const lahanUploadPhotoFn = (form: FormData): Promise<string> => apiPost(path, form, headers)
+  return useMutation({
+    mutationFn: lahanUploadPhotoFn,
+  })
+}
