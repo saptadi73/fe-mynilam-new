@@ -65,8 +65,21 @@
           </div>
         </div>
 
+        <div class="flex justify-center mt-1">
+          <label for="photoInput" class="text-dark"> Upload foto (Maksimal: 1 MB) </label>
+        </div>
+
+        <div v-if="errorMessage" class="flex justify-center text-orange-500">{{ errorMessage }}</div>
+
         <!-- Hidden user profile image input -->
-        <input type="file" ref="userPhotoInput" accept=".jpg, .jpeg, .png" @change="handleFileChange" class="hidden" />
+        <input
+          id="photoInput"
+          type="file"
+          ref="userPhotoInput"
+          accept=".jpg, .jpeg, .png"
+          @change="handleFileChange"
+          class="hidden"
+        />
 
         <!-- Modal body -->
         <slot name="body-form"> </slot>
@@ -85,6 +98,7 @@ interface PropsModal {
   profilePhoto?: string
 }
 
+const errorMessage = ref<string>('')
 const props = defineProps<PropsModal>()
 const emit = defineEmits({
   setModal: (status) => typeof status === 'boolean',
@@ -95,7 +109,7 @@ const closeModal = () => {
   emit('setModal', false)
 }
 
-const userPhoto = ref<string | undefined>(props.profilePhoto)
+const userPhoto = ref<string | null | undefined>(props.profilePhoto)
 const userPhotoInput = ref<HTMLInputElement | null>(null)
 
 const triggerUserPhotoInput = () => {
@@ -105,7 +119,15 @@ const triggerUserPhotoInput = () => {
 const handleFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
+  const maxSize = 1 * 1024 * 1024 // 1 MB in bytes
+
+  errorMessage.value = ''
   if (file) {
+    if (file.size > maxSize) {
+      errorMessage.value = 'Ukuran file melebihi batas 1 MB.'
+      return
+    }
+
     const fileURL = URL.createObjectURL(file)
     userPhoto.value = fileURL
     emit('file-uploaded', file)
@@ -114,6 +136,7 @@ const handleFileChange = (event: Event) => {
 
 const handleDeleteUserPhoto = () => {
   userPhoto.value = null
+  errorMessage.value = ''
 }
 </script>
 
