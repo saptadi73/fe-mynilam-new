@@ -105,6 +105,18 @@ export interface Aset {
   kabupaten_id: any
 }
 
+export interface LahanForm {
+  employee_id: number
+  coordinates: string
+  ownership_status: string
+  area_uom: number
+  kabupaten_id: number
+  planting_status: string
+  harvesting_status: string
+  product_id: number
+  uom_id: number
+}
+
 export interface LahanDetail {
   id: number
   farm_id: string

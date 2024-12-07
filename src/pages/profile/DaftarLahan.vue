@@ -82,7 +82,7 @@
       <BaseModal :show-modal="modal" @set-modal="handleModal">
         <template #modal-content>
           <div class="px-4 md:p-8">
-            <form @submit.prevent="handleSubmit" class="space-y-4">
+            <form @submit.prevent="onSubmit" class="space-y-4">
               <div class="flex justify-center">
                 <div class="relative relative-container flex justify-center items-center w-full" v-if="lahanPhoto">
                   <img :src="lahanPhoto" alt="Foto Lahan" class="profile-image object-cover w-full h-72" />
@@ -137,13 +137,13 @@
                 <div class="col-span-6 space-y-4">
                   <BaseInputSelect
                     :options="petaniOptionsList.data.value"
-                    name="name"
+                    name="employee_id"
                     label-key="name"
                     value-key="id"
                     placeholder="Nama Pemilik"
                     :floating-label="true"
                   />
-                  <BaseInputFloat label="Lokasi GPS" name="name" type="text" />
+                  <BaseInputFloat label="Lokasi GPS" name="coordinates" type="text" />
                   <BaseInputSelect
                     :options="kabupatenList.data.value"
                     name="kabupaten_id"
@@ -156,24 +156,24 @@
 
                 <div class="col-span-6 space-y-4">
                   <div class="grid grid-cols-12 gap-x-2">
-                    <BaseInputFloat class="col-span-7" name="luas_lahan" label="Luas Lahan" type="text" />
+                    <BaseInputFloat class="col-span-7" name="area_uom" label="Luas Lahan" type="number" />
                     <BaseInputSelect
                       class="col-span-5"
                       :options="optionsSatuan"
-                      name="desa"
+                      name="uom_id"
                       placeholder="Satuan"
                       :floating-label="true"
                     />
                   </div>
                   <BaseInputSelect
                     :options="optionsStatusKepemilikan"
-                    name="desa"
+                    name="ownership_status"
                     placeholder="Status Kepemilikan"
                     :floating-label="true"
                   />
                   <BaseInputSelect
                     :options="optionsStatusLahan"
-                    name="desa"
+                    name="planting_status"
                     placeholder="Status Lahan"
                     :floating-label="true"
                   />
@@ -216,9 +216,11 @@ import ModalDetailLahan from './ModalDetailLahan.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
 import { useAsetList, useLahanDetail } from '@/api/useAset'
-import type { DaftarAsetParams, LahanDetailParams, PetaniListParams } from '@/types/partner'
+import type { DaftarAsetParams, LahanDetailParams, LahanForm, PetaniListParams } from '@/types/partner'
 import { optionsSatuan, optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { usePetaniOptionsList } from '@/api/usePetani'
+import { useForm } from 'vee-validate'
+import { number, object, string } from 'yup'
 
 const route = useRoute()
 const daerah = route.params.daerah
@@ -253,6 +255,24 @@ onMounted(() => {
   handleParamValue()
 })
 
+const { handleSubmit, resetForm } = useForm<LahanForm>({
+  validationSchema: object({
+    employee_id: number().required().label('Nama'),
+    coordinates: string().required().label('Lokasi GPS'),
+    ownership_status: string().required().label('Status Kepemilikan'),
+    area_uom: number().required().label('Luas Lahan'),
+    uom_id: number().required().label('Satuan'),
+    planting_status: string().required().label('Status Lahan'),
+    harvesting_status: string().required().label('Status Panen'),
+    product_id: number().required().label('Lokasi GPS'),
+    kabupaten_id: number().required().label('Kabupaten'),
+  }),
+})
+
+const onSubmit = handleSubmit((values) => {
+  console.log(values)
+})
+
 const lahanPhoto = ref<string | null | undefined>()
 const lahanPhotoInput = ref<HTMLInputElement | null>(null)
 
@@ -277,6 +297,14 @@ const handleDeleteLahanPhoto = () => {
 let modal = ref<Boolean>(false)
 
 const showModal = () => {
+  resetForm({
+    values: {
+      kabupaten_id: kabupatenList.data.value?.find((item) => item.name === daerah)?.id,
+      product_id: 8, // Lahan Perkebunan
+      harvesting_status: 'belum aktif',
+    },
+  })
+
   modal.value = true
 }
 
@@ -286,10 +314,6 @@ const closeModal = () => {
 
 const handleModal = (value: boolean) => {
   modal.value = value
-}
-
-const handleSubmit = () => {
-  console.log('test')
 }
 
 const modalDetail = ref<boolean>(false)
