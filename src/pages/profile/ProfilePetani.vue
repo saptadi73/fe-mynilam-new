@@ -225,16 +225,16 @@
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="onSubmit" class="space-y-4">
-            <BaseInputFloat label="Nama" name="name" type="text" />
-            <BaseInputFloat label="Alamat" name="street" type="text" />
-            <BaseInputFloat label="Desa/Kelurahan" name="kelurahan" type="text" />
-            <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
+            <BaseInputFloat label="Nama*" name="name" type="text" />
+            <BaseInputFloat label="Alamat*" name="street" type="text" />
+            <BaseInputFloat label="Desa/Kelurahan*" name="kelurahan" type="text" />
+            <BaseInputFloat label="Kecamatan*" name="kecamatan" type="text" />
             <BaseInputSelect
               name="kabupaten_id"
               :options="kabupatenList.data.value"
               label-key="name"
               value-key="id"
-              placeholder="Kota/Kabupaten"
+              placeholder="Kota/Kabupaten*"
               :floating-label="true"
             />
             <BaseInputSelect
@@ -246,22 +246,22 @@
               :floating-label="true"
               :disabled="true"
             />
-            <BaseInputFloat label="Anggota Keluarga" name="family_members" type="number" />
+            <BaseInputFloat label="Anggota Keluarga*" name="family_members" type="number" />
             <BaseInputSelect
               :options="optionsStatus"
               name="organization_statue"
-              placeholder="Status"
+              placeholder="Status*"
               :floating-label="true"
             />
             <BaseInputSelect
               :options="optionsPendidikan"
               name="education_level_id"
-              placeholder="Pendidikan"
+              placeholder="Pendidikan*"
               :floating-label="true"
             />
             <BaseInputFile
               name="suratKontrak"
-              label="Surat Kontrak"
+              label="Surat Kontrak*"
               file-type=".pdf"
               @file-selected="handleFileSuratKontrak"
             ></BaseInputFile>
@@ -329,7 +329,7 @@ const { handleSubmit, resetForm } = useForm<PetaniForm>({
     education_level_id: number().required().label('Pendidikan'),
     // suratKontrak: mixed().required().label('Surat Kontrak'),
     ilo_associate: string().required().label('Jenis Mitra'),
-    email: string().required().label('Email'),
+    email: string().label('Email'),
   }),
 })
 const profilePhoto = ref<string>()
