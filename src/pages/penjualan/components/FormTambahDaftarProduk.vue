@@ -116,13 +116,13 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import type { ProdukNilamType } from '@/types/produk'
-import type { DaftarPenjualan } from '@/types/transaction'
+import type { ListOfProduct } from '@/types/transaction'
 import BaseInputDate from '@/components/BaseInputDate.vue'
 import TableProdukDibeli from './TableProdukDibeli.vue'
 import { useAgenKoperasiList } from '@/api/usePartner'
 
 interface Props {
-  data?: DaftarPenjualan
+  data?: ListOfProduct
 }
 
 const emit = defineEmits()

@@ -4,6 +4,8 @@ import type {
   DaftarPenjualan,
   DaftarPenjualanParams,
   FarmerReport,
+  ListOfProduct,
+  ListOfProductParams,
   ReferenceSummary,
   ReferenceSummaryParams,
   TransactionDetails,
@@ -45,5 +47,14 @@ export function useTransactionDetails(params?: Ref<TransactionDetailsParams>) {
   return useQuery({
     queryKey: ['transactionDetails', params],
     queryFn: getTransactionDetails,
+  })
+}
+
+export function useListOfProduct(params?: Ref<ListOfProductParams>) {
+  const path = '/transaction/transaction/list-of-product'
+  const getListOfProduct = (): Promise<ListOfProduct[]> => apiGet(path, params?.value)
+  return useQuery({
+    queryKey: ['listOfProduct', params],
+    queryFn: getListOfProduct,
   })
 }

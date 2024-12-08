@@ -114,3 +114,25 @@ export interface TransactionDetails {
   stock_move_id: [number, string]
   date_order: string
 }
+
+export interface ListOfProductParams {
+  associate_type?: 'agent' | 'koperasi'
+  id_pembeli?: number
+  kabupaten_id?: number
+  start_date?: string
+  end_date?: string
+}
+
+export interface ListOfProduct {
+  id: number
+  destination_actor: [number, string]
+  destination_actor_associate_code: string
+  product_id: [number, string]
+  product_image_url: string
+  product_uom_id: [number, string]
+  total_requested_quantity: number
+  state: string
+  kabupaten_id: [number, string]
+  qr_code_id: [number, string]
+  qr_code_image: string
+}
