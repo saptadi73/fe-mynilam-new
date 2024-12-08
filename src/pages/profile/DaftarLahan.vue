@@ -218,7 +218,7 @@ import BaseNoImage from '@/components/BaseNoImage.vue'
 import ModalDetailLahan from './ModalDetailLahan.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { useAsetList, useLahanCreate, useLahanDetail } from '@/api/useAset'
+import { useAsetList, useLahanCreate, useLahanDetail, useLahanUploadPhoto } from '@/api/useAset'
 import type { DaftarAsetParams, LahanDetailParams, LahanForm, PetaniListParams } from '@/types/partner'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { usePetaniOptionsList, useUOMList } from '@/api/usePetani'
@@ -240,6 +240,7 @@ const lovPetani = usePetaniOptionsList(paramsPetani)
 const lovUOM = useUOMList()
 
 const createLahan = useLahanCreate()
+const uploadLahanPhoto = useLahanUploadPhoto()
 
 const handleParamValue = async () => {
   const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
@@ -276,16 +277,35 @@ const { handleSubmit, resetForm } = useForm<LahanForm>({
   }),
 })
 
-const onSubmit = handleSubmit((values) => {
-  createLahan.mutate(values, {
-    onSuccess: (data: any) => {
-      asetList.refetch()
-      closeModal()
-      push.success({ message: data.description })
-    },
-  })
+const onSubmit = handleSubmit(async (values) => {
+  try {
+    const data: any = await createLahan.mutateAsync(values)
+
+    if (filePhoto.value) {
+      await uploadFile(data.data.asset_id)
+    }
+
+    asetList.refetch()
+    closeModal()
+    push.success({ message: data.description })
+  } catch (error) {
+    console.error('Error submitting form:', error)
+  }
 })
 
+const uploadFile = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('asset_id', id.toString())
+    formData.append('photo', filePhoto.value)
+
+    await uploadLahanPhoto.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading photo:', error)
+  }
+}
+
+const filePhoto = ref()
 const lahanPhoto = ref<string | null | undefined>()
 const lahanPhotoInput = ref<HTMLInputElement | null>(null)
 
@@ -299,6 +319,7 @@ const handleFileChange = (event: Event) => {
 
   if (file) {
     const fileURL = URL.createObjectURL(file)
+    filePhoto.value = file
     lahanPhoto.value = fileURL
   }
 }
@@ -307,7 +328,7 @@ const handleDeleteLahanPhoto = () => {
   lahanPhoto.value = null
 }
 
-let modal = ref<Boolean>(false)
+let modal = ref<boolean>(false)
 
 const showModal = () => {
   resetForm({
