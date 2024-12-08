@@ -238,18 +238,21 @@ const handleModal = (value: boolean) => {
   modal.value = value
 }
 
-const onSubmit = handleSubmit((values) => {
-  values.country_id = 100
-  createPetani.mutate(values, {
-    onSuccess: (data: any) => {
-      if (file.value) {
-        uploadFile(data.data.partner_id)
-      }
-      petaniList.refetch()
-      closeModal()
-      push.success({ message: data.description })
-    },
-  })
+const onSubmit = handleSubmit(async (values) => {
+  try {
+    values.country_id = 100
+    const data: any = await createPetani.mutateAsync(values)
+
+    if (file.value) {
+      await uploadFile(data.data.partner_id)
+    }
+
+    petaniList.refetch()
+    closeModal()
+    push.success({ message: data.description })
+  } catch (error) {
+    console.error('Error submitting form:', error)
+  }
 })
 
 const uploadFile = async (id: number) => {
@@ -258,18 +261,9 @@ const uploadFile = async (id: number) => {
     formData.append('partner_id', id.toString())
     formData.append('photo', file.value)
 
-    const photoPetaniPromise = new Promise((resolve, reject) => {
-      uploadPhoto.mutate(formData, {
-        onSuccess: (data: any) => {
-          resolve(data)
-        },
-        onError: (error: any) => reject(error),
-      })
-    })
-
-    await Promise.all([photoPetaniPromise])
+    await uploadPhoto.mutateAsync(formData)
   } catch (error) {
-    console.error('Error updating data:', error)
+    console.error('Error uploading profile photo:', error)
   }
 }
 
