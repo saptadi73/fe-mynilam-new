@@ -382,7 +382,6 @@ const showModal = () => {
   const petaniProfileData = petaniProfile.data.value
 
   if (petaniProfileData && petaniProfileData.kabupaten_id && provinsi.data.value) {
-    console.log(petaniProfileData.image_1920_url)
     profilePhoto.value = petaniProfileData?.image_1920_url
 
     const updatedPetaniProfileData = {
@@ -394,7 +393,7 @@ const showModal = () => {
       state_id: provinsi.data.value[0].id,
       family_members: petaniProfileData.family_members,
       organization_statue: petaniProfileData.organization_status,
-      education_level_id: Number(petaniProfileData.education_level_id),
+      education_level_id: Number(petaniProfileData.education_level_id[0]),
       ilo_associate: petaniProfileData.ilo_associate,
       email: petaniProfileData.email,
     }
