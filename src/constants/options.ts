@@ -22,5 +22,3 @@ export const optionsStatusLahan = ref([
   { label: 'Aktif', value: 'aktif' },
   { label: 'Belum AKtif', value: 'belum aktif' },
 ])
-
-export const optionsSatuan = ref([{ label: 'Ha', value: 28 }])

@@ -160,8 +160,10 @@
                     <BaseInputFloat class="col-span-7" name="area_uom" label="Luas Lahan" type="number" />
                     <BaseInputSelect
                       class="col-span-5"
-                      :options="optionsSatuan"
+                      :options="lovUOM.data.value"
                       name="uom_id"
+                      label-key="name"
+                      value-key="id"
                       placeholder="Satuan"
                       :floating-label="true"
                     />
@@ -218,8 +220,8 @@ import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
 import { useAsetList, useLahanCreate, useLahanDetail } from '@/api/useAset'
 import type { DaftarAsetParams, LahanDetailParams, LahanForm, PetaniListParams } from '@/types/partner'
-import { optionsSatuan, optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
-import { usePetaniOptionsList } from '@/api/usePetani'
+import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
+import { usePetaniOptionsList, useUOMList } from '@/api/usePetani'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { push } from 'notivue'
@@ -235,6 +237,7 @@ const asetList = useAsetList(params)
 
 const paramsPetani = ref<PetaniListParams>({})
 const lovPetani = usePetaniOptionsList(paramsPetani)
+const lovUOM = useUOMList()
 
 const createLahan = useLahanCreate()
 
