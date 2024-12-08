@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <ModalProfile :modal="modal" @set-modal="handleModal">
+    <ModalProfile :modal="modal" @set-modal="handleModal" @file-uploaded="handlePhotoUpload">
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="onSubmit" class="space-y-4">
@@ -160,7 +160,7 @@ import ModalProfile from './components/ModalProfile.vue'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten, useProvinsi } from '@/api/useLocalization'
-import { usePetaniCreate, usePetaniList } from '@/api/usePetani'
+import { usePetaniCreate, usePetaniList, usePetaniUploadPhoto } from '@/api/usePetani'
 import { PetaniForm, PetaniListParams } from '@/types/partner'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
@@ -178,6 +178,7 @@ const params = ref<PetaniListParams>({})
 const petaniList = usePetaniList(params)
 
 const createPetani = usePetaniCreate()
+const uploadPhoto = usePetaniUploadPhoto()
 
 const handleParamValue = async () => {
   const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
@@ -212,7 +213,7 @@ const { handleSubmit, resetForm } = useForm<PetaniForm>({
     email: string().label('Email'),
   }),
 })
-
+const file = ref()
 let modal = ref<Boolean>(false)
 
 const showModal = () => {
@@ -241,6 +242,9 @@ const onSubmit = handleSubmit((values) => {
   values.country_id = 100
   createPetani.mutate(values, {
     onSuccess: (data: any) => {
+      if (file.value) {
+        uploadFile(data.data.partner_id)
+      }
       petaniList.refetch()
       closeModal()
       push.success({ message: data.description })
@@ -248,7 +252,32 @@ const onSubmit = handleSubmit((values) => {
   })
 })
 
+const uploadFile = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('partner_id', id.toString())
+    formData.append('photo', file.value)
+
+    const photoPetaniPromise = new Promise((resolve, reject) => {
+      uploadPhoto.mutate(formData, {
+        onSuccess: (data: any) => {
+          resolve(data)
+        },
+        onError: (error: any) => reject(error),
+      })
+    })
+
+    await Promise.all([photoPetaniPromise])
+  } catch (error) {
+    console.error('Error updating data:', error)
+  }
+}
+
 function handleFileSuratKontrak(file: File) {
   console.log('Selected file:', file)
+}
+
+const handlePhotoUpload = (uploadedPhoto: any) => {
+  file.value = uploadedPhoto
 }
 </script>

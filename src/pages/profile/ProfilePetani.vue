@@ -378,7 +378,6 @@ const onSubmit = handleSubmit((values) => {
 let modal = ref<Boolean>(false)
 
 const showModal = () => {
-  modal.value = true
   const petaniProfileData = petaniProfile.data.value
 
   if (petaniProfileData && petaniProfileData.kabupaten_id && provinsi.data.value) {
@@ -401,6 +400,8 @@ const showModal = () => {
     resetForm({
       values: updatedPetaniProfileData,
     })
+
+    modal.value = true
   }
 }
 
