@@ -136,7 +136,7 @@
               <div class="grid grid-cols-12 gap-x-5">
                 <div class="col-span-6 space-y-4">
                   <BaseInputSelect
-                    :options="petaniOptionsList.data.value"
+                    :options="lovPetani.data.value"
                     name="employee_id"
                     label-key="name"
                     value-key="id"
@@ -234,7 +234,7 @@ const params = ref<DaftarAsetParams>({})
 const asetList = useAsetList(params)
 
 const paramsPetani = ref<PetaniListParams>({})
-const petaniOptionsList = usePetaniOptionsList(paramsPetani)
+const lovPetani = usePetaniOptionsList(paramsPetani)
 
 const createLahan = useLahanCreate()
 

@@ -15,7 +15,7 @@ export function usePetaniList(params?: Ref<PetaniListParams>) {
 }
 
 export function usePetaniOptionsList(params?: Ref<PetaniListParams>) {
-  const path = '/partner/petani'
+  const path = '/lov/list-petani'
   const getPetaniOptionsList = (): Promise<Petani[]> => apiGet(path, params?.value)
   return useQuery({
     queryKey: ['petaniOptionsList', params],
