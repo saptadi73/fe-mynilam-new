@@ -3,8 +3,12 @@
     <template #modal-content>
       <div class="profile">
         <div class="flex justify-center pt-24">
-          <div class="relative relative-container flex justify-center items-center" v-if="userPhoto">
-            <img :src="userPhoto" class="profile-image w-32 h-32 object-cover rounded-full" alt="Profile Image" />
+          <div class="relative relative-container flex justify-center items-center" v-if="userPhoto || profilePhoto">
+            <img
+              :src="userPhoto || profilePhoto"
+              class="profile-image w-32 h-32 object-cover rounded-full"
+              alt="Profile Image"
+            />
 
             <svg
               @click="handleDeleteUserPhoto"
@@ -90,12 +94,11 @@
 
 <script setup lang="ts">
 import BaseModal from '@/components/BaseModal.vue'
-
 import { ref } from 'vue'
 
 interface PropsModal {
   modal: Boolean
-  profilePhoto?: string
+  profilePhoto: string
 }
 
 const errorMessage = ref<string>('')
@@ -109,7 +112,7 @@ const closeModal = () => {
   emit('setModal', false)
 }
 
-const userPhoto = ref<string | null | undefined>(props.profilePhoto)
+const userPhoto = ref<string>(props.profilePhoto)
 const userPhotoInput = ref<HTMLInputElement | null>(null)
 
 const triggerUserPhotoInput = () => {
@@ -135,7 +138,7 @@ const handleFileChange = (event: Event) => {
 }
 
 const handleDeleteUserPhoto = () => {
-  userPhoto.value = null
+  userPhoto.value = ''
   errorMessage.value = ''
 }
 </script>

@@ -91,7 +91,7 @@
       </div>
     </div>
 
-    <ModalProfile :modal="modal" @set-modal="handleModal">
+    <ModalProfile :modal="modal" @set-modal="handleModal" :profile-photo="profilePhoto">
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="onSubmit" class="space-y-4">
@@ -100,7 +100,7 @@
             <BaseInputFloat label="Desa/Kelurahan" name="kelurahan" type="text" />
             <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
             <BaseInputSelect
-              name="kabupaten"
+              name="kabupaten_id"
               :options="kabupaten.data.value"
               label-key="name"
               value-key="id"
@@ -118,7 +118,7 @@
             />
             <BaseInputSelect
               :options="optionsJenisMitra"
-              name="jenisMitra"
+              name="ilo_associate"
               placeholder="Jenis Mitra"
               :floating-label="true"
             />
@@ -164,12 +164,13 @@ const { handleSubmit, resetForm } = useForm({
     street: string().required().label('Alamat'),
     kelurahan: string().required().label('Desa/Kelurahan'),
     kecamatan: string().required().label('Kecamatan'),
-    kabupaten: number().required().label('Kota/Kabupaten'),
+    kabupaten_id: number().required().label('Kota/Kabupaten'),
     state_id: string().label('Provinsi'),
-    jenisMitra: string().required().label('Jenis Mitra'),
+    ilo_associate: string().required().label('Jenis Mitra'),
     email: string().required().label('Email'),
   }),
 })
+const profilePhoto = ref<string>('')
 
 const onSubmit = handleSubmit((values) => {
   console.log(values)
@@ -183,10 +184,14 @@ const showModal = () => {
   const agenProfileData = agenProfile.data.value?.[0]
 
   if (agenProfileData && agenProfileData.kabupaten_id && provinsi.data.value) {
+    if (agenProfileData.image_1920_url) {
+      profilePhoto.value = agenProfileData.image_1920_url
+    }
+
     const updatedAgenProfileData = {
       ...agenProfileData,
-      kabupaten: agenProfileData.kabupaten_id[0],
-      jenisMitra: optionsJenisMitra.value.find((item) => item.value == agenProfileData.ilo_associate)?.value,
+      kabupaten_id: agenProfileData.kabupaten_id[0],
+      ilo_associate: optionsJenisMitra.value.find((item) => item.value == agenProfileData.ilo_associate)?.value,
       state_id: provinsi.data.value[0].id,
     }
 
