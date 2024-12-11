@@ -38,15 +38,14 @@
         </div> -->
       </div>
       <hr class="border border-primary-border mt-3 -ml-4 -mr-4" />
-      <div v-if="daftarPenjualan.isLoading.value" class="grid place-items-center h-96">Loading...</div>
+      <div v-if="listOfProduct.isLoading.value" class="grid place-items-center h-96">Loading...</div>
       <div v-else class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Produk" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
-          v-for="(data, index) in daftarPenjualan.data.value"
+          v-for="(data, index) in listOfProduct.data.value"
           :key="index"
-          :card-code="data.name"
           class="col-span-12 md:col-span-6 lg:col-span-3"
-          @click="handleCardClick(data)"
+          @click="handleCardClick(data.id)"
         >
           <template #card-content>
             <div class="flex justify-center pt-2">
@@ -72,7 +71,7 @@
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Jumlah</h1>
-                <p class="font-bold text-sm">{{ data.quantity }} kg</p>
+                <p class="font-bold text-sm">{{ data.total_requested_quantity }} kg</p>
               </div>
               <div class="col-span-6 pt-2">
                 <h1 class="text-sm">Status</h1>
@@ -90,7 +89,11 @@
       <BaseModal :show-modal="modal" @set-modal="handleModal" class="!max-w-[80rem]">
         <template #modal-content>
           <div class="px-4 py-16">
-            <FormTambahDaftarProduk :data="selectedData" @close-modal="closeModal" @add-product="modalProduk = true" />
+            <FormTambahDaftarProduk
+              :id="selectedProductId"
+              @close-modal="closeModal"
+              @add-product="modalProduk = true"
+            />
           </div>
         </template>
       </BaseModal>
@@ -124,9 +127,9 @@ import BaseModal from '@/components/BaseModal.vue'
 import FormTambahDaftarProduk from './components/FormTambahDaftarProduk.vue'
 import { ref } from 'vue'
 import { useKabupaten } from '@/api/useLocalization'
-import { useDaftarPenjualan } from '@/api/useTransaction'
+import { useListOfProduct } from '@/api/useTransaction'
 import { useForm } from 'vee-validate'
-import type { DaftarPenjualan, DaftarPenjualanParams } from '@/types/transaction'
+import type { DaftarPenjualanParams, ListOfProductParams } from '@/types/transaction'
 
 interface Form {
   kabupaten: DaftarPenjualanParams['kabupaten_id']
@@ -135,7 +138,7 @@ interface Form {
 
 const { values } = useForm<Form>()
 const searchValue = ref('')
-const selectedData = ref<DaftarPenjualan>()
+const selectedProductId = ref<number>()
 
 const modal = ref(false)
 const modalProduk = ref(false)
@@ -144,12 +147,12 @@ const qrCodeImage = ref('')
 
 const kabupaten = useKabupaten()
 
-// auto refetch on daftarPenjualanParams change
-const daftarPenjualanParams = ref<DaftarPenjualanParams>({})
-const daftarPenjualan = useDaftarPenjualan(daftarPenjualanParams)
+// auto refetch on params change
+const params = ref<ListOfProductParams>({})
+const listOfProduct = useListOfProduct(params)
 
 const setDaftarPenjualanParams = () => {
-  daftarPenjualanParams.value = {
+  params.value = {
     kabupaten_id: values.kabupaten,
     associate_type: values.jenis,
   }
@@ -162,7 +165,7 @@ const closeModal = () => {
   modal.value = false
 }
 const handleModal = (value: boolean) => {
-  if (!value) selectedData.value = undefined
+  if (!value) selectedProductId.value = undefined
   modal.value = value
 }
 
@@ -201,8 +204,8 @@ const downloadQrCodeImage = () => {
   URL.revokeObjectURL(link.href) // Bersihkan URL setelah digunakan
 }
 
-const handleCardClick = (data: DaftarPenjualan) => {
-  selectedData.value = data
+const handleCardClick = (id: number) => {
+  selectedProductId.value = id
   showModal()
 }
 
