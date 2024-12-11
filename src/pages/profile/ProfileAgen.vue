@@ -65,7 +65,9 @@
             <div class="col-span-4 font-bold">Provinsi</div>
             <div class="col-span-8 font-bold flex items-center">
               : &nbsp;
-              <span v-if="!agenProfile.isLoading.value">{{ agenProfile.data.value?.[0].provinsi ?? '-' }} </span>
+              <span v-if="!agenProfile.isLoading.value"
+                >{{ agenProfile.data.value?.[0].state_id ? agenProfile.data.value?.[0].state_id[1] : '-' }}
+              </span>
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
           </div>
@@ -105,7 +107,15 @@
               placeholder="Kota/Kabupaten"
               :floating-label="true"
             />
-            <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
+            <BaseInputSelect
+              :options="provinsi.data.value"
+              name="state_id"
+              label-key="name"
+              value-key="id"
+              placeholder="Provinsi"
+              :floating-label="true"
+              :disabled="true"
+            />
             <BaseInputSelect
               :options="optionsJenisMitra"
               name="jenisMitra"
@@ -137,12 +147,13 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
-import { useKabupaten } from '@/api/useLocalization'
+import { useKabupaten, useProvinsi } from '@/api/useLocalization'
 import { useAgenProfile } from '@/api/useAgen'
 import type { AgenProfileParams } from '@/types/partner'
 
 const route = useRoute()
 const kabupaten = useKabupaten()
+const provinsi = useProvinsi()
 
 const agenProfileParams = ref<AgenProfileParams>({ user_id: Number(route.params.id) })
 const agenProfile = useAgenProfile(agenProfileParams)
@@ -154,7 +165,7 @@ const { handleSubmit, resetForm } = useForm({
     kelurahan: string().required().label('Desa/Kelurahan'),
     kecamatan: string().required().label('Kecamatan'),
     kabupaten: number().required().label('Kota/Kabupaten'),
-    provinsi: string().label('Provinsi'),
+    state_id: string().label('Provinsi'),
     jenisMitra: string().required().label('Jenis Mitra'),
     email: string().required().label('Email'),
   }),
@@ -171,11 +182,12 @@ const showModal = () => {
 
   const agenProfileData = agenProfile.data.value?.[0]
 
-  if (agenProfileData && agenProfileData.kabupaten_id) {
+  if (agenProfileData && agenProfileData.kabupaten_id && provinsi.data.value) {
     const updatedAgenProfileData = {
       ...agenProfileData,
       kabupaten: agenProfileData.kabupaten_id[0],
       jenisMitra: optionsJenisMitra.value.find((item) => item.value == agenProfileData.ilo_associate)?.value,
+      state_id: provinsi.data.value[0].id,
     }
 
     resetForm({
