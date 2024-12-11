@@ -33,3 +33,14 @@ export function useAgenCreate() {
     mutationFn: petaniCreateFn,
   })
 }
+
+export function useAgenUploadPhoto() {
+  const path = '/partner/petani/upload-photo'
+  const headers = new AxiosHeaders({
+    'Content-Type': 'multipart/form-data',
+  })
+  const agenUploadPhotoFn = (form: FormData): Promise<string> => apiPost(path, form, headers)
+  return useMutation({
+    mutationFn: agenUploadPhotoFn,
+  })
+}

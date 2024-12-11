@@ -96,7 +96,7 @@
       </div>
     </div>
 
-    <ModalProfile :modal="modal" @set-modal="handleModal">
+    <ModalProfile :modal="modal" @set-modal="handleModal" @file-uploaded="handlePhotoUpload">
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="onSubmit" class="space-y-4">
@@ -153,7 +153,7 @@ import ModalProfile from './components/ModalProfile.vue'
 import { ref } from 'vue'
 import { useForm } from 'vee-validate'
 import { useKabupaten, useProvinsi } from '@/api/useLocalization'
-import { useAgenCreate, useAgenList } from '@/api/useAgen'
+import { useAgenCreate, useAgenList, useAgenUploadPhoto } from '@/api/useAgen'
 import type { AgenForm, DaftarAgenParams } from '@/types/partner'
 import { number, object, string } from 'yup'
 import { useRoute } from 'vue-router'
@@ -176,6 +176,7 @@ const daftarAgenParams = ref<DaftarAgenParams>({})
 const agenList = useAgenList(daftarAgenParams)
 
 const createAgen = useAgenCreate()
+const uploadPhoto = useAgenUploadPhoto()
 
 const setDaftarAgenParams = () => {
   daftarAgenParams.value = {
@@ -197,6 +198,7 @@ const { handleSubmit: handleSubmitAgen, resetForm: resetFormAgen } = useForm<Age
     email: string().label('Email'),
   }),
 })
+const file = ref()
 
 let modal = ref<boolean>(false)
 
@@ -221,19 +223,40 @@ const handleModal = (value: boolean) => {
   modal.value = value
 }
 
-const onSubmit = handleSubmitAgen((values: AgenForm) => {
-  console.log(values)
-  values.country_id = 100
-  values.education_level_id = 1
+const onSubmit = handleSubmitAgen(async (values: AgenForm) => {
+  try {
+    values.country_id = 100
+    values.education_level_id = 1
 
-  createAgen.mutate(values, {
-    onSuccess: (data: any) => {
-      agenList.refetch()
-      closeModal()
-      push.success({ message: data.description })
-    },
-  })
+    const data: any = await createAgen.mutateAsync(values)
+
+    if (file.value) {
+      await uploadFile(data.data.partner_id)
+    }
+
+    agenList.refetch()
+    closeModal()
+    push.success({ message: data.description })
+  } catch (error) {
+    console.error('Error submitting form:', error)
+  }
 })
+
+const uploadFile = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('partner_id', id.toString())
+    formData.append('photo', file.value)
+
+    await uploadPhoto.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading agen photo:', error)
+  }
+}
+
+const handlePhotoUpload = (uploadedPhoto: any) => {
+  file.value = uploadedPhoto
+}
 
 const optionsJenisMitra = ref([
   { label: 'Koperasi', value: 'koperasi' },
