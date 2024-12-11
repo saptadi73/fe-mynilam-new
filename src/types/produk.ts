@@ -1,11 +1,11 @@
 export interface ProdukNilamType {
-  kode: string
-  nama_penjual: string
-  jenis: 'agent' | 'koperasi'
-  nama_pembeli: number
-  jumlah: number
+  jenis: string
+  namaPembeli: number
   kota: number
-  harga: string
+  harga: number
   status: string
-  sub_total: number
+  total: number
+  satuan: string
+  tanggalTerima: string
+  tanggalPemesanan: string
 }

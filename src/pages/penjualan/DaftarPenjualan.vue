@@ -44,9 +44,8 @@
         <BaseCard
           v-for="(data, index) in listOfProduct.data.value"
           :key="index"
-          :card-code="data.destination_actor[1]"
           class="col-span-12 md:col-span-6 lg:col-span-3"
-          @click="handleCardClick(data)"
+          @click="handleCardClick(data.id)"
         >
           <template #card-content>
             <div class="flex justify-center pt-2">
@@ -90,7 +89,11 @@
       <BaseModal :show-modal="modal" @set-modal="handleModal" class="!max-w-[80rem]">
         <template #modal-content>
           <div class="px-4 py-16">
-            <FormTambahDaftarProduk :data="selectedData" @close-modal="closeModal" @add-product="modalProduk = true" />
+            <FormTambahDaftarProduk
+              :id="selectedProductId"
+              @close-modal="closeModal"
+              @add-product="modalProduk = true"
+            />
           </div>
         </template>
       </BaseModal>
@@ -126,7 +129,7 @@ import { ref } from 'vue'
 import { useKabupaten } from '@/api/useLocalization'
 import { useListOfProduct } from '@/api/useTransaction'
 import { useForm } from 'vee-validate'
-import type { DaftarPenjualanParams, ListOfProduct, ListOfProductParams } from '@/types/transaction'
+import type { DaftarPenjualanParams, ListOfProductParams } from '@/types/transaction'
 
 interface Form {
   kabupaten: DaftarPenjualanParams['kabupaten_id']
@@ -135,7 +138,7 @@ interface Form {
 
 const { values } = useForm<Form>()
 const searchValue = ref('')
-const selectedData = ref<ListOfProduct>()
+const selectedProductId = ref<number>()
 
 const modal = ref(false)
 const modalProduk = ref(false)
@@ -162,7 +165,7 @@ const closeModal = () => {
   modal.value = false
 }
 const handleModal = (value: boolean) => {
-  if (!value) selectedData.value = undefined
+  if (!value) selectedProductId.value = undefined
   modal.value = value
 }
 
@@ -201,8 +204,8 @@ const downloadQrCodeImage = () => {
   URL.revokeObjectURL(link.href) // Bersihkan URL setelah digunakan
 }
 
-const handleCardClick = (data: ListOfProduct) => {
-  selectedData.value = data
+const handleCardClick = (id: number) => {
+  selectedProductId.value = id
   showModal()
 }
 

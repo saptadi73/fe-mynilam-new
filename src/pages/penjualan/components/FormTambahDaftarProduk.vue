@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 md:p-8 w-full">
-    <form @submit.prevent="onSubmit" v-if="!agenKoperasiList.isLoading.value">
+    <form @submit.prevent="onSubmit" v-if="!agenKoperasiList.isLoading.value && !productDetail.isLoading.value">
       <div class="flex justify-center pb-4">
         <div class="flex flex-col">
           <div v-if="productImage" class="relative relative-container flex justify-center items-center">
@@ -58,13 +58,12 @@
 
       <section class="grid lg:grid-cols-2 gap-5 my-5">
         <BaseInputSelect
-          name="nama_pembeli"
+          name="namaPembeli"
           label-key="name"
           value-key="id"
           :options="agenKoperasiList.data.value"
           placeholder="Pilih Pembeli"
           :floating-label="true"
-          @change="setFormValue"
         />
         <BaseInputSelect name="jenis" placeholder="Jenis" :floating-label="true" :options="optionsJenis" />
         <BaseInputSelect
@@ -86,15 +85,15 @@
           />
         </div>
         <BaseInputSelect :options="optionsStatus" name="status" placeholder="Status" :floating-label="true" />
-        <BaseInputFloat label="Total Harga" name="totalHarga" type="text" />
+        <BaseInputFloat label="Total Harga" name="harga" type="text" />
         <BaseInputDate label="Tanggal Pemesanan Produk" name="tanggalPemesanan" />
         <BaseInputDate label="Tanggal Terima Produk" name="tanggalTerima" />
       </section>
 
-      <div v-if="values.nama_pembeli" class="my-10">
+      <div v-if="values.namaPembeli" class="my-10">
         <h1 class="font-semibold text-primary uppercase mb-3">Daftar Produk Dibeli</h1>
         <div class="overflow-x-auto">
-          <TableProdukDibeli :id="values.nama_pembeli" />
+          <TableProdukDibeli :id="values.namaPembeli" />
         </div>
       </div>
 
@@ -108,7 +107,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { useKabupaten } from '@/api/useLocalization'
@@ -116,28 +115,31 @@ import BaseButton from '@/components/BaseButton.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import type { ProdukNilamType } from '@/types/produk'
-import type { ListOfProduct } from '@/types/transaction'
 import BaseInputDate from '@/components/BaseInputDate.vue'
 import TableProdukDibeli from './TableProdukDibeli.vue'
 import { useAgenKoperasiList } from '@/api/usePartner'
+import { useProductDetail } from '@/api/useTransaction'
 
 interface Props {
-  data?: ListOfProduct
+  id: number
 }
 
 const emit = defineEmits()
 const props = defineProps<Props>()
+
+const params = ref({ id_transaksi: props.id })
+const productDetail = useProductDetail(params)
 
 const kabupaten = useKabupaten()
 const agenKoperasiList = useAgenKoperasiList()
 
 const { handleSubmit, values, setValues, resetForm } = useForm<ProdukNilamType>({
   validationSchema: object({
-    nama_pembeli: number().required().label('Nama Pembeli'),
+    namaPembeli: number().required().label('Nama Pembeli'),
     jenis: string().required().label('Jenis'),
     total: number().required().label('Total'),
     kota: number().required().label('Kota/Kabupaten'),
-    harga: string().required().label('Harga/kg'),
+    harga: number().required().label('Harga/kg'),
     status: string().required().label('Status'),
   }),
 })
@@ -147,7 +149,7 @@ const onSubmit = handleSubmit((_values) => {
   emit('close-modal')
 })
 
-const optionsSatuan = [{ label: 'Kg', value: 1 }]
+const optionsSatuan = [{ label: 'Kg', value: 'kg' }]
 
 const optionsStatus = [
   { label: 'Tersedia', value: 1 },
@@ -157,20 +159,8 @@ const optionsStatus = [
 const optionsJenis = [
   { label: 'Agen', value: 'agent' },
   { label: 'Koperasi', value: 'koperasi' },
+  { label: 'Ugreen', value: 'ugreen' },
 ]
-
-const getSelectedAgen = (id: number) => {
-  return agenKoperasiList.data.value?.find((item) => item.id === id)
-}
-
-const setFormValue = () => {
-  const { nama_pembeli } = values
-  const selectedAgen = getSelectedAgen(nama_pembeli)
-  setValues({
-    jenis: selectedAgen?.ilo_associate,
-    kota: selectedAgen?.kabupaten_id[0],
-  })
-}
 
 const refProductImage = ref<HTMLInputElement | null>(null)
 const productImage = ref<string | null>(null)
@@ -193,7 +183,21 @@ const handleDeleteProductImage = () => {
   productImage.value = null
 }
 
-onMounted(() => {
-  if (props.data) setValues({ nama_pembeli: props.data?.destination_actor[0] })
+watch(productDetail.data, (data) => {
+  // prettier-ignore
+  if (data) {
+    const { destination_actor, destination_actor_associate_code, state, date_order, date_receive, total_price, kabupaten_id, total_requested_quantity, product_uom_id, } = data[0]
+    setValues({
+      namaPembeli: destination_actor[0],
+      jenis: destination_actor_associate_code,
+      kota: kabupaten_id[0],
+      total: total_requested_quantity,
+      satuan: product_uom_id[1],
+      status: state,
+      harga: total_price,
+      tanggalPemesanan: date_order,
+      tanggalTerima: date_receive
+    })
+  }
 })
 </script>
