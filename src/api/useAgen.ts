@@ -16,7 +16,17 @@ export function useAgenList(params?: Ref<DaftarAgenParams>) {
 
 export function useAgenProfile(params?: Ref<AgenProfileParams>) {
   const path = '/partner/agent_koperasi/details'
-  const getAgenProfile = (): Promise<AgenProfile[]> => apiGet(path, params?.value)
+  const getAgenProfile = async (): Promise<AgenProfile[]> => {
+    const response = await apiGet(path, params?.value)
+    const updatedResponse = response.map((profile: { image_1920_url: string }) => {
+      return {
+        ...profile,
+        image_1920_url: `${profile.image_1920_url}?t=${new Date().getTime()}`,
+      }
+    })
+    return updatedResponse
+  }
+
   return useQuery({
     queryKey: ['agenProfile', params],
     queryFn: getAgenProfile,

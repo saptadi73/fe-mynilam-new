@@ -16,7 +16,12 @@ export function usePetaniList(params?: Ref<PetaniListParams>) {
 
 export function usePetaniProfile(params?: Ref<PetaniProfileParams>) {
   const path = '/partner/petani/details'
-  const getPetaniProfile = (): Promise<PetaniProfile> => apiGet(path, params?.value)
+  const getPetaniProfile = async (): Promise<PetaniProfile> => {
+    const response = await apiGet(path, params?.value)
+    response.image_1920_url = `${response.image_1920_url}?t=${new Date().getTime()}`
+    return response
+  }
+
   return useQuery({
     queryKey: ['petaniProfile', params],
     queryFn: getPetaniProfile,
