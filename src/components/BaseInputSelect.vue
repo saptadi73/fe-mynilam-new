@@ -87,6 +87,7 @@ interface Props {
   name: string
   placeholder: string
   disabled?: boolean
+  initialValue?: number | string
   floatingLabel?: boolean
   labelKey?: string // custom label key
   valueKey?: string // custom value key
@@ -118,9 +119,8 @@ const dropdownLabel = ref(getLabelByValue(value.value))
 const searchValue = ref('')
 
 const filteredOptions = computed(() => {
-  return props.options.filter((option) =>
-    option[props.labelKey].toString().toLowerCase().includes(searchValue.value.toLocaleLowerCase())
-  )
+  const keyword = searchValue.value ? searchValue.value.toLocaleLowerCase() : ''
+  return props.options.filter((option) => option[props.labelKey].toString().toLowerCase().includes(keyword))
 })
 
 const handleOnFocus = () => {
@@ -167,6 +167,10 @@ watch(value, (newValue) => {
 
 onMounted(() => {
   if (value.value) handleChangeValue(value.value)
+  if (props.initialValue) {
+    value.value = props.initialValue
+    handleChangeValue(props.initialValue)
+  }
   // init flowbite dropdown
   initDropdowns()
   // set dropdown width

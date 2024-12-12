@@ -15,3 +15,16 @@ export function formatDate(dateString: string | number | Date, showTime?: boolea
 
   return new Intl.DateTimeFormat('id-ID', options).format(date)
 }
+
+// dd-mm-yyyy
+export function formatDateInput(date: string) {
+  const dateObject = new Date(date)
+
+  // Extract the day, month, and year components
+  const day = dateObject.getDate()
+  const month = dateObject.getMonth() + 1 // Months are 0-indexed
+  const year = dateObject.getFullYear()
+
+  // Format the date as "DD-MM-YYYY"
+  return `${day}-${month}-${year}`
+}

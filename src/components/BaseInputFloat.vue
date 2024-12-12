@@ -10,6 +10,7 @@
       v-model="value"
       class="block pt-3 pb-1.5 px-0 w-full font-semibold text-primary-2 bg-transparent border-0 border-b-2 border-primary-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary-2 peer"
       placeholder=" "
+      :class="inputClass"
     />
     <label
       :for="name"
@@ -22,15 +23,18 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useField } from 'vee-validate'
 import BaseIcon from './BaseIcon.vue'
 
 interface Props {
-  label: string
+  label?: string
   name: string
   type?: string
   icon?: string
   id?: string
+  initialValue?: string | number
+  inputClass?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -38,4 +42,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const { value, errorMessage } = useField(() => props.name)
+
+onMounted(() => {
+  if (props.initialValue) value.value = props.initialValue
+})
 </script>

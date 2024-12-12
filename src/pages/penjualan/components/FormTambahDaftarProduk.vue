@@ -90,10 +90,10 @@
         <BaseInputDate label="Tanggal Terima Produk" name="tanggalTerima" />
       </section>
 
-      <div v-if="values.namaPembeli" class="my-10">
+      <div v-if="productDetail.data.value" class="my-10">
         <h1 class="font-semibold text-primary uppercase mb-3">Daftar Produk Dibeli</h1>
         <div class="overflow-x-auto">
-          <TableProdukDibeli :id="values.namaPembeli" />
+          <TableProdukDibeli :data="productDetail.data.value[0].ownership_line_ids" />
         </div>
       </div>
 
@@ -119,9 +119,10 @@ import BaseInputDate from '@/components/BaseInputDate.vue'
 import TableProdukDibeli from './TableProdukDibeli.vue'
 import { useAgenKoperasiList } from '@/api/usePartner'
 import { useProductDetail } from '@/api/useTransaction'
+import { formatDateInput } from '@/utils/useFormatDate'
 
 interface Props {
-  id: number
+  id?: number
 }
 
 const emit = defineEmits()
@@ -133,7 +134,7 @@ const productDetail = useProductDetail(params)
 const kabupaten = useKabupaten()
 const agenKoperasiList = useAgenKoperasiList()
 
-const { handleSubmit, values, setValues, resetForm } = useForm<ProdukNilamType>({
+const { handleSubmit, setValues, resetForm } = useForm<ProdukNilamType>({
   validationSchema: object({
     namaPembeli: number().required().label('Nama Pembeli'),
     jenis: string().required().label('Jenis'),
@@ -195,8 +196,8 @@ watch(productDetail.data, (data) => {
       satuan: product_uom_id[1],
       status: state,
       harga: total_price,
-      tanggalPemesanan: date_order,
-      tanggalTerima: date_receive
+      tanggalPemesanan: formatDateInput(date_order),
+      tanggalTerima: formatDateInput(date_receive)
     })
   }
 })

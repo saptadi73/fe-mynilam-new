@@ -138,7 +138,7 @@ export interface ListOfProduct {
 }
 
 export interface ProductDetailParams {
-  id_transaksi: number
+  id_transaksi?: number
 }
 
 export interface ProductDetail {
@@ -181,19 +181,19 @@ export interface OwnershipLineId {
   id: number
   specific_code: string
   source_actor_associate_code: string
-  source_actor: [number, string]
-  source_location_id: [number, string]
-  kabupaten_id: [number, string]
-  reference_code: number[]
-  production_harvesting_id: [number, string]
-  production_code: string
+  source_actor?: [number, string]
+  source_location_id?: [number, string]
+  kabupaten_id?: [number, string]
+  reference_code?: number[]
+  production_harvesting_id?: [number, string]
+  production_code?: string
   destination_actor_associate_code: string
   destination_actor: [number, string]
-  destination_location_id: [number, string]
+  destination_location_id?: [number, string]
   product_id: [number, string]
   quantity: number
   product_uom_id: [number, string]
   price: number
   value: number
-  currency_id: [number, string]
+  currency_id?: [number, string]
 }
