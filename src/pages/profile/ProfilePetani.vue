@@ -221,6 +221,7 @@
       @set-modal="handleModal"
       :profile-photo="profilePhoto"
       @file-uploaded="handleFileUpload"
+      @delete-photo="handleDeleteUserPhoto"
     >
       <template #body-form>
         <div class="p-4 md:p-12">
@@ -332,7 +333,7 @@ const { handleSubmit, resetForm } = useForm<PetaniForm>({
     email: string().label('Email'),
   }),
 })
-const profilePhoto = ref<string>()
+const profilePhoto = ref<string>('')
 
 const updateBoth = async (values: any) => {
   try {
@@ -415,6 +416,10 @@ const closeModal = () => {
 
 const handleModal = (value: boolean) => {
   modal.value = value
+}
+
+const handleDeleteUserPhoto = () => {
+  profilePhoto.value = ''
 }
 
 function handleFileSuratKontrak(file: File) {

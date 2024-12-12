@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import { apiGet, apiPost } from './apiClient'
+import { apiGet, apiPatch, apiPost } from './apiClient'
 import { Ref } from 'vue'
 import type { Agen, AgenForm, AgenProfileParams, DaftarAgenParams } from '@/types/partner'
 import { AgenProfile } from '@/types/agen'
@@ -31,6 +31,17 @@ export function useAgenCreate() {
   const petaniCreateFn = (form: AgenForm): Promise<string> => apiPost(path, form, headers)
   return useMutation({
     mutationFn: petaniCreateFn,
+  })
+}
+
+export function useAgenUpdate(id: any) {
+  const path = '/partner/petani/update'
+  const headers = new AxiosHeaders({
+    'Content-Type': 'application/json',
+  })
+  const agenUpdateFn = (form: AgenForm): Promise<string> => apiPatch(path, form, headers, id)
+  return useMutation({
+    mutationFn: agenUpdateFn,
   })
 }
 
