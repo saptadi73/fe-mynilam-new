@@ -19,7 +19,7 @@ export interface AgenProfile {
   kecamatan: string
   kabupaten_id: any
   kabupaten: number
-  provinsi: string
+  state_id: any
   ilo_associate: string
   email: string
 }

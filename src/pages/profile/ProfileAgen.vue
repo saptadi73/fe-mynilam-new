@@ -65,7 +65,9 @@
             <div class="col-span-4 font-bold">Provinsi</div>
             <div class="col-span-8 font-bold flex items-center">
               : &nbsp;
-              <span v-if="!agenProfile.isLoading.value">{{ agenProfile.data.value?.[0].provinsi ?? '-' }} </span>
+              <span v-if="!agenProfile.isLoading.value"
+                >{{ agenProfile.data.value?.[0].state_id ? agenProfile.data.value?.[0].state_id[1] : '-' }}
+              </span>
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
           </div>
@@ -89,7 +91,7 @@
       </div>
     </div>
 
-    <ModalProfile :modal="modal" @set-modal="handleModal">
+    <ModalProfile :modal="modal" @set-modal="handleModal" :profile-photo="profilePhoto">
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="onSubmit" class="space-y-4">
@@ -98,17 +100,25 @@
             <BaseInputFloat label="Desa/Kelurahan" name="kelurahan" type="text" />
             <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
             <BaseInputSelect
-              name="kabupaten"
+              name="kabupaten_id"
               :options="kabupaten.data.value"
               label-key="name"
               value-key="id"
               placeholder="Kota/Kabupaten"
               :floating-label="true"
             />
-            <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
+            <BaseInputSelect
+              :options="provinsi.data.value"
+              name="state_id"
+              label-key="name"
+              value-key="id"
+              placeholder="Provinsi"
+              :floating-label="true"
+              :disabled="true"
+            />
             <BaseInputSelect
               :options="optionsJenisMitra"
-              name="jenisMitra"
+              name="ilo_associate"
               placeholder="Jenis Mitra"
               :floating-label="true"
             />
@@ -137,12 +147,13 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
-import { useKabupaten } from '@/api/useLocalization'
+import { useKabupaten, useProvinsi } from '@/api/useLocalization'
 import { useAgenProfile } from '@/api/useAgen'
 import type { AgenProfileParams } from '@/types/partner'
 
 const route = useRoute()
 const kabupaten = useKabupaten()
+const provinsi = useProvinsi()
 
 const agenProfileParams = ref<AgenProfileParams>({ user_id: Number(route.params.id) })
 const agenProfile = useAgenProfile(agenProfileParams)
@@ -153,12 +164,13 @@ const { handleSubmit, resetForm } = useForm({
     street: string().required().label('Alamat'),
     kelurahan: string().required().label('Desa/Kelurahan'),
     kecamatan: string().required().label('Kecamatan'),
-    kabupaten: number().required().label('Kota/Kabupaten'),
-    provinsi: string().label('Provinsi'),
-    jenisMitra: string().required().label('Jenis Mitra'),
+    kabupaten_id: number().required().label('Kota/Kabupaten'),
+    state_id: string().label('Provinsi'),
+    ilo_associate: string().required().label('Jenis Mitra'),
     email: string().required().label('Email'),
   }),
 })
+const profilePhoto = ref<string>('')
 
 const onSubmit = handleSubmit((values) => {
   console.log(values)
@@ -171,11 +183,16 @@ const showModal = () => {
 
   const agenProfileData = agenProfile.data.value?.[0]
 
-  if (agenProfileData && agenProfileData.kabupaten_id) {
+  if (agenProfileData && agenProfileData.kabupaten_id && provinsi.data.value) {
+    if (agenProfileData.image_1920_url) {
+      profilePhoto.value = agenProfileData.image_1920_url
+    }
+
     const updatedAgenProfileData = {
       ...agenProfileData,
-      kabupaten: agenProfileData.kabupaten_id[0],
-      jenisMitra: optionsJenisMitra.value.find((item) => item.value == agenProfileData.ilo_associate)?.value,
+      kabupaten_id: agenProfileData.kabupaten_id[0],
+      ilo_associate: optionsJenisMitra.value.find((item) => item.value == agenProfileData.ilo_associate)?.value,
+      state_id: provinsi.data.value[0].id,
     }
 
     resetForm({

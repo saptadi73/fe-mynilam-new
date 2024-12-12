@@ -89,6 +89,20 @@ export interface Agen {
   state: string
 }
 
+export interface AgenForm {
+  name: string
+  street: string
+  kelurahan: string
+  kecamatan: string
+  kabupaten_id: number
+  state_id: number
+  country_id: number
+  education_level_id: number
+  family_members: number
+  ilo_associate: string
+  email: string
+}
+
 export interface DaftarAsetParams {
   name?: string | undefined
   kabupaten_id?: number | null

@@ -17,7 +17,7 @@
         ></BaseInputSelect>
         <BaseInputSelect
           name="jenis"
-          :options="options2"
+          :options="optionsJenisMitra"
           placeholder="Pilih jenis mitra"
           @change="setDaftarAgenParams"
         ></BaseInputSelect>
@@ -96,26 +96,34 @@
       </div>
     </div>
 
-    <ModalProfile :modal="modal" @set-modal="handleModal">
+    <ModalProfile :modal="modal" @set-modal="handleModal" @file-uploaded="handlePhotoUpload">
       <template #body-form>
         <div class="p-4 md:p-12">
-          <form @submit.prevent="handleSubmit" class="space-y-4">
+          <form @submit.prevent="onSubmit" class="space-y-4">
             <BaseInputFloat label="Nama Agen/Koperasi" name="name" type="text" />
-            <BaseInputFloat label="Alamat" name="alamat" type="text" />
-            <BaseInputFloat label="Desa/Kelurahan" name="desa" type="text" />
+            <BaseInputFloat label="Alamat" name="street" type="text" />
+            <BaseInputFloat label="Desa/Kelurahan" name="kelurahan" type="text" />
             <BaseInputFloat label="Kecamatan" name="kecamatan" type="text" />
             <BaseInputSelect
-              name="kabupaten"
+              name="kabupaten_id"
               :options="kabupaten.data.value"
               label-key="name"
               value-key="id"
               placeholder="Kota/Kabupaten"
               :floating-label="true"
             />
-            <BaseInputSelect :options="[]" name="provinsi" placeholder="Provinsi" :floating-label="true" />
+            <BaseInputSelect
+              :options="provinsi.data.value"
+              name="state_id"
+              label-key="name"
+              value-key="id"
+              placeholder="Provinsi"
+              :floating-label="true"
+              :disabled="true"
+            />
             <BaseInputSelect
               :options="optionsJenisMitra"
-              name="jenisMitra"
+              name="ilo_associate"
               placeholder="Jenis Mitra"
               :floating-label="true"
             />
@@ -144,34 +152,66 @@ import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import ModalProfile from './components/ModalProfile.vue'
 import { ref } from 'vue'
 import { useForm } from 'vee-validate'
-import { useKabupaten } from '@/api/useLocalization'
-import { useAgenList } from '@/api/useAgen'
-import type { DaftarAgenParams } from '@/types/partner'
+import { useKabupaten, useProvinsi } from '@/api/useLocalization'
+import { useAgenCreate, useAgenList, useAgenUploadPhoto } from '@/api/useAgen'
+import type { AgenForm, DaftarAgenParams } from '@/types/partner'
+import { number, object, string } from 'yup'
+import { useRoute } from 'vue-router'
+import { push } from 'notivue'
 
+const route = useRoute()
+const { daerah } = route.params
 const kabupaten = useKabupaten()
+const provinsi = useProvinsi()
 
 interface Form {
   kabupaten: DaftarAgenParams['kabupaten_id']
   jenis: DaftarAgenParams['associate_type']
 }
 
-const { values } = useForm<Form>()
+const { values: paramsValues } = useForm<Form>()
 const search = ref<string>('')
 
 const daftarAgenParams = ref<DaftarAgenParams>({})
 const agenList = useAgenList(daftarAgenParams)
 
+const createAgen = useAgenCreate()
+const uploadPhoto = useAgenUploadPhoto()
+
 const setDaftarAgenParams = () => {
   daftarAgenParams.value = {
-    kabupaten_id: values.kabupaten,
-    associate_type: values.jenis,
+    kabupaten_id: paramsValues.kabupaten,
+    associate_type: paramsValues.jenis,
     name: search.value,
   }
 }
 
-let modal = ref<Boolean>(false)
+const { handleSubmit: handleSubmitAgen, resetForm: resetFormAgen } = useForm<AgenForm>({
+  validationSchema: object({
+    name: string().required().label('Nama'),
+    street: string().required().label('Alamat'),
+    kelurahan: string().required().label('Desa/Kelurahan'),
+    kecamatan: string().required().label('Kecamatan'),
+    kabupaten_id: number().required().label('Kota/Kabupaten'),
+    state_id: number().required().label('Provinsi'),
+    ilo_associate: string().required().label('Jenis Mitra'),
+    email: string().label('Email'),
+  }),
+})
+const file = ref()
+
+let modal = ref<boolean>(false)
 
 const showModal = () => {
+  if (provinsi.data.value) {
+    resetFormAgen({
+      values: {
+        kabupaten_id: kabupaten.data.value?.find((item) => item.name === daerah)?.id,
+        state_id: provinsi.data.value[0].id,
+      },
+    })
+  }
+
   modal.value = true
 }
 
@@ -183,23 +223,43 @@ const handleModal = (value: boolean) => {
   modal.value = value
 }
 
-const handleSubmit = () => {
-  console.log('test')
+const onSubmit = handleSubmitAgen(async (values: AgenForm) => {
+  try {
+    values.country_id = 100
+    values.education_level_id = 1
+
+    const data: any = await createAgen.mutateAsync(values)
+
+    if (file.value) {
+      await uploadFile(data.data.partner_id)
+    }
+
+    agenList.refetch()
+    closeModal()
+    push.success({ message: data.description })
+  } catch (error) {
+    console.error('Error submitting form:', error)
+  }
+})
+
+const uploadFile = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('partner_id', id.toString())
+    formData.append('photo', file.value)
+
+    await uploadPhoto.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading agen photo:', error)
+  }
+}
+
+const handlePhotoUpload = (uploadedPhoto: any) => {
+  file.value = uploadedPhoto
 }
 
 const optionsJenisMitra = ref([
-  { label: 'Koperasi', value: 1 },
-  { label: 'Agen', value: 2 },
-])
-
-const options2 = ref([
-  {
-    label: 'Agen',
-    value: 'agent',
-  },
-  {
-    label: 'Koperasi',
-    value: 'koperasi',
-  },
+  { label: 'Koperasi', value: 'koperasi' },
+  { label: 'Agen', value: 'agent' },
 ])
 </script>
