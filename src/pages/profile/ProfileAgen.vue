@@ -184,9 +184,6 @@ const profilePhoto = ref<string>('')
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    values.country_id = 100
-    values.education_level_id = 1
-
     const data: any = await updateAgen.mutateAsync(values)
 
     if (file.value) {
