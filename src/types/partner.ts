@@ -98,7 +98,6 @@ export interface AgenForm {
   state_id: number
   country_id: number
   education_level_id: number
-  family_members: number
   ilo_associate: string
   email: string
 }

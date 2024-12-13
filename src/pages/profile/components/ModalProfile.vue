@@ -98,7 +98,7 @@ import { ref } from 'vue'
 
 interface PropsModal {
   modal: Boolean
-  profilePhoto: string
+  profilePhoto?: string
 }
 
 const errorMessage = ref<string>('')
@@ -106,13 +106,14 @@ const props = defineProps<PropsModal>()
 const emit = defineEmits({
   setModal: (status) => typeof status === 'boolean',
   'file-uploaded': (file) => file instanceof File,
+  deletePhoto: () => true,
 })
 
 const closeModal = () => {
   emit('setModal', false)
 }
 
-const userPhoto = ref<string>(props.profilePhoto)
+const userPhoto = ref<string | null | undefined>(props.profilePhoto)
 const userPhotoInput = ref<HTMLInputElement | null>(null)
 
 const triggerUserPhotoInput = () => {
@@ -138,7 +139,8 @@ const handleFileChange = (event: Event) => {
 }
 
 const handleDeleteUserPhoto = () => {
-  userPhoto.value = ''
+  userPhoto.value = null
+  emit('deletePhoto')
   errorMessage.value = ''
 }
 </script>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import { apiGet, apiPost } from './apiClient'
+import { apiGet, apiPatch, apiPost } from './apiClient'
 import { Ref } from 'vue'
 import type { Agen, AgenForm, AgenProfileParams, DaftarAgenParams } from '@/types/partner'
 import { AgenProfile } from '@/types/agen'
@@ -16,7 +16,17 @@ export function useAgenList(params?: Ref<DaftarAgenParams>) {
 
 export function useAgenProfile(params?: Ref<AgenProfileParams>) {
   const path = '/partner/agent_koperasi/details'
-  const getAgenProfile = (): Promise<AgenProfile[]> => apiGet(path, params?.value)
+  const getAgenProfile = async (): Promise<AgenProfile[]> => {
+    const response = await apiGet(path, params?.value)
+    const updatedResponse = response.map((profile: { image_1920_url: string }) => {
+      return {
+        ...profile,
+        image_1920_url: `${profile.image_1920_url}?t=${new Date().getTime()}`,
+      }
+    })
+    return updatedResponse
+  }
+
   return useQuery({
     queryKey: ['agenProfile', params],
     queryFn: getAgenProfile,
@@ -31,6 +41,17 @@ export function useAgenCreate() {
   const petaniCreateFn = (form: AgenForm): Promise<string> => apiPost(path, form, headers)
   return useMutation({
     mutationFn: petaniCreateFn,
+  })
+}
+
+export function useAgenUpdate(id: any) {
+  const path = '/partner/petani/update'
+  const headers = new AxiosHeaders({
+    'Content-Type': 'application/json',
+  })
+  const agenUpdateFn = (form: AgenForm): Promise<string> => apiPatch(path, form, headers, id)
+  return useMutation({
+    mutationFn: agenUpdateFn,
   })
 }
 

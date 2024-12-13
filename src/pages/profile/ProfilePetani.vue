@@ -221,6 +221,7 @@
       @set-modal="handleModal"
       :profile-photo="profilePhoto"
       @file-uploaded="handleFileUpload"
+      @delete-photo="handleDeleteUserPhoto"
     >
       <template #body-form>
         <div class="p-4 md:p-12">
@@ -332,48 +333,35 @@ const { handleSubmit, resetForm } = useForm<PetaniForm>({
     email: string().label('Email'),
   }),
 })
-const profilePhoto = ref<string>()
+const profilePhoto = ref<string>('')
 
-const updateBoth = async (values: any) => {
+const onSubmit = handleSubmit(async (values) => {
   try {
-    const formData = new FormData()
-    const id = route.params.id
-    formData.append('partner_id', id.toString())
-    formData.append('photo', file.value)
+    const data: any = await updatePetani.mutateAsync(values)
 
-    const photoPetaniPromise = new Promise((resolve, reject) => {
-      updatePhotoPetani.mutate(formData, {
-        onSuccess: (data: any) => {
-          resolve(data)
-        },
-        onError: (error: any) => reject(error),
-      })
-    })
-
-    values.country_id = 100
-
-    const petaniPromise = new Promise((resolve, reject) => {
-      updatePetani.mutate(values, {
-        onSuccess: (data: any) => {
-          push.success({ message: data.description })
-          resolve(data)
-        },
-        onError: (error: any) => reject(error),
-      })
-    })
-
-    await Promise.all([photoPetaniPromise, petaniPromise])
+    if (file.value) {
+      await uploadFile(data.data.partner_id)
+    }
 
     petaniProfile.refetch()
     closeModal()
+    push.success({ message: data.description })
   } catch (error) {
     console.error('Error updating data:', error)
   }
-}
-
-const onSubmit = handleSubmit((values) => {
-  updateBoth(values)
 })
+
+const uploadFile = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('partner_id', id.toString())
+    formData.append('photo', file.value)
+
+    await updatePhotoPetani.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading profile photo:', error)
+  }
+}
 
 let modal = ref<Boolean>(false)
 
@@ -395,6 +383,7 @@ const showModal = () => {
       education_level_id: Number(petaniProfileData.education_level_id[0]),
       ilo_associate: petaniProfileData.ilo_associate,
       email: petaniProfileData.email,
+      country_id: 100,
     }
 
     resetForm({
@@ -415,6 +404,10 @@ const closeModal = () => {
 
 const handleModal = (value: boolean) => {
   modal.value = value
+}
+
+const handleDeleteUserPhoto = () => {
+  profilePhoto.value = ''
 }
 
 function handleFileSuratKontrak(file: File) {

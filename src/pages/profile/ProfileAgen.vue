@@ -91,7 +91,13 @@
       </div>
     </div>
 
-    <ModalProfile :modal="modal" @set-modal="handleModal" :profile-photo="profilePhoto">
+    <ModalProfile
+      :modal="modal"
+      @set-modal="handleModal"
+      :profile-photo="profilePhoto"
+      @file-uploaded="handleFileUpload"
+      @delete-photo="handleDeleteUserPhoto"
+    >
       <template #body-form>
         <div class="p-4 md:p-12">
           <form @submit.prevent="onSubmit" class="space-y-4">
@@ -148,8 +154,9 @@ import { useRoute } from 'vue-router'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { useKabupaten, useProvinsi } from '@/api/useLocalization'
-import { useAgenProfile } from '@/api/useAgen'
-import type { AgenProfileParams } from '@/types/partner'
+import { useAgenProfile, useAgenUpdate, useAgenUploadPhoto } from '@/api/useAgen'
+import type { AgenForm, AgenProfileParams } from '@/types/partner'
+import { push } from 'notivue'
 
 const route = useRoute()
 const kabupaten = useKabupaten()
@@ -158,29 +165,55 @@ const provinsi = useProvinsi()
 const agenProfileParams = ref<AgenProfileParams>({ user_id: Number(route.params.id) })
 const agenProfile = useAgenProfile(agenProfileParams)
 
-const { handleSubmit, resetForm } = useForm({
+const updateAgen = useAgenUpdate(Number(route.params.id))
+const uploadPhoto = useAgenUploadPhoto()
+
+const { handleSubmit, resetForm } = useForm<AgenForm>({
   validationSchema: object({
-    nama: string().required().label('Nama'),
+    name: string().required().label('Nama'),
     street: string().required().label('Alamat'),
     kelurahan: string().required().label('Desa/Kelurahan'),
     kecamatan: string().required().label('Kecamatan'),
     kabupaten_id: number().required().label('Kota/Kabupaten'),
     state_id: string().label('Provinsi'),
     ilo_associate: string().required().label('Jenis Mitra'),
-    email: string().required().label('Email'),
+    email: string().label('Email'),
   }),
 })
 const profilePhoto = ref<string>('')
 
-const onSubmit = handleSubmit((values) => {
-  console.log(values)
+const onSubmit = handleSubmit(async (values) => {
+  try {
+    const data: any = await updateAgen.mutateAsync(values)
+
+    if (file.value) {
+      await uploadFile(data.data.partner_id)
+    }
+
+    agenProfile.refetch()
+    closeModal()
+    push.success({ message: data.description })
+  } catch (error) {
+    console.error('Error submitting form:', error)
+  }
 })
+
+const uploadFile = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('partner_id', id.toString())
+    formData.append('photo', file.value)
+
+    await uploadPhoto.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading profile photo:', error)
+  }
+}
 
 let modal = ref<boolean>(false)
 
 const showModal = () => {
-  modal.value = true
-
+  console.log(agenProfile.data)
   const agenProfileData = agenProfile.data.value?.[0]
 
   if (agenProfileData && agenProfileData.kabupaten_id && provinsi.data.value) {
@@ -189,15 +222,23 @@ const showModal = () => {
     }
 
     const updatedAgenProfileData = {
-      ...agenProfileData,
+      name: agenProfileData.name,
+      street: agenProfileData.street,
+      kelurahan: agenProfileData.kelurahan,
+      kecamatan: agenProfileData.kecamatan,
       kabupaten_id: agenProfileData.kabupaten_id[0],
-      ilo_associate: optionsJenisMitra.value.find((item) => item.value == agenProfileData.ilo_associate)?.value,
       state_id: provinsi.data.value[0].id,
+      ilo_associate: optionsJenisMitra.value.find((item) => item.value == agenProfileData.ilo_associate)?.value,
+      email: agenProfileData.email,
+      country_id: 100,
+      education_level_id: 1,
     }
 
     resetForm({
       values: updatedAgenProfileData,
     })
+
+    modal.value = true
   }
 }
 
@@ -209,8 +250,17 @@ const handleModal = (value: boolean) => {
   modal.value = value
 }
 
+const handleDeleteUserPhoto = () => {
+  profilePhoto.value = ''
+}
+
 const optionsJenisMitra = ref([
   { label: 'Koperasi', value: 'koperasi' },
   { label: 'Agen', value: 'agent' },
 ])
+
+const file = ref()
+const handleFileUpload = (uploadedFile: any) => {
+  file.value = uploadedFile
+}
 </script>
