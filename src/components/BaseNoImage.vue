@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center w-full h-40 bg-gray-300 rounded-xl sm:w-96">
+  <div class="flex items-center justify-center w-full h-full min-h-36 bg-gray-300 rounded-xl sm:w-96">
     <svg
       class="w-10 h-10 text-gray-200"
       aria-hidden="true"

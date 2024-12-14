@@ -33,22 +33,22 @@
             :key="cardIndex"
             :card-id="card.id"
             :card-code="card.code"
+            card-path="detail-lahan"
             class="col-span-12 md:col-span-6 lg:col-span-3"
-            @click="showModalDetailLahan(card.id)"
           >
             <template #card-content>
-              <div class="flex justify-center pt-2 h-1/3">
+              <div class="flex justify-center pt-2 h-2/5">
                 <BaseNoImage v-if="!card.asset_image_url" />
 
                 <img
                   v-else
-                  class="w-full rounded-xl border border-primary-border"
+                  class="w-full object-cover rounded-xl border border-primary-border"
                   :src="card.asset_image_url"
                   alt="Foto Lahan"
                 />
               </div>
 
-              <div class="grid grid-cols-12 gap-x-1 pt-2">
+              <div class="grid grid-cols-12 gap-x-1 mt-4">
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Nama Pemilik</h1>
                   <p class="font-bold text-sm">{{ card.employee_id[1] }}</p>
@@ -192,13 +192,6 @@
         </template>
       </BaseModal>
     </div>
-
-    <ModalDetailLahan
-      :modal="modalDetail"
-      @set-modal="handleModalDetail"
-      :data="lahanDetail.data.value"
-      :is-loading="lahanDetail.isLoading.value"
-    />
   </div>
 </template>
 
@@ -215,11 +208,10 @@ import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseNoImage from '@/components/BaseNoImage.vue'
-import ModalDetailLahan from './ModalDetailLahan.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { useAsetList, useLahanCreate, useLahanDetail, useLahanUploadPhoto } from '@/api/useAset'
-import type { DaftarAsetParams, LahanDetailParams, LahanForm, PetaniListParams } from '@/types/partner'
+import { useAsetList, useLahanCreate, useLahanUploadPhoto } from '@/api/useAset'
+import type { DaftarAsetParams, LahanForm, PetaniListParams } from '@/types/partner'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { usePetaniOptionsList, useUOMList } from '@/api/usePetani'
 import { useForm } from 'vee-validate'
@@ -348,22 +340,6 @@ const closeModal = () => {
 
 const handleModal = (value: boolean) => {
   modal.value = value
-}
-
-const modalDetail = ref<boolean>(false)
-const idDetail = ref<LahanDetailParams>({})
-const lahanDetail = useLahanDetail(idDetail)
-
-const showModalDetailLahan = (id: number) => {
-  if (id) {
-    idDetail.value = { asset_id: id }
-  }
-
-  modalDetail.value = true
-}
-
-const handleModalDetail = (value: boolean) => {
-  modalDetail.value = value
 }
 </script>
 

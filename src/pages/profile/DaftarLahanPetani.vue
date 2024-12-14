@@ -30,8 +30,9 @@
             v-else
             v-for="(card, cardIndex) in asetList.data.value"
             :key="cardIndex"
+            :card-id="card.id"
             :card-code="card.code"
-            @click="showModalDetailLahan(card.id)"
+            card-path="detail-lahan"
             class="col-span-12 md:col-span-6 lg:col-span-3"
           >
             <template #card-content>
@@ -147,13 +148,6 @@
         </template>
       </BaseModal>
     </div>
-
-    <ModalDetailLahan
-      :modal="modalDetail"
-      @set-modal="handleModalDetail"
-      :data="lahanDetail.data.value"
-      :is-loading="lahanDetail.isLoading.value"
-    />
   </div>
 </template>
 
@@ -170,10 +164,9 @@ import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseNoImage from '@/components/BaseNoImage.vue'
-import ModalDetailLahan from './ModalDetailLahan.vue'
-import { DaftarAsetParams, LahanDetailParams } from '@/types/partner'
+import { DaftarAsetParams } from '@/types/partner'
 import { useRoute } from 'vue-router'
-import { useAsetList, useLahanDetail } from '@/api/useAset'
+import { useAsetList } from '@/api/useAset'
 
 const route = useRoute()
 const { name } = route.params
@@ -212,22 +205,6 @@ const closeModal = () => {
 
 const handleModal = (value: boolean) => {
   modal.value = value
-}
-
-const modalDetail = ref<boolean>(false)
-const idDetail = ref<LahanDetailParams>({})
-const lahanDetail = useLahanDetail(idDetail)
-
-const showModalDetailLahan = (id: number) => {
-  if (id) {
-    idDetail.value = { asset_id: id }
-  }
-
-  modalDetail.value = true
-}
-
-const handleModalDetail = (value: boolean) => {
-  modalDetail.value = value
 }
 
 const handleSubmit = () => {
