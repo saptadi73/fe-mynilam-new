@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Luas</h1>
-                  <p class="font-bold text-sm">{{ card.area_ha }} Ha</p>
+                  <p class="font-bold text-sm">{{ card.area_ha }} {{ card.uom_id[1] }}</p>
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Lokasi GPS</h1>

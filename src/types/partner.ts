@@ -117,6 +117,7 @@ export interface Aset {
   ownership_status: string
   planting_status: string
   kabupaten_id: any
+  uom_id: any
 }
 
 export interface LahanForm {
