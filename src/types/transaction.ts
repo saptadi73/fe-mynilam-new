@@ -178,22 +178,52 @@ export interface ProductDetail {
 }
 
 export interface OwnershipLineId {
-  id: number
-  specific_code: string
-  source_actor_associate_code: string
+  id?: number
+  specific_code?: string
+  source_actor_associate_code?: string
   source_actor?: [number, string]
   source_location_id?: [number, string]
   kabupaten_id?: [number, string]
   reference_code?: number[]
   production_harvesting_id?: [number, string]
   production_code?: string
-  destination_actor_associate_code: string
-  destination_actor: [number, string]
+  destination_actor_associate_code?: string
+  destination_actor?: [number, string]
   destination_location_id?: [number, string]
-  product_id: [number, string]
+  product_id?: [number, string]
+  quantity?: number
+  product_uom_id?: [number, string]
+  price?: number
+  value?: number
+  currency_id?: [number, string]
+}
+
+export interface CreateTransactionParams {
+  destination_actor: number
+  destination_actor_associate_code: string
+  kabupaten_id: number
+  date_order: string
+  date_receive: string
+  total_requested_quantity: number
+  product_uom_id: number
+  total_price: number
+  ownership_line_ids: number[]
+}
+
+export interface CreateLineParams {
+  source_actor_associate_code: string
+  source_actor: number
+  source_location_id: number
+  kabupaten_id: number
+  production_harvesting_id: number
+  production_code: number
+  destination_actor_associate_code: string
+  destination_actor: number
+  destination_location_id: number
+  product_id: number
   quantity: number
-  product_uom_id: [number, string]
+  product_uom_id: number
   price: number
   value: number
-  currency_id?: [number, string]
+  currency_id: number
 }
