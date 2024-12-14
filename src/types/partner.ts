@@ -123,7 +123,10 @@ export interface LahanForm {
   employee_id: number
   coordinates: string
   ownership_status: string
+  area_ha: number
   area_uom: number
+  address: string
+  state_id: number
   kabupaten_id: number
   planting_status: string
   harvesting_status: string
@@ -142,6 +145,7 @@ export interface LahanDetail {
   employee_ilo_associate_code: string
   coordinates: string
   area_ha: string
+  area_uom: any
   ownership_status: string
   planting_status: string
   harvesting_status: string
