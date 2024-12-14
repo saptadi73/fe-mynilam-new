@@ -157,11 +157,11 @@
 
                 <div class="col-span-6 space-y-4">
                   <div class="grid grid-cols-12 gap-x-2">
-                    <BaseInputFloat class="col-span-7" name="area_uom" label="Luas Lahan" type="number" />
+                    <BaseInputFloat class="col-span-7" name="area_ha" label="Luas Lahan" type="number" />
                     <BaseInputSelect
                       class="col-span-5"
                       :options="lovUOM.data.value"
-                      name="uom_id"
+                      name="area_uom"
                       label-key="name"
                       value-key="id"
                       placeholder="Satuan"
@@ -180,6 +180,10 @@
                     placeholder="Status Lahan"
                     :floating-label="true"
                   />
+                </div>
+
+                <div class="col-span-12 mt-2">
+                  <BaseInputFloat label="Alamat" name="address" type="text" />
                 </div>
               </div>
 
@@ -259,12 +263,11 @@ const { handleSubmit, resetForm } = useForm<LahanForm>({
   validationSchema: object({
     employee_id: number().required().label('Nama'),
     coordinates: string().required().label('Lokasi GPS'),
+    address: string().required().label('Alamat'),
     ownership_status: string().required().label('Status Kepemilikan'),
-    area_uom: number().required().label('Luas Lahan'),
-    uom_id: number().required().label('Satuan'),
+    area_ha: number().required().label('Luas Lahan'),
+    area_uom: number().required().label('Satuan'),
     planting_status: string().required().label('Status Lahan'),
-    harvesting_status: string().required().label('Status Panen'),
-    product_id: number().required().label('Lokasi GPS'),
     kabupaten_id: number().required().label('Kabupaten'),
   }),
 })
@@ -326,8 +329,10 @@ const showModal = () => {
   resetForm({
     values: {
       kabupaten_id: kabupatenList.data.value?.find((item) => item.name === daerah)?.id,
-      product_id: 8, // Lahan Perkebunan
       harvesting_status: 'belum aktif',
+      product_id: 8, // Lahan Perkebunan
+      uom_id: 28, // Ha
+      state_id: 613,
     },
   })
 
