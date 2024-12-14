@@ -7,6 +7,9 @@ interface Params {
 
 const isDev = import.meta.env.VITE_ENV === 'dev'
 const baseURL = import.meta.env.VITE_API_URL
+const defaultHeaders = new AxiosHeaders({
+  'Content-Type': 'application/json',
+})
 
 const getToken = () => {
   const token = localStorage.getItem('token')
@@ -31,7 +34,7 @@ export const apiGet = async (path: string, params?: Params) => {
   }
 }
 
-export const apiPost = async (path: string, params: any, headers: AxiosHeaders) => {
+export const apiPost = async (path: string, params: any, headers: AxiosHeaders = defaultHeaders) => {
   const response = await apiClient.post(path, params, {
     headers: headers,
   })

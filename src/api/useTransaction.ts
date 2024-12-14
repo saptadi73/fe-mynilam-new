@@ -1,6 +1,8 @@
-import { useQuery } from '@tanstack/vue-query'
-import { apiGet } from './apiClient'
+import { useMutation, useQuery } from '@tanstack/vue-query'
+import { apiGet, apiPost } from './apiClient'
 import type {
+  CreateLineParams,
+  CreateTransactionParams,
   DaftarPenjualan,
   DaftarPenjualanParams,
   FarmerReport,
@@ -14,6 +16,7 @@ import type {
   TransactionDetailsParams,
 } from '@/types/transaction'
 import type { Ref } from 'vue'
+import { ApiSuccess, CreateLineData } from '@/types/common'
 
 // https://tanstack.com/query/v5/docs/framework/vue/guides/query-keys#if-your-query-function-depends-on-a-variable-include-it-in-your-query-key
 export function useDaftarPenjualan(params?: Ref<DaftarPenjualanParams>) {
@@ -68,5 +71,21 @@ export function useProductDetail(params: Ref<ProductDetailParams>) {
     queryKey: ['productDetail', params],
     queryFn: getProductDetail,
     enabled: () => !!params.value.id_transaksi,
+  })
+}
+
+export function useCreateTransaction() {
+  const path = '/transaction/transaction/create'
+  const createTransactionFn = (params: CreateTransactionParams): Promise<ApiSuccess> => apiPost(path, params)
+  return useMutation({
+    mutationFn: createTransactionFn,
+  })
+}
+
+export function useCreateLine() {
+  const path = '/transaction/transaction/line_create'
+  const createLineFn = (params: CreateLineParams[]): Promise<ApiSuccess<CreateLineData>> => apiPost(path, params)
+  return useMutation({
+    mutationFn: createLineFn,
   })
 }
