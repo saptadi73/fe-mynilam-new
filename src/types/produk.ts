@@ -1,11 +1,11 @@
 export interface ProdukNilamType {
   jenis: string
-  namaPembeli: number
+  pembeli: number
   kota: number
   harga: number
   status: string
   total: number
-  satuan: string
+  satuan: number
   tanggalTerima: string
   tanggalPemesanan: string
 }

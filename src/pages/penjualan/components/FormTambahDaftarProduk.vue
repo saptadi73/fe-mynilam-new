@@ -58,7 +58,7 @@
 
       <section class="grid lg:grid-cols-2 gap-5 my-5">
         <BaseInputSelect
-          name="namaPembeli"
+          name="pembeli"
           label-key="name"
           value-key="id"
           :options="agenKoperasiList.data.value"
@@ -90,14 +90,14 @@
         <BaseInputDate label="Tanggal Terima Produk" name="tanggalTerima" />
       </section>
 
-      <div v-if="productDetail.data.value" class="my-10">
-        <h1 class="font-semibold text-primary uppercase mb-3">Daftar Produk Dibeli</h1>
-        <div class="overflow-x-auto">
-          <TableProdukDibeli :data="productDetail.data.value[0].ownership_line_ids" />
-        </div>
+      <div class="mt-10">
+        <TableProdukDibeli
+          :data="productDetail.data.value ? productDetail.data.value[0].ownership_line_ids : []"
+          @save="handleOnSaveProduct"
+        />
       </div>
 
-      <section class="flex justify-center space-x-4 mx-8">
+      <section class="flex justify-center space-x-4 mt-10" v-if="showCreateBtn">
         <BaseButton type="submit" class="w-full font-bold">Tambah</BaseButton>
         <BaseButton @click="emit('close-modal')" variant="success" class="w-full font-bold">Kembali</BaseButton>
       </section>
@@ -108,6 +108,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { push } from 'notivue'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { useKabupaten } from '@/api/useLocalization'
@@ -118,8 +119,9 @@ import type { ProdukNilamType } from '@/types/produk'
 import BaseInputDate from '@/components/BaseInputDate.vue'
 import TableProdukDibeli from './TableProdukDibeli.vue'
 import { useAgenKoperasiList } from '@/api/usePartner'
-import { useProductDetail } from '@/api/useTransaction'
+import { useProductDetail, useCreateTransaction } from '@/api/useTransaction'
 import { formatDateInput } from '@/utils/useFormatDate'
+import { SuccessId } from '@/types/common'
 
 interface Props {
   id?: number
@@ -127,6 +129,8 @@ interface Props {
 
 const emit = defineEmits()
 const props = defineProps<Props>()
+const showCreateBtn = ref(false)
+const produkDibeliList = ref<number[]>([])
 
 const params = ref({ id_transaksi: props.id })
 const productDetail = useProductDetail(params)
@@ -134,23 +138,47 @@ const productDetail = useProductDetail(params)
 const kabupaten = useKabupaten()
 const agenKoperasiList = useAgenKoperasiList()
 
-const { handleSubmit, setValues, resetForm } = useForm<ProdukNilamType>({
+// mutation
+const createTransaction = useCreateTransaction()
+
+const { handleSubmit, setValues } = useForm<ProdukNilamType>({
   validationSchema: object({
-    namaPembeli: number().required().label('Nama Pembeli'),
+    pembeli: number().required().label('Nama Pembeli'),
     jenis: string().required().label('Jenis'),
     total: number().required().label('Total'),
     kota: number().required().label('Kota/Kabupaten'),
     harga: number().required().label('Harga/kg'),
     status: string().required().label('Status'),
+    tanggalPemesanan: string().required().label('Tanggal Pemesanan'),
+    tanggalTerima: string().required().label('Tanggal Terima Produk'),
   }),
 })
 
-const onSubmit = handleSubmit((_values) => {
-  resetForm()
-  emit('close-modal')
+const onSubmit = handleSubmit((values) => {
+  // resetForm()
+  // emit('close-modal')
+  createTransaction.mutate(
+    {
+      destination_actor: values.pembeli,
+      destination_actor_associate_code: values.jenis,
+      kabupaten_id: values.kota,
+      date_order: values.tanggalPemesanan,
+      date_receive: values.tanggalTerima,
+      total_requested_quantity: values.total,
+      product_uom_id: values.satuan,
+      total_price: values.harga,
+      ownership_line_ids: produkDibeliList.value,
+    },
+    {
+      onSuccess: () => {
+        push.success('Transaksi berhasil dibuat')
+        emit('closeModal')
+      },
+    }
+  )
 })
 
-const optionsSatuan = [{ label: 'Kg', value: 'kg' }]
+const optionsSatuan = [{ label: 'Kg', value: 12 }]
 
 const optionsStatus = [
   { label: 'Tersedia', value: 1 },
@@ -184,16 +212,26 @@ const handleDeleteProductImage = () => {
   productImage.value = null
 }
 
+const handleOnSaveProduct = (data: SuccessId[]) => {
+  showCreateBtn.value = true
+  // handle list produk dibeli
+  const productIdList: number[] = []
+  data.forEach((item) => {
+    productIdList.push(item.result)
+  })
+  produkDibeliList.value = productIdList
+}
+
 watch(productDetail.data, (data) => {
   // prettier-ignore
   if (data) {
     const { destination_actor, destination_actor_associate_code, state, date_order, date_receive, total_price, kabupaten_id, total_requested_quantity, product_uom_id, } = data[0]
     setValues({
-      namaPembeli: destination_actor[0],
+      pembeli: destination_actor[0],
       jenis: destination_actor_associate_code,
       kota: kabupaten_id[0],
       total: total_requested_quantity,
-      satuan: product_uom_id[1],
+      satuan: product_uom_id[0],
       status: state,
       harga: total_price,
       tanggalPemesanan: formatDateInput(date_order),
