@@ -24,7 +24,7 @@
             placeholder="Pilih Jenis"
             @change="setDaftarPenjualanParams"
           />
-          <BaseButton variant="success" icon-position="left">
+          <BaseButton variant="success" icon-position="left" @click="scanQrModal = true">
             <BaseIcon name="scan" />
             Scan
           </BaseButton>
@@ -40,7 +40,7 @@
       <hr class="border border-primary-border mt-3 -ml-4 -mr-4" />
       <div v-if="listOfProduct.isLoading.value" class="grid place-items-center h-96">Loading...</div>
       <div v-else class="grid grid-cols-12 gap-4 mt-2">
-        <BaseCardAdd @click="showModal" card-title="Produk" class="col-span-12 md:col-span-6 lg:col-span-3" />
+        <BaseCardAdd @click="showModal" card-title="Penjualan" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
           v-for="(data, index) in listOfProduct.data.value"
           :key="index"
@@ -111,6 +111,14 @@
           </div>
         </template>
       </BaseModal>
+
+      <BaseModal :show-modal="scanQrModal" @set-modal="scanQrModal = false" class="!max-w-2xl">
+        <template #modal-content>
+          <div class="p-4">
+            <BaseQrScan />
+          </div>
+        </template>
+      </BaseModal>
     </div>
   </div>
 </template>
@@ -130,6 +138,7 @@ import { useKabupaten } from '@/api/useLocalization'
 import { useListOfProduct } from '@/api/useTransaction'
 import { useForm } from 'vee-validate'
 import type { DaftarPenjualanParams, ListOfProductParams } from '@/types/transaction'
+import BaseQrScan from '@/components/BaseQrScan.vue'
 
 interface Form {
   kabupaten: DaftarPenjualanParams['kabupaten_id']
@@ -144,6 +153,8 @@ const modal = ref(false)
 const modalProduk = ref(false)
 const modalQr = ref(false)
 const qrCodeImage = ref('')
+// scan qr code
+const scanQrModal = ref(false)
 
 const kabupaten = useKabupaten()
 
