@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4 md:p-8 w-full">
-    <form @submit.prevent="onSubmit" v-if="!agenKoperasiList.isLoading.value && !productDetail.isLoading.value">
+  <div class="p-4 md:p-8 w-full" v-if="!agenKoperasiList.isLoading.value && !productDetail.isLoading.value">
+    <form @submit.prevent="onSubmit">
       <div class="flex justify-center pb-4">
         <div class="flex flex-col">
           <div v-if="productImage" class="relative relative-container flex justify-center items-center">
@@ -92,22 +92,23 @@
 
       <div class="mt-10">
         <TableProdukDibeli
+          :is-edit="isEdit"
           :data="productDetail.data.value ? productDetail.data.value[0].ownership_line_ids : []"
           @save="handleOnSaveProduct"
         />
       </div>
 
       <section class="flex justify-center space-x-4 mt-10" v-if="showCreateBtn">
-        <BaseButton type="submit" class="w-full font-bold">Tambah</BaseButton>
+        <BaseButton type="submit" class="w-full font-bold">Simpan</BaseButton>
         <BaseButton @click="emit('close-modal')" variant="success" class="w-full font-bold">Kembali</BaseButton>
       </section>
     </form>
-    <div v-else class="text-center">Loading...</div>
   </div>
+  <div v-else class="text-center">Loading...</div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { push } from 'notivue'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
@@ -120,8 +121,8 @@ import BaseInputDate from '@/components/BaseInputDate.vue'
 import TableProdukDibeli from './TableProdukDibeli.vue'
 import { useAgenKoperasiList } from '@/api/usePartner'
 import { useProductDetail, useCreateTransaction } from '@/api/useTransaction'
-import { formatDateInput } from '@/utils/useFormatDate'
-import { SuccessId } from '@/types/common'
+import { formatDateInput, formatDateRequest } from '@/utils/useFormatDate'
+import { SuccessDetail } from '@/types/common'
 
 interface Props {
   id?: number
@@ -130,6 +131,7 @@ interface Props {
 const emit = defineEmits()
 const props = defineProps<Props>()
 const showCreateBtn = ref(false)
+const isEdit = ref(!!props.id)
 const produkDibeliList = ref<number[]>([])
 
 const params = ref({ id_transaksi: props.id })
@@ -155,15 +157,13 @@ const { handleSubmit, setValues } = useForm<ProdukNilamType>({
 })
 
 const onSubmit = handleSubmit((values) => {
-  // resetForm()
-  // emit('close-modal')
   createTransaction.mutate(
     {
       destination_actor: values.pembeli,
       destination_actor_associate_code: values.jenis,
       kabupaten_id: values.kota,
-      date_order: values.tanggalPemesanan,
-      date_receive: values.tanggalTerima,
+      date_order: formatDateRequest(values.tanggalPemesanan),
+      date_receive: formatDateRequest(values.tanggalTerima),
       total_requested_quantity: values.total,
       product_uom_id: values.satuan,
       total_price: values.harga,
@@ -212,17 +212,18 @@ const handleDeleteProductImage = () => {
   productImage.value = null
 }
 
-const handleOnSaveProduct = (data: SuccessId[]) => {
+const handleOnSaveProduct = (data: SuccessDetail[]) => {
   showCreateBtn.value = true
   // handle list produk dibeli
   const productIdList: number[] = []
   data.forEach((item) => {
-    productIdList.push(item.result)
+    productIdList.push(item.result[0].id)
   })
   produkDibeliList.value = productIdList
 }
 
-watch(productDetail.data, (data) => {
+const setFormValue = () => {
+  const data = productDetail.data.value
   // prettier-ignore
   if (data) {
     const { destination_actor, destination_actor_associate_code, state, date_order, date_receive, total_price, kabupaten_id, total_requested_quantity, product_uom_id, } = data[0]
@@ -234,9 +235,15 @@ watch(productDetail.data, (data) => {
       satuan: product_uom_id[0],
       status: state,
       harga: total_price,
-      tanggalPemesanan: formatDateInput(date_order),
-      tanggalTerima: formatDateInput(date_receive)
+      tanggalPemesanan: date_order ? formatDateInput(date_order) : undefined,
+      tanggalTerima: date_receive ? formatDateInput(date_receive) : undefined
     })
   }
+}
+
+watch(productDetail.data, setFormValue)
+
+onMounted(() => {
+  setFormValue()
 })
 </script>

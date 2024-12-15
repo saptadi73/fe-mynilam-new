@@ -1,8 +1,7 @@
 <template>
   <div class="flex items-center justify-between mb-3">
     <h1 class="font-semibold text-primary uppercase mb-3">Daftar Produk Dibeli</h1>
-    <!-- only show on create trx -->
-    <BaseButton v-if="!props.data.length" @click="saveProduct">Simpan Produk Dibeli</BaseButton>
+    <BaseButton v-if="showSaveBtn" @click="saveProduct">Simpan Produk Dibeli</BaseButton>
   </div>
   <div class="overflow-x-auto">
     <table v-if="!petaniList.isLoading.value" class="w-full text-sm text-left text-gray-700">
@@ -71,18 +70,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-if="tableData.length"
-          v-for="(item, index) in tableData"
-          :key="item.id"
-          class="border-b-2 border-primary-border"
-        >
+        <tr v-if="tableData.length" v-for="item in tableData" :key="item.id" class="border-b-2 border-primary-border">
           <td class="py-4 text-center">{{ item.specific_code || '-' }}</td>
           <td class="py-4 text-center">MNL-001</td>
           <td class="py-4 text-center">
             <BaseInputSelect
               class="border-none w-40 text-center"
-              :name="'penjual' + index"
+              :name="'penjual' + item.id"
               :options="petaniList.data.value"
               placeholder="Penjual"
               label-key="name"
@@ -94,7 +88,7 @@
           <td class="py-4 text-center">
             <BaseInputSelect
               class="border-none w-40 text-center"
-              :name="'pembeli' + index"
+              :name="'pembeli' + item.id"
               :options="agenKoperasiList.data.value"
               placeholder="Pembeli"
               label-key="name"
@@ -105,7 +99,7 @@
           <td class="py-4 text-center">
             <BaseInputSelect
               class="border-none w-40 text-center"
-              :name="'statusPembeli' + index"
+              :name="'statusPembeli' + item.id"
               :options="statusOptions"
               placeholder="Status Pembeli"
               :initial-value="item.destination_actor_associate_code?.[1]"
@@ -114,7 +108,7 @@
           <td class="py-4 text-center">Minyak Nilam</td>
           <td class="py-4 text-center">
             <BaseInputFloat
-              :name="'kuantitas' + index"
+              :name="'kuantitas' + item.id"
               class="w-12 mx-auto"
               :initial-value="item.quantity || 0"
               input-class="text-center"
@@ -123,17 +117,35 @@
           <td class="py-4 text-center">kg</td>
           <td class="py-4 text-center px-4">
             <BaseInputFloat
-              :name="'harga' + index"
+              :name="'harga' + item.id"
               class="w-24 mx-auto"
               :initial-value="item.price || 0"
               input-class="text-center"
             />
           </td>
           <td class="py-4 text-center">
-            {{ formatCurrency(values[`kuantitas${index}`] * values[`harga${index}`] || item.value || 0) }}
+            {{ formatCurrency(values[`kuantitas${item.id}`] * values[`harga${item.id}`] || item.value || 0) }}
+          </td>
+          <td class="py-6 flex items-center space-x-2 justify-center">
+            <BaseIcon
+              v-if="isEdit"
+              name="qr-code"
+              class="size-6 text-primary cursor-pointer"
+              @click="handleShowQr('')"
+            />
+            <BaseIcon
+              v-else-if="item.id"
+              name="trash"
+              class="size-6 text-red-500 cursor-pointer"
+              @click="handleRemoveLine(item.id)"
+            />
           </td>
         </tr>
-        <tr class="border-b-2 border-primary-border hover:bg-gray-100" @click="handleTambahData">
+        <tr
+          v-if="!isEdit"
+          class="border-b-2 border-primary-border hover:bg-gray-100"
+          @click="handleTambahData(lineId++)"
+        >
           <td colspan="12" class="bg-primary-light py-4 cursor-pointer">
             <div class="flex items-center space-x-2 justify-center text-primary-border">
               <span class="font-semibold">Tambah data</span>
@@ -144,6 +156,19 @@
       </tbody>
     </table>
   </div>
+  <!-- show qr modal -->
+  <BaseModal :show-modal="modal" @set-modal="modal = false" class="!max-w-2xl">
+    <template #modal-content>
+      <div class="flex flex-col justify-center">
+        <div class="p-4">
+          <!-- <img class="w-full" :src="'data:image/jpg;base64, ' + selectedQrImage" alt="QR Code" /> -->
+        </div>
+        <div class="flex justify-center pb-4">
+          <BaseButton class="w-52 font-semibold">Download</BaseButton>
+        </div>
+      </div>
+    </template>
+  </BaseModal>
 </template>
 
 <script setup lang="ts">
@@ -154,21 +179,27 @@ import { useAgenKoperasiList, usePetaniList } from '@/api/usePartner'
 import { useCreateLine } from '@/api/useTransaction'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
-import type { OwnershipLineId, CreateLineParams } from '@/types/transaction'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import BaseModal from '@/components/BaseModal.vue'
+import type { OwnershipLineId, CreateLineParams } from '@/types/transaction'
 
 interface Props {
   data: OwnershipLineId[] | []
+  isEdit: boolean
 }
 const props = defineProps<Props>()
-const emit = defineEmits()
+const emit = defineEmits(['save'])
+const showSaveBtn = ref(false)
+const modal = ref(false)
+const selectedQrImage = ref()
+const lineId = ref(1)
 const { values, handleSubmit } = useForm()
 
 const petaniList = usePetaniList()
 const agenKoperasiList = useAgenKoperasiList()
 
-const tableData = ref([...props.data])
+const tableData = ref<OwnershipLineId[]>([...props.data])
 
 // mutation
 const createLine = useCreateLine()
@@ -187,31 +218,33 @@ const saveProduct = handleSubmit((values) => {
 
   const params: CreateLineParams[] = []
 
-  for (let i = 0; i < tableData.value.length; i++) {
+  tableData.value.forEach((item) => {
     const product: CreateLineParams = {
       source_actor_associate_code: 'farmers',
-      source_actor: values['penjual' + i],
+      source_actor: values['penjual' + item.id],
       source_location_id: 84,
       kabupaten_id: 4,
       production_harvesting_id: 47,
       production_code: 4,
-      destination_actor_associate_code: values['statusPembeli' + i],
-      destination_actor: values['pembeli' + i],
+      destination_actor_associate_code: values['statusPembeli' + item.id],
+      destination_actor: values['pembeli' + item.id],
       destination_location_id: 84,
       product_id: 2,
-      quantity: Number(values['kuantitas' + i]) || 0,
+      quantity: Number(values['kuantitas' + item.id]) || 0,
       product_uom_id: 12,
-      price: Number(values['harga' + i]) || 0,
-      value: Number(values['kuantitas' + i]) * Number(values['harga' + i]) || 0,
+      price: Number(values['harga' + item.id]) || 0,
+      value: Number(values['kuantitas' + item.id]) * Number(values['harga' + item.id]) || 0,
       currency_id: 13,
     }
     params.push(product)
-  }
+  })
 
   createLine.mutate(params, {
     onSuccess: (res) => {
-      const data = res.data.success_ids
+      const data = res.data.success_details
       emit('save', data)
+      showSaveBtn.value = false
+      push.success('Berhasil menyimpan daftar produk dibeli')
     },
     onError: () => {
       push.error({ message: 'Data produk dibeli masih belum lengkap' })
@@ -219,10 +252,21 @@ const saveProduct = handleSubmit((values) => {
   })
 })
 
-const handleTambahData = () => {
+const handleTambahData = (id: number) => {
   tableData.value.push({
+    id: id, // use as line identifier
     quantity: 0,
     price: 0,
   })
+  showSaveBtn.value = true
+}
+
+const handleShowQr = (qrImage: string) => {
+  selectedQrImage.value = qrImage
+  modal.value = true
+}
+
+const handleRemoveLine = (index: number) => {
+  tableData.value = tableData.value.filter((item) => item.id !== index)
 }
 </script>

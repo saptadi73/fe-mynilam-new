@@ -5,12 +5,18 @@ export interface ApiSuccess<T = {}> {
 }
 
 export interface CreateLineData {
-  success_ids: SuccessId[]
+  success_details: SuccessDetail[]
   failed_transactions: any[]
 }
 
-export interface SuccessId {
+export interface SuccessDetail {
   jsonrpc: string
   id: number
-  result: number
+  result: LineResult[]
+}
+
+export interface LineResult {
+  id: number
+  spesific_code: string
+  qr_code_image: string
 }

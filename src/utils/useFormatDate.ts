@@ -28,3 +28,15 @@ export function formatDateInput(date: string) {
   // Format the date as "DD-MM-YYYY"
   return `${day}-${month}-${year}`
 }
+
+// yyyy-mm-dd
+export function formatDateRequest(date: string) {
+  // Replace slashes with dashes for consistency
+  const standardizedDate = date.replace(/\//g, '-')
+
+  // Split the date string into parts (day, month, year)
+  const [day, month, year] = standardizedDate.split('-')
+
+  // Rearrange to the desired format: YYYY-MM-DD
+  return `${year}-${month}-${day}`
+}
