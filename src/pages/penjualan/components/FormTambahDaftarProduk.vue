@@ -120,7 +120,7 @@ import type { ProdukNilamType } from '@/types/produk'
 import BaseInputDate from '@/components/BaseInputDate.vue'
 import TableProdukDibeli from './TableProdukDibeli.vue'
 import { useAgenKoperasiList } from '@/api/usePartner'
-import { useProductDetail, useCreateTransaction } from '@/api/useTransaction'
+import { useProductDetail, useCreateTransaction, useListOfProduct } from '@/api/useTransaction'
 import { formatDateInput, formatDateRequest } from '@/utils/useFormatDate'
 import { SuccessDetail } from '@/types/common'
 
@@ -133,6 +133,7 @@ const props = defineProps<Props>()
 const showCreateBtn = ref(false)
 const isEdit = ref(!!props.id)
 const produkDibeliList = ref<number[]>([])
+const listOfProduct = useListOfProduct()
 
 const params = ref({ id_transaksi: props.id })
 const productDetail = useProductDetail(params)
@@ -173,6 +174,7 @@ const onSubmit = handleSubmit((values) => {
       onSuccess: () => {
         push.success('Transaksi berhasil dibuat')
         emit('closeModal')
+        listOfProduct.refetch()
       },
     }
   )
@@ -181,8 +183,10 @@ const onSubmit = handleSubmit((values) => {
 const optionsSatuan = [{ label: 'Kg', value: 12 }]
 
 const optionsStatus = [
-  { label: 'Tersedia', value: 1 },
-  { label: 'Menunggu', value: 2 },
+  { label: 'Draft', value: 'draft' },
+  { label: 'Canceled', value: 'cancelled' },
+  { label: 'Received', value: 'received' },
+  { label: 'Done', value: 'done' },
 ]
 
 const optionsJenis = [

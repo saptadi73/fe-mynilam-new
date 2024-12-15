@@ -102,7 +102,7 @@
               :name="'statusPembeli' + item.id"
               :options="statusOptions"
               placeholder="Status Pembeli"
-              :initial-value="item.destination_actor_associate_code?.[1]"
+              :initial-value="item.destination_actor_associate_code"
             />
           </td>
           <td class="py-4 text-center">Minyak Nilam</td>
