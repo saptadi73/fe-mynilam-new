@@ -196,6 +196,7 @@ export interface OwnershipLineId {
   price?: number
   value?: number
   currency_id?: [number, string]
+  qr_code_image?: string
 }
 
 export interface CreateTransactionParams {

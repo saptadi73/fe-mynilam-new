@@ -128,13 +128,13 @@
           </td>
           <td class="py-6 flex items-center space-x-2 justify-center">
             <BaseIcon
-              v-if="isEdit"
+              v-if="isEdit && item.qr_code_image"
               name="qr-code"
               class="size-6 text-primary cursor-pointer"
-              @click="handleShowQr('')"
+              @click="handleShowQr(item)"
             />
             <BaseIcon
-              v-else-if="item.id"
+              v-if="!isEdit && item.id"
               name="trash"
               class="size-6 text-red-500 cursor-pointer"
               @click="handleRemoveLine(item.id)"
@@ -157,14 +157,27 @@
     </table>
   </div>
   <!-- show qr modal -->
-  <BaseModal :show-modal="modal" @set-modal="modal = false" class="!max-w-2xl">
+  <BaseModal v-if="selectedLineData" :show-modal="modal" @set-modal="modal = false" class="!max-w-2xl">
     <template #modal-content>
-      <div class="flex flex-col justify-center">
-        <div class="p-4">
-          <!-- <img class="w-full" :src="'data:image/jpg;base64, ' + selectedQrImage" alt="QR Code" /> -->
+      <div class="flex flex-col justify-center px-4 py-8">
+        <h1 class="font-semibold text-center">{{ selectedLineData.specific_code }}</h1>
+        <h1 class="font-semibold text-center">Penjual: {{ selectedLineData.source_actor?.[1] }}</h1>
+        <div class="px-4">
+          <img
+            class="w-full max-w-sm mx-auto"
+            :src="'data:image/jpg;base64, ' + selectedLineData.qr_code_image"
+            alt="QR Code"
+          />
         </div>
         <div class="flex justify-center pb-4">
-          <BaseButton class="w-52 font-semibold">Download</BaseButton>
+          <BaseButton
+            v-if="selectedLineData.qr_code_image"
+            type="button"
+            @click="downloadImageBase64(selectedLineData.qr_code_image, `${selectedLineData.specific_code}-QR_CODE`)"
+            class="w-52 font-semibold"
+          >
+            Download
+          </BaseButton>
         </div>
       </div>
     </template>
@@ -183,6 +196,7 @@ import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import type { OwnershipLineId, CreateLineParams } from '@/types/transaction'
+import { downloadImageBase64 } from '@/utils/useCommonUtils'
 
 interface Props {
   data: OwnershipLineId[] | []
@@ -192,7 +206,7 @@ const props = defineProps<Props>()
 const emit = defineEmits(['save'])
 const showSaveBtn = ref(false)
 const modal = ref(false)
-const selectedQrImage = ref()
+const selectedLineData = ref<OwnershipLineId>()
 const lineId = ref(1)
 const { values, handleSubmit } = useForm()
 
@@ -261,8 +275,8 @@ const handleTambahData = (id: number) => {
   showSaveBtn.value = true
 }
 
-const handleShowQr = (qrImage: string) => {
-  selectedQrImage.value = qrImage
+const handleShowQr = (data: OwnershipLineId) => {
+  selectedLineData.value = data
   modal.value = true
 }
 
