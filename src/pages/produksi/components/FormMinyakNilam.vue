@@ -103,9 +103,9 @@ const refProductImage = ref<HTMLInputElement | null>(null)
 const productImage = ref<string | null>(null)
 
 const options = ref([
-  { label: 'Agus Nur Drajat', value: 1 },
-  { label: 'Jayadi Idzes', value: 2 },
-  { label: 'Martin Paes', value: 3 },
+  { label: 'Draft', value: 'draft' },
+  { label: 'Sedang Produksi', value: 'sedangProduksi' },
+  { label: 'Selesai', value: 'done' },
 ])
 
 const handleDeleteProductImage = () => {

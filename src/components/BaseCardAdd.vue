@@ -19,7 +19,7 @@
           </svg>
         </div>
 
-        <h1 class="font-cera font-bold text-xl text-primary-border">Tambah Daftar {{ cardTitle }}</h1>
+        <h1 class="font-cera font-bold text-xl text-primary-border text-center">Tambah Daftar {{ cardTitle }}</h1>
       </div>
     </div>
   </div>

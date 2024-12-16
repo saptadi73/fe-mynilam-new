@@ -5,7 +5,7 @@
       <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-5 items-center justify-between">
         <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-4">
           <div class="flex space-x-2">
-            <BaseSearchBar placeholder="Cari kode produk" class="w-full lg:w-52" v-model="searchValue" />
+            <BaseSearchBar placeholder="Cari penjualan" class="w-full lg:w-52" v-model="searchValue" />
             <BaseButton>Cari</BaseButton>
           </div>
           <BaseInputSelect
