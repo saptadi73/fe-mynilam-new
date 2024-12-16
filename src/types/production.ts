@@ -146,3 +146,15 @@ export interface Note {
   date: string
   body: string
 }
+
+export interface CreatePlantingParams {
+  employee_id: number
+  produce_product: number
+  date_planned_start: string
+  date_planned_finish: string
+  quantity: number
+  uom: number
+  area: number
+  area_uom: number
+  address: string
+}

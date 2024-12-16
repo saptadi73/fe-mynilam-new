@@ -63,7 +63,7 @@
           <BaseInputFloat type="text" label="Estimasi Panen" name="estimasi" />
         </div>
         <div class="w-5/12">
-          <BaseInputSelect name="satuan" :options="options" placeholder="Satuan" :floating-label="true" />
+          <BaseInputSelect name="satuan" :options="satuanOptions" placeholder="Satuan" :floating-label="true" />
         </div>
       </div>
       <BaseInputFloat type="text" label="Alamat" name="alamat" />
@@ -106,7 +106,10 @@ const options = ref([
   { label: 'Draft', value: 'draft' },
   { label: 'Sedang Produksi', value: 'sedangProduksi' },
   { label: 'Selesai', value: 'done' },
+  { label: 'Batal', value: 'cancel' },
 ])
+
+const satuanOptions = ref([{ label: 'Kg', value: 'kg' }])
 
 const handleDeleteProductImage = () => {
   productImage.value = null

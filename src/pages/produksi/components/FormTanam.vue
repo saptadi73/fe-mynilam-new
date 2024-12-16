@@ -60,10 +60,10 @@
       <BaseInputDate label="Akhir Produksi" name="akhirProduksi" />
       <div class="flex space-x-4">
         <div class="w-7/12">
-          <BaseInputFloat type="text" label="Estimasi Panen" name="estimasi" />
+          <BaseInputFloat type="number" label="Estimasi Panen" name="estimasi" />
         </div>
         <div class="w-5/12">
-          <BaseInputSelect name="satuan" :options="options" placeholder="Satuan" :floating-label="true" />
+          <BaseInputSelect name="satuan" :options="satuanOptions" placeholder="Satuan" :floating-label="true" />
         </div>
       </div>
       <BaseInputFloat type="text" label="Lokasi" name="lokasi" />
@@ -82,15 +82,34 @@ import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import { useForm } from 'vee-validate'
 import { ref } from 'vue'
-import { object, string } from 'yup'
+import { push } from 'notivue'
+import { number, object, string } from 'yup'
+import { useCreatePlanting } from '@/api/useProduction'
+import { CreatePlantingParams } from '@/types/production'
+import { formatDateRequest } from '@/utils/useFormatDate'
 
-const { handleSubmit } = useForm({
+interface FormTanam {
+  nama: string
+  luasLahan: number
+  mulaiProduksi: string
+  akhirProduksi: string
+  estimasi: number
+  satuan: string
+  lokasi: string
+  alamat: string
+  statusProduksi: string
+  presentasiTanam: string
+}
+
+const createPlanting = useCreatePlanting()
+
+const { handleSubmit } = useForm<FormTanam>({
   validationSchema: object({
     nama: string().required().label('Nama'),
-    luasLahan: string().required().label('Luas Lahan'),
+    luasLahan: number().required().label('Luas Lahan'),
     mulaiProduksi: string().required().label('Mulai Produksi'),
     akhirProduksi: string().required().label('Akhir Produksi'),
-    estimasi: string().required().label('Estimasti'),
+    estimasi: number().required().label('Estimasti'),
     satuan: string().required().label('Satuan'),
     lokasi: string().required().label('Lokasi'),
     alamat: string().required().label('Alamat'),
@@ -109,6 +128,8 @@ const options = ref([
   { label: 'Selesai', value: 'done' },
   { label: 'Batal', value: 'cancel' },
 ])
+
+const satuanOptions = ref([{ label: 'Kg', value: 'kg' }])
 
 const handleDeleteProductImage = () => {
   productImage.value = null
@@ -129,6 +150,25 @@ const handleFileChange = (event: Event) => {
 }
 
 const onSubmit = handleSubmit((values) => {
-  console.log(values)
+  // hardcode
+  const params: CreatePlantingParams = {
+    employee_id: 83,
+    produce_product: 5,
+    date_planned_start: formatDateRequest(values.mulaiProduksi),
+    date_planned_finish: formatDateRequest(values.akhirProduksi),
+    quantity: values.estimasi,
+    uom: 4,
+    area: values.luasLahan,
+    area_uom: 12,
+    address: values.alamat,
+  }
+  createPlanting.mutate(params, {
+    onSuccess: () => {
+      push.success('Berhasil membuat daftar produksi baru')
+    },
+    onError: () => {
+      push.error('Gagal membuat daftar produksi')
+    },
+  })
 })
 </script>
