@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 md:p-8 w-full" v-if="!agenKoperasiList.isLoading.value && !productDetail.isLoading.value">
     <form @submit.prevent="onSubmit">
-      <div class="flex justify-center pb-4">
+      <div v-if="!productDetail.data.value[0].product_image_url" class="flex justify-center pb-4">
         <div class="flex flex-col">
           <div v-if="productImage" class="relative relative-container flex justify-center items-center">
             <img class="product-image" :src="productImage" alt="Product Image" />
@@ -53,6 +53,7 @@
           class="hidden"
         />
       </div>
+      <img v-else :src="productDetail.data.value[0].product_image_url" class="max-w-sm rounded-lg mx-auto mb-5" />
 
       <hr class="-mx-8 border border-primary-border" />
 
