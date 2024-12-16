@@ -51,7 +51,7 @@
             <div class="flex justify-center pt-2">
               <img
                 class="w-full rounded-xl"
-                :src="data.product_image_url"
+                :src="data.product_image_url || 'https://erp.mynilam.com/product/image/2'"
                 :alt="data.destination_actor[1] + ' Image'"
               />
             </div>
