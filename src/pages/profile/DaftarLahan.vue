@@ -153,6 +153,12 @@
                     :floating-label="true"
                     :disabled="true"
                   />
+                  <BaseInputSelect
+                    :options="optionsStatusLahan"
+                    name="harvesting_status"
+                    placeholder="Status Tanam"
+                    :floating-label="true"
+                  />
                 </div>
 
                 <div class="col-span-6 space-y-4">
@@ -180,9 +186,6 @@
                     placeholder="Status Lahan"
                     :floating-label="true"
                   />
-                </div>
-
-                <div class="col-span-12 mt-2">
                   <BaseInputFloat label="Alamat" name="address" type="text" />
                 </div>
               </div>
@@ -268,6 +271,7 @@ const { handleSubmit, resetForm } = useForm<LahanForm>({
     area_ha: number().required().label('Luas Lahan'),
     area_uom: number().required().label('Satuan'),
     planting_status: string().required().label('Status Lahan'),
+    harvesting_status: string().required().label('Status Tanam'),
     kabupaten_id: number().required().label('Kabupaten'),
   }),
 })
@@ -329,7 +333,6 @@ const showModal = () => {
   resetForm({
     values: {
       kabupaten_id: kabupatenList.data.value?.find((item) => item.name === daerah)?.id,
-      harvesting_status: 'belum aktif',
       product_id: 8, // Lahan Perkebunan
       uom_id: 28, // Ha
       state_id: 613,

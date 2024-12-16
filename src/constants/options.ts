@@ -19,6 +19,6 @@ export const optionsStatusKepemilikan = ref([
 ])
 
 export const optionsStatusLahan = ref([
-  { label: 'Aktif', value: 'aktif' },
+  { label: 'Proses', value: 'proses' },
   { label: 'Belum Aktif', value: 'belum aktif' },
 ])
