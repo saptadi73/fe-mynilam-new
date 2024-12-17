@@ -63,7 +63,11 @@ export function usePetaniUploadPhoto() {
 
 export function usePetaniOptionsList(params?: Ref<PetaniListParams>) {
   const path = '/lov/list-petani'
-  const getPetaniOptionsList = (): Promise<Petani[]> => apiGet(path, params?.value)
+  const getPetaniOptionsList = async (): Promise<Petani[]> => {
+    const response = await apiGet(path, params?.value)
+    return response ? response : []
+  }
+
   return useQuery({
     queryKey: ['petaniOptionsList', params],
     queryFn: getPetaniOptionsList,
