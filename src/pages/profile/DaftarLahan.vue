@@ -186,6 +186,17 @@
                     placeholder="Status Lahan"
                     :floating-label="true"
                   />
+                  <BaseInputSelect
+                    :options="lovProduct.data.value"
+                    name="product_id"
+                    label-key="name"
+                    value-key="id"
+                    placeholder="Jenis Produk"
+                    :floating-label="true"
+                  />
+                </div>
+
+                <div class="col-span-12 mt-3">
                   <BaseInputFloat label="Alamat" name="address" type="text" />
                 </div>
               </div>
@@ -221,6 +232,7 @@ import { useAsetList, useLahanCreate, useLahanUploadPhoto } from '@/api/useAset'
 import type { DaftarAsetParams, LahanForm, PetaniListParams } from '@/types/partner'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { usePetaniOptionsList, useUOMList } from '@/api/usePetani'
+import { useLovProduct } from '@/api/useLov'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { push } from 'notivue'
@@ -230,6 +242,7 @@ const daerah = route.params.daerah
 const search = ref<string>('')
 
 const kabupatenList = useKabupaten()
+const lovProduct = useLovProduct()
 
 const params = ref<DaftarAsetParams>({})
 const asetList = useAsetList(params)
@@ -273,10 +286,12 @@ const { handleSubmit, resetForm } = useForm<LahanForm>({
     planting_status: string().required().label('Status Lahan'),
     harvesting_status: string().required().label('Status Tanam'),
     kabupaten_id: number().required().label('Kabupaten'),
+    product_id: number().required().label('Jenis Produk'),
   }),
 })
 
 const onSubmit = handleSubmit(async (values) => {
+  values.uom_id = values.area_uom
   try {
     const data: any = await createLahan.mutateAsync(values)
 
@@ -333,8 +348,6 @@ const showModal = () => {
   resetForm({
     values: {
       kabupaten_id: kabupatenList.data.value?.find((item) => item.name === daerah)?.id,
-      product_id: 8, // Lahan Perkebunan
-      uom_id: 28, // Ha
       state_id: 613,
     },
   })
