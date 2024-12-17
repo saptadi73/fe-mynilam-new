@@ -334,7 +334,8 @@ import { useRoute } from 'vue-router'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { useKabupaten } from '@/api/useLocalization'
-import { usePetaniOptionsList, useUOMList } from '@/api/usePetani'
+import { usePetaniOptionsList } from '@/api/usePetani'
+import { useLovUOM } from '@/api/useLov'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { push } from 'notivue'
 
@@ -343,7 +344,7 @@ const route = useRoute()
 const kabupatenList = useKabupaten()
 const paramsPetani = ref<PetaniListParams>({})
 const lovPetani = usePetaniOptionsList(paramsPetani)
-const lovUOM = useUOMList()
+const lovUOM = useLovUOM()
 
 const updateLahan = useLahanUpdate(Number(route.params.id))
 const uploadLahanPhoto = useLahanUploadPhoto()

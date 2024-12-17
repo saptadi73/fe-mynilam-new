@@ -9,3 +9,12 @@ export function useLovProduct() {
     queryFn: getLovProduct,
   })
 }
+
+export function useLovUOM() {
+  const path = '/lov/list'
+  const getLovUOM = (): Promise<string> => apiGet(path)
+  return useQuery({
+    queryKey: ['lovUom'],
+    queryFn: getLovUOM,
+  })
+}

@@ -231,8 +231,8 @@ import { useKabupaten } from '@/api/useLocalization'
 import { useAsetList, useLahanCreate, useLahanUploadPhoto } from '@/api/useAset'
 import type { DaftarAsetParams, LahanForm, PetaniListParams } from '@/types/partner'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
-import { usePetaniOptionsList, useUOMList } from '@/api/usePetani'
-import { useLovProduct } from '@/api/useLov'
+import { usePetaniOptionsList } from '@/api/usePetani'
+import { useLovProduct, useLovUOM } from '@/api/useLov'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { push } from 'notivue'
@@ -249,7 +249,7 @@ const asetList = useAsetList(params)
 
 const paramsPetani = ref<PetaniListParams>({})
 const lovPetani = usePetaniOptionsList(paramsPetani)
-const lovUOM = useUOMList()
+const lovUOM = useLovUOM()
 
 const createLahan = useLahanCreate()
 const uploadLahanPhoto = useLahanUploadPhoto()

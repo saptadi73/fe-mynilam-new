@@ -74,12 +74,3 @@ export function usePetaniOptionsList(params?: Ref<PetaniListParams>) {
     enabled: () => !!params?.value.kabupaten_id, // only fetch if has kabupaten_id
   })
 }
-
-export function useUOMList() {
-  const path = '/lov/list'
-  const getUOMList = (): Promise<Petani[]> => apiGet(path)
-  return useQuery({
-    queryKey: ['uomList'],
-    queryFn: getUOMList,
-  })
-}
