@@ -1,7 +1,7 @@
 <template>
   <div class="container mb-14">
-    <BaseHeaderTitle title="Detail Lahan" />
-    <BaseMap shp-file="/maps/shp_aset_lahan.zip" :options="mapOptions" />
+    <BaseHeaderTitle title="Peta Lahan" :back-button="false" />
+    <BaseMap :geo-json="geoJson" :options="mapOptions" />
   </div>
 </template>
 
@@ -9,6 +9,12 @@
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseMap from '@/components/BaseMap.vue'
 import type { GeoJSONOptions } from 'leaflet'
+
+interface Props {
+  geoJson: object
+}
+
+defineProps<Props>()
 
 const mapOptions: GeoJSONOptions = {
   onEachFeature: function (_feature, layer) {

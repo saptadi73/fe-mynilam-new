@@ -186,7 +186,13 @@
           <div class="grid grid-cols-12 gap-x-1.5">
             <div class="col-span-6 font-semibold text-primary">Peta Lahan</div>
             <div class="col-span-6 flex items-center">
-              <p v-if="!lahanDetail.isLoading.value">:&nbsp; {{ lahanDetail.data.value?.[0].shp_filename }}</p>
+              <p
+                v-if="!lahanDetail.isLoading.value"
+                @click="showLahanMap(lahanDetail.data.value?.[0].shp_file)"
+                class="cursor-pointer text-blue-500"
+              >
+                :&nbsp; {{ lahanDetail.data.value?.[0].shp_filename }}
+              </p>
               <template v-else>
                 :&nbsp;
                 <BaseSkeletonText class="w-full h-4" />
@@ -317,6 +323,12 @@
         </div>
       </template>
     </BaseModal>
+
+    <BaseModal :show-modal="modalMap" @set-modal="handleModalMap" class="max-w-5xl">
+      <template #modal-content>
+        <DetailLahanMap :geo-json="geoJson" />
+      </template>
+    </BaseModal>
   </div>
 </template>
 
@@ -338,6 +350,7 @@ import { usePetaniOptionsList } from '@/api/usePetani'
 import { useLovUOM } from '@/api/useLov'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { push } from 'notivue'
+import DetailLahanMap from './DetailLahanMap.vue'
 
 const route = useRoute()
 
@@ -416,6 +429,19 @@ const handleFileChange = (event: Event) => {
 const handleDeleteLahanPhoto = () => {
   lahanPhoto.value = null
 }
+
+const geoJson = ref()
+
+const showLahanMap = (geojson: object) => {
+  geoJson.value = geojson
+  modalMap.value = true
+}
+
+const handleModalMap = (value: boolean) => {
+  modalMap.value = value
+}
+
+let modalMap = ref<boolean>(false)
 
 let modal = ref<boolean>(false)
 const showModal = () => {

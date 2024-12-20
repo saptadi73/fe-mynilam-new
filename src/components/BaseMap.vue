@@ -9,7 +9,8 @@ import shp from 'shpjs'
 import 'leaflet/dist/leaflet.css'
 
 interface Props {
-  shpFile: string
+  shpFile?: string
+  geoJson?: object
   options: GeoJSONOptions
 }
 
@@ -17,7 +18,7 @@ const emit = defineEmits()
 const props = defineProps<Props>()
 
 onMounted(async () => {
-  const geojson = await shp(props.shpFile)
+  const geojson = props.geoJson ? props.geoJson : props.shpFile ? await shp(props.shpFile) : undefined
   const theMap = map('map', {
     attributionControl: false,
   })

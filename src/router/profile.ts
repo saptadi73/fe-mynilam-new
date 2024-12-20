@@ -49,17 +49,17 @@ export default {
           name: 'Daftar Lahan',
           component: () => import('../pages/profile/DaftarLahan.vue'),
         },
-        {
-          path: ':id',
-          name: 'Detail Lahan Map',
-          component: () => import('../pages/profile/DetailLahanMap.vue'),
-        },
       ],
     },
     {
       path: '/detail-lahan/:id',
       name: 'Detail Lahan',
       component: () => import('../pages/profile/DetailLahan.vue'),
+    },
+    {
+      path: '/detail-lahan-map/:id',
+      name: 'Detail Lahan Map',
+      component: () => import('../pages/profile/DetailLahanMap.vue'),
     },
     {
       path: 'daftar-lahan-petani/:name',
