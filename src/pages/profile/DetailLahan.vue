@@ -324,7 +324,7 @@
       </template>
     </BaseModal>
 
-    <BaseModal :show-modal="modalMap" @set-modal="handleModalMap" class="max-w-5xl">
+    <BaseModal :show-modal="modalMap" @set-modal="handleModalMap" class="!max-w-5xl">
       <template #modal-content>
         <DetailLahanMap :geo-json="geoJson" />
       </template>
