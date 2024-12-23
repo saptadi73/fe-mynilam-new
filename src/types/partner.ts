@@ -154,7 +154,7 @@ export interface LahanDetail {
   state_id: any
   kabupaten_id: any
   shp_filename: string
-  shp_file: string
+  shp_file: object
   shp_file_url: string
 }
 

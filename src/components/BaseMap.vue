@@ -7,6 +7,7 @@ import { onMounted } from 'vue'
 import { geoJSON, GeoJSONOptions, map, tileLayer } from 'leaflet'
 import shp from 'shpjs'
 import 'leaflet/dist/leaflet.css'
+import { GeoJsonObject } from 'geojson'
 
 interface Props {
   shpFile?: string
@@ -24,7 +25,8 @@ onMounted(async () => {
   })
   // Create a Tile Layer and add it to the map
   tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(theMap)
-  const geoMap = geoJSON(geojson, props.options).addTo(theMap)
+  const geoMap = geoJSON(geojson as GeoJsonObject, props.options).addTo(theMap)
+
   // fit map to center
   theMap.fitBounds(geoMap.getBounds())
 })

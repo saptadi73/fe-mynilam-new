@@ -432,7 +432,7 @@ const handleDeleteLahanPhoto = () => {
 
 const geoJson = ref()
 
-const showLahanMap = (geojson: object) => {
+const showLahanMap = (geojson: object | undefined) => {
   geoJson.value = geojson
   modalMap.value = true
 }
