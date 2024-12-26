@@ -228,6 +228,7 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
+import BaseInputFile from '@/components/BaseInputFile.vue'
 import BaseNoImage from '@/components/BaseNoImage.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
@@ -239,7 +240,6 @@ import { useLovProduct, useLovUOM } from '@/api/useLov'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { push } from 'notivue'
-import BaseInputFile from '@/components/BaseInputFile.vue'
 
 const route = useRoute()
 const daerah = route.params.daerah

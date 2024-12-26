@@ -284,6 +284,12 @@
                   placeholder="Status Tanam"
                   :floating-label="true"
                 />
+                <BaseInputFile
+                  label="Input SHP (.zip)"
+                  name="shp_file"
+                  file-type=".zip"
+                  @file-selected="handleFileSelected"
+                />
               </div>
 
               <div class="col-span-6 space-y-4">
@@ -311,6 +317,14 @@
                   placeholder="Status Lahan"
                   :floating-label="true"
                 />
+                <BaseInputSelect
+                  :options="lovProduct.data.value"
+                  name="product_id"
+                  label-key="name"
+                  value-key="id"
+                  placeholder="Jenis Produk"
+                  :floating-label="true"
+                />
                 <BaseInputFloat label="Alamat" name="address" type="text" />
               </div>
             </div>
@@ -333,24 +347,25 @@
 </template>
 
 <script setup lang="ts">
-import { useLahanDetail, useLahanUpdate, useLahanUploadPhoto } from '@/api/useAset'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseSkeletonText from '@/components/BaseSkeletonText.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
+import BaseInputFile from '@/components/BaseInputFile.vue'
+import DetailLahanMap from './DetailLahanMap.vue'
+import { useLahanDetail, useLahanUpdate, useLahanUploadPhoto, useLahanUploadShp } from '@/api/useAset'
 import { LahanDetailParams, LahanForm, PetaniListParams } from '@/types/partner'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { useKabupaten } from '@/api/useLocalization'
 import { usePetaniOptionsList } from '@/api/usePetani'
-import { useLovUOM } from '@/api/useLov'
+import { useLovProduct, useLovUOM } from '@/api/useLov'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { push } from 'notivue'
-import DetailLahanMap from './DetailLahanMap.vue'
 
 const route = useRoute()
 
@@ -358,12 +373,22 @@ const kabupatenList = useKabupaten()
 const paramsPetani = ref<PetaniListParams>({})
 const lovPetani = usePetaniOptionsList(paramsPetani)
 const lovUOM = useLovUOM()
+const lovProduct = useLovProduct()
 
 const updateLahan = useLahanUpdate(Number(route.params.id))
 const uploadLahanPhoto = useLahanUploadPhoto()
+const uploadLahanShp = useLahanUploadShp()
 
 const idDetail = ref<LahanDetailParams>({ asset_id: Number(route.params.id) })
 const lahanDetail = useLahanDetail(idDetail)
+
+watchEffect(() => {
+  if (lahanDetail.data.value) {
+    paramsPetani.value = {
+      kabupaten_id: lahanDetail.data.value[0].kabupaten_id[0],
+    }
+  }
+})
 
 const { handleSubmit, resetForm } = useForm<LahanForm>({
   validationSchema: object({
@@ -376,6 +401,7 @@ const { handleSubmit, resetForm } = useForm<LahanForm>({
     planting_status: string().required().label('Status Lahan'),
     harvesting_status: string().required().label('Status Tanam'),
     kabupaten_id: number().required().label('Kabupaten'),
+    product_id: number().required().label('Jenis Produk'),
   }),
 })
 
@@ -385,6 +411,10 @@ const onSubmit = handleSubmit(async (values) => {
 
     if (filePhoto.value) {
       await uploadFile(data.data.asset_id)
+    }
+
+    if (shpFile.value) {
+      await uploadFileShp(data.data.asset_id)
     }
 
     lahanDetail.refetch()
@@ -404,6 +434,18 @@ const uploadFile = async (id: number) => {
     await uploadLahanPhoto.mutateAsync(formData)
   } catch (error) {
     console.error('Error uploading photo:', error)
+  }
+}
+
+const uploadFileShp = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('asset_id', id.toString())
+    formData.append('upload', shpFile.value)
+
+    await uploadLahanShp.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading shp file:', error)
   }
 }
 
@@ -430,6 +472,11 @@ const handleDeleteLahanPhoto = () => {
   lahanPhoto.value = null
 }
 
+const shpFile = ref()
+const handleFileSelected = (file: File) => {
+  shpFile.value = file
+}
+
 const geoJson = ref()
 
 const showLahanMap = (geojson: object | undefined) => {
@@ -448,10 +495,6 @@ const showModal = () => {
   if (lahanDetail.data.value) {
     const lahanData = lahanDetail.data.value[0]
 
-    paramsPetani.value = {
-      kabupaten_id: lahanData.kabupaten_id[0],
-    }
-
     lahanPhoto.value = lahanData.asset_image_url
 
     resetForm({
@@ -466,7 +509,7 @@ const showModal = () => {
         kabupaten_id: lahanData.kabupaten_id[0],
         planting_status: lahanData.planting_status,
         harvesting_status: lahanData.harvesting_status,
-        product_id: 8, // Lahan Perkebunan
+        product_id: lahanData.product_id[0],
         state_id: 613,
       },
     })
