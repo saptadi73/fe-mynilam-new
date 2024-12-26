@@ -330,7 +330,7 @@
             </div>
 
             <div class="flex justify-center gap-x-4 mx-8">
-              <BaseButton type="submit" :disabled="isBtnDisabled" class="w-full font-bold">Simpan</BaseButton>
+              <BaseButton type="submit" :disabled="isBtnDisable" class="w-full font-bold">Simpan</BaseButton>
               <BaseButton @click="closeModal" variant="success" class="w-full font-bold">Kembali</BaseButton>
             </div>
           </form>
