@@ -76,25 +76,55 @@
       <BaseModal :show-modal="modal" @set-modal="handleModal">
         <template #modal-content>
           <div class="px-4 md:p-8">
-            <form @submit.prevent="handleSubmit" class="space-y-4">
+            <form @submit.prevent="onSubmit" class="space-y-4">
               <div class="flex justify-center">
                 <div class="flex flex-col">
                   <div class="flex justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="text-primary-border w-32 h-32"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </div>
+                    <div class="relative relative-container flex justify-center items-center w-full" v-if="lahanPhoto">
+                      <img :src="lahanPhoto" alt="Foto Lahan" class="profile-image object-cover w-full h-72" />
+                      <svg
+                        @click="handleDeleteLahanPhoto"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="icon-delete hidden absolute w-8 h-8 cursor-pointer"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                        />
+                      </svg>
+                    </div>
 
-                  <h1 class="font-cera font-bold text-xl text-primary-border">Tambah File JSON</h1>
+                    <div v-else>
+                      <div class="flex justify-center cursor-pointer" @click="triggerLahanPhotoInput">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="text-primary-border w-32 h-32"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+
+                      <h1 class="font-cera font-bold text-xl text-primary-border">Tambah Foto Lahan</h1>
+                      <input
+                        type="file"
+                        ref="lahanPhotoInput"
+                        accept=".jpg, .jpeg, .png"
+                        class="hidden"
+                        @change="handleFileChange"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -102,40 +132,66 @@
 
               <div class="grid grid-cols-12 gap-x-5">
                 <div class="col-span-6 space-y-4">
-                  <BaseInputFloat label="Nama Pemilik" name="name" type="text" />
-                  <BaseInputFloat label="Lokasi GPS" name="name" type="text" />
-                  <BaseInputSelect :options="[]" name="desa" placeholder="Desa/Kelurahan" :floating-label="true" />
+                  <BaseInputSelect
+                    :options="lovPetani.data.value"
+                    name="employee_id"
+                    label-key="name"
+                    value-key="id"
+                    placeholder="Nama Pemilik"
+                    :floating-label="true"
+                  />
+                  <BaseInputFloat label="Lokasi GPS" name="coordinates" type="text" />
+                  <BaseInputSelect
+                    :options="kabupatenList.data.value"
+                    name="kabupaten_id"
+                    label-key="name"
+                    value-key="id"
+                    placeholder="Kabupaten"
+                    :floating-label="true"
+                  />
+                  <BaseInputSelect
+                    :options="optionsStatusLahan"
+                    name="harvesting_status"
+                    placeholder="Status Tanam"
+                    :floating-label="true"
+                  />
+                  <BaseInputFile label="Input SHP (.zip)" name="shp_file" file-type=".zip" />
                 </div>
 
                 <div class="col-span-6 space-y-4">
                   <div class="grid grid-cols-12 gap-x-2">
-                    <BaseInputSelect
-                      class="col-span-7"
-                      :options="[]"
-                      name="desa"
-                      placeholder="Luas Lahan"
-                      :floating-label="true"
-                    />
+                    <BaseInputFloat class="col-span-7" name="area_ha" label="Luas Lahan" type="number" />
                     <BaseInputSelect
                       class="col-span-5"
-                      :options="optionsSatuan"
-                      name="desa"
+                      :options="lovUOM.data.value"
+                      name="area_uom"
+                      label-key="name"
+                      value-key="id"
                       placeholder="Satuan"
                       :floating-label="true"
                     />
                   </div>
                   <BaseInputSelect
                     :options="optionsStatusKepemilikan"
-                    name="desa"
+                    name="ownership_status"
                     placeholder="Status Kepemilikan"
                     :floating-label="true"
                   />
                   <BaseInputSelect
                     :options="optionsStatusLahan"
-                    name="desa"
+                    name="planting_status"
                     placeholder="Status Lahan"
                     :floating-label="true"
                   />
+                  <BaseInputSelect
+                    :options="lovProduct.data.value"
+                    name="product_id"
+                    label-key="name"
+                    value-key="id"
+                    placeholder="Jenis Produk"
+                    :floating-label="true"
+                  />
+                  <BaseInputFloat label="Alamat" name="address" type="text" />
                 </div>
               </div>
 
@@ -163,17 +219,95 @@ import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseSkeletonCard from '@/components/BaseSkeletonCard.vue'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
+import BaseInputFile from '@/components/BaseInputFile.vue'
 import BaseNoImage from '@/components/BaseNoImage.vue'
-import { DaftarAsetParams } from '@/types/partner'
+import { DaftarAsetParams, LahanForm, PetaniListParams } from '@/types/partner'
 import { useRoute } from 'vue-router'
-import { useAsetList } from '@/api/useAset'
+import { useAsetList, useLahanCreate, useLahanUploadPhoto, useLahanUploadShp } from '@/api/useAset'
+import { usePetaniOptionsList } from '@/api/usePetani'
+import { useKabupaten } from '@/api/useLocalization'
+import { useForm } from 'vee-validate'
+import { number, object, string } from 'yup'
+import { useLovProduct, useLovUOM } from '@/api/useLov'
+import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
+import { push } from 'notivue'
 
 const route = useRoute()
 const { name } = route.params
 const search = ref<string>('')
 
+const kabupatenList = useKabupaten()
+const lovProduct = useLovProduct()
+const paramsPetani = ref<PetaniListParams>({})
+const lovPetani = usePetaniOptionsList(paramsPetani)
+const lovUOM = useLovUOM()
+
+const createLahan = useLahanCreate()
+const uploadLahanPhoto = useLahanUploadPhoto()
+const uploadLahanShp = useLahanUploadShp()
+
 const params = ref<DaftarAsetParams>({})
 const asetList = useAsetList(params)
+
+const { handleSubmit } = useForm<LahanForm>({
+  validationSchema: object({
+    employee_id: number().required().label('Nama'),
+    coordinates: string().required().label('Lokasi GPS'),
+    address: string().required().label('Alamat'),
+    ownership_status: string().required().label('Status Kepemilikan'),
+    area_ha: number().required().label('Luas Lahan'),
+    area_uom: number().required().label('Satuan'),
+    planting_status: string().required().label('Status Lahan'),
+    harvesting_status: string().required().label('Status Tanam'),
+    kabupaten_id: number().required().label('Kabupaten'),
+    product_id: number().required().label('Jenis Produk'),
+  }),
+})
+
+const onSubmit = handleSubmit(async (values) => {
+  values.uom_id = values.area_uom
+  try {
+    const data: any = await createLahan.mutateAsync(values)
+
+    if (filePhoto.value) {
+      await uploadFile(data.data.asset_id)
+    }
+
+    if (shpFile.value) {
+      await uploadFileShp(data.data.asset_id)
+    }
+
+    asetList.refetch()
+    closeModal()
+    push.success({ message: data.description })
+  } catch (error) {
+    console.error('Error submitting form:', error)
+  }
+})
+
+const uploadFile = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('asset_id', id.toString())
+    formData.append('photo', filePhoto.value)
+
+    await uploadLahanPhoto.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading photo:', error)
+  }
+}
+
+const uploadFileShp = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('asset_id', id.toString())
+    formData.append('upload', shpFile.value)
+
+    await uploadLahanShp.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading shp file:', error)
+  }
+}
 
 const setDaftarAgenParams = () => {
   params.value = {
@@ -193,6 +327,34 @@ onMounted(() => {
   handleParamValue()
 })
 
+const filePhoto = ref()
+const lahanPhoto = ref<string | null | undefined>()
+const lahanPhotoInput = ref<HTMLInputElement | null>(null)
+
+const triggerLahanPhotoInput = () => {
+  lahanPhotoInput.value?.click()
+}
+
+const handleFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+
+  if (file) {
+    const fileURL = URL.createObjectURL(file)
+    filePhoto.value = file
+    lahanPhoto.value = fileURL
+  }
+}
+
+const handleDeleteLahanPhoto = () => {
+  lahanPhoto.value = null
+}
+
+const shpFile = ref()
+const handleFileSelected = (file: File) => {
+  shpFile.value = file
+}
+
 let modal = ref<Boolean>(false)
 
 const showModal = () => {
@@ -206,21 +368,19 @@ const closeModal = () => {
 const handleModal = (value: boolean) => {
   modal.value = value
 }
+</script>
 
-const handleSubmit = () => {
-  console.log('test')
+<style>
+.profile-image {
+  transition: opacity 0.3s ease;
 }
 
-const optionsSatuan = ref([{ label: 'Ha', value: 1 }])
+.relative-container:hover .profile-image {
+  opacity: 0.6;
+}
 
-const optionsStatusKepemilikan = ref([
-  { label: 'Milik Pribadi', value: 1 },
-  { label: 'Sewa', value: 2 },
-  { label: 'Pinjam', value: 2 },
-])
-
-const optionsStatusLahan = ref([
-  { label: 'Aktif', value: 1 },
-  { label: 'Tidak AKtif', value: 2 },
-])
-</script>
+.relative-container:hover .icon-delete {
+  color: white;
+  display: block;
+}
+</style>
