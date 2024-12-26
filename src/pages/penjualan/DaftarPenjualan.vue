@@ -42,7 +42,7 @@
       <div v-else class="grid grid-cols-12 gap-4 mt-2">
         <BaseCardAdd @click="showModal" card-title="Penjualan" class="col-span-12 md:col-span-6 lg:col-span-3" />
         <BaseCard
-          v-for="(data, index) in listOfProduct.data.value"
+          v-for="(data, index) in currentItems"
           :key="index"
           class="col-span-12 md:col-span-6 lg:col-span-3"
           @click="handleCardClick(data.id)"
@@ -84,6 +84,14 @@
             </div>
           </template>
         </BaseCard>
+      </div>
+
+      <div class="mt-10 mb-5">
+        <BasePaginationButton
+          v-if="!listOfProduct.isLoading.value"
+          :data="listOfProduct.data.value"
+          @change="(data: any) => currentItems = data"
+        />
       </div>
 
       <BaseModal :show-modal="modal" @set-modal="handleModal" class="!max-w-[80rem]">
@@ -137,8 +145,9 @@ import { ref } from 'vue'
 import { useKabupaten } from '@/api/useLocalization'
 import { useListOfProduct } from '@/api/useTransaction'
 import { useForm } from 'vee-validate'
-import type { DaftarPenjualanParams, ListOfProductParams } from '@/types/transaction'
+import type { DaftarPenjualanParams, ListOfProduct, ListOfProductParams } from '@/types/transaction'
 import BaseQrScan from '@/components/BaseQrScan.vue'
+import BasePaginationButton from '@/components/BasePaginationButton.vue'
 
 interface Form {
   kabupaten: DaftarPenjualanParams['kabupaten_id']
@@ -161,6 +170,8 @@ const kabupaten = useKabupaten()
 // auto refetch on params change
 const params = ref<ListOfProductParams>({})
 const listOfProduct = useListOfProduct(params)
+
+const currentItems = ref<ListOfProduct[]>([])
 
 const setDaftarPenjualanParams = () => {
   params.value = {
