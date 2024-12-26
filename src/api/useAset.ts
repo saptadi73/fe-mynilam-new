@@ -56,3 +56,14 @@ export function useLahanUploadPhoto() {
     mutationFn: lahanUploadPhotoFn,
   })
 }
+
+export function useLahanUploadShp() {
+  const path = '/assets/geojson'
+  const headers = new AxiosHeaders({
+    'Content-Type': 'multipart/form-data',
+  })
+  const lahanUploadShpPhotoFn = (form: FormData): Promise<string> => apiPost(path, form, headers)
+  return useMutation({
+    mutationFn: lahanUploadShpPhotoFn,
+  })
+}

@@ -159,6 +159,12 @@
                     placeholder="Status Tanam"
                     :floating-label="true"
                   />
+                  <BaseInputFile
+                    label="Input SHP (.zip)"
+                    name="shp_file"
+                    file-type=".zip"
+                    @file-selected="handleFileSelected"
+                  />
                 </div>
 
                 <div class="col-span-6 space-y-4">
@@ -194,9 +200,6 @@
                     placeholder="Jenis Produk"
                     :floating-label="true"
                   />
-                </div>
-
-                <div class="col-span-12 mt-3">
                   <BaseInputFloat label="Alamat" name="address" type="text" />
                 </div>
               </div>
@@ -228,7 +231,7 @@ import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseNoImage from '@/components/BaseNoImage.vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten } from '@/api/useLocalization'
-import { useAsetList, useLahanCreate, useLahanUploadPhoto } from '@/api/useAset'
+import { useAsetList, useLahanCreate, useLahanUploadPhoto, useLahanUploadShp } from '@/api/useAset'
 import type { DaftarAsetParams, LahanForm, PetaniListParams } from '@/types/partner'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { usePetaniOptionsList } from '@/api/usePetani'
@@ -236,6 +239,7 @@ import { useLovProduct, useLovUOM } from '@/api/useLov'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { push } from 'notivue'
+import BaseInputFile from '@/components/BaseInputFile.vue'
 
 const route = useRoute()
 const daerah = route.params.daerah
@@ -253,6 +257,7 @@ const lovUOM = useLovUOM()
 
 const createLahan = useLahanCreate()
 const uploadLahanPhoto = useLahanUploadPhoto()
+const uploadLahanShp = useLahanUploadShp()
 
 const handleParamValue = async () => {
   const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
@@ -299,6 +304,10 @@ const onSubmit = handleSubmit(async (values) => {
       await uploadFile(data.data.asset_id)
     }
 
+    if (shpFile.value) {
+      await uploadFileShp(data.data.asset_id)
+    }
+
     asetList.refetch()
     closeModal()
     push.success({ message: data.description })
@@ -316,6 +325,18 @@ const uploadFile = async (id: number) => {
     await uploadLahanPhoto.mutateAsync(formData)
   } catch (error) {
     console.error('Error uploading photo:', error)
+  }
+}
+
+const uploadFileShp = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('asset_id', id.toString())
+    formData.append('upload', shpFile.value)
+
+    await uploadLahanShp.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading shp file:', error)
   }
 }
 
@@ -340,6 +361,11 @@ const handleFileChange = (event: Event) => {
 
 const handleDeleteLahanPhoto = () => {
   lahanPhoto.value = null
+}
+
+const shpFile = ref()
+const handleFileSelected = (file: File) => {
+  shpFile.value = file
 }
 
 let modal = ref<boolean>(false)
