@@ -330,7 +330,7 @@
             </div>
 
             <div class="flex justify-center gap-x-4 mx-8">
-              <BaseButton type="submit" class="w-full font-bold">Simpan</BaseButton>
+              <BaseButton type="submit" :disabled="isBtnDisabled" class="w-full font-bold">Simpan</BaseButton>
               <BaseButton @click="closeModal" variant="success" class="w-full font-bold">Kembali</BaseButton>
             </div>
           </form>
@@ -405,7 +405,9 @@ const { handleSubmit, resetForm } = useForm<LahanForm>({
   }),
 })
 
+const isBtnDisable = ref<boolean>(false)
 const onSubmit = handleSubmit(async (values) => {
+  isBtnDisable.value = true
   try {
     const data: any = await updateLahan.mutateAsync(values)
 
@@ -422,6 +424,8 @@ const onSubmit = handleSubmit(async (values) => {
     push.success({ message: data.description })
   } catch (error) {
     console.error('Error submitting form:', error)
+  } finally {
+    isBtnDisable.value = false
   }
 })
 

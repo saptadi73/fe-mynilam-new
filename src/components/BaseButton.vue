@@ -8,6 +8,7 @@
       '--variant-primary-light': variant == 'primary-light',
     }"
     :type="type"
+    :disabled="disabled"
   >
     <div
       class="flex flex-row justify-center items-center"
@@ -30,6 +31,7 @@ export interface Props {
   iconPosition?: 'left' | 'right'
   iconGap?: 'small' | 'big'
   type?: ButtonHTMLAttributes['type']
+  disabled?: boolean
 }
 
 withDefaults(defineProps<Props>(), { variant: 'primary', iconPosition: 'right', iconGap: 'small' })
