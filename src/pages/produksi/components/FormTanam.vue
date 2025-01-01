@@ -1,5 +1,8 @@
 <template>
-  <form class="md:w-1/2 border-r-[2.5px] border-primary-border pr-7" @submit="onSubmit">
+  <form
+    class="pb-8 border-b-2 md:pb-0 md:border-b-0 md:w-1/2 md:border-r-[2.5px] border-primary-border md:pr-7"
+    @submit="onSubmit"
+  >
     <h1 class="text-primary text-2xl font-bold text-center pb-5">Tanam</h1>
     <div class="flex justify-center pb-4 border-2 border-primary translate-y-2 border-b-0 rounded-t-lg">
       <div class="flex flex-col">
@@ -53,7 +56,7 @@
         class="hidden"
       />
     </div>
-    <div class="md:grid md:grid-cols-2 gap-10 border-2 border-primary rounded-lg py-7 px-10">
+    <div class="grid md:grid-cols-2 gap-5 md:gap-10 border-2 border-primary rounded-lg py-7 px-10">
       <BaseInputFloat type="text" label="Nama" name="nama" />
       <BaseInputFloat type="number" label="Luas Lahan" name="luasLahan" />
       <BaseInputDate label="Mulai Produksi" name="mulaiProduksi" />
