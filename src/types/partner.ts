@@ -11,7 +11,7 @@ export interface Petani {
   family_members: number
   image_1920_url: string
   contract_file_name: string
-  employment_contract: any
+  contract_url: string
 }
 
 export interface PetaniListParams {
@@ -60,6 +60,8 @@ export interface PetaniProfile {
   in_progress_oil_percentage_quantity: number
   in_progress_planting_quantity: number
   in_progress_percentage_quantity: number
+  contract_file_name: string
+  contract_url: string
 }
 
 export interface DaftarAgenParams {

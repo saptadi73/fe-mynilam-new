@@ -123,7 +123,14 @@
 
             <div class="col-span-4 font-bold">Surat Kontrak</div>
             <div class="col-span-8 font-bold flex items-center">
-              : &nbsp; <span v-if="!petaniProfile.isLoading.value">-</span>
+              : &nbsp;
+              <a
+                :href="petaniProfile.data.value?.contract_url"
+                target="_blank"
+                v-if="!petaniProfile.isLoading.value"
+                class="text-primary-2 cursor-pointer"
+                >{{ petaniProfile.data.value?.contract_file_name }}</a
+              >
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>
 

@@ -73,7 +73,11 @@
                 </div>
                 <div class="col-span-6 pt-2">
                   <h1 class="text-sm">Surat Kontrak</h1>
-                  <p class="font-bold text-sm">-</p>
+                  <p class="font-bold text-sm">
+                    <a :href="card.contract_url" target="_blank" class="text-primary-2 cursor-pointer" @click.stop>{{
+                      card.contract_file_name
+                    }}</a>
+                  </p>
                 </div>
               </div>
             </template>
