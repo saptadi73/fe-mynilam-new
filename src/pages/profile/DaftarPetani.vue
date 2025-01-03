@@ -164,7 +164,7 @@ import ModalProfile from './components/ModalProfile.vue'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useKabupaten, useProvinsi } from '@/api/useLocalization'
-import { usePetaniCreate, usePetaniList, usePetaniUploadPhoto } from '@/api/usePetani'
+import { usePetaniCreate, usePetaniList, usePetaniUploadContract, usePetaniUploadPhoto } from '@/api/usePetani'
 import { PetaniForm, PetaniListParams } from '@/types/partner'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
@@ -183,6 +183,7 @@ const petaniList = usePetaniList(params)
 
 const createPetani = usePetaniCreate()
 const uploadPhoto = usePetaniUploadPhoto()
+const uploadContract = usePetaniUploadContract()
 
 const handleParamValue = async () => {
   const selectedKabupaten = kabupatenList.data.value?.find((item) => item.name === daerah)
@@ -212,12 +213,12 @@ const { handleSubmit, resetForm } = useForm<PetaniForm>({
     family_members: number().required().label('Anggota Keluarga'),
     organization_statue: string().required().label('Status'),
     education_level_id: number().required().label('Pendidikan'),
-    // suratKontrak: mixed().required().label('Surat Kontrak'),
     ilo_associate: string().required().label('Jenis Mitra'),
     email: string().label('Email'),
   }),
 })
 const file = ref()
+const contractFile = ref()
 let modal = ref<Boolean>(false)
 
 const showModal = () => {
@@ -251,6 +252,10 @@ const onSubmit = handleSubmit(async (values) => {
       await uploadFile(data.data.partner_id)
     }
 
+    if (contractFile.value) {
+      await uploadContractFile(data.data.partner_id)
+    }
+
     petaniList.refetch()
     closeModal()
     push.success({ message: data.description })
@@ -271,8 +276,20 @@ const uploadFile = async (id: number) => {
   }
 }
 
+const uploadContractFile = async (id: number) => {
+  try {
+    const formData = new FormData()
+    formData.append('partner_id', id.toString())
+    formData.append('contract', contractFile.value)
+
+    await uploadContract.mutateAsync(formData)
+  } catch (error) {
+    console.error('Error uploading contract file:', error)
+  }
+}
+
 function handleFileSuratKontrak(file: File) {
-  console.log('Selected file:', file)
+  contractFile.value = file
 }
 
 const handlePhotoUpload = (uploadedPhoto: any) => {

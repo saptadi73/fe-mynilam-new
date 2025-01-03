@@ -61,6 +61,17 @@ export function usePetaniUploadPhoto() {
   })
 }
 
+export function usePetaniUploadContract() {
+  const path = '/partner/petani/upload-contract'
+  const headers = new AxiosHeaders({
+    'Content-Type': 'multipart/form-data',
+  })
+  const petaniUploadContractFn = (form: FormData): Promise<string> => apiPost(path, form, headers)
+  return useMutation({
+    mutationFn: petaniUploadContractFn,
+  })
+}
+
 export function usePetaniOptionsList(params?: Ref<PetaniListParams>) {
   const path = '/lov/list-petani'
   const getPetaniOptionsList = async (): Promise<Petani[]> => {
