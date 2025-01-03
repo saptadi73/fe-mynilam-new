@@ -49,11 +49,12 @@
         >
           <template #card-content>
             <div class="flex justify-center pt-2">
-              <img
-                class="w-full rounded-xl"
-                :src="data.product_image_url || 'https://erp.mynilam.com/product/image/2'"
-                :alt="data.destination_actor[1] + ' Image'"
-              />
+              <div
+                class="w-full rounded-xl h-48 bg-cover bg-center"
+                :style="{
+                  backgroundImage: `url('${data.product_image_url || 'https://erp.mynilam.com/product/image/2'}')`,
+                }"
+              ></div>
             </div>
 
             <div class="grid grid-cols-12 gap-x-1 pt-2">
