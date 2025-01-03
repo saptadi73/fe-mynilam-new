@@ -362,8 +362,7 @@ import { useRoute } from 'vue-router'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
 import { useKabupaten } from '@/api/useLocalization'
-import { usePetaniOptionsList } from '@/api/usePetani'
-import { useLovProduct, useLovUOM } from '@/api/useLov'
+import { useLovPetani, useLovProduct, useLovUOM } from '@/api/useLov'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { push } from 'notivue'
 
@@ -371,7 +370,7 @@ const route = useRoute()
 
 const kabupatenList = useKabupaten()
 const paramsPetani = ref<PetaniListParams>({})
-const lovPetani = usePetaniOptionsList(paramsPetani)
+const lovPetani = useLovPetani(paramsPetani)
 const lovUOM = useLovUOM()
 const lovProduct = useLovProduct()
 

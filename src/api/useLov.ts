@@ -1,5 +1,20 @@
 import { useQuery } from '@tanstack/vue-query'
+import { Ref } from 'vue'
 import { apiGet } from './apiClient'
+import { Petani, PetaniListParams } from '@/types/partner'
+
+export function useLovPetani(params?: Ref<PetaniListParams>) {
+  const path = '/lov/list-petani'
+  const getLovPetani = async (): Promise<Petani[]> => {
+    const response = await apiGet(path, params?.value)
+    return response ? response : []
+  }
+
+  return useQuery({
+    queryKey: ['lovPetani', params],
+    queryFn: getLovPetani,
+  })
+}
 
 export function useLovProduct() {
   const path = '/lov/list-product'

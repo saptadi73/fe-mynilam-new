@@ -229,11 +229,10 @@ import BaseNoImage from '@/components/BaseNoImage.vue'
 import { DaftarAsetParams, LahanForm, PetaniListParams } from '@/types/partner'
 import { useRoute } from 'vue-router'
 import { useAsetList, useLahanCreate, useLahanUploadPhoto, useLahanUploadShp } from '@/api/useAset'
-import { usePetaniOptionsList } from '@/api/usePetani'
 import { useKabupaten } from '@/api/useLocalization'
 import { useForm } from 'vee-validate'
 import { number, object, string } from 'yup'
-import { useLovProduct, useLovUOM } from '@/api/useLov'
+import { useLovPetani, useLovProduct, useLovUOM } from '@/api/useLov'
 import { optionsStatusKepemilikan, optionsStatusLahan } from '@/constants/options'
 import { push } from 'notivue'
 
@@ -244,7 +243,7 @@ const search = ref<string>('')
 const kabupatenList = useKabupaten()
 const lovProduct = useLovProduct()
 const paramsPetani = ref<PetaniListParams>({})
-const lovPetani = usePetaniOptionsList(paramsPetani)
+const lovPetani = useLovPetani(paramsPetani)
 const lovUOM = useLovUOM()
 
 const createLahan = useLahanCreate()

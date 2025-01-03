@@ -71,16 +71,3 @@ export function usePetaniUploadContract() {
     mutationFn: petaniUploadContractFn,
   })
 }
-
-export function usePetaniOptionsList(params?: Ref<PetaniListParams>) {
-  const path = '/lov/list-petani'
-  const getPetaniOptionsList = async (): Promise<Petani[]> => {
-    const response = await apiGet(path, params?.value)
-    return response ? response : []
-  }
-
-  return useQuery({
-    queryKey: ['petaniOptionsList', params],
-    queryFn: getPetaniOptionsList,
-  })
-}
