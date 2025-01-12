@@ -8,12 +8,13 @@
       class="text-gray-900 flex min-w-28 justify-between font-semibold border border-primary-border bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-light rounded-lg text-sm px-5 py-1.5 space-x-2 items-center"
       :class="$attrs.class"
       type="button"
+      :disabled="readonly"
     >
       <span class="capitalize text-ellipsis whitespace-nowrap overflow-x-hidden">
         {{ dropdownLabel || placeholder }}
       </span>
       <BaseIcon v-if="!value" name="chevron-right" class="rotate-90 ms-3 h-5 text-gray-500" />
-      <BaseIcon v-else name="x-mark" @click="clearValue" class="rotate-90 ms-3 h-5 text-red-500" />
+      <BaseIcon v-else-if="!readonly" name="x-mark" @click="clearValue" class="rotate-90 ms-3 h-5 text-red-500" />
     </button>
     <!-- style 2: floating label dropdown-->
     <div v-else class="relative z-0 font-poppins">
@@ -91,6 +92,7 @@ interface Props {
   floatingLabel?: boolean
   labelKey?: string // custom label key
   valueKey?: string // custom value key
+  readonly?: boolean
 }
 
 const emit = defineEmits()
