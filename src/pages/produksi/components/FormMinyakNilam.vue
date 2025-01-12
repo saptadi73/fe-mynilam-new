@@ -76,6 +76,7 @@
 </template>
 
 <script setup lang="ts">
+import { useCreateHarvesting } from '@/api/useProduction'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseInputDate from '@/components/BaseInputDate.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
@@ -83,8 +84,25 @@ import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import { useForm } from 'vee-validate'
 import { ref } from 'vue'
 import { string, object } from 'yup'
+import { push } from 'notivue'
+import { CreateHarvestingParams } from '@/types/production'
+import { satuanOptions } from '@/constants/options'
 
-const { handleSubmit } = useForm({
+interface FormMinyakNilam {
+  nama: string
+  lokasi: string
+  mulaiProduksi: string
+  akhirProduksi: string
+  estimasi: number
+  satuan: number
+  alamat: string
+  statusProduksi: string
+  presentasiTanam: string
+}
+
+const createHarvesting = useCreateHarvesting()
+
+const { handleSubmit } = useForm<FormMinyakNilam>({
   validationSchema: object({
     nama: string().required().label('Nama'),
     lokasi: string().required().label('Lokasi'),
@@ -109,8 +127,6 @@ const options = ref([
   { label: 'Batal', value: 'cancel' },
 ])
 
-const satuanOptions = ref([{ label: 'Kg', value: 'kg' }])
-
 const handleDeleteProductImage = () => {
   productImage.value = null
 }
@@ -130,6 +146,33 @@ const handleFileChange = (event: Event) => {
 }
 
 const onSubmit = handleSubmit((values) => {
-  console.log(values)
+  // hardcode
+  const params: CreateHarvestingParams = {
+    name: values.nama,
+    employee_id: 86,
+    produce_product: 5,
+    uom: values.satuan,
+    state: values.statusProduksi,
+    asset_id: 789,
+    kabupaten_id: 12,
+    batch_code: 'BATCH-001',
+    weather_conditions: 'dry',
+    environment_conditions: 'optimal',
+    final_product: 2,
+    actual_final_quantity: 500,
+    percentage_final_quantity: 2.5,
+    completion_percentage: 80,
+    yield_percentage: 15,
+    date_started: values.mulaiProduksi,
+    date_harvested: values.akhirProduksi,
+  }
+  createHarvesting.mutate(params, {
+    onSuccess: () => {
+      push.success('Berhasil membuat daftar produksi baru')
+    },
+    onError: () => {
+      push.error('Gagal membuat daftar produksi')
+    },
+  })
 })
 </script>

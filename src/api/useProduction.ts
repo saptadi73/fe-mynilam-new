@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { apiGet, apiPost } from './apiClient'
-import type { CreatePlantingParams, Harvesting, HarvestingParams } from '@/types/production'
+import type { CreateHarvestingParams, CreatePlantingParams, Harvesting, HarvestingParams } from '@/types/production'
 import type { Ref } from 'vue'
 import { ApiSuccess } from '@/types/common'
 
@@ -18,5 +18,13 @@ export function useCreatePlanting() {
   const createPlantingFn = (params: CreatePlantingParams): Promise<ApiSuccess> => apiPost(path, params)
   return useMutation({
     mutationFn: createPlantingFn,
+  })
+}
+
+export function useCreateHarvesting() {
+  const path = '/production/harvesting/create'
+  const createHarvestingFn = (params: CreateHarvestingParams): Promise<ApiSuccess> => apiPost(path, params)
+  return useMutation({
+    mutationFn: createHarvestingFn,
   })
 }

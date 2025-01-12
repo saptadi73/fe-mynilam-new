@@ -22,3 +22,15 @@ export const optionsStatusLahan = ref([
   { label: 'Proses', value: 'proses' },
   { label: 'Belum Aktif', value: 'belum aktif' },
 ])
+
+export const satuanOptions = [
+  { value: 6, label: 'mm' },
+  { value: 13, label: 'g' },
+  { value: 8, label: 'cm' },
+  { value: 16, label: 'oz' },
+  { value: 15, label: 'lb' },
+  { value: 5, label: 'm' },
+  { value: 9, label: 'm²' },
+  { value: 12, label: 'kg' },
+  { value: 7, label: 'km' },
+]

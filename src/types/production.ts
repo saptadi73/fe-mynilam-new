@@ -158,3 +158,23 @@ export interface CreatePlantingParams {
   area_uom: number
   address: string
 }
+
+export interface CreateHarvestingParams {
+  name: string
+  employee_id: number
+  produce_product: number
+  uom: number
+  state: string
+  asset_id: number
+  kabupaten_id: number
+  batch_code: string
+  weather_conditions: string
+  environment_conditions: string
+  final_product: number
+  actual_final_quantity: number
+  percentage_final_quantity: number
+  completion_percentage: number
+  yield_percentage: number
+  date_started: string
+  date_harvested: string
+}
