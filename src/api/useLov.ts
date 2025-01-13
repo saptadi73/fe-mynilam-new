@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { Ref } from 'vue'
 import { apiGet } from './apiClient'
 import { Petani, PetaniListParams } from '@/types/partner'
+import { Lahan } from '@/types/lov'
 
 export function useLovPetani(params?: Ref<PetaniListParams>) {
   const path = '/lov/list-petani'
@@ -31,5 +32,15 @@ export function useLovUOM() {
   return useQuery({
     queryKey: ['lovUom'],
     queryFn: getLovUOM,
+  })
+}
+
+export function useLovLahan(params?: Ref<{ id_petani?: number }>) {
+  const path = '/lov/lov-lahan'
+  const getLovLahan = (): Promise<Lahan[]> => apiGet(path, params)
+  return useQuery({
+    queryKey: ['lovLahan'],
+    queryFn: getLovLahan,
+    enabled: () => !!params?.value.id_petani,
   })
 }
