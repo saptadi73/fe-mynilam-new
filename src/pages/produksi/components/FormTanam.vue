@@ -54,7 +54,7 @@
           class="hidden"
         />
       </div>
-      <div class="grid md:grid-cols-2 gap-5 md:gap-10 border-2 border-primary rounded-lg py-7 px-10">
+      <div class="grid md:grid-cols-2 gap-5 md:gap-10 border-2 border-primary rounded-lg py-7 px-10 max-w-3xl">
         <BaseInputSelect
           name="nama"
           :options="lovPetani.data.value"
@@ -63,9 +63,18 @@
           value-key="id"
           label-key="name"
         />
-        <BaseInputFloat type="number" label="Luas Lahan" name="luasLahan" />
-        <BaseInputFloat type="text" label="Koordinat Lokasi" name="koordinat" />
-        <BaseInputFloat type="text" label="Alamat Produksi" name="alamat" />
+        <BaseInputSelect
+          name="lahan"
+          :options="lovLahan.data.value"
+          placeholder="Daftar Lahan"
+          :floating-label="true"
+          value-key="id"
+          label-key="name"
+        />
+        <BaseInputSelect name="produk" :options="produkOptions" placeholder="Jenis Produk" :floating-label="true" />
+        <BaseInputFloat type="number" label="Kuantitas (Kg)" name="kuantitas" />
+        <BaseInputFloat type="text" label="Koordinat Lokasi" name="koordinat" :readonly="true" />
+        <BaseInputFloat type="text" label="Alamat Produksi" name="alamat" :readonly="true" />
         <BaseInputDate label="Tanggal Mulai" name="mulaiProduksi" />
         <BaseInputDate label="Tanggal Akhir" name="akhirProduksi" />
       </div>
@@ -80,54 +89,54 @@ import BaseInputDate from '@/components/BaseInputDate.vue'
 import BaseInputFloat from '@/components/BaseInputFloat.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
 import { useForm } from 'vee-validate'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { push } from 'notivue'
 import { number, object, string } from 'yup'
-import { useCreatePlanting } from '@/api/useProduction'
-import { CreatePlantingParams } from '@/types/production'
+import { useCreatePlanting, useUploadPhotoPlanting } from '@/api/useProduction'
+import { CreatePlantingParams, UploadPhotoPlantingParams } from '@/types/production'
 import { formatDateRequest } from '@/utils/useFormatDate'
 import { UseQueryReturnType } from '@tanstack/vue-query'
 import { Petani } from '@/types/partner'
+import { useLovLahan } from '@/api/useLov'
 
 interface Props {
   lovPetani: UseQueryReturnType<Petani[], Error>
 }
 
 interface FormTanam {
-  nama: string
-  luasLahan: number
+  nama: number
+  lahan: number
   mulaiProduksi: string
   akhirProduksi: string
-  estimasi: number
-  satuan: string
-  lokasi: string
+  koordinat: string
   alamat: string
-  statusProduksi: string
-  presentasiTanam: string
+  kuantitas: number
+  produk: number
 }
 
 defineProps<Props>()
 
 const createPlanting = useCreatePlanting()
+const uploadPhotoPlanting = useUploadPhotoPlanting()
+// query
+const params = ref({})
+const lovLahan = useLovLahan(params)
 
-const { handleSubmit } = useForm<FormTanam>({
+const { handleSubmit, values, setValues, resetForm } = useForm<FormTanam>({
   validationSchema: object({
-    nama: string().required().label('Nama'),
-    luasLahan: number().required().label('Luas Lahan'),
+    nama: number().required().label('Nama'),
+    lahan: number().required().label('Lahan'),
+    produk: number().required().label('Jenis Produk'),
     mulaiProduksi: string().required().label('Mulai Produksi'),
     akhirProduksi: string().required().label('Akhir Produksi'),
-    estimasi: number().required().label('Estimasti'),
-    satuan: string().required().label('Satuan'),
-    lokasi: string().required().label('Lokasi'),
     alamat: string().required().label('Alamat'),
-    statusProduksi: string().required().label('Status Produksi'),
-    presentasiTanam: string().required().label('Presentasi Tanam'),
   }),
   initialValues: {},
 })
 
 const refProductImage = ref<HTMLInputElement | null>(null)
-const productImage = ref<string | null>(null)
+const productImage = ref<string | null>()
+const productImageFile = ref<File>()
 
 const handleDeleteProductImage = () => {
   productImage.value = null
@@ -140,6 +149,7 @@ const triggerUploadProductImage = () => {
 const handleFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
+  productImageFile.value = file
   if (file) {
     // Handle the file upload or processing here
     const fileURL = URL.createObjectURL(file)
@@ -147,22 +157,56 @@ const handleFileChange = (event: Event) => {
   }
 }
 
+const produkOptions = [
+  { label: 'Tanaman Nilam', value: 1 },
+  { label: 'Minyak Nilam', value: 2 },
+]
+
+watch(
+  () => values.nama,
+  (val) => {
+    params.value = { id_petani: val }
+  }
+)
+
+watch(
+  () => values.lahan,
+  (val) => {
+    if (lovLahan.data.value) {
+      const lahan = lovLahan.data.value.find((item) => item.id === val)
+      setValues({ koordinat: lahan?.coordinates, alamat: lahan?.address })
+    }
+  }
+)
+
+const handleUploadPhoto = (plantingId: number) => {
+  if (productImageFile.value) {
+    const params: UploadPhotoPlantingParams = {
+      planting_id: plantingId,
+      photo: productImageFile.value,
+    }
+    uploadPhotoPlanting.mutate(params)
+  }
+}
+
 const onSubmit = handleSubmit((values) => {
-  // hardcode
+  // check hardcode
   const params: CreatePlantingParams = {
-    employee_id: 83,
-    produce_product: 5,
+    employee_id: values.nama,
+    produce_product: values.produk,
     date_planned_start: formatDateRequest(values.mulaiProduksi),
     date_planned_finish: formatDateRequest(values.akhirProduksi),
-    quantity: values.estimasi,
-    uom: 4,
-    area: values.luasLahan,
-    area_uom: 12,
+    quantity: values.kuantitas,
+    uom: 12, // kg
+    area: values.lahan,
+    area_uom: 9, // m2
     address: values.alamat,
   }
   createPlanting.mutate(params, {
-    onSuccess: () => {
+    onSuccess: (res) => {
+      handleUploadPhoto(res.data.planting_id)
       push.success('Berhasil membuat daftar produksi baru')
+      resetForm()
     },
     onError: () => {
       push.error('Gagal membuat daftar produksi')
