@@ -154,6 +154,7 @@ const clearValue = () => {
 
 const handleChangeValue = (newValue: string | number) => {
   if (!newValue) {
+    if (props.floatingLabel) searchValue.value = ''
     dropdownLabel.value = undefined
   } else {
     if (props.floatingLabel) searchValue.value = getLabelByValue(newValue)
