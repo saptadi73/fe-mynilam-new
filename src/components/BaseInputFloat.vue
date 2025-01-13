@@ -11,6 +11,7 @@
       class="block pt-3 pb-1.5 px-0 w-full font-semibold text-primary-2 bg-transparent border-0 border-b-2 border-primary-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary-2 peer"
       placeholder=" "
       :class="inputClass"
+      :readonly="readonly"
     />
     <label
       :for="name"
@@ -35,10 +36,12 @@ interface Props {
   id?: string
   initialValue?: string | number
   inputClass?: string
+  readonly?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
+  readonly: false,
 })
 
 const { value, errorMessage } = useField(() => props.name)
