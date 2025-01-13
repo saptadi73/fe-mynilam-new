@@ -73,9 +73,34 @@ export default {
       ],
     },
     {
-      path: 'buat-daftar-produksi-petani',
-      name: 'Buat Daftar Produksi Petani',
-      component: () => import('../pages/produksi/BuatDaftarProduksiPetani.vue'),
+      path: 'buat-produksi',
+      children: [
+        {
+          path: 'tanam/:daerah',
+          name: 'Buat Produksi Tanam',
+          component: () => import('../pages/produksi/buat-produksi/BuatProduksiTanam.vue'),
+        },
+        {
+          path: 'minyak/:daerah',
+          name: 'Buat Produksi Minyak',
+          component: () => import('../pages/produksi/buat-produksi/BuatProduksiMinyak.vue'),
+        },
+        {
+          path: 'pilih-jenis-produksi',
+          name: 'Buat - Pilih Jenis Produksi',
+          component: () => import('../pages/produksi/buat-produksi/PilihJenisProduksi.vue'),
+        },
+        {
+          path: 'pilih-daerah-tanam',
+          name: 'Buat - Pilih Daerah Tanam',
+          component: () => import('../pages/produksi/buat-produksi/PilihDaerahTanam.vue'),
+        },
+        {
+          path: 'pilih-daerah-minyak',
+          name: 'Buat - Pilih Daerah Minyak',
+          component: () => import('../pages/produksi/buat-produksi/PilihDaerahMinyakNilam.vue'),
+        },
+      ],
     },
   ],
 }

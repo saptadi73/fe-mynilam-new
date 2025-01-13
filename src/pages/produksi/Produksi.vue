@@ -45,7 +45,7 @@
           Terdokumentasi dengan Teliti, Terpantau dengan Baik, dan Dapat Dilacak Secara Efektif hingga Penyelesaian
           Produksi
         </p>
-        <RouterLink :to="{ name: 'Buat Daftar Produksi Petani' }">
+        <RouterLink :to="{ name: 'Buat - Pilih Jenis Produksi' }">
           <BaseButton icon-position="left" class="mt-2">
             Buat Daftar Baru
             <BaseIcon name="chevron-right" class="w-4 h-4" />
