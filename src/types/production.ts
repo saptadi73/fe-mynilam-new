@@ -178,3 +178,8 @@ export interface CreateHarvestingParams {
   date_started: string
   date_harvested: string
 }
+
+export interface UploadPhotoPlantingParams {
+  planting_id: number
+  photo: File
+}

@@ -18,3 +18,16 @@ export function downloadImageBase64(base64Data: string, fileName: string) {
   document.body.removeChild(link)
   URL.revokeObjectURL(link.href) // Bersihkan URL setelah digunakan
 }
+
+export function toFormData(obj: Record<string, any>): FormData {
+  const formData = new FormData()
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key]
+      formData.append(key, value)
+    }
+  }
+
+  return formData
+}
