@@ -141,13 +141,6 @@ const { handleSubmit } = useForm<FormMinyakNilam>({
 const refProductImage = ref<HTMLInputElement | null>(null)
 const productImage = ref<string | null>(null)
 
-const options = ref([
-  { label: 'Draft', value: 'draft' },
-  { label: 'Sedang Produksi', value: 'sedangProduksi' },
-  { label: 'Selesai', value: 'done' },
-  { label: 'Batal', value: 'cancel' },
-])
-
 const handleDeleteProductImage = () => {
   productImage.value = null
 }

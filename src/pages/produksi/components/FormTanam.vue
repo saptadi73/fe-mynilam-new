@@ -129,15 +129,6 @@ const { handleSubmit } = useForm<FormTanam>({
 const refProductImage = ref<HTMLInputElement | null>(null)
 const productImage = ref<string | null>(null)
 
-const options = ref([
-  { label: 'Draft', value: 'draft' },
-  { label: 'Sedang Produksi', value: 'sedangProduksi' },
-  { label: 'Selesai', value: 'done' },
-  { label: 'Batal', value: 'cancel' },
-])
-
-const satuanOptions = ref([{ label: 'Kg', value: 'kg' }])
-
 const handleDeleteProductImage = () => {
   productImage.value = null
 }
