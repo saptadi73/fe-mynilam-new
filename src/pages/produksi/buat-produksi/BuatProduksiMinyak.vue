@@ -2,7 +2,7 @@
   <div class="bg-image-wave px-16 pb-10">
     <BaseHeaderTitle :title="'Buat Daftar Produksi - ' + $route.params.daerah" />
     <section class="rounded-3xl bg-[#f5fdfe] border-2 border-primary py-5 px-8 md:flex">
-      <FormMinyakNilam :lov-petani="lovPetani" />
+      <FormMinyakNilam :lov-petani="lovPetani" :kabupaten-id="kabupatenId" />
     </section>
   </div>
 </template>
@@ -22,10 +22,15 @@ const { daerah } = route.params
 const lovPetaniParams = ref<PetaniListParams>({})
 const lovPetani = useLovPetani(lovPetaniParams)
 const kabupaten = useKabupaten()
+// state
+const kabupatenId = ref<number>()
 
 const handleParamValue = () => {
   const selectedKabupaten = kabupaten.data.value?.find((data) => data.name == daerah)
-  if (selectedKabupaten) lovPetaniParams.value = { kabupaten_id: selectedKabupaten.id }
+  if (selectedKabupaten) {
+    kabupatenId.value = selectedKabupaten.id
+    lovPetaniParams.value = { kabupaten_id: selectedKabupaten.id }
+  }
 }
 
 watch(kabupaten.data, handleParamValue)

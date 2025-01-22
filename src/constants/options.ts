@@ -34,3 +34,17 @@ export const satuanOptions = [
   { value: 12, label: 'kg' },
   { value: 7, label: 'km' },
 ]
+
+export const weatherOptions = [
+  { value: 'dry', label: 'Musim Kemarau' },
+  { value: 'rainy', label: 'Musim Hujan' },
+  { value: 'transition', label: 'Musim Pancaroba' },
+]
+
+export const metodeEkstraksiOptions = [
+  { value: 'distillation', label: 'Distilasi' },
+  { value: 'cold_pressing', label: 'Penekanan Dingin' },
+  { value: 'hydrodistillation', label: 'Hidrodistilasi' },
+  { value: 'soxhlet_extraction', label: 'Ekstraksi Soxhlet' },
+  { value: 'other_methods', label: 'Metode Lainnya' },
+]

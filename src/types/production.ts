@@ -160,7 +160,6 @@ export interface CreatePlantingParams {
 }
 
 export interface CreateHarvestingParams {
-  name: string
   employee_id: number
   produce_product: number
   uom: number
@@ -171,10 +170,10 @@ export interface CreateHarvestingParams {
   weather_conditions: string
   environment_conditions: string
   final_product: number
-  actual_final_quantity: number
-  percentage_final_quantity: number
+  final_quantity: number
+  planting_produce_quantity: number
   completion_percentage: number
-  yield_percentage: number
+  percentage_final_quantity: number
   date_started: string
   date_harvested: string
 }
