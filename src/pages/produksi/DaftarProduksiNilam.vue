@@ -10,15 +10,17 @@
       </div>
       <hr class="border border-[#015438] mt-3 -ml-4 -mr-4" />
       <div class="grid grid-cols-12 gap-4 mt-2">
-        <BaseCardAdd card-title="Produksi" class="col-span-3" />
         <BaseSkeletonCard
           v-if="produksiNilamList.isLoading.value"
-          v-for="n in 3"
+          v-for="n in 4"
           :key="n"
           class="col-span-12 md:col-span-6 lg:col-span-3"
         />
         <template v-else>
-          <div class="col-span-9 self-center text-center text-gray-600" v-if="produksiNilamList.data.value === null">
+          <div
+            class="col-span-12 self-center text-center text-gray-600 my-5"
+            v-if="produksiNilamList.data.value === null"
+          >
             Tidak ada data untuk ditampilkan
           </div>
 
