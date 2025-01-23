@@ -114,7 +114,6 @@
 <script setup lang="ts">
 import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
-import BaseCardAdd from '@/components/BaseCardAdd.vue'
 import BaseCard from '@/components/BaseCard.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseChart from '@/components/BaseChart.vue'

@@ -23,7 +23,7 @@ const lovPetaniParams = ref<PetaniListParams>({})
 const lovPetani = useLovPetani(lovPetaniParams)
 const kabupaten = useKabupaten()
 // state
-const kabupatenId = ref<number>()
+const kabupatenId = ref<number>(0)
 
 const handleParamValue = () => {
   const selectedKabupaten = kabupaten.data.value?.find((data) => data.name == daerah)
