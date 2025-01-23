@@ -5,57 +5,21 @@
       <div class="bg-primary-light rounded-2xl p-8 w-full max-w-lg">
         <div class="text-primary text-center mb-4">
           <img src="../../assets/images/mynilam.png" class="h-16 block mx-auto mb-4" />
-          <h1 class="font-bold text-3xl mb-2">{{ activeTab === 'login' ? 'Welcome' : 'Create an Account' }}</h1>
-          <p v-if="activeTab === 'login'">
-            Jika Anda belum terdaftar dalam aplikasi, silakan melakukan registrasi terlebih dahulu
-          </p>
-          <p v-else>Silakan isi formulir di bawah ini untuk melakukan registrasi</p>
+          <h1 class="font-bold text-3xl mb-2">Welcome</h1>
+          <p>Silahkan melakukan login terlebih dahulu</p>
         </div>
         <!-- tab login & signup -->
         <div class="text-center text-primary-2 font-semibold mb-10">
           <ul class="flex">
-            <li class="w-1/2">
-              <button
-                type="button"
-                class="inline-block p-1 border-b-4 border-gray-300 w-full transition duration-500"
-                :class="{ 'border-primary': activeTab === 'login' }"
-                @click="activeTab = 'login'"
-              >
+            <li class="w-full">
+              <button type="button" class="inline-block p-1 border-b-4 border-primary w-full transition duration-500">
                 Login
-              </button>
-            </li>
-            <li class="w-1/2">
-              <button
-                type="button"
-                class="inline-block p-1 border-b-4 border-gray-300 w-full transition duration-500"
-                :class="{ 'border-primary': activeTab === 'signup' }"
-                @click="activeTab = 'signup'"
-              >
-                Registrasi
               </button>
             </li>
           </ul>
         </div>
         <!-- log in form -->
-        <LoginForm v-if="activeTab === 'login'">
-          <!-- <template #footer>
-            <div class="text-primary text-sm text-center">
-              Don't have an account?
-              <button type="button" class="text-primary-2 font-semibold" @click="activeTab = 'signup'">
-                Create an account
-              </button>
-            </div>
-          </template> -->
-        </LoginForm>
-        <!-- sing up form -->
-        <SignupForm v-else>
-          <!-- <template #footer>
-            <div class="text-primary text-sm text-center">
-              Have an account?
-              <button type="button" class="text-primary-2 font-semibold" @click="activeTab = 'login'">Login</button>
-            </div>
-          </template> -->
-        </SignupForm>
+        <LoginForm />
       </div>
     </section>
     <!-- image slider  -->
@@ -103,12 +67,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import LoginForm from './LoginForm.vue'
-import SignupForm from './SignupForm.vue'
 import { initCarousels } from 'flowbite'
-
-const activeTab = ref('login')
 
 onMounted(() => {
   initCarousels()
