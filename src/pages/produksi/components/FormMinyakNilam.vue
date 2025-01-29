@@ -5,7 +5,7 @@
       <div class="flex justify-center pb-4 border-2 border-primary translate-y-2 border-b-0 rounded-t-lg">
         <div class="flex flex-col">
           <div v-if="productImage" class="relative relative-container flex justify-center items-center">
-            <img :src="productImage" />
+            <img :src="productImage" class="max-w-2xl" />
 
             <svg
               @click="handleDeleteProductImage"

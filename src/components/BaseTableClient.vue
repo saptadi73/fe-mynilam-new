@@ -38,6 +38,8 @@ export interface TableClientProps<T> {
   isLoading?: boolean
 }
 
+defineSlots()
+
 const props = withDefaults(defineProps<TableClientProps<T>>(), {
   pageSize: 10,
   search: true,
