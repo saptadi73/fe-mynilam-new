@@ -182,6 +182,9 @@ export interface CreateHarvestingParams {
   percentage_final_quantity: number
   date_started: string
   date_harvested: string
+  coordinates: string
+  address: string
+  extraction_method: string
 }
 
 export interface UploadPhotoPlantingParams {

@@ -56,7 +56,7 @@
       </div>
       <div class="grid md:grid-cols-2 gap-5 md:gap-10 border-2 border-primary rounded-lg py-7 px-10 max-w-3xl">
         <BaseInputSelect
-          name="nama"
+          name="employee_id"
           :options="lovPetani.data.value"
           placeholder="Nama Petani"
           :floating-label="true"
@@ -64,30 +64,40 @@
           label-key="name"
         />
         <BaseInputSelect
-          name="lahan"
+          name="asset_id"
           :options="lovLahan.data.value"
           placeholder="Daftar Lahan"
           :floating-label="true"
           value-key="id"
           label-key="name"
         />
-        <BaseInputFloat type="text" label="Koordinat Lokasi" name="koordinat" :readonly="true" />
-        <BaseInputFloat type="text" label="Alamat Produksi" name="alamat" :readonly="true" />
-        <BaseInputSelect name="produk" :options="produkOptions" placeholder="Produk Tanam" :floating-label="true" />
-        <BaseInputSelect name="cuaca" :options="weatherOptions" placeholder="Kondisi Cuaca" :floating-label="true" />
-        <BaseInputFloat type="text" label="Kuantitas Tanam" name="kuantitasTanam" />
-        <BaseInputSelect name="satuanTanam" :options="satuanOptions" placeholder="Satuan" :floating-label="true" />
-        <BaseInputFloat type="text" label="Kuantitas Akhir" name="kuantitasAkhir" />
-        <BaseInputSelect name="satuanAkhir" :options="satuanOptions" placeholder="Satuan" :floating-label="true" />
-        <BaseInputDate label="Mulai Produksi" name="mulaiProduksi" />
-        <BaseInputDate label="Akhir Produksi" name="akhirProduksi" />
+        <BaseInputFloat type="text" label="Koordinat Lokasi" name="coordinates" :readonly="true" />
+        <BaseInputFloat type="text" label="Alamat Produksi" name="address" :readonly="true" />
         <BaseInputSelect
-          name="metode"
+          name="produce_product"
+          :options="produkOptions"
+          placeholder="Produk Tanam"
+          :floating-label="true"
+        />
+        <BaseInputSelect
+          name="weather_conditions"
+          :options="weatherOptions"
+          placeholder="Kondisi Cuaca"
+          :floating-label="true"
+        />
+        <BaseInputFloat type="text" label="Kuantitas Tanam" name="planting_produce_quantity" />
+        <BaseInputSelect name="uom" :options="satuanOptions" placeholder="Satuan" :floating-label="true" />
+        <BaseInputFloat type="text" label="Kuantitas Akhir" name="final_quantity" />
+        <BaseInputSelect name="uom" :options="satuanOptions" placeholder="Satuan" :floating-label="true" />
+        <BaseInputDate label="Mulai Produksi" name="date_started" />
+        <BaseInputDate label="Akhir Produksi" name="date_harvested" />
+        <BaseInputSelect
+          name="extraction_method"
           :options="metodeEkstraksiOptions"
           placeholder="Metode Ekstraksi"
           :floating-label="true"
         />
-        <BaseInputFloat type="number" label="Persentase Akhir" name="persentase" />
+        <BaseInputFloat type="number" label="Persentase Akhir" name="percentage_final_quantity" />
         <!-- <div class="invisible my-2.5">Hidden</div> -->
       </div>
       <BaseButton class="w-full mt-5 py-2 font-semibold !rounded-full">Simpan Data</BaseButton>
@@ -110,52 +120,35 @@ import { useLovLahan } from '@/api/useLov'
 import type { CreateHarvestingParams } from '@/types/production'
 import type { UseQueryReturnType } from '@tanstack/vue-query'
 import type { Petani } from '@/types/partner'
+import { formatDateRequest } from '@/utils/useFormatDate'
 
 interface Props {
   lovPetani: UseQueryReturnType<Petani[], Error>
   kabupatenId: number
 }
 
-interface FormMinyakNilam {
-  nama: number
-  lahan: number
-  koordinat: string
-  alamat: string
-  produk: number
-  cuaca: string
-  kuantitasTanam: number
-  satuanTanam: number
-  kuantitasAkhir: number
-  satuanAkhir: number
-  mulaiProduksi: string
-  akhirProduksi: string
-  metode: string
-  persentase: number
-}
-
-const props = defineProps<Props>()
+defineProps<Props>()
 
 const createHarvesting = useCreateHarvesting()
 // query
 const params = ref({})
 const lovLahan = useLovLahan(params)
 
-const { handleSubmit, values, setValues, resetForm } = useForm<FormMinyakNilam>({
+const { handleSubmit, values, setValues, resetForm } = useForm<CreateHarvestingParams>({
   validationSchema: object({
-    nama: number().required().label('Nama'),
-    lahan: number().required().label('Lahan'),
-    koordinat: string().required().label('Koordinat'),
-    alamat: string().required().label('Alamat'),
-    produk: number().required().label('Produk'),
-    cuaca: string().required().label('Cuaca'),
-    kuantitasTanam: number().required().label('Kuantitas Tanam'),
-    satuanTanam: string().required().label('Satuan'),
-    kuantitasAkhir: number().required().label('Kuantitas Akhir'),
-    satuanAkhir: string().required().label('Satuan'),
-    mulaiProduksi: string().required().label('Mulai Produksi'),
-    akhirProduksi: string().required().label('Akhir Produksi'),
-    metode: string().required().label('Metode Ekstraksi'),
-    persentase: number().required().label('Persentase'),
+    employee_id: number().required().label('Nama'),
+    asset_id: number().required().label('Lahan'),
+    coordinates: string().required().label('Koordinat'),
+    address: string().required().label('Alamat'),
+    produce_product: number().required().label('Produk'),
+    weather_conditions: string().required().label('Cuaca'),
+    planting_produce_quantity: number().required().label('Kuantitas Tanam'),
+    uom: string().required().label('Satuan'),
+    final_quantity: number().required().label('Kuantitas Akhir'),
+    date_started: string().required().label('Mulai Produksi'),
+    date_harvested: string().required().label('Akhir Produksi'),
+    extraction_method: string().required().label('Metode Ekstraksi'),
+    percentage_final_quantity: number().required().label('Persentase'),
   }),
   initialValues: {},
 })
@@ -187,43 +180,28 @@ const produkOptions = [
 ]
 
 watch(
-  () => values.nama,
+  () => values.employee_id,
   (val) => {
     params.value = { id_petani: val }
   }
 )
 
 watch(
-  () => values.lahan,
+  () => values.asset_id,
   (val) => {
     if (lovLahan.data.value) {
       const lahan = lovLahan.data.value.find((item) => item.id === val)
-      setValues({ koordinat: lahan?.coordinates, alamat: lahan?.address })
+      setValues({ coordinates: lahan?.coordinates, address: lahan?.address })
     }
   }
 )
 
 const onSubmit = handleSubmit((values) => {
-  // hardcode
-  const params: CreateHarvestingParams = {
-    employee_id: values.nama,
-    produce_product: values.produk,
-    uom: values.satuanTanam,
-    state: '',
-    asset_id: 789,
-    kabupaten_id: props.kabupatenId,
-    batch_code: 'BATCH-001',
-    weather_conditions: values.cuaca,
-    environment_conditions: 'optimal',
-    final_product: values.produk,
-    final_quantity: values.kuantitasAkhir,
-    planting_produce_quantity: values.kuantitasTanam,
-    completion_percentage: 80,
-    percentage_final_quantity: values.persentase,
-    date_started: values.mulaiProduksi,
-    date_harvested: values.akhirProduksi,
-  }
-  createHarvesting.mutate(params, {
+  // format date request
+  values.date_started = formatDateRequest(values.date_started)
+  values.date_harvested = formatDateRequest(values.date_harvested)
+  // mutation
+  createHarvesting.mutate(values, {
     onSuccess: () => {
       push.success('Berhasil membuat daftar produksi baru')
       resetForm()
