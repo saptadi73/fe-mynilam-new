@@ -29,6 +29,7 @@
             class="w-full lg:w-44 2xl:w-52"
             value-key="id"
             label-key="name"
+            @change="handleAgenChange"
           />
 
           <BaseInputDateRange
@@ -88,8 +89,8 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import { useReferenceSummary } from '@/api/useTransaction'
 import { useKabupaten } from '@/api/useLocalization'
-import type { ReferenceSummary, ReferenceSummaryParams } from '@/types/transaction'
 import { useAgenKoperasiList } from '@/api/usePartner'
+import type { ReferenceSummary, ReferenceSummaryParams } from '@/types/transaction'
 
 const params = ref<ReferenceSummaryParams>({})
 const referenceSummary = useReferenceSummary(params)
@@ -99,6 +100,10 @@ const searchValue = ref('')
 
 const handleDaerahChange = (value: number) => {
   params.value.kabupaten_id = value
+}
+
+const handleAgenChange = (value: number) => {
+  params.value.id_agent_koperasi = value
 }
 
 const handleDateChange = (value: string[]) => {

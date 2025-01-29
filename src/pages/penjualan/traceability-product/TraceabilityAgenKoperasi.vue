@@ -25,8 +25,11 @@
           <BaseInputSelect
             name="agen"
             placeholder="Pilih agen/koperasi"
-            :options="agenList"
+            :options="agenKoperasiList.data.value"
             class="w-full lg:w-44 2xl:w-52"
+            value-key="id"
+            label-key="name"
+            @change="handleAgenChange"
           />
 
           <BaseInputDateRange
@@ -76,21 +79,21 @@ import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
 import { useReferenceSummary } from '@/api/useTransaction'
 import { useKabupaten } from '@/api/useLocalization'
+import { useAgenKoperasiList } from '@/api/usePartner'
 import type { ReferenceSummary, ReferenceSummaryParams } from '@/types/transaction'
 
 const params = ref<ReferenceSummaryParams>({})
 const referenceSummary = useReferenceSummary(params)
 const kabupaten = useKabupaten()
+const agenKoperasiList = useAgenKoperasiList()
 const searchValue = ref('')
-
-const agenList = ref([
-  { label: 'Agen Nusantara Sakti', value: 1 },
-  { label: 'Agen Indonesia Raya', value: 2 },
-  { label: 'Agen Aceh', value: 3 },
-])
 
 const handleDaerahChange = (value: number) => {
   params.value.kabupaten_id = value
+}
+
+const handleAgenChange = (value: number) => {
+  params.value.id_agent_koperasi = value
 }
 
 const handleDateChange = (value: string[]) => {
