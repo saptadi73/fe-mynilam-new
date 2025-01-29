@@ -157,6 +157,12 @@ export interface CreatePlantingParams {
   area: number
   area_uom: number
   address: string
+  plant: number
+  average_weight: number
+  drying_percentage: number
+  weather_conditions: string
+  coordinates: string
+  asset_id: number
 }
 
 export interface CreateHarvestingParams {

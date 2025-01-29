@@ -56,7 +56,7 @@
       </div>
       <div class="grid md:grid-cols-2 gap-5 md:gap-10 border-2 border-primary rounded-lg py-7 px-10 max-w-3xl">
         <BaseInputSelect
-          name="nama"
+          name="employee_id"
           :options="lovPetani.data.value"
           placeholder="Nama Petani"
           :floating-label="true"
@@ -64,19 +64,33 @@
           label-key="name"
         />
         <BaseInputSelect
-          name="lahan"
+          name="asset_id"
           :options="lovLahan.data.value"
           placeholder="Daftar Lahan"
           :floating-label="true"
           value-key="id"
           label-key="name"
         />
-        <BaseInputSelect name="produk" :options="produkOptions" placeholder="Jenis Produk" :floating-label="true" />
-        <BaseInputFloat type="number" label="Kuantitas (Kg)" name="kuantitas" />
-        <BaseInputFloat type="text" label="Koordinat Lokasi" name="koordinat" :readonly="true" />
-        <BaseInputFloat type="text" label="Alamat Produksi" name="alamat" :readonly="true" />
-        <BaseInputDate label="Tanggal Mulai" name="mulaiProduksi" />
-        <BaseInputDate label="Tanggal Akhir" name="akhirProduksi" />
+        <BaseInputSelect
+          name="produce_product"
+          :options="produkOptions"
+          placeholder="Jenis Produk"
+          :floating-label="true"
+        />
+        <BaseInputFloat type="number" label="Kuantitas (Kg)" name="quantity" />
+        <BaseInputFloat type="number" label="Batang Ditanam" name="plant" />
+        <BaseInputFloat type="number" label="Rata Rata Berat per Tanam" name="average_weight" />
+        <BaseInputFloat type="number" label="Persentase Pengeringan" name="drying_percentage" />
+        <BaseInputSelect
+          name="weather_conditions"
+          :options="weatherOptions"
+          placeholder="Kondisi Cuaca"
+          :floating-label="true"
+        />
+        <BaseInputFloat type="text" label="Koordinat Lokasi" name="coordinates" :readonly="true" />
+        <BaseInputFloat type="text" label="Alamat Produksi" name="address" :readonly="true" />
+        <BaseInputDate label="Tanggal Mulai" name="date_planned_start" />
+        <BaseInputDate label="Tanggal Akhir" name="date_planned_finish" />
       </div>
       <BaseButton class="w-full mt-5 mb-3 py-2 font-semibold !rounded-full">Simpan Data</BaseButton>
     </form>
@@ -98,20 +112,10 @@ import { formatDateRequest } from '@/utils/useFormatDate'
 import { UseQueryReturnType } from '@tanstack/vue-query'
 import { Petani } from '@/types/partner'
 import { useLovLahan } from '@/api/useLov'
+import { weatherOptions } from '@/constants/options'
 
 interface Props {
   lovPetani: UseQueryReturnType<Petani[], Error>
-}
-
-interface FormTanam {
-  nama: number
-  lahan: number
-  mulaiProduksi: string
-  akhirProduksi: string
-  koordinat: string
-  alamat: string
-  kuantitas: number
-  produk: number
 }
 
 defineProps<Props>()
@@ -122,16 +126,24 @@ const uploadPhotoPlanting = useUploadPhotoPlanting()
 const params = ref({})
 const lovLahan = useLovLahan(params)
 
-const { handleSubmit, values, setValues, resetForm } = useForm<FormTanam>({
+const { handleSubmit, values, setValues, resetForm } = useForm<CreatePlantingParams>({
   validationSchema: object({
-    nama: number().required().label('Nama'),
-    lahan: number().required().label('Lahan'),
-    produk: number().required().label('Jenis Produk'),
-    mulaiProduksi: string().required().label('Mulai Produksi'),
-    akhirProduksi: string().required().label('Akhir Produksi'),
-    alamat: string().required().label('Alamat'),
+    employee_id: number().required().label('Nama'),
+    asset_id: number().required().label('Lahan Dipakai'),
+    produce_product: number().required().label('Jenis Produk'),
+    date_planned_start: string().required().label('Mulai Produksi'),
+    date_planned_finish: string().required().label('Akhir Produksi'),
+    address: string().required().label('Alamat'),
+    plant: number().required().label('Batang Ditanam'),
+    quantity: number().required().label('Kuantitas'),
+    average_weight: number().required().label('Rata Rata Ditanam'),
+    drying_percentage: number().required().label('Persentase Pengeringan'),
+    weather_conditions: string().required().label('Kondisi Cuaca'),
   }),
-  initialValues: {},
+  initialValues: {
+    uom: 12, // kg
+    area_uom: 9, // m2
+  },
 })
 
 const refProductImage = ref<HTMLInputElement | null>(null)
@@ -163,18 +175,18 @@ const produkOptions = [
 ]
 
 watch(
-  () => values.nama,
+  () => values.employee_id,
   (val) => {
     params.value = { id_petani: val }
   }
 )
 
 watch(
-  () => values.lahan,
+  () => values.asset_id,
   (val) => {
     if (lovLahan.data.value) {
       const lahan = lovLahan.data.value.find((item) => item.id === val)
-      setValues({ koordinat: lahan?.coordinates, alamat: lahan?.address })
+      setValues({ coordinates: lahan?.coordinates, address: lahan?.address })
     }
   }
 )
@@ -190,19 +202,11 @@ const handleUploadPhoto = (plantingId: number) => {
 }
 
 const onSubmit = handleSubmit((values) => {
-  // check hardcode
-  const params: CreatePlantingParams = {
-    employee_id: values.nama,
-    produce_product: values.produk,
-    date_planned_start: formatDateRequest(values.mulaiProduksi),
-    date_planned_finish: formatDateRequest(values.akhirProduksi),
-    quantity: values.kuantitas,
-    uom: 12, // kg
-    area: values.lahan,
-    area_uom: 9, // m2
-    address: values.alamat,
-  }
-  createPlanting.mutate(params, {
+  // format date request
+  values.date_planned_start = formatDateRequest(values.date_planned_start)
+  values.date_planned_finish = formatDateRequest(values.date_planned_finish)
+  // mutation
+  createPlanting.mutate(values, {
     onSuccess: (res) => {
       handleUploadPhoto(res.data.planting_id)
       push.success('Berhasil membuat daftar produksi baru')
