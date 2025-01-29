@@ -57,6 +57,7 @@ export interface PetaniProfile {
   total_transaction_value: number | bigint
   total_planting_quantity: number
   total_oil_quantity: number
+  total_actual_quantity: number
   in_progress_oil_percentage_quantity: number
   in_progress_planting_quantity: number
   in_progress_percentage_quantity: number

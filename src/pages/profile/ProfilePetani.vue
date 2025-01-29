@@ -208,7 +208,7 @@
                       params: { id: petaniProfile.data.value?.id },
                     }"
                   >
-                    {{ petaniProfile.data.value?.in_progress_planting_quantity }} kg target tanam</RouterLink
+                    {{ petaniProfile.data.value?.total_actual_quantity }} kg target tanam</RouterLink
                   >
 
                   <ProgressBar
