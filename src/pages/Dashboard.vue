@@ -37,11 +37,12 @@
     <section class="xl:h-screen grid items-center">
       <div class="grid grid-cols-12 gap-y-4 md:gap-y-0 gap-x-8 md:px-12 py-8">
         <div class="col-span-12 md:col-span-6">
-          <div class="bg-white shadow-chart rounded-xl px-20 pb-8">
+          <div v-if="processPlanting.isLoading.value"></div>
+          <div v-else class="bg-white shadow-chart rounded-xl px-20 pb-8">
             <BaseChart
               chartId="chart2"
               chartType="pie"
-              :chartData="data"
+              :chartData="processPlanting.data.value"
               :chartOptions="chartOptions"
               :chartDataLabel="true"
             />
@@ -73,10 +74,12 @@
 
         <div class="col-span-12 md:col-span-6 order-1 md:order-2">
           <div class="bg-white shadow-chart rounded-xl px-20 pb-8">
+            <div v-if="processHarvesting.isLoading.value"></div>
             <BaseChart
+              v-else
               chartId="chart3"
               chartType="pie"
-              :chartData="prosesProduksidata"
+              :chartData="processHarvesting.data.value"
               :chartOptions="prosesProduksidataChartOptions"
               :chartDataLabel="true"
             />
@@ -175,10 +178,14 @@ import 'v-calendar/style.css'
 import { useScreens } from 'vue-screen-utils'
 import Maps from '@/pages/sample/Maps.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import { useProcessHarvesting, useProcessPlanting } from '@/api/useDashboard'
 
 const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '728px', lg: '1024px' })
 const columns = mapCurrent({ lg: 4 }, 1)
 const showChart = ref(false)
+
+const processPlanting = useProcessPlanting()
+const processHarvesting = useProcessHarvesting()
 
 const todos = ref([
   {
@@ -260,30 +267,6 @@ const lineChartOptions: ChartOptions<'line'> = {
       },
     },
   },
-}
-
-const data: ChartData = {
-  labels: ['Proses', 'Selesai'],
-  datasets: [
-    {
-      label: 'Total Data',
-      data: [50, 50],
-      backgroundColor: ['#015438', '#20D173'],
-      hoverOffset: 4,
-    },
-  ],
-}
-
-const prosesProduksidata: ChartData = {
-  labels: ['Proses', 'Selesai'],
-  datasets: [
-    {
-      label: 'Total Data',
-      data: [75, 25],
-      backgroundColor: ['#015438', '#20D173'],
-      hoverOffset: 4,
-    },
-  ],
 }
 
 const chartOptions: ChartOptions<'pie'> = {
