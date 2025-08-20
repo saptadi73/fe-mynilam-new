@@ -178,14 +178,40 @@ import 'v-calendar/style.css'
 import { useScreens } from 'vue-screen-utils'
 import Maps from '@/pages/sample/Maps.vue'
 import BaseButton from '@/components/BaseButton.vue'
-import { useProcessHarvesting, useProcessPlanting } from '@/api/useDashboard'
+// import { useProcessHarvesting, useProcessPlanting } from '@/api/useDashboard'
 
 const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '728px', lg: '1024px' })
 const columns = mapCurrent({ lg: 4 }, 1)
 const showChart = ref(false)
 
-const processPlanting = useProcessPlanting()
-const processHarvesting = useProcessHarvesting()
+const processPlanting = {
+  isLoading: ref(false),
+  data: ref({
+    labels: ['Benih', 'Tanam', 'Pemeliharaan', 'Panen'],
+    datasets: [
+      {
+        label: 'Proses Tanam Nilam',
+        data: [25, 40, 15, 20],
+        backgroundColor: ['#FF5733', '#FF8D1A', '#FFC300', '#DAF7A6'],
+        hoverOffset: 4,
+      },
+    ],
+  }),
+};
+const processHarvesting = {
+  isLoading: ref(false),
+  data: ref({
+    labels: ['Pengolahan', 'Distilasi', 'Kemasan', 'Distribusi'],
+    datasets: [
+      {
+        label: 'Proses Panen Nilam',
+        data: [30, 40, 15, 15],
+        backgroundColor: ['#1E90FF', '#FF4500', '#32CD32', '#FFD700'],
+        hoverOffset: 4,
+      },
+    ],
+  }),
+};
 
 const todos = ref([
   {
@@ -208,7 +234,7 @@ const attributes = computed<any>(() => [
   })),
 ])
 
-const lineChartData: ChartData = {
+const lineChartData: ChartData<'line'> = {
   labels: [
     'Januari',
     'Februari',
@@ -229,7 +255,6 @@ const lineChartData: ChartData = {
       data: [500, 280, 350, 480, 140, 200, 140, 420, 270, 150, 140, 130],
       backgroundColor: ['#015438'],
       borderColor: ['#1BAE60'], // line color
-      hoverOffset: 4,
       pointRadius: 6, // point size
     },
   ],

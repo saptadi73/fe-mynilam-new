@@ -26,28 +26,28 @@ import BaseProfileCard from '@/components/BaseProfileCard.vue'
 const profileCard = reactive([
   {
     profileName: 'Petani',
-    profileImage: 'petani',
+    profileImage: 'petani_nilam.jpg',
     profileDescription:
       'Lihat daftar lengkap petani yang terdaftar dalam sistem, serta buat daftar baru petani untuk memperbarui informasi dan menambahkan petani baru yang bergabung dalam jaringan produksi.',
     profilePath: 'profile/pilih-daerah-petani',
   },
   {
     profileName: 'Agen/Koperasi',
-    profileImage: 'agen',
+    profileImage: 'foto_koperasi.png',
     profileDescription:
       'Lihat daftar lengkap agen/koperasi yang terdaftar dan berperan dalam distribusi produk, serta buat daftar agen baru untuk memperluas jaringan penjualan dan mitra distribusi.',
     profilePath: 'profile/daftar-agen',
   },
   {
     profileName: 'Ugreen',
-    profileImage: 'ugreen',
+    profileImage: 'u_green_foto.png',
     profileDescription:
       'Lihat daftar entitas UGreen yang berperan dalam rantai distribusi produk, serta tambahkan atau buat profil baru UGreen untuk memperluas dan mengelola jaringan mitra strategis.',
     profilePath: 'profile/profile-ugreen',
   },
   {
     profileName: 'Lahan',
-    profileImage: 'lahan',
+    profileImage: 'kebun_nilam1.jpg',
     profileDescription:
       'Daftar lahan petani mencakup nama pemilik, luas dan lokasi lahan, status kepemilikan, serta status tanam. Pantau perkembangan lahan secara efisien.',
     profilePath: 'profile/pilih-daerah-lahan',

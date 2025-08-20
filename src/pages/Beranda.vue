@@ -42,7 +42,7 @@
         <div class="col-span-12 md:col-span-5 order-1 md:order-2">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
-            src="@/assets/images/beranda/beranda-thumbnail-1.jpg"
+            src="@/assets/images/beranda/tanam_nilam.png"
             alt="Beranda Thumbnail 1 Image"
           />
         </div>
@@ -54,7 +54,7 @@
         <div class="col-span-12 md:col-span-5">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
-            src="@/assets/images/beranda/beranda-thumbnail-2.jpg"
+            src="@/assets/images/beranda/ipad_nilam.png"
             alt="Beranda Thumbnail 2 Image"
           />
         </div>
@@ -102,7 +102,7 @@
         <div class="col-span-12 md:col-span-5 order-1 md:order-2">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
-            src="@/assets/images/beranda/beranda-thumbnail-3.jpg"
+            src="@/assets/images/beranda/ipad_gudang3.png"
             alt="Beranda Thumbnail 3 Image"
           />
         </div>
@@ -114,7 +114,7 @@
         <div class="col-span-12 md:col-span-5">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
-            src="@/assets/images/beranda/beranda-thumbnail-2.jpg"
+            src="@/assets/images/beranda/dashboard_petani.png"
             alt="Beranda Thumbnail 4 Image"
           />
         </div>
@@ -158,7 +158,7 @@
         <div class="col-span-12 md:col-span-5 order-1 md:order-2">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
-            src="../assets/images/beranda/beranda-thumbnail-4.jpg"
+            src="../assets/images/beranda/jual_nilam3.png"
             alt="Beranda Thumbnail 5 Image"
           />
         </div>
@@ -170,7 +170,7 @@
         <div class="col-span-12 md:col-span-5">
           <img
             class="thumbnail-image rounded-3xl h-[460px] object-cover"
-            src="@/assets/images/beranda/beranda-thumbnail-5.jpg"
+            src="@/assets/images/beranda/laporan.png"
             alt="Banner Dashboard 6 Image"
           />
         </div>

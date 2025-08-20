@@ -6,7 +6,7 @@
         <div
           class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
         >
-          <img src="@/assets/images/penjualan/penjualan-1.png" alt="Daftar Penjualan" class="w-full" />
+          <img src="@/assets/images/beranda/jual_nilam3.png" alt="Daftar Penjualan" class="w-full" />
           <h1 class="text-3xl text-primary font-cera font-bold text-center">Daftar Penjualan</h1>
         </div>
       </router-link>
@@ -14,7 +14,7 @@
         <div
           class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
         >
-          <img src="@/assets/images/penjualan/penjualan-2.png" alt="Laporan Penjualan" class="w-full" />
+          <img src="@/assets/images/beranda/dashboard_petani.png" alt="Laporan Penjualan" class="w-full" />
           <h1 class="text-3xl text-primary font-cera font-bold text-center">Laporan Penjualan</h1>
         </div>
       </router-link>
@@ -22,7 +22,7 @@
         <div
           class="mitra-card bg-[#DEFCEC] hover:bg-slate-200 transition-transform hover:scale-105 duration-300 ease-in-out rounded-2xl cursor-pointer pb-20"
         >
-          <img src="@/assets/images/penjualan/penjualan-3.png" alt="Traceability Product" class="w-full" />
+          <img src="@/assets/images/penjualan/traceability.png" alt="Traceability Product" class="w-full" />
           <h1 class="text-3xl text-primary font-cera font-bold text-center">Traceability Product</h1>
         </div>
       </router-link>

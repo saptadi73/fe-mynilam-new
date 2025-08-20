@@ -26,21 +26,21 @@ import BaseProfileCard from '@/components/BaseProfileCard.vue'
 const profileCard = reactive([
   {
     profileName: 'Petani',
-    profileImage: 'petani',
+    profileImage: 'jual_nilam2.png',
     profileDescription:
       'Lihat daftar lengkap petani yang terdaftar dalam sistem, serta buat daftar baru petani untuk memperbarui informasi dan menambahkan petani baru yang bergabung dalam jaringan produksi.',
     profilePath: 'inventaris/petani/pilih-daerah',
   },
   {
     profileName: 'Agen/Koperasi',
-    profileImage: 'agen',
+    profileImage: 'koperasi.png',
     profileDescription:
       'Lihat daftar lengkap agen/koperasi yang terdaftar dan berperan dalam distribusi produk, serta buat daftar agen baru untuk memperluas jaringan penjualan dan mitra distribusi.',
     profilePath: 'inventaris/agen-koperasi/pilih-daerah',
   },
   {
     profileName: 'Ugreen',
-    profileImage: 'ugreen',
+    profileImage: 'u_green2.png',
     profileDescription:
       'Lihat daftar entitas UGreen yang berperan dalam rantai distribusi produk, serta tambahkan atau buat profil baru UGreen untuk memperluas dan mengelola jaringan mitra strategis.',
     profilePath: 'inventaris/daftar-produk/ugreen',
