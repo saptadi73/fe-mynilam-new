@@ -1,7 +1,7 @@
 <template>
   <div class="profile-card bg-primary-light w-auto flex flex-col h-full rounded-xl p-4">
     <h1 class="text-center text-dark font-bold text-2xl pt-1 pb-4">{{ profileName }}</h1>
-    <img :src="imageSrc" :alt="`${profileImage} Image`" class="rounded-md"/>
+    <img :src="imageSrc" :alt="`${profileImage} Image`" />
     <p class="text-center text-dark flex-grow py-4">
       {{ profileDescription }}
     </p>
@@ -29,7 +29,7 @@ const imageSrc = ref<string | undefined>()
 
 onMounted(async () => {
   try {
-    const image = await import(`../assets/images/profile/${props.profileImage}`)
+    const image = await import(`../assets/images/profile/${props.profileImage}.png`)
     imageSrc.value = image.default
   } catch (error) {
     console.error('Error loading image:', error)

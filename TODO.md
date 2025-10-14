@@ -1,0 +1,2 @@
+- [x] Update BaseIcon.vue to support Material Symbols
+- [x] Test integration with dev server
