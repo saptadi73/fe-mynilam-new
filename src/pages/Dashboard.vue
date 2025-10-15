@@ -1,24 +1,31 @@
 <template>
-  <div class="p-4 bg-primary-light">
-    <section class="xl:h-screen">
-      <h1 class="font-bold text-dark text-center text-3xl 2xl:text-4xl py-8">
-        Dashboard Pengawasan Produktivitas, Penjualan, dan Produksi Petani
-      </h1>
-
-      <div class="md:px-12 flex justify-center">
-        <img
-          class="banner-image border-4 border-primary rounded-3xl"
-          src="../assets/images/banner-dashboard.jpg"
-          alt="Banner Dashboard Image"
-        />
+  <div class="min-h-screen bg-gradient-to-br from-primary-light via-white to-primary-light">
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('@/assets/images/beranda/parralax.jpg');"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary-dark/80"></div>
+      <div class="relative z-10 text-center text-white px-4 max-w-6xl mx-auto">
+        <h1 class="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight animate-fade-in">
+          Dashboard Pengawasan
+          <span class="block text-primary-light">Produktivitas & Produksi</span>
+        </h1>
+        <p class="text-lg md:text-xl lg:text-2xl mb-8 font-light leading-relaxed max-w-4xl mx-auto animate-fade-in animation-delay-300">
+          Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi
+          hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in animation-delay-600">
+          <BaseButton class="transform hover:scale-105 transition-all duration-300 shadow-lg">
+            Mulai Monitoring
+            <BaseIcon name="chevron-right" class="w-5 h-5 ml-2" />
+          </BaseButton>
+          <BaseButton class="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 transform hover:scale-105 transition-all duration-300">
+            Lihat Laporan
+          </BaseButton>
+        </div>
       </div>
-
-      <p class="text-center text-dark 2xl:text-xl md:px-20 xl:px-40 py-8">
-        Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi
-        hingga distribusi ke pasar, dan prediksi hasil produksi dengan data aktual untuk perencanaan yang akurat. Atur
-        jadwal produksi dengan kalender terintegrasi, analisis pendapatan petani secara real-time, dan monitor seluruh
-        proses produksi serta tahapan proses tanam untuk memastikan hasil yang optimal.
-      </p>
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <BaseIcon name="chevron-down" class="w-8 h-8 text-white" />
+      </div>
     </section>
 
     <section class="md:px-12 xl:h-screen">
@@ -672,5 +679,69 @@ const estimastiProduksiChartOptions: ChartOptions<'pie'> = {
 .banner-image,
 .shadow-chart {
   box-shadow: 10px 10px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animation-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+}
+
+/* Custom gradient backgrounds for sections */
+.bg-gradient-section {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+/* Enhanced card shadows */
+.shadow-chart {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Hover effects for interactive elements */
+.chart-container:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Custom scrollbar for calendar */
+.calendar-container ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.calendar-container ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.calendar-container ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.calendar-container ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 </style>

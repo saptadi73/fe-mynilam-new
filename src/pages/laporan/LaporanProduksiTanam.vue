@@ -43,12 +43,12 @@ import BaseHeaderTitle from '@/components/BaseHeaderTitle.vue'
 import BaseInputDateRange from '@/components/BaseInputDateRange.vue'
 import BaseSearchBar from '@/components/BaseSearchBar.vue'
 import BaseInputSelect from '@/components/BaseInputSelect.vue'
-import { useHarvestingList } from '@/api/useProduction'
+import { usePlantingList } from '@/api/useProduction'
 import { useKabupaten } from '@/api/useLocalization'
-import type { Harvesting, HarvestingParams } from '@/types/production'
+import type { NilamDetailType, HarvestingParams } from '@/types/production'
 
 const params = ref<HarvestingParams>({})
-const harvestingList = useHarvestingList(params)
+const harvestingList = usePlantingList(params)
 const kabupaten = useKabupaten()
 const searchValue = ref('')
 
@@ -61,44 +61,44 @@ const handleDaerahChange = (value: number) => {
   params.value.kabupaten_id = value
 }
 
-const columnHelper = createColumnHelper<Harvesting>()
+const columnHelper = createColumnHelper<NilamDetailType>()
 
 const columns = [
   columnHelper.display({
     header: 'No',
     cell: (info) => info.row.index + 1,
   }),
-  columnHelper.accessor('asset_id', {
-    cell: (info) => info.getValue()[1],
+  columnHelper.accessor('production_identifier', {
+    cell: (info) => info.getValue(),
     header: 'Kode Tanam',
   }),
   columnHelper.accessor('employee_id', {
     cell: (info) => info.getValue()[1],
     header: 'Nama Petani',
   }),
-  columnHelper.accessor('area_ha', {
+  columnHelper.accessor('area', {
     cell: (info) => info.getValue(),
     header: 'Luas Lahan',
-  }),
-  columnHelper.accessor('area_uom', {
-    cell: (info) => info.getValue()[1],
-    header: 'Satuan',
   }),
   columnHelper.accessor('address', {
     cell: (info) => info.getValue(),
     header: 'Alamat',
   }),
-  columnHelper.accessor('date_started', {
+  columnHelper.accessor('date_planned_start', {
     cell: (info) => info.getValue(),
     header: 'Mulai Produksi',
   }),
-  columnHelper.accessor('date_harvested', {
+  columnHelper.accessor('date_planned_finish', {
     cell: (info) => info.getValue(),
     header: 'Akhir Produksi',
   }),
-  columnHelper.accessor('final_quantity', {
+  columnHelper.accessor('quantity', {
     cell: (info) => info.getValue(),
     header: 'Estimasi Panen',
+  }),
+  columnHelper.accessor('actual_quantity', {
+    cell: (info) => info.getValue(),
+    header: 'Hasil Panen',
   }),
   columnHelper.accessor('uom', {
     cell: (info) => info.getValue()[1],
@@ -111,14 +111,6 @@ const columns = [
   columnHelper.accessor('state', {
     cell: (info) => info.getValue(),
     header: 'Status',
-  }),
-  columnHelper.accessor('date_created', {
-    cell: (info) => info.getValue(),
-    header: 'Tanggal Dibuat',
-  }),
-  columnHelper.accessor('date_modified', {
-    cell: (info) => info.getValue(),
-    header: 'Tanggal Diubah',
   }),
 ]
 </script>

@@ -76,14 +76,6 @@ const columns = [
     cell: (info) => info.getValue()[1],
     header: 'Nama Petani',
   }),
-  columnHelper.accessor('area_ha', {
-    cell: (info) => info.getValue(),
-    header: 'Luas Lahan',
-  }),
-  columnHelper.accessor('area_uom', {
-    cell: (info) => info.getValue()[1],
-    header: 'Satuan',
-  }),
   columnHelper.accessor('address', {
     cell: (info) => info.getValue(),
     header: 'Alamat',
@@ -96,9 +88,17 @@ const columns = [
     cell: (info) => info.getValue(),
     header: 'Akhir Produksi',
   }),
+  columnHelper.accessor('percentage_final_quantity', {
+    cell: (info) => info.getValue(),
+    header: 'Rendaman',
+  }),
   columnHelper.accessor('final_quantity', {
     cell: (info) => info.getValue(),
     header: 'Estimasi Panen',
+  }),
+  columnHelper.accessor('actual_final_quantity', {
+    cell: (info) => info.getValue(),
+    header: 'Hasil Panen',
   }),
   columnHelper.accessor('uom', {
     cell: (info) => info.getValue()[1],

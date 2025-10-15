@@ -4,8 +4,17 @@ import { ApiSuccess } from '@/types/common'
 import { toFormData } from '@/utils/useCommonUtils'
 import { AxiosHeaders } from 'axios'
 // prettier-ignore
-import type { CreateHarvestingParams, CreatePlantingParams, Harvesting, HarvestingParams, UploadPhotoPlantingParams, } from '@/types/production'
+import type { CreateHarvestingParams,NilamPlantingType, CreatePlantingParams, Harvesting, HarvestingParams, UploadPhotoPlantingParams, NilamDetailType, } from '@/types/production'
 import type { Ref } from 'vue'
+
+export function usePlantingList(params?: Ref<HarvestingParams>) {
+  const path = '/production/planting/list'
+  const getHarvestingList = (): Promise<NilamDetailType[]> => apiGet(path, params?.value)
+  return useQuery({
+    queryKey: ['harvestingList', params],
+    queryFn: getHarvestingList,
+  })
+}
 
 export function useHarvestingList(params?: Ref<HarvestingParams>) {
   const path = '/production/harvesting/list'

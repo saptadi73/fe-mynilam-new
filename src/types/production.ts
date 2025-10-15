@@ -19,8 +19,10 @@ export interface Harvesting {
   produce_product: [number, string]
   final_product: [number, string]
   final_quantity: number
+  actual_final_quantity: number
   uom: [number, string]
   date_started: string
+  product_loss: number
   date_harvested: any
   state: string
   product_quality: string
@@ -70,6 +72,7 @@ export interface NilamDetailType {
   quantity_loss: number
   address: string
   state: string
+  uom: any
   completion_percentage: number
 }
 
