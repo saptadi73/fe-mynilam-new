@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-gradient-to-br from-primary-light via-white to-primary-light">
     <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('@/assets/images/beranda/parralax.jpg');"></div>
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" :style="{ backgroundImage: `url(${bannerImage})` }"></div>
       <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary-dark/80"></div>
       <div class="relative z-10 text-center text-white px-4 max-w-6xl mx-auto">
         <h1 class="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight animate-fade-in">
@@ -31,13 +31,16 @@
     <section class="md:px-12 xl:h-screen">
       <h1 class="font-bold text-dark text-center text-2xl 2xl:text-3xl pt-12 pb-4">Analisis Produktivitas Petani</h1>
       <div class="bg-white border border-primary p-4 rounded-xl flex justify-center">
+        <div v-if="processProductivity.isLoading.value">Loading...</div>
         <BaseChart
+          v-else-if="processProductivityChartData"
           class="w-full h-[280px] md:h-[480px] 2xl:h-[700px]"
           chartId="chart1"
           chartType="line"
-          :chartData="lineChartData"
+          :chartData="processProductivityChartData"
           :chartOptions="lineChartOptions"
         />
+        <div v-else>No data available</div>
       </div>
     </section>
 
@@ -45,11 +48,11 @@
       <div class="grid grid-cols-12 gap-y-4 md:gap-y-0 gap-x-8 md:px-12 py-8">
         <div class="col-span-12 md:col-span-6">
           <div v-if="processPlanting.isLoading.value"></div>
-          <div v-else class="bg-white shadow-chart rounded-xl px-20 pb-8">
+          <div v-else-if="processPlanting.data" class="bg-white shadow-chart rounded-xl px-20 pb-8">
             <BaseChart
               chartId="chart2"
-              chartType="pie"
-              :chartData="processPlanting.data.value"
+              chartType="bar"
+              :chartData="processPlantingChartData"
               :chartOptions="chartOptions"
               :chartDataLabel="true"
             />
@@ -83,10 +86,10 @@
           <div class="bg-white shadow-chart rounded-xl px-20 pb-8">
             <div v-if="processHarvesting.isLoading.value"></div>
             <BaseChart
-              v-else
+              v-else-if="processHarvesting.data"
               chartId="chart3"
               chartType="pie"
-              :chartData="processHarvesting.data.value"
+              :chartData="processHarvestingChartData"
               :chartOptions="prosesProduksidataChartOptions"
               :chartDataLabel="true"
             />
@@ -95,7 +98,7 @@
       </div>
     </section>
 
-    <section class="md:px-12 xl:h-screen">
+    <!-- <section class="md:px-12 xl:h-screen">
       <h1 class="font-bold text-dark text-2xl 2xl:text-3xl text-center py-8">Pemantauan Pendapatan Petani</h1>
       <div class="bg-white shadow-chart rounded-xl px-10 flex justify-center">
         <BaseChart
@@ -119,9 +122,25 @@
           :chartOptions="barChartOptionsPenjualan"
         />
       </div>
+    </section> -->
+
+    <section class="md:px-12 xl:h-screen mb-20">
+      <h1 class="font-bold text-dark text-2xl 2xl:text-3xl text-center py-8">Produktivitas Minyak per Kabupaten</h1>
+      <div class="bg-white border border-primary p-4 rounded-xl flex justify-center">
+        <div v-if="productivityBasedKabupaten.isLoading.value">Loading...</div>
+        <BaseChart
+          v-else-if="productivityBasedKabupatenChartData"
+          class="w-full h-[280px] md:h-[480px] 2xl:h-[700px]"
+          chartId="chart6"
+          chartType="bar"
+          :chartData="productivityBasedKabupatenChartData"
+          :chartOptions="kabupatenBarChartOptions"
+        />
+        <div v-else>No data available</div>
+      </div>
     </section>
 
-    <section class="md:px-12">
+    <!-- <section class="md:px-12">
       <h1 class="font-bold text-dark text-2xl 2xl:text-3xl text-center py-8">Pemantauan Estimasi Produksi</h1>
       <div class="bg-white rounded-xl py-6 px-4">
         <Maps v-if="!showChart" @show-chart="showChart = true" />
@@ -172,7 +191,7 @@
           <Calendar :attributes="attributes" :columns="columns" :rows="2" locale="id" class="p-4" expanded borderless />
         </div>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
@@ -185,40 +204,29 @@ import 'v-calendar/style.css'
 import { useScreens } from 'vue-screen-utils'
 import Maps from '@/pages/sample/Maps.vue'
 import BaseButton from '@/components/BaseButton.vue'
-// import { useProcessHarvesting, useProcessPlanting } from '@/api/useDashboard'
+import { useProcessHarvesting, useProcessPlanting, useProcessProductivity, useProductivityBasedKabupaten } from '@/api/useDashboard'
+import bannerImage from '@/assets/images/beranda/parralax.jpg';
+
 
 const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '728px', lg: '1024px' })
 const columns = mapCurrent({ lg: 4 }, 1)
 const showChart = ref(false)
 
-const processPlanting = {
-  isLoading: ref(false),
-  data: ref({
-    labels: ['Benih', 'Tanam', 'Pemeliharaan', 'Panen'],
-    datasets: [
-      {
-        label: 'Proses Tanam Nilam',
-        data: [25, 40, 15, 20],
-        backgroundColor: ['#FF5733', '#FF8D1A', '#FFC300', '#DAF7A6'],
-        hoverOffset: 4,
-      },
-    ],
-  }),
-};
-const processHarvesting = {
-  isLoading: ref(false),
-  data: ref({
-    labels: ['Pengolahan', 'Distilasi', 'Kemasan', 'Distribusi'],
-    datasets: [
-      {
-        label: 'Proses Panen Nilam',
-        data: [30, 40, 15, 15],
-        backgroundColor: ['#1E90FF', '#FF4500', '#32CD32', '#FFD700'],
-        hoverOffset: 4,
-      },
-    ],
-  }),
-};
+const processPlanting = useProcessPlanting()
+const processHarvesting = useProcessHarvesting()
+const processProductivity = useProcessProductivity()
+const productivityBasedKabupaten = useProductivityBasedKabupaten()
+
+const processPlantingChartData = computed(() => processPlanting.data.value || null)
+const processHarvestingChartData = computed(() => {
+  if (!processHarvesting.data.value) return null
+  return {
+    ...processHarvesting.data.value,
+    labels: ['Proses', 'Selesai']
+  }
+})
+const processProductivityChartData = computed(() => processProductivity.data.value || null)
+const productivityBasedKabupatenChartData = computed(() => productivityBasedKabupaten.data.value || null)
 
 const todos = ref([
   {
@@ -322,13 +330,17 @@ const chartOptions: ChartOptions<'pie'> = {
       },
       font: {
         weight: 'bold',
-        size: 32,
+        size: 20,
       },
       padding: 6,
       formatter: (value, context: any) => {
-        const total = context.chart._metasets[0].total
-        const percentage = ((value / total) * 100).toFixed(0)
-        return percentage + '%'
+        if (context.chart.config.type === 'pie') {
+          const total = context.chart._metasets[0].total
+          const percentage = ((value / total) * 100).toFixed(0)
+          return percentage + '%'
+        } else {
+          return Number(value).toLocaleString('id-ID')
+        }
       },
     },
   },
@@ -504,6 +516,44 @@ const barChartOptionsPenjualan: ChartOptions<'bar'> = {
     },
   },
 }
+
+const kabupatenBarChartOptions = ref<ChartOptions<'bar'>>({
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: true,
+      labels: {
+        boxWidth: 18,
+        boxHeight: 18,
+      },
+    },
+  },
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Kabupaten',
+        color: '#015438',
+        font: {
+          size: 20,
+          weight: 'bold',
+        },
+      },
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'kg',
+        color: '#015438',
+        font: {
+          size: 20,
+          weight: 'bold',
+        },
+      },
+    },
+  },
+})
 
 const chartDataEstimasiProduksi = [
   {

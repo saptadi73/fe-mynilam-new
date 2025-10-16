@@ -8,12 +8,12 @@
 <script setup lang="ts">
 import Chart, { type ChartData, type ChartType, type Plugin } from 'chart.js/auto'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 
 interface ChartProps {
   chartId: string
   chartType: ChartType
-  chartData: ChartData
+  chartData: ChartData | null | undefined
   chartOptions: any
   chartWidth?: string
   chartHeight?: string
@@ -24,8 +24,17 @@ interface ChartProps {
 const props = defineProps<ChartProps>()
 
 onMounted(() => {
+  console.log('BaseChart onMounted, chartData:', props.chartData)
   renderChart()
 })
+
+watch(() => props.chartData, (newData) => {
+  console.log('BaseChart watcher triggered, newData:', newData)
+  if (newData && newData.datasets) {
+    console.log('BaseChart calling renderChart')
+    renderChart()
+  }
+}, { deep: true })
 
 const innerLabel: Plugin = {
   id: 'innerLabel',
@@ -46,6 +55,16 @@ const innerLabel: Plugin = {
 const renderChart = () => {
   const ctx = document.getElementById(props.chartId) as HTMLCanvasElement
 
+  // Destroy existing chart if it exists
+  if ((ctx as any).chart) {
+    (ctx as any).chart.destroy()
+  }
+
+  // Only render if chartData is available
+  if (!props.chartData) {
+    return
+  }
+
   let plugins: Plugin[] = []
 
   if (props.chartDataLabel) {
@@ -56,11 +75,14 @@ const renderChart = () => {
     plugins.push(innerLabel)
   }
 
-  new Chart(ctx, {
+  const chartInstance = new Chart(ctx, {
     type: props.chartType,
     data: props.chartData,
     options: props.chartOptions,
     plugins: plugins,
-  })
+  }) as Chart
+
+  // Store chart instance on canvas for cleanup
+  (ctx as any).chart = chartInstance
 }
 </script>
