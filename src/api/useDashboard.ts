@@ -1,15 +1,32 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
 
-const mapDataWithChart = (actual_quantity: number, final_quantity: number) => {
+const mapDataWithChart = (actual_quantity: number, quantity: number, persentase:number) => {
   // const process = Math.max(0, final_quantity - actual_quantity)
   return {
     chartData: {
-      labels: ['Hasil Panen Basah','Hasil Produksi', ],
+      labels: ['Tanam Basah','Produksi Kering', ],
       datasets: [
         {
           label: 'Hasil Tanam vs Produksi',
-          data: [actual_quantity,final_quantity, ],
+          data: [quantity,actual_quantity ],
+          backgroundColor: ['#015438', '#20D173'],
+          hoverOffset: 4,
+        },
+      ],
+    },
+  }
+}
+
+const mapDataWithChart2 = (actual_final_quantity: number, quantity: number) => {
+  // const process = Math.max(0, final_quantity - actual_quantity)
+  return {
+    chartData: {
+      labels: ['Selesai','Proses', ],
+      datasets: [
+        {
+          label: 'Pemantauan Produksi',
+          data: [quantity,actual_final_quantity ],
           backgroundColor: ['#015438', '#20D173'],
           hoverOffset: 4,
         },
@@ -59,7 +76,7 @@ export function useProcessPlanting() {
   const getProcessPlanting = async () => {
     const response = await apiGet(path)
     console.log('useProcessPlanting response:', response)
-    const result = response ? mapDataWithChart(response.actual_quantity, response.dry_quantity).chartData : null
+    const result = response ? mapDataWithChart(response.actual_quantity, response.quantity, response.persentase).chartData : null
     console.log('useProcessPlanting result:', result)
     return result
   }
@@ -75,7 +92,7 @@ export function useProcessHarvesting() {
   const getProcessHarvesting = async () => {
     const response = await apiGet(path)
     console.log('useProcessHarvesting response:', response)
-    const result = response ? mapDataWithChart(response.actual_final_quantity, response.final_quantity).chartData : null
+    const result = response ? mapDataWithChart2(response.actual_final_quantity, response.final_quantity).chartData : null
     console.log('useProcessHarvesting result:', result)
     return result
   }

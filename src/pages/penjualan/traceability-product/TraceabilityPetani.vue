@@ -118,11 +118,9 @@ const columns = [
     header: 'Kode Produksi',
   }),
   columnHelper.accessor('reference_2', {
-    header: 'Agen/Koperasi',
-  }),
-  columnHelper.accessor('reference_3', {
     header: 'Ugreen',
   }),
+  
   columnHelper.accessor('date_order_1', {
     cell: (info) => info.getValue(),
     header: 'Tanggal Produksi',
@@ -131,9 +129,6 @@ const columns = [
     cell: (info) => info.getValue(),
     header: 'Tanggal Agen/Koperasi',
   }),
-  columnHelper.accessor('date_order_3', {
-    cell: (info) => info.getValue(),
-    header: 'Tanggal Ugreen',
-  }),
+  
 ]
 </script>

@@ -4,7 +4,7 @@ import { ApiSuccess } from '@/types/common'
 import { toFormData } from '@/utils/useCommonUtils'
 import { AxiosHeaders } from 'axios'
 // prettier-ignore
-import type { CreateHarvestingParams,NilamPlantingType, CreatePlantingParams, Harvesting, HarvestingParams, UploadPhotoPlantingParams, NilamDetailType, } from '@/types/production'
+import type { CreateHarvestingParams, CreatePlantingParams, Harvesting, HarvestingParams, UploadPhotoPlantingParams, NilamDetailType, } from '@/types/production'
 import type { Ref } from 'vue'
 
 export function usePlantingList(params?: Ref<HarvestingParams>) {

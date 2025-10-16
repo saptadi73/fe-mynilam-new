@@ -198,19 +198,19 @@
 <script setup lang="ts">
 import BaseChart from '@/components/BaseChart.vue'
 import { computed, ref } from 'vue'
-import { ChartData, type ChartOptions } from 'chart.js/auto'
-import { Calendar } from 'v-calendar'
+import { type ChartOptions } from 'chart.js/auto'
+// import { Calendar } from 'v-calendar'
 import 'v-calendar/style.css'
-import { useScreens } from 'vue-screen-utils'
-import Maps from '@/pages/sample/Maps.vue'
+// import { useScreens } from 'vue-screen-utils'
+// import Maps from '@/pages/sample/Maps.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import { useProcessHarvesting, useProcessPlanting, useProcessProductivity, useProductivityBasedKabupaten } from '@/api/useDashboard'
 import bannerImage from '@/assets/images/beranda/parralax.jpg';
 
 
-const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '728px', lg: '1024px' })
-const columns = mapCurrent({ lg: 4 }, 1)
-const showChart = ref(false)
+// const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '728px', lg: '1024px' })
+// const columns = mapCurrent({ lg: 4 }, 1)
+// const showChart = ref(false)
 
 const processPlanting = useProcessPlanting()
 const processHarvesting = useProcessHarvesting()
@@ -228,52 +228,52 @@ const processHarvestingChartData = computed(() => {
 const processProductivityChartData = computed(() => processProductivity.data.value || null)
 const productivityBasedKabupatenChartData = computed(() => productivityBasedKabupaten.data.value || null)
 
-const todos = ref([
-  {
-    description: 'Pemantauan Estimasi Produksi.',
-    dates: { repeat: { weekdays: 5 } }, // Every Friday
-    color: 'red',
-  },
-])
+// const todos = ref([
+//   {
+//     description: 'Pemantauan Estimasi Produksi.',
+//     dates: { repeat: { weekdays: 5 } }, // Every Friday
+//     color: 'red',
+//   },
+// ])
 
-const attributes = computed<any>(() => [
-  // Attributes for todos
-  ...todos.value.map((todo) => ({
-    dates: todo.dates,
-    dot: {
-      color: todo.color,
-    },
-    popover: {
-      label: todo.description,
-    },
-  })),
-])
+// const attributes = computed<any>(() => [
+//   // Attributes for todos
+//   ...todos.value.map((todo) => ({
+//     dates: todo.dates,
+//     dot: {
+//       color: todo.color,
+//     },
+//     popover: {
+//       label: todo.description,
+//     },
+//   })),
+// ])
 
-const lineChartData: ChartData<'line'> = {
-  labels: [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
-  ],
-  datasets: [
-    {
-      label: 'Total Data',
-      data: [500, 280, 350, 480, 140, 200, 140, 420, 270, 150, 140, 130],
-      backgroundColor: ['#015438'],
-      borderColor: ['#1BAE60'], // line color
-      pointRadius: 6, // point size
-    },
-  ],
-}
+// const lineChartData: ChartData<'line'> = {
+//   labels: [
+//     'Januari',
+//     'Februari',
+//     'Maret',
+//     'April',
+//     'Mei',
+//     'Juni',
+//     'Juli',
+//     'Agustus',
+//     'September',
+//     'Oktober',
+//     'November',
+//     'Desember',
+//   ],
+//   datasets: [
+//     {
+//       label: 'Total Data',
+//       data: [500, 280, 350, 480, 140, 200, 140, 420, 270, 150, 140, 130],
+//       backgroundColor: ['#015438'],
+//       borderColor: ['#1BAE60'], // line color
+//       pointRadius: 6, // point size
+//     },
+//   ],
+// }
 
 const lineChartOptions: ChartOptions<'line'> = {
   responsive: true,
@@ -298,7 +298,7 @@ const lineChartOptions: ChartOptions<'line'> = {
     y: {
       title: {
         display: true,
-        text: 'Hektar',
+        text: 'Jumlah Batang Tanam',
         color: '#000000',
         font: {
           size: 20,
@@ -379,143 +379,143 @@ const prosesProduksidataChartOptions: ChartOptions<'pie'> = {
   },
 }
 
-const barChartData: ChartData = {
-  labels: [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
-  ],
-  datasets: [
-    {
-      label: 'Total Data',
-      data: [500, 280, 350, 480, 140, 200, 140, 420, 270, 150, 140, 130],
-      backgroundColor: ['#20D173'],
-      hoverOffset: 4,
-    },
-  ],
-}
+// const barChartData: ChartData = {
+//   labels: [
+//     'Januari',
+//     'Februari',
+//     'Maret',
+//     'April',
+//     'Mei',
+//     'Juni',
+//     'Juli',
+//     'Agustus',
+//     'September',
+//     'Oktober',
+//     'November',
+//     'Desember',
+//   ],
+//   datasets: [
+//     {
+//       label: 'Total Data',
+//       data: [500, 280, 350, 480, 140, 200, 140, 420, 270, 150, 140, 130],
+//       backgroundColor: ['#20D173'],
+//       hoverOffset: 4,
+//     },
+//   ],
+// }
 
-const barChartDataPenjualan: ChartData = {
-  labels: [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
-  ],
-  datasets: [
-    {
-      label: 'Agen',
-      data: [320, 130, 250, 200, 510, 160, 250, 320, 380, 380, 140, 130],
-      backgroundColor: ['#24E880'],
-      hoverOffset: 4,
-    },
-    {
-      label: 'Koperasi',
-      data: [500, 290, 90, 400, 460, 410, 250, 220, 100, 350, 140, 130],
-      backgroundColor: ['#7BB401'],
-      hoverOffset: 4,
-    },
-    {
-      label: 'Ugreen',
-      data: [220, 180, 100, 360, 370, 190, 250, 220, 190, 100, 140, 130],
-      backgroundColor: ['#015438'],
-      hoverOffset: 4,
-    },
-  ],
-}
+// const barChartDataPenjualan: ChartData = {
+//   labels: [
+//     'Januari',
+//     'Februari',
+//     'Maret',
+//     'April',
+//     'Mei',
+//     'Juni',
+//     'Juli',
+//     'Agustus',
+//     'September',
+//     'Oktober',
+//     'November',
+//     'Desember',
+//   ],
+//   datasets: [
+//     {
+//       label: 'Agen',
+//       data: [320, 130, 250, 200, 510, 160, 250, 320, 380, 380, 140, 130],
+//       backgroundColor: ['#24E880'],
+//       hoverOffset: 4,
+//     },
+//     {
+//       label: 'Koperasi',
+//       data: [500, 290, 90, 400, 460, 410, 250, 220, 100, 350, 140, 130],
+//       backgroundColor: ['#7BB401'],
+//       hoverOffset: 4,
+//     },
+//     {
+//       label: 'Ugreen',
+//       data: [220, 180, 100, 360, 370, 190, 250, 220, 190, 100, 140, 130],
+//       backgroundColor: ['#015438'],
+//       hoverOffset: 4,
+//     },
+//   ],
+// }
 
-const barChartOptions: ChartOptions<'bar'> = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: true,
-      labels: {
-        boxWidth: 18,
-        boxHeight: 18,
-      },
-    },
-  },
-  scales: {
-    x: {
-      title: {
-        display: true,
-        text: 'Bulan',
-        color: '#015438',
-        font: {
-          size: 20,
-          weight: 'bold',
-        },
-      },
-    },
-    y: {
-      title: {
-        display: true,
-        text: 'Juta',
-        color: '#015438',
-        font: {
-          size: 20,
-          weight: 'bold',
-        },
-      },
-    },
-  },
-}
+// const barChartOptions: ChartOptions<'bar'> = {
+//   responsive: true,
+//   maintainAspectRatio: false,
+//   plugins: {
+//     legend: {
+//       display: true,
+//       labels: {
+//         boxWidth: 18,
+//         boxHeight: 18,
+//       },
+//     },
+//   },
+//   scales: {
+//     x: {
+//       title: {
+//         display: true,
+//         text: 'Bulan',
+//         color: '#015438',
+//         font: {
+//           size: 20,
+//           weight: 'bold',
+//         },
+//       },
+//     },
+//     y: {
+//       title: {
+//         display: true,
+//         text: 'Juta',
+//         color: '#015438',
+//         font: {
+//           size: 20,
+//           weight: 'bold',
+//         },
+//       },
+//     },
+//   },
+// }
 
-const barChartOptionsPenjualan: ChartOptions<'bar'> = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: true,
-      labels: {
-        boxWidth: 18,
-        boxHeight: 18,
-      },
-    },
-  },
-  scales: {
-    x: {
-      title: {
-        display: true,
-        text: 'Bulan',
-        color: '#015438',
-        font: {
-          size: 20,
-          weight: 'bold',
-        },
-      },
-    },
-    y: {
-      title: {
-        display: true,
-        text: 'Kilogram',
-        color: '#015438',
-        font: {
-          size: 20,
-          weight: 'bold',
-        },
-      },
-    },
-  },
-}
+// const barChartOptionsPenjualan: ChartOptions<'bar'> = {
+//   responsive: true,
+//   maintainAspectRatio: false,
+//   plugins: {
+//     legend: {
+//       display: true,
+//       labels: {
+//         boxWidth: 18,
+//         boxHeight: 18,
+//       },
+//     },
+//   },
+//   scales: {
+//     x: {
+//       title: {
+//         display: true,
+//         text: 'Bulan',
+//         color: '#015438',
+//         font: {
+//           size: 20,
+//           weight: 'bold',
+//         },
+//       },
+//     },
+//     y: {
+//       title: {
+//         display: true,
+//         text: 'Kilogram',
+//         color: '#015438',
+//         font: {
+//           size: 20,
+//           weight: 'bold',
+//         },
+//       },
+//     },
+//   },
+// }
 
 const kabupatenBarChartOptions = ref<ChartOptions<'bar'>>({
   responsive: true,
@@ -555,174 +555,174 @@ const kabupatenBarChartOptions = ref<ChartOptions<'bar'>>({
   },
 })
 
-const chartDataEstimasiProduksi = [
-  {
-    title: 'Ahmad Fajar',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [20, 80],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Agus Saputra',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [65, 35],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Budi Santoso',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [35, 65],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Andi Pratama',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [10, 90],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Joko Susanto',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [20, 80],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Bambang Waluyo',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [65, 35],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Hendri Wijaya',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [35, 65],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Dedi Kurniawan',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [10, 90],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-  {
-    title: 'Iwan Setiawan',
-    data: {
-      labels: ['Selesai', 'Proses'],
-      datasets: [
-        {
-          label: 'Total Data',
-          data: [40, 60],
-          backgroundColor: ['#20D173', '#015438'],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  },
-]
+// const chartDataEstimasiProduksi = [
+//   {
+//     title: 'Ahmad Fajar',
+//     data: {
+//       labels: ['Selesai', 'Proses'],
+//       datasets: [
+//         {
+//           label: 'Total Data',
+//           data: [20, 80],
+//           backgroundColor: ['#20D173', '#015438'],
+//           hoverOffset: 4,
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     title: 'Agus Saputra',
+//     data: {
+//       labels: ['Selesai', 'Proses'],
+//       datasets: [
+//         {
+//           label: 'Total Data',
+//           data: [65, 35],
+//           backgroundColor: ['#20D173', '#015438'],
+//           hoverOffset: 4,
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     title: 'Budi Santoso',
+//     data: {
+//       labels: ['Selesai', 'Proses'],
+//       datasets: [
+//         {
+//           label: 'Total Data',
+//           data: [35, 65],
+//           backgroundColor: ['#20D173', '#015438'],
+//           hoverOffset: 4,
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     title: 'Andi Pratama',
+//     data: {
+//       labels: ['Selesai', 'Proses'],
+//       datasets: [
+//         {
+//           label: 'Total Data',
+//           data: [10, 90],
+//           backgroundColor: ['#20D173', '#015438'],
+//           hoverOffset: 4,
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     title: 'Joko Susanto',
+//     data: {
+//       labels: ['Selesai', 'Proses'],
+//       datasets: [
+//         {
+//           label: 'Total Data',
+//           data: [20, 80],
+//           backgroundColor: ['#20D173', '#015438'],
+//           hoverOffset: 4,
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     title: 'Bambang Waluyo',
+//     data: {
+//       labels: ['Selesai', 'Proses'],
+//       datasets: [
+//         {
+//           label: 'Total Data',
+//           data: [65, 35],
+//           backgroundColor: ['#20D173', '#015438'],
+//           hoverOffset: 4,
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     title: 'Hendri Wijaya',
+//     data: {
+//       labels: ['Selesai', 'Proses'],
+//       datasets: [
+//         {
+//           label: 'Total Data',
+//           data: [35, 65],
+//           backgroundColor: ['#20D173', '#015438'],
+//           hoverOffset: 4,
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     title: 'Dedi Kurniawan',
+//     data: {
+//       labels: ['Selesai', 'Proses'],
+//       datasets: [
+//         {
+//           label: 'Total Data',
+//           data: [10, 90],
+//           backgroundColor: ['#20D173', '#015438'],
+//           hoverOffset: 4,
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     title: 'Iwan Setiawan',
+//     data: {
+//       labels: ['Selesai', 'Proses'],
+//       datasets: [
+//         {
+//           label: 'Total Data',
+//           data: [40, 60],
+//           backgroundColor: ['#20D173', '#015438'],
+//           hoverOffset: 4,
+//         },
+//       ],
+//     },
+//   },
+// ]
 
-const getRandomPetani = () => {
-  // Shuffle the array
-  const shuffledArray = chartDataEstimasiProduksi.sort(() => Math.random() - 0.5)
-  // Pick only the first 8 items from the shuffled array
-  return shuffledArray.slice(0, 8)
-}
+// const getRandomPetani = () => {
+//   // Shuffle the array
+//   const shuffledArray = chartDataEstimasiProduksi.sort(() => Math.random() - 0.5)
+//   // Pick only the first 8 items from the shuffled array
+//   return shuffledArray.slice(0, 8)
+// }
 
-const estimastiProduksiChartOptions: ChartOptions<'pie'> = {
-  responsive: true,
-  maintainAspectRatio: true,
-  plugins: {
-    legend: {
-      display: true,
-      labels: {
-        boxWidth: 16,
-        boxHeight: 16,
-      },
-    },
-    datalabels: {
-      color: 'white',
-      display: function (context) {
-        let dataset = context.dataset
-        let count = dataset.data.length
-        let value = dataset.data[context.dataIndex]
-        return Number(value) > count * 1.5
-      },
-      font: {
-        weight: 'bold',
-        size: 14,
-      },
-      padding: 6,
-      formatter: (value, context: any) => {
-        const total = context.chart._metasets[0].total
-        const percentage = ((value / total) * 100).toFixed(0)
-        return percentage + '%'
-      },
-    },
-  },
-}
+// const estimastiProduksiChartOptions: ChartOptions<'pie'> = {
+//   responsive: true,
+//   maintainAspectRatio: true,
+//   plugins: {
+//     legend: {
+//       display: true,
+//       labels: {
+//         boxWidth: 16,
+//         boxHeight: 16,
+//       },
+//     },
+//     datalabels: {
+//       color: 'white',
+//       display: function (context) {
+//         let dataset = context.dataset
+//         let count = dataset.data.length
+//         let value = dataset.data[context.dataIndex]
+//         return Number(value) > count * 1.5
+//       },
+//       font: {
+//         weight: 'bold',
+//         size: 14,
+//       },
+//       padding: 6,
+//       formatter: (value, context: any) => {
+//         const total = context.chart._metasets[0].total
+//         const percentage = ((value / total) * 100).toFixed(0)
+//         return percentage + '%'
+//       },
+//     },
+//   },
+// }
 </script>
 
 <style scoped>
