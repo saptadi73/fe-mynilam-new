@@ -81,7 +81,7 @@
               <RouterLink
                 v-if="!petaniProfile.isLoading.value"
                 :to="{ name: 'Daftar Lahan Petani', params: { name: petaniProfile.data.value?.name } }"
-                >{{ petaniProfile.data.value?.total_area_ha }} ha</RouterLink
+                >{{ petaniProfile.data.value?.total_area_ha }} m²</RouterLink
               >
               <BaseSkeletonText v-else class="w-40 h-4" />
             </div>

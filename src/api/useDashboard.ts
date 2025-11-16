@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
 import { apiGet } from './apiClient'
 
-const mapDataWithChart = (actual_quantity: number, quantity: number, persentase:number) => {
+const mapDataWithChart = (actual_quantity: number, quantity: number) => {
   // const process = Math.max(0, final_quantity - actual_quantity)
   return {
     chartData: {
@@ -76,7 +76,7 @@ export function useProcessPlanting() {
   const getProcessPlanting = async () => {
     const response = await apiGet(path)
     console.log('useProcessPlanting response:', response)
-    const result = response ? mapDataWithChart(response.actual_quantity, response.quantity, response.persentase).chartData : null
+    const result = response ? mapDataWithChart(response.actual_quantity, response.quantity).chartData : null
     console.log('useProcessPlanting result:', result)
     return result
   }
