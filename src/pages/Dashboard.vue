@@ -6,8 +6,8 @@
       <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary-dark/80"></div>
       <div class="relative z-10 text-center text-white px-4 max-w-6xl mx-auto">
         <h1 class="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight animate-fade-in">
-          Dashboard Pengawasan
-          <span class="block text-primary-light">Produktivitas & Produksi</span>
+          Dashboard Pengawasan Produksi
+          <span class="block text-primary-light">Tanam & Minyak</span>
         </h1>
         <p class="text-lg md:text-xl lg:text-2xl mb-8 font-light leading-relaxed max-w-4xl mx-auto animate-fade-in animation-delay-300">
           Pantau produktivitas petani nilam dari lahan garapan hingga panen, lacak penjualan hasil nilam dari produk jadi
@@ -157,7 +157,7 @@
     </section>
     <!-- Section for TableDataSalesPetani -->
     <section class="sales-table-section">
-      <h2>Sales Data Petani</h2>
+      <h2 class="font-Lexend font-semibold text-xl text-center text-slate-600">Data Penjualan Petani</h2>
       <div class="mb-4">
         <BaseSearchBar v-model="searchTerm" placeholder="Cari nama petani..." />
       </div>
@@ -187,10 +187,16 @@
             <td>{{ formatRupiah(farmer.total_sales_amount) }}</td>
             <td>{{ Number(farmer.total_quantity).toFixed(2) }}</td>
           </tr>
+          <!-- Total row -->
+          <tr class="font-bold bg-gray-100">
+            <td colspan="3" class="text-right">Total:</td>
+            <td>{{ formatRupiah(totalSalesAmount) }}</td>
+            <td>{{ totalQuantity.toFixed(2) }}</td>
+          </tr>
         </tbody>
       </table>
       <BasePaginationButton
-        :data="TableDataSalesPetani || []"
+        :data="filteredTableData || []"
         :pageSize="pageSize"
         @change="handlePaginationChange"
         @page-change="handlePageChange"
@@ -199,7 +205,7 @@
 
     <!-- Section for Lahan Summary -->
     <section class="sales-table-section">
-      <h2>Lahan Summary</h2>
+      <h2 class="font-Lexend font-semibold text-xl text-center text-slate-600">Ringkasan Lahan Petani</h2>
       <div class="mb-4">
         <BaseSearchBar v-model="searchTermLahan" placeholder="Cari nama kabupaten..." />
       </div>
@@ -222,19 +228,25 @@
             <td>{{ kabupaten.farmer_count }}</td>
             <td>{{ Number(kabupaten.total_area_ha || 0).toFixed(2) }}</td>
           </tr>
+          <!-- Total row -->
+          <tr class="font-bold bg-gray-100">
+            <td colspan="3" class="text-right">Total:</td>
+            <td>{{ totalFarmerCount }}</td>
+            <td>{{ totalArea.toFixed(2) }}</td>
+          </tr>
         </tbody>
       </table>
       <BasePaginationButton
-        :data="lahanSummaryData || []"
+        :data="filteredLahanData || []"
         :pageSize="pageSizeLahan"
         @change="handlePaginationChangeLahan"
         @page-change="handlePageChangeLahan"
       />
     </section>
 
-    <!-- Section for Tanah Summary -->
-    <section class="sales-table-section">
-      <h2>Tanah Summary</h2>
+    <!-- Section for Tanam Summary -->
+    <section class="sales-table-section mb-10">
+      <h2 class="font-Lexend font-semibold text-xl text-center text-slate-600">Ringkasan Produksi Tanam</h2>
       <div class="mb-4">
         <BaseSearchBar v-model="searchTermTanah" placeholder="Cari nama kabupaten..." />
       </div>
@@ -257,10 +269,16 @@
             <td>{{ kabupaten.batang_tanam }}</td>
             <td>{{ kabupaten.hasil_kg }}</td>
           </tr>
+          <!-- Total row -->
+          <tr class="font-bold bg-gray-100">
+            <td colspan="3" class="text-right">Total:</td>
+            <td>{{ totalBatangTanam }}</td>
+            <td>{{ totalHasilKg }}</td>
+          </tr>
         </tbody>
       </table>
       <BasePaginationButton
-        :data="tanahSummaryData || []"
+        :data="filteredTanahData || []"
         :pageSize="pageSizeTanah"
         @change="handlePaginationChangeTanah"
         @page-change="handlePageChangeTanah"
@@ -326,7 +344,7 @@
 import BaseChart from '@/components/BaseChart.vue'
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { type ChartOptions, type ChartType } from 'chart.js/auto'
+import { type ChartOptions } from 'chart.js/auto'
 // import { Calendar } from 'v-calendar'
 import 'v-calendar/style.css'
 // import { useScreens } from 'vue-screen-utils'
@@ -369,18 +387,94 @@ const processProductivityChartData = computed(() => processProductivity.data.val
 const productivityBasedKabupatenChartData = computed(() => productivityBasedKabupaten.data.value || null)
 const TableDataSalesPetani = computed(() => dataSalesPetani.data.value || null)
 
+// --- state tabel & pencarian ---
+// Data Penjualan
 const paginatedTableData = ref<any[]>([])
 const currentPage = ref(1)
 const pageSize = 10
 const searchTerm = ref('')
 
-const filteredData = computed(() => {
-  if (!TableDataSalesPetani.value) return []
-  if (!searchTerm.value) return TableDataSalesPetani.value
-  return TableDataSalesPetani.value.filter((farmer: any) =>
-    farmer.farmer_name.toLowerCase().includes(searchTerm.value.toLowerCase())
+// Ringkasan Lahan
+const paginatedLahanData = ref<any[]>([])
+const currentPageLahan = ref(1)
+const pageSizeLahan = 10
+const searchTermLahan = ref('')
+
+// Ringkasan Produksi Tanam
+const paginatedTanahData = ref<any[]>([])
+const currentPageTanah = ref(1)
+const pageSizeTanah = 10
+const searchTermTanah = ref('')
+
+// --- baru setelah itu: filtered data ---
+const filteredTableData = computed(() => {
+  const data = TableDataSalesPetani.value
+  if (!data || !Array.isArray(data)) return []
+  if (!searchTerm.value) return data
+  return data.filter((farmer: any) =>
+    farmer?.farmer_name?.toLowerCase().includes(searchTerm.value.toLowerCase())
   )
 })
+
+const filteredLahanData = computed(() => {
+  const data = lahanSummaryData.value
+  if (!data || !Array.isArray(data)) return []
+  if (!searchTermLahan.value) return data
+  return data.filter((kabupaten: any) =>
+    kabupaten?.kabupaten_name?.toLowerCase().includes(searchTermLahan.value.toLowerCase())
+  )
+})
+
+const filteredTanahData = computed(() => {
+  const data = tanahSummaryData.value
+  if (!data || !Array.isArray(data)) return []
+  if (!searchTermTanah.value) return data
+  return data.filter((kabupaten: any) =>
+    kabupaten?.kabupaten_name?.toLowerCase().includes(searchTermTanah.value.toLowerCase())
+  )
+})
+
+
+// Computed totals for Data Penjualan Petani
+const totalSalesAmount = computed(() => {
+  const data = TableDataSalesPetani.value
+  if (!data || !Array.isArray(data)) return 0
+  return data.reduce((sum: number, farmer: any) => sum + (farmer?.total_sales_amount || 0), 0)
+})
+
+const totalQuantity = computed(() => {
+  const data = TableDataSalesPetani.value
+  if (!data || !Array.isArray(data)) return 0
+  return data.reduce((sum: number, farmer: any) => sum + (farmer?.total_quantity || 0), 0)
+})
+
+// Computed totals for Ringkasan Lahan Petani
+const totalFarmerCount = computed(() => {
+  const data = lahanSummaryData.value
+  if (!data || !Array.isArray(data)) return 0
+  return data.reduce((sum: number, kabupaten: any) => sum + (kabupaten?.farmer_count || 0), 0)
+})
+
+const totalArea = computed(() => {
+  const data = lahanSummaryData.value
+  if (!data || !Array.isArray(data)) return 0
+  return data.reduce((sum: number, kabupaten: any) => sum + (kabupaten?.total_area_ha || 0), 0)
+})
+
+// Computed totals for Ringkasan Produksi Tanam
+const totalBatangTanam = computed(() => {
+  const data = tanahSummaryData.value
+  if (!data || !Array.isArray(data)) return 0
+  return data.reduce((sum: number, kabupaten: any) => sum + (kabupaten?.batang_tanam || 0), 0)
+})
+
+const totalHasilKg = computed(() => {
+  const data = tanahSummaryData.value
+  if (!data || !Array.isArray(data)) return 0
+  return data.reduce((sum: number, kabupaten: any) => sum + (kabupaten?.hasil_kg || 0), 0)
+})
+
+
 
 // Reset to first page when search term changes
 watch(searchTerm, () => {
@@ -395,19 +489,8 @@ const handlePageChange = (page: number) => {
   currentPage.value = page
 }
 
-// Lahan Summary table variables
-const paginatedLahanData = ref<any[]>([])
-const currentPageLahan = ref(1)
-const pageSizeLahan = 10
-const searchTermLahan = ref('')
 
-const filteredLahanData = computed(() => {
-  if (!lahanSummaryData.value) return []
-  if (!searchTermLahan.value) return lahanSummaryData.value
-  return lahanSummaryData.value.filter((kabupaten: any) =>
-    kabupaten.kabupaten_name?.toLowerCase().includes(searchTermLahan.value.toLowerCase())
-  )
-})
+
 
 // Reset to first page when search term changes
 watch(searchTermLahan, () => {
@@ -422,19 +505,6 @@ const handlePageChangeLahan = (page: number) => {
   currentPageLahan.value = page
 }
 
-// Tanah Summary table variables
-const paginatedTanahData = ref<any[]>([])
-const currentPageTanah = ref(1)
-const pageSizeTanah = 10
-const searchTermTanah = ref('')
-
-const filteredTanahData = computed(() => {
-  if (!tanahSummaryData.value) return []
-  if (!searchTermTanah.value) return tanahSummaryData.value
-  return tanahSummaryData.value.filter((kabupaten: any) =>
-    kabupaten.kabupaten_name?.toLowerCase().includes(searchTermTanah.value.toLowerCase())
-  )
-})
 
 // Reset to first page when search term changes
 watch(searchTermTanah, () => {

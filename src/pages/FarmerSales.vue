@@ -23,9 +23,8 @@
               <tr
                 v-for="(farmer, index) in farmerSales.data"
                 :key="farmer.id"
-                :class="index % 2 === 0 ? 'bg-gray-50' : 'bg-white'"
               >
-                <td class="px-4 py-3 border border-gray-300">{{ index + 1 }}</td>
+                <td class="px-4 py-3 border border-gray-300">{{ Number(index) + 1 }}</td>
                 <td class="px-4 py-3 border border-gray-300">{{ farmer.farmer_name }}</td>
                 <td class="px-4 py-3 border border-gray-300 text-right font-semibold">
                   Rp {{ farmer.total_sales_amount.toLocaleString('id-ID') }}

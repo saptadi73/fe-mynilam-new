@@ -90,7 +90,8 @@
       <div class="mt-10 mb-5">
         <BasePaginationButton
           v-if="!listOfProduct.isLoading.value"
-          :data="listOfProduct.data.value"
+          :data="listOfProduct.data.value || []"
+          :pageSize="12"
           @change="(data: any) => currentItems = data"
         />
       </div>
