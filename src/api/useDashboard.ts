@@ -50,6 +50,27 @@ const mapDataWithProductivityChart = (data: any) => {
   }
 }
 
+const mapDataWithSalesChart = (data: any) => {
+  if (!data) return null
+
+  // Transform the monthly sales data into chart format
+  const labels = data.map((item: any) => item.month)
+  const values = data.map((item: any) => item.total_sales_amount)
+
+  return {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Total Penjualan',
+        data: values,
+        backgroundColor: '#015438',
+        borderColor: '#1BAE60',
+        pointRadius: 6,
+      }
+    ]
+  }
+}
+
 const mapDataWithProductivityKabupatenBarChart = (data: any) => {
   if (!data) return null
 
@@ -119,6 +140,36 @@ export function useProcessProductivity() {
   })
 }
 
+export function useSales() {
+  const path = '/dashboard/petani/total-penjualan-bulan-ke-bulan'
+  const getSales = async () => {
+    const response = await apiGet(path)
+    console.log('useSales response:', response)
+    console.log('useSales response.data:', response?.data)
+    console.log('useSales response status:', response?.status)
+
+    // Try different response structures
+    let data = null
+    if (response?.data && Array.isArray(response.data)) {
+      data = response.data
+    } else if (response && Array.isArray(response)) {
+      data = response
+    } else if (response?.data?.data && Array.isArray(response.data.data)) {
+      data = response.data.data
+    }
+
+    console.log('useSales extracted data:', data)
+    const result = data ? mapDataWithSalesChart(data) : null
+    console.log('useSales result:', result)
+    return result
+  }
+
+  return useQuery({
+    queryKey: ['sales'],
+    queryFn: getSales,
+  })
+}
+
 export function useProductivityBasedKabupaten() {
   const path = '/dashboard/dboard/pminyak'
   const getProductivityBasedKabupaten = async () => {
@@ -132,5 +183,49 @@ export function useProductivityBasedKabupaten() {
   return useQuery({
     queryKey: ['ProductivityBasedKabupaten'],
     queryFn: getProductivityBasedKabupaten,
+  })
+}
+
+export function useTanamSummary() {
+  const path = '/dashboard/petani/tanam-summary'
+  const getTanamSummary = async () => {
+    const response = await apiGet(path)
+    console.log('useTanamSummary response:', response)
+    const result = response ? response : null
+    return result
+  }
+
+  return useQuery({
+    queryKey: ['tanamSummary'],
+    queryFn: getTanamSummary,
+  })
+}
+
+export function useLahanSummary() {
+  const path = '/dashboard/petani/lahan-summary'
+  const getLahanSummary = async () => {
+    const response = await apiGet(path)
+    console.log('useLahanSummary response:', response)
+    const result = response ? response : null
+    return result
+  }
+  return useQuery({
+    queryKey: ['lahanSummary'],
+    queryFn: getLahanSummary,
+  })
+}
+
+export function useDataSalesPetani() {
+  const path = '/dashboard/petani/total-penjualan-per-petani'
+  const getDataSalesPetani = async () => {
+    const response = await apiGet(path)
+    console.log('useDataSalesPetani response:', response) 
+    const result = response ? response : null
+    return result
+  }
+
+  return useQuery({
+    queryKey: ['dataSalesPetani'],
+    queryFn: getDataSalesPetani,
   })
 }

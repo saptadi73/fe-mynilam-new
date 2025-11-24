@@ -34,6 +34,11 @@ export default {
           name: 'Daftar Produk Petani',
           component: () => import('../pages/inventaris/petani/DaftarProdukPetani.vue'),
         },
+        {
+          path: 'penjualan',
+          name: 'Penjualan Petani',
+          component: () => import('../pages/FarmerSales.vue'),
+        },
       ],
     },
     {

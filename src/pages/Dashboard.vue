@@ -98,6 +98,22 @@
       </div>
     </section>
 
+    <section class="md:px-12 xl:h-screen">
+      <h1 class="font-bold text-dark text-center text-2xl 2xl:text-3xl pt-12 pb-4">Data Penjualan</h1>
+      <div class="bg-white border border-primary p-4 rounded-xl flex justify-center">
+        <div v-if="sales.isLoading.value">Loading...</div>
+        <BaseChart
+          v-else-if="salesChartData"
+          class="w-full h-[280px] md:h-[480px] 2xl:h-[700px]"
+          chartId="chart4"
+          chartType="line"
+          :chartData="salesChartData"
+          :chartOptions="salesLineChartOptions"
+        />
+        <div v-else>No data available</div>
+      </div>
+    </section>
+
     <!-- <section class="md:px-12 xl:h-screen">
       <h1 class="font-bold text-dark text-2xl 2xl:text-3xl text-center py-8">Pemantauan Pendapatan Petani</h1>
       <div class="bg-white shadow-chart rounded-xl px-10 flex justify-center">
@@ -138,6 +154,117 @@
         />
         <div v-else>No data available</div>
       </div>
+    </section>
+    <!-- Section for TableDataSalesPetani -->
+    <section class="sales-table-section">
+      <h2>Sales Data Petani</h2>
+      <div class="mb-4">
+        <BaseSearchBar v-model="searchTerm" placeholder="Cari nama petani..." />
+      </div>
+      <table class="sales-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>ID</th>
+            <th>Farmer Name</th>
+            <th>Total Sales Amount</th>
+            <th>Total Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through the paginated data -->
+          <tr v-for="(farmer, index) in paginatedTableData" :key="farmer.id">
+            <td>{{ (currentPage - 1) * pageSize + index + 1 }}</td>
+            <td>{{ farmer.id }}</td>
+            <td>
+              <button
+                @click="navigateToFarmerProfile(farmer.id)"
+                class="text-primary hover:text-primary-dark underline cursor-pointer"
+              >
+                {{ farmer.farmer_name }}
+              </button>
+            </td>
+            <td>{{ formatRupiah(farmer.total_sales_amount) }}</td>
+            <td>{{ Number(farmer.total_quantity).toFixed(2) }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <BasePaginationButton
+        :data="TableDataSalesPetani || []"
+        :pageSize="pageSize"
+        @change="handlePaginationChange"
+        @page-change="handlePageChange"
+      />
+    </section>
+
+    <!-- Section for Lahan Summary -->
+    <section class="sales-table-section">
+      <h2>Lahan Summary</h2>
+      <div class="mb-4">
+        <BaseSearchBar v-model="searchTermLahan" placeholder="Cari nama kabupaten..." />
+      </div>
+      <table class="sales-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Kabupaten ID</th>
+            <th>Kabupaten Name</th>
+            <th>Farmer Count</th>
+            <th>Total Area (m<sup>2</sup>)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through the paginated lahan data -->
+          <tr v-for="(kabupaten, index) in paginatedLahanData" :key="kabupaten.kabupaten_id">
+            <td>{{ (currentPageLahan - 1) * pageSizeLahan + index + 1 }}</td>
+            <td>{{ kabupaten.kabupaten_id }}</td>
+            <td>{{ kabupaten.kabupaten_name }}</td>
+            <td>{{ kabupaten.farmer_count }}</td>
+            <td>{{ Number(kabupaten.total_area_ha || 0).toFixed(2) }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <BasePaginationButton
+        :data="lahanSummaryData || []"
+        :pageSize="pageSizeLahan"
+        @change="handlePaginationChangeLahan"
+        @page-change="handlePageChangeLahan"
+      />
+    </section>
+
+    <!-- Section for Tanah Summary -->
+    <section class="sales-table-section">
+      <h2>Tanah Summary</h2>
+      <div class="mb-4">
+        <BaseSearchBar v-model="searchTermTanah" placeholder="Cari nama kabupaten..." />
+      </div>
+      <table class="sales-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Kabupaten ID</th>
+            <th>Kabupaten Name</th>
+            <th>Batang Tanam</th>
+            <th>Hasil (kg)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through the paginated tanah data -->
+          <tr v-for="(kabupaten, index) in paginatedTanahData" :key="kabupaten.kabupaten_id">
+            <td>{{ (currentPageTanah - 1) * pageSizeTanah + index + 1 }}</td>
+            <td>{{ kabupaten.kabupaten_id }}</td>
+            <td>{{ kabupaten.kabupaten_name }}</td>
+            <td>{{ kabupaten.batang_tanam }}</td>
+            <td>{{ kabupaten.hasil_kg }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <BasePaginationButton
+        :data="tanahSummaryData || []"
+        :pageSize="pageSizeTanah"
+        @change="handlePaginationChangeTanah"
+        @page-change="handlePageChangeTanah"
+      />
     </section>
 
     <!-- <section class="md:px-12">
@@ -197,14 +324,18 @@
 
 <script setup lang="ts">
 import BaseChart from '@/components/BaseChart.vue'
-import { computed, ref } from 'vue'
-import { type ChartOptions } from 'chart.js/auto'
+import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { type ChartOptions, type ChartType } from 'chart.js/auto'
 // import { Calendar } from 'v-calendar'
 import 'v-calendar/style.css'
 // import { useScreens } from 'vue-screen-utils'
 // import Maps from '@/pages/sample/Maps.vue'
 import BaseButton from '@/components/BaseButton.vue'
-import { useProcessHarvesting, useProcessPlanting, useProcessProductivity, useProductivityBasedKabupaten } from '@/api/useDashboard'
+import BasePaginationButton from '@/components/BasePaginationButton.vue'
+import BaseSearchBar from '@/components/BaseSearchBar.vue'
+import { useProcessHarvesting, useProcessPlanting, useProcessProductivity, useProductivityBasedKabupaten, useDataSalesPetani, useLahanSummary, useTanamSummary, useSales } from '@/api/useDashboard'
+import { formatRupiah } from '@/utils/useFormatRupiah'
 import bannerImage from '@/assets/images/beranda/parralax.jpg';
 
 
@@ -212,11 +343,20 @@ import bannerImage from '@/assets/images/beranda/parralax.jpg';
 // const columns = mapCurrent({ lg: 4 }, 1)
 // const showChart = ref(false)
 
+const router = useRouter()
+
 const processPlanting = useProcessPlanting()
 const processHarvesting = useProcessHarvesting()
 const processProductivity = useProcessProductivity()
 const productivityBasedKabupaten = useProductivityBasedKabupaten()
+const dataSalesPetani = useDataSalesPetani()
+const lahanSummary = useLahanSummary()
+const tanamSummary = useTanamSummary()
+const sales = useSales()
 
+const salesChartData = computed(() => sales.data.value || null)
+const lahanSummaryData = computed(() => lahanSummary.data.value || null)
+const tanahSummaryData = computed(() => tanamSummary.data.value || null)
 const processPlantingChartData = computed(() => processPlanting.data.value || null)
 const processHarvestingChartData = computed(() => {
   if (!processHarvesting.data.value) return null
@@ -227,6 +367,92 @@ const processHarvestingChartData = computed(() => {
 })
 const processProductivityChartData = computed(() => processProductivity.data.value || null)
 const productivityBasedKabupatenChartData = computed(() => productivityBasedKabupaten.data.value || null)
+const TableDataSalesPetani = computed(() => dataSalesPetani.data.value || null)
+
+const paginatedTableData = ref<any[]>([])
+const currentPage = ref(1)
+const pageSize = 10
+const searchTerm = ref('')
+
+const filteredData = computed(() => {
+  if (!TableDataSalesPetani.value) return []
+  if (!searchTerm.value) return TableDataSalesPetani.value
+  return TableDataSalesPetani.value.filter((farmer: any) =>
+    farmer.farmer_name.toLowerCase().includes(searchTerm.value.toLowerCase())
+  )
+})
+
+// Reset to first page when search term changes
+watch(searchTerm, () => {
+  currentPage.value = 1
+})
+
+const handlePaginationChange = (data: any[]) => {
+  paginatedTableData.value = data
+}
+
+const handlePageChange = (page: number) => {
+  currentPage.value = page
+}
+
+// Lahan Summary table variables
+const paginatedLahanData = ref<any[]>([])
+const currentPageLahan = ref(1)
+const pageSizeLahan = 10
+const searchTermLahan = ref('')
+
+const filteredLahanData = computed(() => {
+  if (!lahanSummaryData.value) return []
+  if (!searchTermLahan.value) return lahanSummaryData.value
+  return lahanSummaryData.value.filter((kabupaten: any) =>
+    kabupaten.kabupaten_name?.toLowerCase().includes(searchTermLahan.value.toLowerCase())
+  )
+})
+
+// Reset to first page when search term changes
+watch(searchTermLahan, () => {
+  currentPageLahan.value = 1
+})
+
+const handlePaginationChangeLahan = (data: any[]) => {
+  paginatedLahanData.value = data
+}
+
+const handlePageChangeLahan = (page: number) => {
+  currentPageLahan.value = page
+}
+
+// Tanah Summary table variables
+const paginatedTanahData = ref<any[]>([])
+const currentPageTanah = ref(1)
+const pageSizeTanah = 10
+const searchTermTanah = ref('')
+
+const filteredTanahData = computed(() => {
+  if (!tanahSummaryData.value) return []
+  if (!searchTermTanah.value) return tanahSummaryData.value
+  return tanahSummaryData.value.filter((kabupaten: any) =>
+    kabupaten.kabupaten_name?.toLowerCase().includes(searchTermTanah.value.toLowerCase())
+  )
+})
+
+// Reset to first page when search term changes
+watch(searchTermTanah, () => {
+  currentPageTanah.value = 1
+})
+
+const handlePaginationChangeTanah = (data: any[]) => {
+  paginatedTanahData.value = data
+}
+
+const handlePageChangeTanah = (page: number) => {
+  currentPageTanah.value = page
+}
+
+const navigateToFarmerProfile = (farmerId: number) => {
+  router.push(`/profile/profile-petani/${farmerId}`)
+}
+
 
 // const todos = ref([
 //   {
@@ -517,6 +743,45 @@ const prosesProduksidataChartOptions: ChartOptions<'pie'> = {
 //   },
 // }
 
+const salesLineChartOptions: ChartOptions<'line'> = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Bulan',
+        color: '#000000',
+        font: {
+          size: 20,
+          weight: 'bold',
+        },
+      },
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Total Penjualan (Rp)',
+        color: '#000000',
+        font: {
+          size: 20,
+          weight: 'bold',
+        },
+      },
+      ticks: {
+        callback: function(value) {
+          return 'Rp ' + Number(value).toLocaleString('id-ID')
+        }
+      }
+    },
+  },
+}
+
 const kabupatenBarChartOptions = ref<ChartOptions<'bar'>>({
   responsive: true,
   maintainAspectRatio: false,
@@ -794,4 +1059,25 @@ const kabupatenBarChartOptions = ref<ChartOptions<'bar'>>({
 .calendar-container ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+
+.sales-table-section {
+  margin: 20px;
+}
+
+.sales-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sales-table th, .sales-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.sales-table th {
+  background-color: #f2f2f2;
+}
 </style>
+

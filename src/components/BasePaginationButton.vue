@@ -3,7 +3,7 @@
     <!-- Help text -->
     <span class="text-sm text-gray-700 dark:text-gray-400">
       Menampilkan <span class="font-semibold text-gray-900 dark:text-white">1</span> sampai
-      <span class="font-semibold text-gray-900 dark:text-white">{{ itemsPerPage }}</span> dari
+      <span class="font-semibold text-gray-900 dark:text-white">{{ props.pageSize }}</span> dari
       <span class="font-semibold text-gray-900 dark:text-white">{{ props.data.length }}</span> Data
     </span>
     <div class="inline-flex mt-2 xs:mt-0">
@@ -64,7 +64,7 @@ interface Props {
   pageSize: number
 }
 
-const emit = defineEmits()
+const emit = defineEmits(['change', 'page-change'])
 const props = withDefaults(defineProps<Props>(), {
   pageSize: 10,
 })
@@ -87,14 +87,23 @@ watch(currentItems, (data) => {
   emit('change', data)
 })
 
+watch(() => props.data, (newData) => {
+  if (newData && newData.length > 0) {
+    currentPage.value = 1 // Reset to first page when data changes
+    setCurrentItems()
+  }
+}, { immediate: true })
+
 watch(currentPage, setCurrentItems)
 
 const handlePrevPage = () => {
   currentPage.value = currentPage.value - 1
+  emit('page-change', currentPage.value)
 }
 
 const handleNextPage = () => {
   currentPage.value = currentPage.value + 1
+  emit('page-change', currentPage.value)
 }
 
 onMounted(() => {
